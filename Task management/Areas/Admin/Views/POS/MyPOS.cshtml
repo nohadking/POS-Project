@@ -17,15 +17,11 @@
 	<meta name="author" content="Dreamguys - Bootstrap Admin Template">
 	<meta name="robots" content="noindex, nofollow">
 	<title>Dreams Pos Admin Template</title>
-
 	<script src="~/AdminEn/assets/js/theme-script.js"></script>
-
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="~/AdminEn/assets/img/favicon.png">
-
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="~/AdminEn/assets/css/bootstrap.rtl.min.css">
-
 	<!-- Datetimepicker CSS -->
 	<link rel="stylesheet" href="~/AdminEn/assets/css/bootstrap-datetimepicker.min.css">
 
@@ -1930,13 +1926,10 @@
 
 			if (newQty >= 1) {
 				qtyInput.value = newQty;
-
-
 				// تحديث السعر الكلي
 				const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
 				const totalPrice = newQty * nativePrice;
 				product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
-
 				// تحديث الإجماليات
 				updateOrderTotal();
 			}
@@ -1960,9 +1953,7 @@
 		function updateOrderTotal() {
 			const productWrap = document.querySelector(".product-added .product-wrap");
 			const products = productWrap.querySelectorAll(".product-list");
-
 			let subTotal = 0;
-
 			// حساب Sub Total
 			products.forEach(product => {
 				const priceText = product.querySelector('.info p').textContent.replace(/[^0-9.]/g, '');
@@ -1977,7 +1968,6 @@
 			const tax = subTotal * taxRate;
 			const discount = subTotal * discountRate;
 			const total = subTotal + tax + shippingCost - discount;
-
 			// تحديث القيم في الجدول
 			document.getElementById("sub-total").textContent = `$${subTotal.toFixed(2)}`;
 			document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
