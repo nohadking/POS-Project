@@ -1925,12 +1925,20 @@
 			const qtyInput = product.querySelector('input[name="qty"]');
 			const currentQty = parseInt(qtyInput.value);
 			const newQty = currentQty + change;
+
+			const productElement = Array.from(document.querySelectorAll('.product-name a'))
+				.find(el => el.textContent.trim() === productName);
+
+			const priceElement = productElement.closest('.product-name').nextElementSibling.querySelector('p');
+			const nativePrice = priceElement.textContent;
+
 			if (newQty >= 1) {
 				qtyInput.value = newQty;
 
+
 				// تحديث السعر الكلي
 				const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
-				const totalPrice = newQty * price;
+				const totalPrice = newQty * nativePrice;
 				product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
 
 				// تحديث الإجماليات
@@ -1965,8 +1973,7 @@
 			products.forEach(product => {
 				const priceText = product.querySelector('.info p').textContent.replace(/[^0-9.]/g, '');
 				const price = parseFloat(priceText) || 0;
-				const qty = parseInt(product.querySelector('input[name="qty"]').value);
-				subTotal += price * qty;
+				subTotal += price;
 			});
 
 			// الحسابات الأخرى
