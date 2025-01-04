@@ -344,12 +344,13 @@
 							<ul class="tabs owl-carousel pos-category">
 								@foreach (var item in Model.ListCategory)
 								{
+									var productCount = Model.ListViewProduct.Count(a => a.IdCategory == item.IdCategory);
 									<li id="category-@item.IdCategory" class="category-item">
 										<a href="javascript:void(0);" onclick="showProducts(@item.IdCategory)">
 											<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="Categories">
 										</a>
 										<h6><a href="javascript:void(0);">@item.CategoryNameAr</a></h6>
-										<span>21321</span>
+										<span>@productCount</span>
 									</li>
 								}
 							</ul>
@@ -366,6 +367,7 @@
 										<div class="row">
 											@foreach (var item2 in Model.ListViewProduct.Where(a => a.IdCategory == item.IdCategory))
 											{
+												var productCount = Model.ListViewProduct.Count(a => a.IdCategory == item.IdCategory);
 												<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
 													<div class="product-info default-cover card">
 														<a href="javascript:void(0);" class="img-bg select-product"
@@ -379,7 +381,7 @@
 														<h6 class="cat-name"><a href="javascript:void(0);">@item2.CategoryNameAr</a></h6>
 														<h6 class="product-name"><a href="javascript:void(0);">@item2.ProductNameAr</a></h6>
 														<div class="d-flex align-items-center justify-content-between price">
-															<span>321321 Pcs</span>
+															<span>@productCount Pcs</span> <!-- Display the number of products in the category -->
 															<p>@item2.price</p>
 														</div>
 													</div>
@@ -1855,11 +1857,9 @@
 				const imgSrc = productCard.querySelector("img").getAttribute("src");
 				const productName = productCard.querySelector(".product-name a").textContent.trim();
 				const price = parseFloat(productCard.querySelector(".price p").textContent.trim().replace(/[^0-9.]/g, '')); // استخراج السعر كرقم
-
 				// التحقق إذا كان المنتج موجودًا بالفعل
 				const productWrap = document.querySelector(".product-added .product-wrap");
 				const existingProduct = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
-
 				if (existingProduct) {
 					// المنتج موجود - تحديث الكمية والسعر
 					const qtyInput = existingProduct.querySelector('input[name="qty"]');
@@ -1904,20 +1904,16 @@
 					// إضافة المنتج
 					productWrap.insertAdjacentHTML("beforeend", newProductHTML);
 				}
-
 				// تحديث العدد (count)
 				const countElement = document.querySelector(".product-added .count");
 				const newCount = productWrap.querySelectorAll(".product-list").length;
 				countElement.textContent = newCount;
-
 				// إعادة تفعيل أيقونات Feather (لإعادة تفعيل الأيقونات)
 				feather.replace();
-
 				// تحديث الإجماليات
 				updateOrderTotal();
 			});
 		});
-
 		// تحديث الكمية في السلة
 		function changeQuantity(productName, change) {
 			const productWrap = document.querySelector(".product-added .product-wrap");
@@ -1945,7 +1941,6 @@
 				updateOrderTotal();
 			}
 		}
-
 		// حذف منتج من السلة
 		function removeProduct(productName) {
 			const productWrap = document.querySelector(".product-added .product-wrap");
@@ -1961,7 +1956,6 @@
 				updateOrderTotal();
 			}
 		}
-
 		// حساب الإجماليات
 		function updateOrderTotal() {
 			const productWrap = document.querySelector(".product-added .product-wrap");
@@ -1975,7 +1969,6 @@
 				const price = parseFloat(priceText) || 0;
 				subTotal += price;
 			});
-
 			// الحسابات الأخرى
 			const taxRate = 0.00; // 5% ضريبة
 			const discountRate = 0.0; // 10% خصم
@@ -1992,7 +1985,6 @@
 			document.getElementById("discount").textContent = `-$${discount.toFixed(2)}`;
 			document.getElementById("total").textContent = `$${total.toFixed(2)}`;
 		}
-
 		// حذف جميع المنتجات
 		function clearAllProducts() {
 			const productWrap = document.querySelector(".product-added .product-wrap");
@@ -2001,7 +1993,6 @@
 			document.querySelector(".product-added .count").textContent = '0';
 		}
 	</script>
-
 </body>
 </html>
 
