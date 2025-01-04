@@ -368,8 +368,12 @@
 											{
 												<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
 													<div class="product-info default-cover card">
-														<a href="javascript:void(0);" class="img-bg">
-															<img src="@string.Format("/Images/Home/{0}", item2.Photo)" alt="Products"style="height:100px;width:201px">
+														<a href="javascript:void(0);" class="img-bg select-product"
+														   data-id="@item2.IdProduct"
+														   data-name="@item2.ProductNameAr"
+														   data-price="@item2.price"
+														   data-photo="@string.Format("/Images/Home/{0}", item2.Photo)">
+															<img src="@string.Format("/Images/Home/{0}", item2.Photo)" alt="Products" style="height:100px;width:201px">
 															<span><i data-feather="check" class="feather-16"></i></span>
 														</a>
 														<h6 class="cat-name"><a href="javascript:void(0);">@item2.CategoryNameAr</a></h6>
@@ -381,6 +385,7 @@
 													</div>
 												</div>
 											}
+
 										</div>
 									</div>
 								}
@@ -393,8 +398,12 @@
 							<div class="head d-flex align-items-center justify-content-between w-100">
 								<div class="">
 									<h5>Order List</h5>
-									<span>Transaction ID : #65565</span>
-									<span>Transaction ID : #65565</span>
+									<span>Transaction ID : #@ViewBag.nomberMax</span>
+									
+								@* 	<div class="col-md-6 col-12 mb-6">
+										<label for="flatpickr-multi" class="form-label">Multiple Dates Picker</label>
+										<input type="text" class="form-control" placeholder="YYYY-MM-DD HH:MM" id="flatpickr-multi" />
+									</div> *@
 								</div>
 								<div class="">
 									<a class="confirm-text" href="javascript:void(0);"><i data-feather="trash-2" class="feather-16 text-danger"></i></a>
@@ -405,17 +414,16 @@
 								<h6>Customer Information</h6>
 								<div class="input-block d-flex align-items-center">
 									<div class="flex-grow-1">
-										<select class="select">
-											<option>Walk in Customer</option>
-											<option>John</option>
-											<option>Smith</option>
-											<option>Ana</option>
-											<option>Elza</option>
+										<label asp-for="@Model.Product.IdCategory" for="exampleInputEmail1">الزبون </label>
+										<select class="form-select" asp-for="@Model.Product.IdCategory" asp-items="@(new SelectList(ViewBag.user, "Id", "Name")) ">
 										</select>
 									</div>
+
+
+
 									<a href="#" class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#create"><i data-feather="user-plus" class="feather-16"></i></a>
 								</div>
-								<div class="input-block">
+							@* 	<div class="input-block">
 									<select class="select">
 										<option>Search Products</option>
 										<option>IPhone 14 64GB</option>
@@ -425,131 +433,19 @@
 										<option>Airpod 2</option>
 										<option>Oldest</option>
 									</select>
-								</div>
+								</div> *@
 							</div>
 
 							<div class="product-added block-section">
 								<div class="head-text d-flex align-items-center justify-content-between">
 									<h6 class="d-flex align-items-center mb-0">Product Added<span class="count">2</span></h6>
-									<a href="javascript:void(0);" class="d-flex align-items-center text-danger"><span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all</a>
+									<a href="javascript:void(0);" class="d-flex align-items-center text-danger" onclick="clearAllProducts()"><span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all</a>
 								</div>
-
 
 								<div class="product-wrap">
-									<div class="product-list d-flex align-items-center justify-content-between">
-										<div class="d-flex align-items-center product-info" data-bs-toggle="modal" data-bs-target="#products">
-											<a href="javascript:void(0);" class="img-bg">
-												<img src="~/AdminEn/assets/img/products/pos-product-16.png" alt="Products">
-											</a>
-											<div class="info">
-												<span>PT0005</span>
-												<h6><a href="javascript:void(0);">Red Nike Laser</a></h6>
-												<p>$2000</p>
-											</div>
-										</div>
-										<div class="qty-item text-center">
-											<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-											<input type="text" class="form-control text-center" name="qty" value="4">
-											<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
-										</div>
-										<div class="d-flex align-items-center action">
-											<a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal"
-											   data-bs-target="#edit-product">
-												<i data-feather="edit" class="feather-14"></i>
-											</a>
-											<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-												<i data-feather="trash-2" class="feather-14"></i>
-											</a>
-										</div>
-									</div>
-
-
-
-
-
-
-
-
-									<div class="product-list d-flex align-items-center justify-content-between">
-										<div class="d-flex align-items-center product-info" data-bs-toggle="modal" data-bs-target="#products">
-											<a href="javascript:void(0);" class="img-bg">
-												<img src="~/AdminEn/assets/img/products/pos-product-17.png" alt="Products">
-											</a>
-											<div class="info">
-												<span>PT0235</span>
-												<h6><a href="javascript:void(0);">Iphone 14</a></h6>
-												<p>$3000</p>
-											</div>
-										</div>
-										<div class="qty-item text-center">
-											<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-											<input type="text" class="form-control text-center" name="qty" value="3">
-											<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
-										</div>
-										<div class="d-flex align-items-center action">
-											<a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-product">
-												<i data-feather="edit" class="feather-14"></i>
-											</a>
-											<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-												<i data-feather="trash-2" class="feather-14"></i>
-											</a>
-										</div>
-									</div>
-									<div class="product-list d-flex align-items-center justify-content-between">
-										<div class="d-flex align-items-center product-info" data-bs-toggle="modal" data-bs-target="#products">
-											<a href="javascript:void(0);" class="img-bg">
-												<img src="~/AdminEn/assets/img/products/pos-product-16.png" alt="Products">
-											</a>
-											<div class="info">
-												<span>PT0005</span>
-												<h6><a href="javascript:void(0);">Red Nike Laser</a></h6>
-												<p>$2000</p>
-											</div>
-										</div>
-										<div class="qty-item text-center">
-											<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-											<input type="text" class="form-control text-center" name="qty" value="1">
-											<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
-										</div>
-										<div class="d-flex align-items-center action">
-											<a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal"
-											   data-bs-target="#edit-product">
-												<i data-feather="edit" class="feather-14"></i>
-											</a>
-											<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-												<i data-feather="trash-2" class="feather-14"></i>
-											</a>
-										</div>
-									</div>
-									<div class="product-list d-flex align-items-center justify-content-between">
-										<div class="d-flex align-items-center product-info" data-bs-toggle="modal" data-bs-target="#products">
-											<a href="javascript:void(0);" class="img-bg">
-												<img src="~/AdminEn/assets/img/products/pos-product-17.png" alt="Products">
-											</a>
-											<div class="info">
-												<span>PT0005</span>
-												<h6><a href="javascript:void(0);">Red Nike Laser</a></h6>
-												<p>$2000</p>
-											</div>
-										</div>
-										<div class="qty-item text-center">
-											<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-											<input type="text" class="form-control text-center" name="qty" value="1">
-											<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
-										</div>
-										<div class="d-flex align-items-center action">
-											<a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal"
-											   data-bs-target="#edit-product">
-												<i data-feather="edit" class="feather-14"></i>
-											</a>
-											<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-												<i data-feather="trash-2" class="feather-14"></i>
-											</a>
-										</div>
-									</div>
-
 								</div>
 							</div>
+
 							<div class="block-section">
 								<div class="selling-info">
 									<div class="row">
@@ -582,7 +478,6 @@
 												<label>Discount</label>
 												<select class="select">
 													<option>10%</option>
-													<option>10%</option>
 													<option>15%</option>
 													<option>20%</option>
 													<option>25%</option>
@@ -596,27 +491,23 @@
 									<table class="table table-responsive table-borderless">
 										<tr>
 											<td>Sub Total</td>
-											<td class="text-end">$60,454</td>
+											<td class="text-end" id="sub-total">$0.00</td>
 										</tr>
 										<tr>
 											<td>Tax (GST 5%)</td>
-											<td class="text-end">$40.21</td>
+											<td class="text-end" id="tax">$0.00</td>
 										</tr>
 										<tr>
 											<td>Shipping</td>
-											<td class="text-end">$40.21</td>
-										</tr>
-										<tr>
-											<td>Sub Total</td>
-											<td class="text-end">$60,454</td>
+											<td class="text-end" id="shipping">$10.00</td>
 										</tr>
 										<tr>
 											<td class="danger">Discount (10%)</td>
-											<td class="danger text-end">$15.21</td>
+											<td class="danger text-end" id="discount">-$0.00</td>
 										</tr>
 										<tr>
 											<td>Total</td>
-											<td class="text-end">$64,024.5</td>
+											<td class="text-end" id="total">$0.00</td>
 										</tr>
 									</table>
 								</div>
@@ -1956,6 +1847,154 @@
 			selectedCategoryItem.classList.add('active');
 		}
 	</script>
+	<script>
+		// تحديد كل المنتجات القابلة للإضافة
+		document.querySelectorAll(".product-info.default-cover").forEach(function (productCard) {
+			productCard.addEventListener("click", function () {
+				// استخراج بيانات المنتج
+				const imgSrc = productCard.querySelector("img").getAttribute("src");
+				const productName = productCard.querySelector(".product-name a").textContent.trim();
+				const price = parseFloat(productCard.querySelector(".price p").textContent.trim().replace(/[^0-9.]/g, '')); // استخراج السعر كرقم
+
+				// التحقق إذا كان المنتج موجودًا بالفعل
+				const productWrap = document.querySelector(".product-added .product-wrap");
+				const existingProduct = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
+
+				if (existingProduct) {
+					// المنتج موجود - تحديث الكمية والسعر
+					const qtyInput = existingProduct.querySelector('input[name="qty"]');
+					const currentQty = parseInt(qtyInput.value);
+					const newQty = currentQty + 1;
+					qtyInput.value = newQty;
+
+					// تحديث السعر (السعر الكلي = الكمية × السعر الفردي)
+					const priceElement = existingProduct.querySelector('.info p');
+					const totalPrice = newQty * price;
+					priceElement.textContent = `$${totalPrice.toFixed(2)}`; // تنسيق السعر
+
+				} else {
+					// المنتج غير موجود - إضافته إلى القائمة
+					const newProductHTML = `
+							<div class="product-list d-flex align-items-center justify-content-between" data-product-name="${productName}">
+								<div class="d-flex align-items-center product-info">
+									<a href="javascript:void(0);" class="img-bg">
+										<img src="${imgSrc}" alt="Products">
+									</a>
+									<div class="info">
+										<h6><a href="javascript:void(0);">${productName}</a></h6>
+										<p>$${price.toFixed(2)}</p>
+									</div>
+								</div>
+								<div class="qty-item text-center">
+									<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" title="minus" onclick="changeQuantity('${productName}', -1)">
+										<i data-feather="minus-circle" class="feather-14"></i>
+									</a>
+									<input type="text" class="form-control text-center" name="qty" value="1">
+									<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" title="plus" onclick="changeQuantity('${productName}', 1)">
+										<i data-feather="plus-circle" class="feather-14"></i>
+									</a>
+								</div>
+								<div class="d-flex align-items-center action">
+									<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);" onclick="removeProduct('${productName}')">
+										<i data-feather="trash-2" class="feather-14"></i>
+									</a>
+								</div>
+							</div>`;
+
+					// إضافة المنتج
+					productWrap.insertAdjacentHTML("beforeend", newProductHTML);
+				}
+
+				// تحديث العدد (count)
+				const countElement = document.querySelector(".product-added .count");
+				const newCount = productWrap.querySelectorAll(".product-list").length;
+				countElement.textContent = newCount;
+
+				// إعادة تفعيل أيقونات Feather (لإعادة تفعيل الأيقونات)
+				feather.replace();
+
+				// تحديث الإجماليات
+				updateOrderTotal();
+			});
+		});
+
+		// تحديث الكمية في السلة
+		function changeQuantity(productName, change) {
+			const productWrap = document.querySelector(".product-added .product-wrap");
+			const product = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
+			const qtyInput = product.querySelector('input[name="qty"]');
+			const currentQty = parseInt(qtyInput.value);
+			const newQty = currentQty + change;
+			if (newQty >= 1) {
+				qtyInput.value = newQty;
+
+				// تحديث السعر الكلي
+				const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
+				const totalPrice = newQty * price;
+				product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
+
+				// تحديث الإجماليات
+				updateOrderTotal();
+			}
+		}
+
+		// حذف منتج من السلة
+		function removeProduct(productName) {
+			const productWrap = document.querySelector(".product-added .product-wrap");
+			const product = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
+			if (product) {
+				product.remove();
+				// تحديث العدد (count)
+				const countElement = document.querySelector(".product-added .count");
+				const newCount = productWrap.querySelectorAll(".product-list").length;
+				countElement.textContent = newCount;
+
+				// تحديث الإجماليات
+				updateOrderTotal();
+			}
+		}
+
+		// حساب الإجماليات
+		function updateOrderTotal() {
+			const productWrap = document.querySelector(".product-added .product-wrap");
+			const products = productWrap.querySelectorAll(".product-list");
+
+			let subTotal = 0;
+
+			// حساب Sub Total
+			products.forEach(product => {
+				const priceText = product.querySelector('.info p').textContent.replace(/[^0-9.]/g, '');
+				const price = parseFloat(priceText) || 0;
+				const qty = parseInt(product.querySelector('input[name="qty"]').value);
+				subTotal += price * qty;
+			});
+
+			// الحسابات الأخرى
+			const taxRate = 0.00; // 5% ضريبة
+			const discountRate = 0.0; // 10% خصم
+			const shippingCost = 0.0; // تكلفة الشحن الثابتة
+
+			const tax = subTotal * taxRate;
+			const discount = subTotal * discountRate;
+			const total = subTotal + tax + shippingCost - discount;
+
+			// تحديث القيم في الجدول
+			document.getElementById("sub-total").textContent = `$${subTotal.toFixed(2)}`;
+			document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+			document.getElementById("shipping").textContent = `$${shippingCost.toFixed(2)}`;
+			document.getElementById("discount").textContent = `-$${discount.toFixed(2)}`;
+			document.getElementById("total").textContent = `$${total.toFixed(2)}`;
+		}
+
+		// حذف جميع المنتجات
+		function clearAllProducts() {
+			const productWrap = document.querySelector(".product-added .product-wrap");
+			productWrap.innerHTML = '';
+			updateOrderTotal();
+			document.querySelector(".product-added .count").textContent = '0';
+		}
+	</script>
+
 </body>
 </html>
 

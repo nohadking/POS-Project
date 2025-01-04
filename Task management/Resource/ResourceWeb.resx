@@ -1173,4 +1173,7 @@
   <data name="LBAddCustomerCategorie" xml:space="preserve">
     <value>إضافة وتعديل فئات العملاء</value>
   </data>
+  <data name="VLInvoiceNumberDoplceted" xml:space="preserve">
+    <value>تم أدخال رقم الفاتورة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
+  </data>
 </root>

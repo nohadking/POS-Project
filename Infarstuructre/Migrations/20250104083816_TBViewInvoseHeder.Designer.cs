@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250104083816_TBViewInvoseHeder")]
+    partial class TBViewInvoseHeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +191,6 @@ namespace Infarstuructre.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int>("IdCustomerCategorie")
-                        .HasColumnType("int");
-
                     b.Property<string>("IdUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -284,9 +284,6 @@ namespace Infarstuructre.Migrations
 
                     b.Property<DateTime>("DateTimeEntry")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("IdCustomerCategorie")
-                        .HasColumnType("int");
 
                     b.Property<int>("IdInvoseHeder")
                         .HasColumnType("int");
