@@ -3031,6 +3031,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم أدخال رقم الفاتورة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLInvoiceNumberDoplceted {
+            get {
+                return ResourceManager.GetString("VLInvoiceNumberDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The merchant has been introduced to the pricing system. Please confirm and try again later...!.
         /// </summary>
         internal static string VLMerchantDoplceted {

@@ -64,6 +64,10 @@ namespace Infarstuructre.ViewModel
 
 		public List<TBCustomerCategorie> ListCustomerCategorie { get; set; }
 		public TBCustomerCategorie CustomerCategorie { get; set; }
+
+
+		public List<TBViewInvoseHeder> ListViewInvoseHede { get; set; }
+		public TBInvoseHeder InvoseHeder { get; set; }
 	}
  }
 

@@ -45,6 +45,16 @@ namespace Infarstuructre.Data
 
 
 			//*********************************************************  
+			
+
+			builder.Entity<TBViewInvoseHeder>(entity =>
+			{
+				entity.HasNoKey();
+				entity.ToView("ViewInvoseHeder");
+			});
+
+
+			//*********************************************************  
 
 			//---------------------------------
 			builder.Entity<TBEmailAlartSetting>()
@@ -95,6 +105,18 @@ namespace Infarstuructre.Data
 		   .HasDefaultValueSql("((1))");
 
 			//---------------------------------  
+			//---------------------------------
+			builder.Entity<TBInvoseHeder>()
+		   .Property(b => b.DateTimeEntry)
+		   .HasDefaultValueSql("getdate()");
+			builder.Entity<TBInvoseHeder>()
+		   .Property(b => b.CurrentState)
+		   .HasDefaultValueSql("((1))");
+			builder.Entity<TBInvoseHeder>()
+		   .Property(b => b.OutstandingBill)
+		   .HasDefaultValueSql("((0))");
+
+			//---------------------------------  
 		}
 		//***********************************
 		public DbSet<VwUser> VwUsers { get; set; }
@@ -104,6 +126,8 @@ namespace Infarstuructre.Data
         public DbSet<TBProduct> TBProducts { get; set; } 
         public DbSet<TBViewProduct> ViewProduct { get; set; } 
         public DbSet<TBCustomerCategorie> TBCustomerCategories { get; set; } 
+        public DbSet<TBInvoseHeder> TBInvoseHeders { get; set; } 
+        public DbSet<TBViewInvoseHeder> ViewInvoseHeder { get; set; } 
        
     }
 }
