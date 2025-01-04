@@ -568,7 +568,7 @@
 							<h6 class="submenu-hdr">User Management</h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
-								<li><a href="roles-permissions.html"><i data-feather="shield"></i><span>Roles & Permissions</span></a></li>
+								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><i data-feather="shield"></i><span>الصلاحيات</span></a></li>
 								<li><a href="delete-account.html"><i data-feather="lock"></i><span>Delete Account Request</span></a></li>
 							</ul>
 						</li>
@@ -1084,7 +1084,7 @@
 						</ul>
 						<ul class="tab-pane" id="permission" aria-labelledby="set-tab4">
 							<li><a href="users.html"><span>Users</span></a></li>
-							<li><a href="roles-permissions.html"><span>Roles & Permissions</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
 							<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
 
 							<li class="submenu">
@@ -1490,7 +1490,7 @@
 							<li class="submenu">
 								<a href="javascript:void(0);"><span>Roles &amp; Permissions</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="roles-permissions.html"><span>Roles & Permissions</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
 									<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
 
 								</ul>
