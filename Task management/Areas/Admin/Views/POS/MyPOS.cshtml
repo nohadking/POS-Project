@@ -344,12 +344,13 @@
 							<ul class="tabs owl-carousel pos-category">
 								@foreach (var item in Model.ListCategory)
 								{
+									var productCount = Model.ListViewProduct.Count(a => a.IdCategory == item.IdCategory);
 									<li id="category-@item.IdCategory" class="category-item">
 										<a href="javascript:void(0);" onclick="showProducts(@item.IdCategory)">
 											<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="Categories">
 										</a>
 										<h6><a href="javascript:void(0);">@item.CategoryNameAr</a></h6>
-										<span>21321</span>
+										<span>@productCount</span>
 									</li>
 								}
 							</ul>
