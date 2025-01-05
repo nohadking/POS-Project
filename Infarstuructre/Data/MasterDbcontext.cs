@@ -117,6 +117,18 @@ namespace Infarstuructre.Data
 		   .HasDefaultValueSql("((0))");
 
 			//---------------------------------  
+			//---------------------------------
+			builder.Entity<TBPaymentMethod>()
+		   .Property(b => b.DateTimeEntry)
+		   .HasDefaultValueSql("getdate()");
+			builder.Entity<TBPaymentMethod>()
+		   .Property(b => b.CurrentState)
+		   .HasDefaultValueSql("((1))");
+			builder.Entity<TBPaymentMethod>()
+		   .Property(b => b.Active)
+		   .HasDefaultValueSql("((1))");
+
+			//---------------------------------  
 		}
 		//***********************************
 		public DbSet<VwUser> VwUsers { get; set; }
@@ -128,6 +140,7 @@ namespace Infarstuructre.Data
         public DbSet<TBCustomerCategorie> TBCustomerCategories { get; set; } 
         public DbSet<TBInvoseHeder> TBInvoseHeders { get; set; } 
         public DbSet<TBViewInvoseHeder> ViewInvoseHeder { get; set; } 
+        public DbSet<TBPaymentMethod> TBPaymentMethods { get; set; } 
        
     }
 }

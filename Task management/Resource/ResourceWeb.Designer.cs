@@ -1591,6 +1591,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to طرق الدفع.
+        /// </summary>
+        internal static string LBMyPaymentMethod {
+            get {
+                return ResourceManager.GetString("LBMyPaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Profits.
         /// </summary>
         internal static string LBMyProfits {
@@ -2010,6 +2019,24 @@ namespace Task_management.Resource {
         internal static string lbPasswordEmail {
             get {
                 return ResourceManager.GetString("lbPasswordEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to طرق الدفع عربي.
+        /// </summary>
+        internal static string lbPaymentMethodAr {
+            get {
+                return ResourceManager.GetString("lbPaymentMethodAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to طرق الدفع انكليزي.
+        /// </summary>
+        internal static string lbPaymentMethodEn {
+            get {
+                return ResourceManager.GetString("lbPaymentMethodEn", resourceCulture);
             }
         }
         
@@ -3063,6 +3090,24 @@ namespace Task_management.Resource {
         internal static string VLMerchantNameDoplceted {
             get {
                 return ResourceManager.GetString("VLMerchantNameDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال طريقة الدفع باللغة الربية ممسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLPaymentMethodArDoplceted {
+            get {
+                return ResourceManager.GetString("VLPaymentMethodArDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال  طريقة الدفع باللغة الانكليزية يرجى التأد وإعادة المحاولة لاحقا ....!.
+        /// </summary>
+        internal static string VLPaymentMethodEnDoplceted {
+            get {
+                return ResourceManager.GetString("VLPaymentMethodEnDoplceted", resourceCulture);
             }
         }
         

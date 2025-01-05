@@ -459,4 +459,10 @@
   <data name="Vlprice" xml:space="preserve">
     <value>يرجى أدراج السعر الخاص بالمنتج لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlPaymentMethodAr" xml:space="preserve">
+    <value>يرجى أدراج طريقة الدفع باللغة العربية لتتم العملية بنجاح...!</value>
+  </data>
+  <data name="VlPaymentMethodEn" xml:space="preserve">
+    <value>يرجى أدراج طريقة الدفع باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

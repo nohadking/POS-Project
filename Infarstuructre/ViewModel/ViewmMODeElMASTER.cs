@@ -68,6 +68,9 @@ namespace Infarstuructre.ViewModel
 
 		public List<TBViewInvoseHeder> ListViewInvoseHede { get; set; }
 		public TBInvoseHeder InvoseHeder { get; set; }
+
+		public List<TBPaymentMethod> ListPaymentMethod { get; set; }
+		public TBPaymentMethod PaymentMethod { get; set; }
 	}
  }
 

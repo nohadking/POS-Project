@@ -1176,4 +1176,19 @@
   <data name="VLInvoiceNumberDoplceted" xml:space="preserve">
     <value>تم أدخال رقم الفاتورة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
   </data>
+  <data name="VLPaymentMethodEnDoplceted" xml:space="preserve">
+    <value>تم إدخال  طريقة الدفع باللغة الانكليزية يرجى التأد وإعادة المحاولة لاحقا ....!</value>
+  </data>
+  <data name="VLPaymentMethodArDoplceted" xml:space="preserve">
+    <value>تم إدخال طريقة الدفع باللغة الربية ممسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
+  </data>
+  <data name="LBMyPaymentMethod" xml:space="preserve">
+    <value>طرق الدفع</value>
+  </data>
+  <data name="lbPaymentMethodAr" xml:space="preserve">
+    <value>طرق الدفع عربي</value>
+  </data>
+  <data name="lbPaymentMethodEn" xml:space="preserve">
+    <value>طرق الدفع انكليزي</value>
+  </data>
 </root>

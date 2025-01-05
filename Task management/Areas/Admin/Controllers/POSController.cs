@@ -11,12 +11,14 @@ namespace Task_management.Areas.Admin.Controllers
         IIProduct iProduct;
 		IIInvoseHeder iInvoseHeder;
 		IIUserInformation iUserInformation;
-		public POSController(IICategory iCategory1,IIProduct iProduct1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1)
+		IIPaymentMethod iPaymentMethod;
+		public POSController(IICategory iCategory1,IIProduct iProduct1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1,IIPaymentMethod iPaymentMethod1)
         {
             iCategory = iCategory1;
             iProduct = iProduct1;
 			iInvoseHeder = iInvoseHeder1;
 			iUserInformation = iUserInformation1;
+			iPaymentMethod = iPaymentMethod1;
 
 		}
         public IActionResult MyPOS()
@@ -29,6 +31,7 @@ namespace Task_management.Areas.Admin.Controllers
 			? numberinvose.Max(c => c.InvoiceNumber) + 1
 			: 1;
 			ViewBag.user = iUserInformation.GetAllByRole("Customer");
+			vmodel.ListPaymentMethod = iPaymentMethod.GetAllActive();
 			return View(vmodel); 
         }
 

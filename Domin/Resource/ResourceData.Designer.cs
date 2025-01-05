@@ -709,6 +709,24 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج طريقة الدفع باللغة العربية لتتم العملية بنجاح...!.
+        /// </summary>
+        internal static string VlPaymentMethodAr {
+            get {
+                return ResourceManager.GetString("VlPaymentMethodAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج طريقة الدفع باللغة الانكليزية لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlPaymentMethodEn {
+            get {
+                return ResourceManager.GetString("VlPaymentMethodEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter The Phone.
         /// </summary>
         internal static string VlPhone {

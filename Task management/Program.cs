@@ -100,6 +100,7 @@ builder.Services.AddScoped<IICategory, CLSTBCategory>();
 builder.Services.AddScoped<IIProduct, CLCTBProduct>();
 builder.Services.AddScoped<IICustomerCategorie, CLSTBCustomerCategorie>();
 builder.Services.AddScoped<IIInvoseHeder, CLSTBInvoseHeder>();
+builder.Services.AddScoped<IIPaymentMethod, CLSTBPaymentMethod>();
 
 
 
