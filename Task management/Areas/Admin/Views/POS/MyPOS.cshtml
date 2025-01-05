@@ -390,10 +390,10 @@
 
                                 </div>
                                   <div class="col-md-6 col-lg-4 item">
-                                            <div class="default-cover">
+                                            <div class="default-cover paymentMethod">
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
-                                                    <span>Cache</span>
+                                                    <span id="PayMeth">Cache</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -512,7 +512,7 @@
                                     @foreach (var item in Model.ListPaymentMethod)
                                     {
                                             <div class="col-md-6 col-lg-4 item">
-                                            <div class="default-cover">
+                                            <div class="default-cover selectMethod" onclick="selectMethod('@item.PaymentMethodAr')">
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
                                                     <span>@item.PaymentMethodAr</span>
@@ -1963,6 +1963,11 @@
             updateOrderTotal();
             document.querySelector(".product-added .count").textContent = '0';
         }
+
+        function selectMethod(payMethod){
+            document.querySelector('#PayMeth').textContent = payMethod.toString();
+        }
+
     </script>
 </body>
 </html>
