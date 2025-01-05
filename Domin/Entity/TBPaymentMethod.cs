@@ -10,6 +10,7 @@ namespace Domin.Entity
 	public class TBPaymentMethod
 	{
 		[Key]
+
         public int IdPaymentMethod { get; set; }
 		[Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlPaymentMethodAr")]
 		[MaxLength(100, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength100")]

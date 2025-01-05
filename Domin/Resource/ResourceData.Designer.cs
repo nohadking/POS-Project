@@ -853,6 +853,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدخال الكمية لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlQuantity {
+            get {
+                return ResourceManager.GetString("VlQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدراج تقيم الشركة لتتم العملية بنجاح ..!.
         /// </summary>
         internal static string VlRating {

@@ -465,4 +465,7 @@
   <data name="VlPaymentMethodEn" xml:space="preserve">
     <value>يرجى أدراج طريقة الدفع باللغة الانكليزية لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlQuantity" xml:space="preserve">
+    <value>يرجى أدخال الكمية لتتم العملية بنجاح ...!</value>
+  </data>
 </root>
