@@ -382,7 +382,7 @@
                             <div class="head d-flex align-items-center justify-content-between w-100">
                                 <div class="">
                                     <h5>Order List</h5>
-                                    <span>Transaction ID : #@ViewBag.nomberMax</span>
+                                    <span id="InvoiceNumberForSave">Transaction ID : #@ViewBag.nomberMax</span>
 
                                     @* 	<div class="col-md-6 col-12 mb-6">
 										<label for="flatpickr-multi" class="form-label">Multiple Dates Picker</label>
@@ -394,7 +394,7 @@
                                             <div class="default-cover paymentMethod">
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
-                                                    <span id="PayMeth">Cache</span>
+                                            <span id="PayMeth">Cache <span id ="idPayMeth"></span></span>
                                                 </a>
                                             </div>
                                         </div>
@@ -408,7 +408,7 @@
                                 <div class="input-block d-flex align-items-center">
                                     <div class="flex-grow-1">
                                         <label asp-for="@Model.Product.IdCategory" for="exampleInputEmail1">الزبون </label>
-                                        <select class="form-select" asp-for="@Model.Product.IdCategory" asp-items="@(new SelectList(ViewBag.user, "Id", "Name")) ">
+                                        <select id="idForUCustCate" class="form-select" asp-for="@Model.Product.IdCategory" asp-items="@(new SelectList(ViewBag.user, "Id", "Name")) ">
                                         </select>
                                     </div>
 
@@ -533,7 +533,7 @@
                             <div class="btn-row d-sm-flex align-items-center justify-content-between">
                                 <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#hold-order"><span class="me-1 d-flex align-items-center"><i data-feather="pause" class="feather-16"></i></span>Hold</a>
                                 <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill"><span class="me-1 d-flex align-items-center"><i data-feather="trash-2" class="feather-16"></i></span>Void</a>
-                                <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#payment-completed"><span class="me-1 d-flex align-items-center"><i data-feather="credit-card" class="feather-16"></i></span>Payment</a>
+                                <a href="javascript:void(0);" onclick="SaveInvoiceInDB()" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#payment-completed"><span class="me-1 d-flex align-items-center"><i data-feather="credit-card" class="feather-16"></i></span>Payment</a>
                             </div>
                         </aside>
                     </div>
@@ -1812,7 +1812,71 @@
     <script src="~/AdminEn/assets/js/script.js"></script>
 
 
+    <!-- Save Invoice -->
+    <script>
 
+        function SaveInvoiceInDB(){
+            const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
+            const invoieNumberr = document.querySelector('#InvoiceNumberForSave').textContent;
+            const idPaymentMethodd = document.querySelector('#idPayMeth').textContent;
+
+
+            fetch('/api/InvoiceHeader', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_TOKEN'
+                },
+                body: JSON.stringify({
+                    invoiceNumber: invoieNumberr,
+                    idCustomerCategorie: idCustomerCategoryy,
+                    idPaymentMethod: idPaymentMethodd
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response Data (InvoiceHeader):', data);
+
+                    return fetch('/api/Invoice', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer YOUR_TOKEN'
+                        },
+                        body: JSON.stringify({
+                            idInvoseHeder: data.idInvoseHeder,
+                            idProduct: ,
+                            quantity: ,
+                            price: ,
+                            total: ,
+                        })
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response Data (InvoiceDetails):', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+
+
+
+        }
+
+
+    </script>
 
     <script>
         function showProducts(categoryId) {
@@ -1975,7 +2039,8 @@
         }
 
         function selectMethod(item){
-            document.querySelector('#PayMeth').textContent = item['paymentMethodAr'] + ' ' + '#' + item['idPaymentMethod'];
+            document.querySelector('#PayMeth').textContent = item['paymentMethodAr'];
+            document.querySelector('#idPayMeth').textContent =' #' + item['idPaymentMethod'];
         }
 
     </script>
