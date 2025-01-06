@@ -376,6 +376,7 @@
                             </div>
                         </div>
                     </div>
+                @*     من هنا تبدأ كود الفاتورة  *@
                     <div class="col-md-12 col-lg-4 ps-0">
                         <aside class="product-order-list">
                             <div class="head d-flex align-items-center justify-content-between w-100">
@@ -435,9 +436,10 @@
                                 </div>
 
                                 <div class="product-wrap">
+                                 @*    المنتجات المضافة  *@
                                 </div>
                             </div>
-
+                            @* الشحن والخصم  *@
                             <div class="block-section">
                                 <div class="selling-info">
                                     <div class="row">
@@ -504,7 +506,7 @@
                                     </table>
                                 </div>
                             </div>
-
+                       @*      طرق الدفع  *@
                             <div class="block-section payment-method">
                                 <h6>Payment Method</h6>
 
@@ -520,6 +522,7 @@
                                             </div>
                                         </div>
                                     }
+
                                 </div>
                             </div>
                             <div class="d-grid btn-block">
@@ -534,15 +537,22 @@
                             </div>
                         </aside>
                     </div>
-                </div>
+
+           
+                </div>@*     كود الفاتورة ينتهي هنا
+                
+
+                المطلوب  :
+                حفظ هيدر الفاتورة اولا   بجدول  TBInvoseHeder
+
+                ثم  يتم جلب IdInvoseHeder
+                ويتم أدراجه مع الفاتورة التي يجب ان تحفظ بجدول TBInvose
+                عرض الفاتورة وطباعتها على نسختين على الطابعة المعرفة الديفولت  دون عرض الطابعات فورا على الديفولت *@
             </div>
         </div>
 
     </div>
-            </div>
-        </div>
-
-    </div>
+  
     <!-- /Main Wrapper -->
     <!-- Payment Completed -->
     <div class="modal fade modal-default" id="payment-completed" aria-labelledby="payment-completed">
