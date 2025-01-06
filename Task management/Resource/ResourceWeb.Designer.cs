@@ -3211,6 +3211,24 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم الادخال مسبقا باللغة العربية  يرجى التأكد وإعادة المحاولة لاحقا ....!.
+        /// </summary>
+        internal static string VLTitleOneArDoplceted {
+            get {
+                return ResourceManager.GetString("VLTitleOneArDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم الادخال  باللغة الأنكليزة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!.
+        /// </summary>
+        internal static string VLTitleOneEnDoplceted {
+            get {
+                return ResourceManager.GetString("VLTitleOneEnDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The shipping price address has been entered. Please verify and try again later....!.
         /// </summary>
         internal static string VLTitleShippingoplceted {

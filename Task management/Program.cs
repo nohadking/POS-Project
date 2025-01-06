@@ -3,6 +3,9 @@
 
 
 
+using Infarstuructre.BL;
+using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -102,6 +105,50 @@ builder.Services.AddScoped<IICustomerCategorie, CLSTBCustomerCategorie>();
 builder.Services.AddScoped<IIInvoseHeder, CLSTBInvoseHeder>();
 builder.Services.AddScoped<IIPaymentMethod, CLSTBPaymentMethod>();
 builder.Services.AddScoped<IIInvose, CLSTBInvose>();
+
+
+
+
+
+
+
+
+
+
+
+
+builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
+
+
+builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
+
+builder.Services.AddScoped<IIHomeSliderContent, CLSTBHomeSliderContent>();
+builder.Services.AddScoped<IIPhotoHomeSliderContent, CLSTBPhotoHomeSliderContent>();
+builder.Services.AddScoped<IIServiceSectionStartHomeContent, CLSTBServiceSectionStartHomeContent>();
+builder.Services.AddScoped<IIAboutSectionStartHomeContent, CLSTBAboutSectionStartHomeContent>();
+builder.Services.AddScoped<IICategoryServic, CLSTBCategoryServic>();
+
+
+builder.Services.AddScoped<IIBrandProduct, CLSTBBrandProduct>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

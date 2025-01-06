@@ -1191,4 +1191,10 @@
   <data name="lbPaymentMethodEn" xml:space="preserve">
     <value>طرق الدفع انكليزي</value>
   </data>
+  <data name="VLTitleOneEnDoplceted" xml:space="preserve">
+    <value>تم الادخال  باللغة الأنكليزة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
+  </data>
+  <data name="VLTitleOneArDoplceted" xml:space="preserve">
+    <value>تم الادخال مسبقا باللغة العربية  يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
+  </data>
 </root>

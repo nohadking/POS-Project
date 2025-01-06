@@ -1006,6 +1006,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم الأدخال باللغة الانكليزية  مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!.
+        /// </summary>
+        internal static string VLTitleOneEnDoplceted {
+            get {
+                return ResourceManager.GetString("VLTitleOneEnDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the appropriate address in the shipping category for the process to complete successfully...!.
         /// </summary>
         internal static string VlTitleShipping {

@@ -68,9 +68,22 @@ namespace Infarstuructre.ViewModel
 
 		public List<TBViewInvoseHeder> ListViewInvoseHede { get; set; }
 		public TBInvoseHeder InvoseHeder { get; set; }
-
 		public List<TBPaymentMethod> ListPaymentMethod { get; set; }
 		public TBPaymentMethod PaymentMethod { get; set; }
-	}
+
+        public List<TBHomeSliderContent> ListHomeSliderContent { get; set; }
+        public TBHomeSliderContent HomeSliderContent { get; set; }
+        public List<TBViewPhotoHomeSliderContent> ListViewPhotoHomeSliderContent { get; set; }
+        public TBPhotoHomeSliderContent PhotoHomeSliderContent { get; set; }
+        public List<TBServiceSectionStartHomeContent> ListServiceSectionStartHomeContent { get; set; }
+        public TBServiceSectionStartHomeContent ServiceSectionStartHomeContent { get; set; }
+        public List<TBAboutSectionStartHomeContent> ListAboutSectionStartHomeContent { get; set; }
+        public TBAboutSectionStartHomeContent AboutSectionStartHomeContent { get; set; }
+        public List<TBCategoryServic> ListCategoryServic { get; set; }
+        public TBCategoryServic CategoryServic { get; set; }
+        public List<TBBrandProduct> ListBrandProduct { get; set; }
+        public TBBrandProduct BrandProduct { get; set; }
+
+    }
  }
 

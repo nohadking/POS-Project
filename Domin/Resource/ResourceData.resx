@@ -468,4 +468,7 @@
   <data name="VlQuantity" xml:space="preserve">
     <value>يرجى أدخال الكمية لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VLTitleOneEnDoplceted" xml:space="preserve">
+    <value>تم الأدخال باللغة الانكليزية  مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
+  </data>
 </root>

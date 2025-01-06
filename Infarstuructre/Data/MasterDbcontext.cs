@@ -3,6 +3,7 @@
 using Infarstuructre.ViewModel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,26 @@ namespace Infarstuructre.Data
 
 
             //*********************************************************  
+
+
+
+            //*********************************************************
+            builder.Entity<TBViewPhotoHomeSliderContent>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewPhotoHomeSliderContent");
+            });
+
+
+            //*********************************************************
+
+
+
+
+
+
+
+
 
             //---------------------------------
             builder.Entity<TBEmailAlartSetting>()
@@ -144,6 +165,54 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
 
             //---------------------------------  
+
+            //*********************************************************
+       
+            //---------------------------------
+            builder.Entity<TBHomeSliderContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBHomeSliderContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBPhotoHomeSliderContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBPhotoHomeSliderContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBServiceSectionStartHomeContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBServiceSectionStartHomeContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBAboutSectionStartHomeContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBAboutSectionStartHomeContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBCategoryServic>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBCategoryServic>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBCategoryServic>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+
+
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -157,6 +226,13 @@ namespace Infarstuructre.Data
         public DbSet<TBPaymentMethod> TBPaymentMethods { get; set; }
         public DbSet<TBInvose> TBInvoses { get; set; }
         public DbSet<TBViewInvose> ViewInvose { get; set; }
+        public DbSet<TBHomeSliderContent> TBHomeSliderContents { get; set; }
+        public DbSet<TBPhotoHomeSliderContent> TBPhotoHomeSliderContents { get; set; }
+        public DbSet<TBViewPhotoHomeSliderContent> ViewPhotoHomeSliderContent { get; set; }
+        public DbSet<TBServiceSectionStartHomeContent> TBServiceSectionStartHomeContents { get; set; }
+        public DbSet<TBAboutSectionStartHomeContent> TBAboutSectionStartHomeContents { get; set; }
+        public DbSet<TBCategoryServic> TBCategoryServics { get; set; }
+        public DbSet<TBBrandProduct> TBBrandProducts { get; set; }
 
     }
 }
