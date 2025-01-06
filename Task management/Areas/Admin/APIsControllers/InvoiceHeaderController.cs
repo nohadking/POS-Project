@@ -16,7 +16,7 @@ namespace Task_management.Areas.Admin.APIsControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddHeaderForInvoice(TBInvoiceHederHelper model)
+        public async Task<IActionResult> AddHeaderForInvoice(TBInvoseHeder model)
         {
             var user = await userManager.GetUserAsync(User);
 
@@ -27,6 +27,7 @@ namespace Task_management.Areas.Admin.APIsControllers
 
             var invoiceHeader = new TBInvoseHeder
             {
+                IdInvoseHeder = model.IdInvoseHeder,
                  IdCustomerCategorie = model.IdCustomerCategorie,
                  InvoiceNumber = model.InvoiceNumber,
                  IdPaymentMethod = model.IdPaymentMethod,
