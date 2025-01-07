@@ -383,7 +383,8 @@
                             <div class="head d-flex align-items-center justify-content-between w-100">
                                 <div class="">
                                     <h5>Order List</h5>
-                                    <span id="InvoiceNumberForSave">Transaction ID : #@ViewBag.nomberMax</span>
+                                    <span id="InvoiceNumberForSave">Transaction ID : #</span> 
+                                    <span id="IIdInvoiceNumberForSave">@ViewBag.nomberMax</span>
 
                                     @* 	<div class="col-md-6 col-12 mb-6">
 										<label for="flatpickr-multi" class="form-label">Multiple Dates Picker</label>
@@ -411,7 +412,7 @@
                                             <div class="default-cover paymentMethod">
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
-                                            <span id="PayMeth">Cache <span id ="idPayMeth"></span></span>
+                                            <span id="PayMeth">Cache</span><p hidden id="idPayMeth1"></p>
                                                 </a>
                                             </div>
                                         </div>
@@ -1835,9 +1836,13 @@
         function SaveInvoiceInDB() {
             console.log("ffff")
             const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
-            const invoieNumberr = document.querySelector('#InvoiceNumberForSave').textContent;
-            const idPaymentMethodd = document.querySelector('#idPayMeth').textContent;
+            const invoieNumberr = document.querySelector('#IIdInvoiceNumberForSave').textContent;
+            const idPaymentMethodd = document.querySelector('#idPayMeth1').textContent;
+            const flexSwitchCheckChecked = document.querySelector("#flexSwitchCheckChecked").value;
 
+            console.log("idCustomerCategoryy: " + idCustomerCategoryy)
+            console.log("invoieNumberr: " + invoieNumberr)
+            console.log("idPaymentMethodd: " + idPaymentMethodd)
 
             const baseUrl = `${window.location.origin}/api`;
             fetch(`${baseUrl}/InvoiceHeader`, {
@@ -1848,7 +1853,8 @@
                 body: JSON.stringify({
                     invoiceNumber: invoieNumberr,
                     idCustomerCategorie: idCustomerCategoryy,
-                    idPaymentMethod: idPaymentMethodd
+                    idPaymentMethod: idPaymentMethodd,
+                    outstandingBill: flexSwitchCheckChecked
 
                 })
             })
@@ -2075,8 +2081,9 @@
         }
 
         function selectMethod(item){
+            console.log(item)
             document.querySelector('#PayMeth').textContent = item['paymentMethodAr'];
-            document.querySelector('#idPayMeth').textContent =' #' + item['idPaymentMethod'];
+            document.querySelector('#idPayMeth1').textContent = item['idPaymentMethod'];
         }
 
     </script>
