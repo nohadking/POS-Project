@@ -250,6 +250,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أضافة وتعديل بينات الهيدر في الرئيسية ...!.
+        /// </summary>
+        internal static string LBAddHomeSliderContent {
+            get {
+                return ResourceManager.GetString("LBAddHomeSliderContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying Order Case.
         /// </summary>
         internal static string LBAddOrderCase {

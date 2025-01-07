@@ -1224,4 +1224,7 @@
   <data name="lbUrlButtonEn" xml:space="preserve">
     <value>رابط التوجيه انكليزي</value>
   </data>
+  <data name="LBAddHomeSliderContent" xml:space="preserve">
+    <value>أضافة وتعديل بينات الهيدر في الرئيسية ...!</value>
+  </data>
 </root>
