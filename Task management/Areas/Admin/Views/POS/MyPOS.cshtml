@@ -362,6 +362,7 @@
                                                                 </a>
                                                                 <h6 class="cat-name"><a href="javascript:void(0);">@item2.CategoryNameAr</a></h6>
                                                                 <h6 class="product-name"><a href="javascript:void(0);">@item2.ProductNameAr</a></h6>
+                                                                <h6 hidden class="product-IIdd">@item2.IdProduct</h6>
                                                                 <div class="d-flex align-items-center justify-content-between price">
                                                                     <span>@productCount Pcs</span> <!-- Display the number of products in the category -->
                                                                     <p>@item2.price</p>
@@ -435,7 +436,7 @@
                                     <a href="javascript:void(0);" class="d-flex align-items-center text-danger" onclick="clearAllProducts()"><span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all</a>
                                 </div>
 
-                                <div class="product-wrap">
+                                <div id="productsAddedToOrder" class="product-wrap">
                                  @*    المنتجات المضافة  *@
                                 </div>
                             </div>
@@ -1812,14 +1813,13 @@
     <script src="~/AdminEn/assets/js/script.js"></script>
 
 
-    <!-- Save Invoice -->
+    <!-- حفظ الفاتورة -->
     <script>
 
-        function SaveInvoiceInDB(){
+        function SaveInvoiceInDB() {
             const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
             const invoieNumberr = document.querySelector('#InvoiceNumberForSave').textContent;
             const idPaymentMethodd = document.querySelector('#idPayMeth').textContent;
-
 
             fetch('/api/InvoiceHeader', {
                 method: 'POST',
@@ -1834,51 +1834,66 @@
                 })
             })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
                     return response.json();
                 })
                 .then(data => {
                     console.log('Response Data (InvoiceHeader):', data);
 
-                    return fetch('/api/Invoice', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer YOUR_TOKEN'
-                        },
-                        body: JSON.stringify({
-                            idInvoseHeder: data.idInvoseHeder,
-                            idProduct: ,
-                            quantity: ,
-                            price: ,
-                            total: ,
-                        })
+                    // معلومات المنتجات
+                    const addedProducts = document.querySelectorAll("#productsAddedToOrder .product-list");
+                    const productRequests = []; // مصفوفة لجمع الوعود
+
+                    addedProducts.forEach(product => {
+                        const productName = product.querySelector(".product-info h6 a").textContent.trim();
+                        const idPro = product.querySelector(".iiddPro").textContent.trim();
+                        const price = parseFloat(
+                            product.querySelector(".product-info p").textContent.trim().replace(/[^0-9.]/g, '')
+                        );
+                        const qty = parseInt(product.querySelector('input[name="qty"]').value);
+
+                        // إضافة طلب إرسال المنتج إلى المصفوفة
+                        productRequests.push(
+                            fetch('/api/Invoice', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer YOUR_TOKEN'
+                                },
+                                body: JSON.stringify({
+                                    idInvoseHeder: data,
+                                    idProduct: idPro,
+                                    quantity: qty,
+                                    price: price,
+                                    total: price * qty,
+                                })
+                            })
+                                .then(response => {
+                                    return response.json();
+                                })
+                                .then(productData => {
+                                    console.log('Response Data (InvoiceDetails):', productData);
+                                })
+                                .catch(error => {
+                                    console.error('Error saving product:', error);
+                                })
+                        );
                     });
+
+                    return Promise.all(productRequests);
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Response Data (InvoiceDetails):', data);
+                .then(() => {
+                    console.log('All products saved successfully!');
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-
-
-
-
         }
 
 
     </script>
 
     <script>
+
         function showProducts(categoryId) {
             // إخفاء جميع منتجات الفئات
             var allProducts = document.querySelectorAll('.tab_content');
@@ -1905,6 +1920,7 @@
         document.querySelectorAll(".product-info.default-cover").forEach(function (productCard) {
             productCard.addEventListener("click", function () {
                 // استخراج بيانات المنتج
+                const idForProduct = productCard.querySelector(".product - IIdd").textContent.trim();
                 const imgSrc = productCard.querySelector("img").getAttribute("src");
                 const productName = productCard.querySelector(".product-name a").textContent.trim();
                 const price = parseFloat(productCard.querySelector(".price p").textContent.trim().replace(/[^0-9.]/g, '')); // استخراج السعر كرقم
@@ -1931,6 +1947,7 @@
                                     <a href="javascript:void(0);" class="img-bg">
                                         <img src="${imgSrc}" alt="Products">
                                     </a>
+                                    <p hidden class="iiddPro">
                                     <div class="info">
                                         <h6><a href="javascript:void(0);">${productName}</a></h6>
                                         <p>$${price.toFixed(2)}</p>

@@ -16,7 +16,7 @@ namespace Task_management.Areas.Admin.APIsControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddInvoice(TBInvoiceHelper model)
+        public async Task<IActionResult> AddInvoice(TBInvose model)
         {
             var user = await userManager.GetUserAsync(User);
 
