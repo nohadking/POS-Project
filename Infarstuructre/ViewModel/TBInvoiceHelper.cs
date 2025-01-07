@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infarstuructre.ViewModel
 {
-    public class TBInvoiceHelper
+    public class TBInvoic
     {
         public int IdInvoseHeder { get; set; }
         public int IdProduct { get; set; }
