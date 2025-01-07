@@ -64,9 +64,7 @@ namespace Task_management.Areas.Admin.Controllers
 					{
 						TempData["InvoiceNumber"] = ResourceWeb.VLInvoiceNumberDoplceted;
 						return RedirectToAction("AddInvoseHeder", model);
-					}
-				
-					
+					}							
 					var reqwest = iInvoseHeder.saveData(slider);
 					if (reqwest == true)
 					{
