@@ -1918,10 +1918,11 @@
         document.querySelectorAll(".product-info.default-cover").forEach(function (productCard) {
             productCard.addEventListener("click", function () {
                 // استخراج بيانات المنتج
-                const idForProduct = productCard.querySelector(".product - IIdd").textContent.trim();
+               const idForProduct = productCard.querySelector(".product-IIdd").textContent.trim();
                 const imgSrc = productCard.querySelector("img").getAttribute("src");
                 const productName = productCard.querySelector(".product-name a").textContent.trim();
                 const price = parseFloat(productCard.querySelector(".price p").textContent.trim().replace(/[^0-9.]/g, '')); // استخراج السعر كرقم
+
                 // التحقق إذا كان المنتج موجودًا بالفعل
                 const productWrap = document.querySelector(".product-added .product-wrap");
                 const existingProduct = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
@@ -1931,7 +1932,6 @@
                     const currentQty = parseInt(qtyInput.value);
                     const newQty = currentQty + 1;
                     qtyInput.value = newQty;
-
                     // تحديث السعر (السعر الكلي = الكمية × السعر الفردي)
                     const priceElement = existingProduct.querySelector('.info p');
                     const totalPrice = newQty * price;
@@ -1990,9 +1990,10 @@
 
             const productElement = Array.from(document.querySelectorAll('.product-name a'))
                 .find(el => el.textContent.trim() === productName);
-
             const priceElement = productElement.closest('.product-name').nextElementSibling.querySelector('p');
             const nativePrice = priceElement.textContent;
+
+
 
             if (newQty >= 1) {
                 qtyInput.value = newQty;
