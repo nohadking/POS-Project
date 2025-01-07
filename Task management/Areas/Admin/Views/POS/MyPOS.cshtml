@@ -1817,11 +1817,13 @@
     <script>
 
         function SaveInvoiceInDB() {
+            console.log("ffff")
             const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
             const invoieNumberr = document.querySelector('#InvoiceNumberForSave').textContent;
             const idPaymentMethodd = document.querySelector('#idPayMeth').textContent;
 
-            fetch('/api/InvoiceHeader', {
+            const baseUrl = `${window.location.origin}/api`;
+            fetch(`${baseUrl}/InvoiceHeader`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1852,7 +1854,7 @@
 
                         // إضافة طلب إرسال المنتج إلى المصفوفة
                         productRequests.push(
-                            fetch('/api/Invoice', {
+                            fetch(`${baseUrl}/Invoice`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
