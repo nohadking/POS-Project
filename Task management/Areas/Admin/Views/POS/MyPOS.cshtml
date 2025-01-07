@@ -1836,7 +1836,7 @@
     <script>
 
         function SaveInvoiceInDB() {
-            //const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
+            const idCustomerCategoryy = document.querySelector('#idForUCustCate').value;
             const invoieNumberr = parseInt(document.querySelector('#IIdInvoiceNumberForSave').textContent.trim(), 10);
             const idPaymentMethodd = parseInt(document.querySelector('#idPayMeth1')?.textContent?.trim(), 10) || null;
             const idForInvHed = parseInt(0, 10);
@@ -1846,26 +1846,17 @@
             const UserIdentity = document.querySelector("#UserIdentity").value;
             const timeNow = new Date().toISOString();
 
-            console.log("invoieNumberr: " + invoieNumberr)
-            console.log("idPaymentMethodd: " + idPaymentMethodd)
-            console.log("carintstaite: " + carintstaite)
-            console.log("flexSwitchCheckChecked: " + flexSwitchCheckChecked)
-            console.log("UserIdentity: " + UserIdentity)
-            console.log("timeNow: " + timeNow)
-            console.log("idForInvHed: " + idForInvHed)
-
             const payload = {
                 "idInvoseHeder": idForInvHed,
                 "invoiceNumber": invoieNumberr,
                 "dateInvos": new Date().toISOString(),
-                "idUser": UserIdentity,
+                "idUser": idCustomerCategoryy.toString(),
                 "dataEntry": UserIdentity,
                 "idPaymentMethod": idPaymentMethodd,
                 "dateTimeEntry": new Date().toISOString(),
                 "outstandingBill": flexSwitchCheckChecked,
                 "currentState": carintstaite
             }
-            console.log("payload: " + JSON.stringify(payload));
 
             const baseUrl = `${window.location.origin}/api`;
             fetch(`${baseUrl}/InvoiceHeader`, {
@@ -1884,46 +1875,53 @@
                 .then(data => {
                     console.log('Response Data (InvoiceHeader):', data);
 
-                    // معلومات المنتجات
-                    // const addedProducts = document.querySelectorAll("#productsAddedToOrder .product-list");
-                    // const productRequests = []; // مصفوفة لجمع الوعود
+                    //معلومات المنتجات
+                    const addedProducts = document.querySelectorAll("#productsAddedToOrder .product-list");
+                    const productRequests = [];
 
-                    // addedProducts.forEach(product => {
-                    //     const productName = product.querySelector(".product-info h6 a").textContent.trim();
-                    //     const idPro = product.querySelector(".iiddPro").textContent.trim();
-                    //     const price = parseFloat(
-                    //         product.querySelector(".product-info p").textContent.trim().replace(/[^0-9.]/g, '')
-                    //     );
-                    //     const qty = parseInt(product.querySelector('input[name="qty"]').value);
+                    addedProducts.forEach(product => {
+                        const productName = product.querySelector(".product-info h6 a").textContent.trim();
+                        const idPro = parseInt(product.querySelector(".iiddPro").textContent.trim(), 10);
+                        const price = parseFloat(
+                            product.querySelector(".product-info .info p").textContent.trim().replace(/[^0-9.]/g, '')
+                        );
+                        const qty = parseInt(product.querySelector('input[name="qty"]').value);
 
-                    //     // إضافة طلب إرسال المنتج إلى المصفوفة
-                    //     productRequests.push(
-                    //         fetch(`${baseUrl}/Invoice`, {
-                    //             method: 'POST',
-                    //             headers: {
-                    //                 'Content-Type': 'application/json',
-                    //             },
-                    //             body: JSON.stringify({
-                    //                 idInvoseHeder: data,
-                    //                 idProduct: idPro,
-                    //                 quantity: qty,
-                    //                 price: price,
-                    //                 total: price * qty,
-                    //             })
-                    //         })
-                    //             .then(response => {
-                    //                 return response.json();
-                    //             })
-                    //             .then(productData => {
-                    //                 console.log('Response Data (InvoiceDetails):', productData);
-                    //             })
-                    //             .catch(error => {
-                    //                 console.error('Error saving product:', error);
-                    //             })
-                    //     );
-                    // });
+                        const p1 = {
+                            "idInvose": 0,
+                            "idInvoseHeder": parseInt(data, 10),
+                            "idProduct": idPro,
+                            "quantity": qty,
+                            "price": price,
+                            "total": parseFloat(price, 10),
+                            "dataEntry": UserIdentity,
+                            "dateTimeEntry": new Date().toISOString(),
+                            "currentState": true
+                        }
 
-                    // return Promise.all(productRequests);
+                        console.log("p1  " + JSON.stringify(p1))
+                        // إضافة طلب إرسال المنتج إلى المصفوفة
+                        productRequests.push(
+                            fetch(`${baseUrl}/Invoice`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(p1)
+                            })
+                                .then(response => {
+                                    return response.json();
+                                })
+                                .then(productData => {
+                                    console.log('Response Data (InvoiceDetails):', productData);
+                                })
+                                .catch(error => {
+                                    console.error('Error saving product:', error);
+                                })
+                        );
+                    });
+
+                    return Promise.all(productRequests);
                 })
                 .then(() => {
                     console.log('All products saved successfully!');
@@ -1991,7 +1989,7 @@
                                     <a href="javascript:void(0);" class="img-bg">
                                         <img src="${imgSrc}" alt="Products">
                                     </a>
-                                    <p hidden class="iiddPro">
+                                            <p hidden class="iiddPro">${idForProduct}</p>
                                     <div class="info">
                                         <h6><a href="javascript:void(0);">${productName}</a></h6>
                                         <p>$${price.toFixed(2)}</p>
