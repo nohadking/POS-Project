@@ -391,6 +391,11 @@ namespace Task_management.Areas.Admin.Controllers
                         // Redirect to merchant area with user ID
                         return RedirectToAction("Index", "Home", new { area = "Admin", userId = user.Id });
                     }
+                    if (roles.Contains("Cashier"))
+                    {
+                        // Redirect to merchant area with user ID
+                        return RedirectToAction("MyPOS", "POS", new { area = "Admin", userId = user.Id });
+                    }
                     return RedirectToAction(nameof(Registers));
                 }
                 else
@@ -448,6 +453,11 @@ namespace Task_management.Areas.Admin.Controllers
                     {
                         // Redirect to AirFreight area with user ID
                         return RedirectToAction("Index", "Home", new { area = "AirFreight", userId = user.Id, token = token });
+                    }
+                    if (roles.Contains("Cashier"))
+                    {
+                        // Redirect to AirFreight area with user ID
+                        return RedirectToAction("MyPOS", "POS", new { area = "Admin", userId = user.Id, token = token });
                     }
                     if (string.IsNullOrEmpty(returnUrl))
                     {

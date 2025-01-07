@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Task_management.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Cashier")]
     public class POSController : Controller
     {
         IICategory iCategory;
