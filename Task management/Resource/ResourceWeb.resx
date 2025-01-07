@@ -1197,4 +1197,31 @@
   <data name="VLTitleOneArDoplceted" xml:space="preserve">
     <value>تم الادخال مسبقا باللغة العربية  يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
   </data>
+  <data name="LBMyHomeSliderContent" xml:space="preserve">
+    <value>معلومات الهدر بالرئيسية </value>
+  </data>
+  <data name="lbTitleOneAr" xml:space="preserve">
+    <value>العنوان الاول عربي</value>
+  </data>
+  <data name="lbTitleOneEn" xml:space="preserve">
+    <value>الاعنوان الاول انكليزي</value>
+  </data>
+  <data name="lbTitleTwoAr" xml:space="preserve">
+    <value>العنوان الثاني عربي</value>
+  </data>
+  <data name="lbTitleTwoEn" xml:space="preserve">
+    <value>العنوان الثاني أنكليزي</value>
+  </data>
+  <data name="lbTitleButtonAr" xml:space="preserve">
+    <value>عنوان الزر عربي</value>
+  </data>
+  <data name="lbTitleButtonEn" xml:space="preserve">
+    <value>عنوان الزر انكليزي</value>
+  </data>
+  <data name="lbUrlButtonAr" xml:space="preserve">
+    <value>رابط التوجيه عربي</value>
+  </data>
+  <data name="lbUrlButtonEn" xml:space="preserve">
+    <value>رابط التوجيه انكليزي</value>
+  </data>
 </root>

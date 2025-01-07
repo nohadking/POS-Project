@@ -20,12 +20,7 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
             return View(vmodel);
         }
-        public IActionResult MyHomeSliderContentAr()
-        {
-            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
-            return View(vmodel);
-        }
+     
         public IActionResult AddHomeSliderContent(int? IdHomeSliderContent)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
@@ -44,24 +39,7 @@ namespace Task_management.Areas.Admin.Controllers
 
             return View(vmodel);
         }
-        public IActionResult AddHomeSliderContentAr(int? IdHomeSliderContent)
-        {
-            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
 
-
-            if (vmodel.HomeSliderContent == null)
-            {
-                vmodel.HomeSliderContent = new TBHomeSliderContent();
-            }
-
-            if (IdHomeSliderContent != null)
-            {
-                vmodel.HomeSliderContent = iHomeSliderContent.GetById(Convert.ToInt32(IdHomeSliderContent));
-            }
-
-            return View(vmodel);
-        }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBHomeSliderContent slider, List<IFormFile> Files, string returnUrl)
@@ -126,71 +104,7 @@ namespace Task_management.Areas.Admin.Controllers
                 return RedirectToAction("AddHomeSliderContent");
             }
         }
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> SaveAr(ViewmMODeElMASTER model, TBHomeSliderContent slider, List<IFormFile> Files, string returnUrl)
-        {
-            try
-            {
-                slider.IdHomeSliderContent = model.HomeSliderContent.IdHomeSliderContent;
-                slider.TitleOneAr = model.HomeSliderContent.TitleOneAr;
-                slider.TitleOneEn = model.HomeSliderContent.TitleOneEn;
-                slider.TitleTwoEn = model.HomeSliderContent.TitleTwoEn;
-                slider.TitleTwoAr = model.HomeSliderContent.TitleTwoAr;
-                slider.TitleButtonAr = model.HomeSliderContent.TitleButtonAr;
-                slider.TitleButtonEn = model.HomeSliderContent.TitleButtonEn;
-                slider.UrlButtonAr = model.HomeSliderContent.UrlButtonAr;
-                slider.UrlButtonEn = model.HomeSliderContent.UrlButtonEn;        
-               slider.DataEntry = model.HomeSliderContent.DataEntry;
-                slider.DateTimeEntry = model.HomeSliderContent.DateTimeEntry;
-                slider.CurrentState = model.HomeSliderContent.CurrentState;
-                if (slider.IdHomeSliderContent == 0 || slider.IdHomeSliderContent == null)
-                {
-                    if (dbcontext.TBHomeSliderContents.Where(a => a.TitleOneAr == slider.TitleOneAr).ToList().Count > 0)
-                    {
-                        TempData["TitleOneAr"] = ResourceWeb.VLTitleOneArDoplceted;
-                        return RedirectToAction("AddHomeSliderContent");
-                    }
-
-                    if (dbcontext.TBHomeSliderContents.Where(a => a.TitleOneEn == slider.TitleOneEn).ToList().Count > 0)
-                    {
-                        TempData["TitleOneEn"] = ResourceWeb.VLTitleOneEnDoplceted;
-                        return RedirectToAction("AddHomeSliderContent");
-                    }
-                    var reqwest = iHomeSliderContent.saveData(slider);
-                    if (reqwest == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWebAr.VLSavedSuccessfully;
-                        return RedirectToAction("MyHomeSliderContentAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWebAr.VLErrorSave;
-                        return RedirectToAction("AddHomeSliderContentAr");
-
-                    }
-                }
-                else
-                {
-                    var reqestUpdate = iHomeSliderContent.UpdateData(slider);
-                    if (reqestUpdate == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWebAr.VLUpdatedSuccessfully;
-                        return RedirectToAction("MyHomeSliderContentAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWebAr.VLErrorUpdate;
-                        return RedirectToAction("AddHomeSliderContentAr");
-                    }
-                }
-            }
-            catch
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorSave;
-                return RedirectToAction("AddHomeSliderContentAr");
-            }
-        }
+    
 
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdHomeSliderContent)
@@ -208,20 +122,6 @@ namespace Task_management.Areas.Admin.Controllers
 
             }
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteDataAr(int IdHomeSliderContent)
-        {
-            var reqwistDelete = iHomeSliderContent.deleteData(IdHomeSliderContent);
-            if (reqwistDelete == true)
-            {
-                TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-                return RedirectToAction("MyHomeSliderContentAr");
-            }
-            else
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-                return RedirectToAction("MyHomeSliderContentAr");
-            }
-        }
+     
     }
 }

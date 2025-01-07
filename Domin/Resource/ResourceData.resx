@@ -471,4 +471,40 @@
   <data name="VLTitleOneEnDoplceted" xml:space="preserve">
     <value>تم الأدخال باللغة الانكليزية  مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
   </data>
+  <data name="VlTitleOneAr" xml:space="preserve">
+    <value>يرجى أدراج العناون الاول  باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleOneEn" xml:space="preserve">
+    <value>يرجى أدراج العنوان  الاول  باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="TitleTwoAr" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني  باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="TitleTwoEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الثاني باللغة الانكليزية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="TitleButtonAr" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="TitleButtonEn" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlUrlButtonAr" xml:space="preserve">
+    <value>يرجى أدراج رابط التوجيه باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlUrlButtonEn" xml:space="preserve">
+    <value>يرجى إدراج رابط التوجيه باللغة الانكليزية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleTwoAr" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleTwoEn" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleButtonAr" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleButtonEn" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

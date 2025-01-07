@@ -21,8 +21,7 @@ namespace Domin.Entity
 		public DateTime DateTimeEntry { get; set; }
 		public bool OutstandingBill { get; set; }
 		public bool CurrentState { get; set; }
-        public string CategoryNameAr { get; set; }
-        public string CategoryNameEn { get; set; }
+   
         public string PaymentMethodAr { get; set; }
         public string PaymentMethodEn { get; set; }
     }
