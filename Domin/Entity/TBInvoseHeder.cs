@@ -12,7 +12,7 @@ namespace Domin.Entity
         [Key]
         public int IdInvoseHeder { get; set; }
         public int InvoiceNumber{ get; set; }
-		public int IdCustomerCategorie { get; set; }
+		
         public int IdPaymentMethod { get; set; }
         public DateTime DateInvos { get; set; }
         public string IdUser { get; set; }	

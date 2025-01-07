@@ -28,7 +28,7 @@ namespace Task_management.Areas.Admin.APIsControllers
             var invoiceHeader = new TBInvoseHeder
             {
                 IdInvoseHeder = model.IdInvoseHeder,
-                 IdCustomerCategorie = model.IdCustomerCategorie,
+                 //IdCustomerCategorie = model.IdCustomerCategorie,
                  InvoiceNumber = model.InvoiceNumber,
                  IdPaymentMethod = model.IdPaymentMethod,
                  DataEntry = user.UserName,

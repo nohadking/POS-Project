@@ -51,7 +51,7 @@ namespace Task_management.Areas.Admin.Controllers
 			{
 				slider.IdInvoseHeder = model.InvoseHeder.IdInvoseHeder;		
 				slider.IdUser = model.InvoseHeder.IdUser;
-				slider.IdCustomerCategorie = model.InvoseHeder.IdCustomerCategorie;
+				
 				slider.DateInvos = model.InvoseHeder.DateInvos;
 				slider.InvoiceNumber = model.InvoseHeder.InvoiceNumber;	
 				slider.OutstandingBill = model.InvoseHeder.OutstandingBill;

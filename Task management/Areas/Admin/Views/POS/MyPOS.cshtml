@@ -398,10 +398,11 @@
                                             <label class="form-check-label" for="flexSwitchCheckChecked">
                                                  تعليق الفاتورة 
                                             </label>
+
                                   <input type="hidden"  class="form-control" value="@User.Identity.Name">
                            <input type="hidden"  value="@DateTime.Now">
                                <div style="display: none;">
-                            <input class="form-check-input" type="checkbox" role="switch"  checked="checked">
+                            <input class="form-check-input" type="checkbox" role="switch" id="carintstaite" checked="checked">
                            
                              </div>
                            </div>
@@ -1839,10 +1840,17 @@
             const invoieNumberr = document.querySelector('#IIdInvoiceNumberForSave').textContent;
             const idPaymentMethodd = document.querySelector('#idPayMeth1').textContent;
             const flexSwitchCheckChecked = document.querySelector("#flexSwitchCheckChecked").value;
+            const carintstaite = document.querySelector("#carintstaite").value;
+
+
+
+
+
 
             console.log("idCustomerCategoryy: " + idCustomerCategoryy)
             console.log("invoieNumberr: " + invoieNumberr)
             console.log("idPaymentMethodd: " + idPaymentMethodd)
+            console.log("carintstaite: "+ idPaymentMethodd )
 
             const baseUrl = `${window.location.origin}/api`;
             fetch(`${baseUrl}/InvoiceHeader`, {
@@ -1854,7 +1862,8 @@
                     invoiceNumber: invoieNumberr,
                     idCustomerCategorie: idCustomerCategoryy,
                     idPaymentMethod: idPaymentMethodd,
-                    outstandingBill: flexSwitchCheckChecked
+                    outstandingBill: flexSwitchCheckChecked,
+                    CurrentState: carintstaite
 
                 })
             })
