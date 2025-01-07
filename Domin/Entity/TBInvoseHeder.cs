@@ -21,5 +21,6 @@ namespace Domin.Entity
 		public bool OutstandingBill { get; set; }
 		public bool CurrentState { get; set; }
 
+
 	}
 }
