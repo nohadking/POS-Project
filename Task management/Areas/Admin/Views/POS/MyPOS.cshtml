@@ -4,9 +4,6 @@
     Layout = null;
 }
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +39,8 @@
     <link rel="stylesheet" href="~/AdminEn/assets/css/style.css">
 </head>
 <body>
+
+
     <div id="global-loader">
         <div class="whirly-loader"> </div>
     </div>
@@ -414,7 +413,7 @@
                                             <div class="default-cover paymentMethod">
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
-                                            <span id="PayMeth">Cache</span><p hidden id="idPayMeth1"></p>
+                                            <span id="PayMeth">@TempData["ArDesForPay"]</span><p hidden id="idPayMeth1">@TempData["idForPay"]</p>
                                                 </a>
                                             </div>
                                         </div>
@@ -528,6 +527,7 @@
                             </div>
                        @*      طرق الدفع  *@
                             <div class="block-section payment-method">
+
                                 <h6>Payment Method</h6>
 
                                 <div class="row d-flex align-items-center justify-content-center methods">
@@ -537,7 +537,7 @@
                                             <div class="default-cover selectMethod" onclick='selectMethod(@Html.Raw(Json.Serialize(item)))'>
                                                 <a href="javascript:void(0);">
                                                     <img src="~/AdminEn/assets/img/icons/cash-pay.svg" alt="Payment Method">
-                                                    <span>@item.PaymentMethodAr</span>
+                                                    <span class="PaymentMethodAr1">@item.PaymentMethodAr</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -2100,6 +2100,8 @@
 
         function selectMethod(item){
             console.log(item)
+            document.querySelector('#PayMeth').textContent = '';
+            document.querySelector('#idPayMeth1').textContent = '';
             document.querySelector('#PayMeth').textContent = item['paymentMethodAr'];
             document.querySelector('#idPayMeth1').textContent = item['idPaymentMethod'];
         }

@@ -32,7 +32,11 @@ namespace Task_management.Areas.Admin.Controllers
 			: 1;
 			ViewBag.user = iUserInformation.GetAllByRole("Customer");
 			vmodel.ListPaymentMethod = iPaymentMethod.GetAllActive();
-			return View(vmodel); 
+
+            var payMeth = vmodel.ListPaymentMethod.FirstOrDefault(p => p.PaymentMethodAr.Contains("نقد"));
+            TempData["idForPay"] = payMeth.IdPaymentMethod;
+			TempData["ArDesForPay"] = payMeth.PaymentMethodAr;
+            return View(vmodel); 
         }
 
 		public IActionResult GetProductsByCategory(int IdCategory)
