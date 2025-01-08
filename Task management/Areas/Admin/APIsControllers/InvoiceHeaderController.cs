@@ -16,7 +16,7 @@ namespace Task_management.Areas.Admin.APIsControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddHeaderForInvoice(TBInvoseHeder model)
+        public async Task<IActionResult> AddHeaderForInvoice(TBInvoseHeder invHed)
         {
             var user = await userManager.GetUserAsync(User);
 
@@ -27,16 +27,15 @@ namespace Task_management.Areas.Admin.APIsControllers
 
             var invoiceHeader = new TBInvoseHeder
             {
-                IdInvoseHeder = model.IdInvoseHeder,
-                 //IdCustomerCategorie = model.IdCustomerCategorie,
-                 InvoiceNumber = model.InvoiceNumber,
-                 IdPaymentMethod = model.IdPaymentMethod,
-                 DataEntry = user.UserName,
-                 DateInvos = DateTime.UtcNow,
-                 DateTimeEntry = DateTime.UtcNow,
-                 IdUser = user.Id,
-                 OutstandingBill = true,
-                 CurrentState = true,
+                IdInvoseHeder = invHed.IdInvoseHeder,
+                InvoiceNumber = invHed.InvoiceNumber,
+                IdPaymentMethod = invHed.IdPaymentMethod,
+                DataEntry = user.UserName,
+                DateInvos = DateTime.UtcNow,
+                DateTimeEntry = DateTime.UtcNow,
+                IdUser = invHed.IdUser,
+                OutstandingBill = invHed.OutstandingBill,
+                CurrentState = invHed.CurrentState,
             };
 
             iInvoseHeder.saveData(invoiceHeader);
