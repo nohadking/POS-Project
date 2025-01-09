@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="~/AdminEn/assets/css/style.css">
 </head>
 <body>
-
+    <p id="InvoiceNumberMaimAlMain"></p>
 
     <div id="global-loader">
         <div class="whirly-loader"> </div>
@@ -597,6 +597,24 @@
         </div>
     </div>
     <!-- /Payment Completed -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Print Receipt -->
     <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
         <div class="modal-dialog modal-dialog-centered">
@@ -622,14 +640,25 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
-                                <div class="invoice-user-name"><span>Invoice No: </span><span>CS132453</span></div>
+                                <div class="invoice-user-name"><span>Invoice No:<span id="InvoiceNoToPrint"></span> </span><span>CS132453</span></div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Customer Id: </span><span>#LL93784</span></div>
-                                <div class="invoice-user-name"><span>Date: </span><span>01.07.2022</span></div>
+                                <div class="invoice-user-name"><span>Customer Id:<span id="CustomerIdToPrint"></span> </span><span>#LL93784</span></div>
+                                <div class="invoice-user-name"><span>Date: </span><span id="DateInvToPrint"></span></div>
                             </div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
                     <table class="table-borderless w-100 table-fit">
                         <thead>
                             <tr>
@@ -639,8 +668,11 @@
                                 <th class="text-end">Total</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="TBForRecipt">
+
+
+
+                           @*  <tr>
                                 <td>1. Red Nike Laser</td>
                                 <td>$50</td>
                                 <td>3</td>
@@ -691,7 +723,7 @@
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr> *@
                         </tbody>
                     </table>
                     <div class="text-center invoice-bar">
@@ -707,6 +739,23 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- /Print Receipt -->
     <!-- Products -->
     <div class="modal fade modal-default pos-modal" id="products" aria-labelledby="products">
@@ -1875,6 +1924,8 @@
                 .then(data => {
                     console.log('Response Data (InvoiceHeader):', data);
 
+                    document.querySelector("#InvoiceNumberMaimAlMain").textContent = data.invoiceNumber.toString();
+
                     //معلومات المنتجات
                     const addedProducts = document.querySelectorAll("#productsAddedToOrder .product-list");
                     const productRequests = [];
@@ -1889,7 +1940,7 @@
 
                         const p1 = {
                             "idInvose": 0,
-                            "idInvoseHeder": parseInt(data, 10),
+                            "idInvoseHeder": parseInt(data.idInvoseHeder, 10),
                             "idProduct": idPro,
                             "quantity": qty,
                             "price": price,
@@ -1925,6 +1976,65 @@
                 })
                 .then(() => {
                     console.log('All products saved successfully!');
+
+                    const invUnm = document.querySelector("#InvoiceNumberMaimAlMain").textContent;
+
+                    console.log("invUnm :" + invUnm)
+
+                    const url = `${baseUrl}/Invoice/${invUnm}`;
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+
+                            console.log("INV :", data )
+
+                            document.querySelector("#InvoiceNoToPrint").textContent = data[0].invoiceNumber;
+                            document.querySelector("#CustomerIdToPrint").textContent = data[0].name;
+                            document.querySelector("#DateInvToPrint").textContent = data[0].dateInvos;
+
+                            let tableBody = document.querySelector("#TBForRecipt");
+                            tableBody.innerHTML = "";
+                            data.forEach(item => {
+                                let row = document.createElement("tr");
+
+                                let nameCell = document.createElement("td");
+                                nameCell.textContent = item.productNameAr;
+
+                                let priceCell = document.createElement("td");
+                                priceCell.textContent = item.price;
+
+                                let quantityCell = document.createElement("td");
+                                quantityCell.textContent = item.quantity;
+
+                                let totalCell = document.createElement("td");
+                                totalCell.textContent = item.total;
+
+                                row.appendChild(nameCell);
+                                row.appendChild(priceCell);
+                                row.appendChild(quantityCell);
+                                row.appendChild(totalCell);
+
+
+                                tableBody.appendChild(row);
+                            });
+
+
+                        })
+                        .catch(error => {
+                            console.error('حدث خطأ أثناء الحذف:', error);
+                        });
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
