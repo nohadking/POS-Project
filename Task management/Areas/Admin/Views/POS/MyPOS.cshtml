@@ -619,7 +619,7 @@
 
     <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" id="king">
                 <div class="d-flex justify-content-end">
                     <button type="button" class="close p-0" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -675,7 +675,7 @@
                         </a>
                         <p>Sale 31</p>
                         <p>Thank You For Shopping With Us. Please Come Again</p>
-                        <a href="/Admin/POS/PrintReceipt" class="btn btn-primary" id="printButton">Print Receipt</a>
+                        <a href="javascript:void(0);" class="btn btn-primary" id="printButton">Print Receipt</a>
                     </div>
             
 
@@ -2170,17 +2170,26 @@
 
 
     <script>
-        $('#printButton').on('click', function () {
+        $('#king').on('click', function () {
             var receiptContent = $('#print-receipt').html();
+            var invoiceNo = $('#InvoiceNoToPrint').text(); // الحصول على رقم الفاتورة من العنصر
 
+            // تحقق من أن المحتوى غير فارغ
+            if ( !invoiceNo.trim()) {
+                console.log('البيانات فارغة');
+                return;
+            }
+
+            // إرسال البيانات عبر AJAX مع رقم الفاتورة
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("PrintReceipt", "POS")',
-                data: JSON.stringify({ receiptContent: receiptContent }),  // تحويل البيانات إلى JSON
+                data: JSON.stringify({ receiptContent: receiptContent, invoiceNo: invoiceNo }),  // إرسال البيانات
                 contentType: "application/json",  // تعيين نوع المحتوى كـ JSON
                 dataType: "json",  // تحديد نوع البيانات المتوقع في الرد
                 success: function (response) {
                     // التعامل مع الرد إذا لزم الأمر
+                    window.location.reload();
                 },
                 error: function (err) {
                     console.log(err);
@@ -2193,6 +2202,7 @@
 
 
 
+  
 
 
 
