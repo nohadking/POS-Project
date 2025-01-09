@@ -60,43 +60,6 @@
 
 	@* //***************** *@
 
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-	
-
-
-
-
-
-	
-
-
-
 </head>
 
 <body>
@@ -678,8 +641,8 @@
 									<a href="javascript:void(0);"><i data-feather="globe"></i><span>إعدادات الموقع</span><span class="menu-arrow"></span></a>
 									<ul>
 										<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
-										<li><a href="company-settings.html">Company Settings </a></li>
-										<li><a href="localization-settings.html">Localization</a></li>
+										<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+										<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
 										<li><a href="prefixes.html">Prefixes</a></li>
 										<li><a href="preference.html">Preference</a></li>
 										<li><a href="appearance.html">Appearance</a></li>
@@ -1320,8 +1283,9 @@
 								<a href="javascript:void(0);"><span>إعدادات الموقع </span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
-									<li><a href="company-settings.html">Company Settings </a></li>
-									<li><a href="localization-settings.html">Localization</a></li>
+									<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+
+									<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
 									<li><a href="prefixes.html">Prefixes</a></li>
 									<li><a href="preference.html">Preference</a></li>
 									<li><a href="appearance.html">Appearance</a></li>
@@ -1779,8 +1743,8 @@
 								<a href="javascript:void(0);"><span>أعدادت الموقع </span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
-									<li><a href="company-settings.html">Company Settings </a></li>
-									<li><a href="localization-settings.html">Localization</a></li>
+									<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+									<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
 									<li><a href="prefixes.html">Prefixes</a></li>
 									<li><a href="preference.html">Preference</a></li>
 									<li><a href="appearance.html">Appearance</a></li>
@@ -1883,8 +1847,6 @@
 	<!-- Sweetalert 2 -->
 	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalerts.min.js"></script>
-
-
 	<!-- Datatable JS -->
 	<script src="~/AdminEn/assets/js/jquery.dataTables.min.js"></script>
 	<script src="~/AdminEn/assets/js/dataTables.bootstrap5.min.js"></script>
@@ -1895,18 +1857,12 @@
 	<script src="~/AdminEn/assets/plugins/summernote/summernote-bs4.min.js"></script>
 	<!-- Select2 JS -->
 	<script src="~/AdminEn/assets/plugins/select2/js/select2.min.js"></script>
-
 	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
 	<!-- Custom JS -->
-	
 	<script src="~/AdminEn/assets/plugins/daterangepicker/daterangepicker.js"></script>
-
 	<!-- Owl JS -->
 	<script src="~/AdminEn/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
-
-
 	<!-- Form Date PIckers JS -->
 	<script src="~/AdminEn/assets/plugins/moment/moment.min.js"></script>
 	<script src="~/AdminEn/assets/plugins/flatpickr/flatpickr.js"></script>
@@ -1920,7 +1876,7 @@
 	<script src="~/AdminEn/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
 	<script src="~/AdminEn/assets/js/script.js"></script>
-
+    <script src="~/js/site.js"></script>
 	<script src="~/AdminEn/assets/js/custom-select2.js"></script>
 
 

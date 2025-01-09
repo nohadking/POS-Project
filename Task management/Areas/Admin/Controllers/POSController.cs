@@ -27,10 +27,10 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListCategory = iCategory.GetAll();
             vmodel.ListViewProduct = iProduct.GetAll();
 			var numberinvose = vmodel.ListViewInvoseHede = iInvoseHeder.GetAll();
-			ViewBag.nomberMax = numberinvose.Any() && numberinvose.Max(c => c.InvoiceNumber) != null
-			? numberinvose.Max(c => c.InvoiceNumber) + 1
-			: 1;
-			ViewBag.user = iUserInformation.GetAllByRole("Customer");
+            ViewBag.nomberMax = numberinvose.Any()
+        ? numberinvose.Max(c => c.InvoiceNumber) + 1
+        : 1;
+            ViewBag.user = iUserInformation.GetAllByRole("Customer");
 			vmodel.ListPaymentMethod = iPaymentMethod.GetAllActive();
 
             var payMeth = vmodel.ListPaymentMethod.FirstOrDefault(p => p.PaymentMethodAr.Contains("نقد"));

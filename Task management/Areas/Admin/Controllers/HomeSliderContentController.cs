@@ -19,9 +19,8 @@ namespace Task_management.Areas.Admin.Controllers
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
             return View(vmodel);
-        }
-     
-        public IActionResult AddHomeSliderContent(int? IdHomeSliderContent)
+        } 
+       public IActionResult AddHomeSliderContent(int? IdHomeSliderContent)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
@@ -39,7 +38,6 @@ namespace Task_management.Areas.Admin.Controllers
 
             return View(vmodel);
         }
-
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBHomeSliderContent slider, List<IFormFile> Files, string returnUrl)
@@ -104,8 +102,6 @@ namespace Task_management.Areas.Admin.Controllers
                 return RedirectToAction("AddHomeSliderContent");
             }
         }
-    
-
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdHomeSliderContent)
         {

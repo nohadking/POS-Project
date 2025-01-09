@@ -1227,4 +1227,13 @@
   <data name="LBAddHomeSliderContent" xml:space="preserve">
     <value>أضافة وتعديل بينات الهيدر في الرئيسية ...!</value>
   </data>
+  <data name="LBMYPhotoHomeSliderContent" xml:space="preserve">
+    <value>صور الهيدر بالرئيسية </value>
+  </data>
+  <data name="LBAddEditPhotoHomeSliderContent" xml:space="preserve">
+    <value>اضافة وتعديل  الصور في الهدر </value>
+  </data>
+  <data name="LBMyAboutSectionStartHomeContent" xml:space="preserve">
+    <value>عن المطعم </value>
+  </data>
 </root>

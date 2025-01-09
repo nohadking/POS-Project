@@ -196,6 +196,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اضافة وتعديل  الصور في الهدر .
+        /// </summary>
+        internal static string LBAddEditPhotoHomeSliderContent {
+            get {
+                return ResourceManager.GetString("LBAddEditPhotoHomeSliderContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add and edit task requests.
         /// </summary>
         internal static string LBAddEditRequestsTask {
@@ -1393,6 +1402,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عن المطعم .
+        /// </summary>
+        internal static string LBMyAboutSectionStartHomeContent {
+            get {
+                return ResourceManager.GetString("LBMyAboutSectionStartHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regions.
         /// </summary>
         internal static string LBMyArea {
@@ -1614,6 +1632,15 @@ namespace Task_management.Resource {
         internal static string LBMyPaymentMethod {
             get {
                 return ResourceManager.GetString("LBMyPaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صور الهيدر بالرئيسية .
+        /// </summary>
+        internal static string LBMYPhotoHomeSliderContent {
+            get {
+                return ResourceManager.GetString("LBMYPhotoHomeSliderContent", resourceCulture);
             }
         }
         
