@@ -616,6 +616,7 @@
 
 
     <!-- Print Receipt -->
+
     <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -653,12 +654,6 @@
 
 
 
-
-
-
-
-
-
                     <table class="table-borderless w-100 table-fit">
                         <thead>
                             <tr>
@@ -668,73 +663,26 @@
                                 <th class="text-end">Total</th>
                             </tr>
                         </thead>
-                        <tbody id="TBForRecipt">
-
-
-
-                           @*  <tr>
-                                <td>1. Red Nike Laser</td>
-                                <td>$50</td>
-                                <td>3</td>
-                                <td class="text-end">$150</td>
-                            </tr>
-                            <tr>
-                                <td>2. Iphone 14</td>
-                                <td>$50</td>
-                                <td>2</td>
-                                <td class="text-end">$100</td>
-                            </tr>
-                            <tr>
-                                <td>3. Apple Series 8</td>
-                                <td>$50</td>
-                                <td>3</td>
-                                <td class="text-end">$150</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <table class="table-borderless w-100 table-fit">
-                                        <tr>
-                                            <td>Sub Total :</td>
-                                            <td class="text-end">$700.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Discount :</td>
-                                            <td class="text-end">-$50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping :</td>
-                                            <td class="text-end">0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tax (5%) :</td>
-                                            <td class="text-end">$5.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Bill :</td>
-                                            <td class="text-end">$655.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Due :</td>
-                                            <td class="text-end">$0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Payable :</td>
-                                            <td class="text-end">$655.00</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr> *@
+                        <tbody id="TBForRecipt">                        
                         </tbody>
                     </table>
-                    <div class="text-center invoice-bar">
+
+
+                    <div class="text-center invoice-bar" id="receipt-content">
                         <p>**VAT against this challan is payable through central registration. Thank you for your business!</p>
                         <a href="javascript:void(0);">
                             <img src="~/AdminEn/assets/img/barcode/barcode-03.jpg" alt="Barcode">
                         </a>
                         <p>Sale 31</p>
                         <p>Thank You For Shopping With Us. Please Come Again</p>
-                        <a href="javascript:void(0);" class="btn btn-primary">Print Receipt</a>
+                        <a href="/Admin/POS/PrintReceipt" class="btn btn-primary" id="printButton">Print Receipt</a>
                     </div>
+            
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -2217,6 +2165,39 @@
         }
 
     </script>
+
+
+
+
+    <script>
+        $('#printButton').on('click', function () {
+            var receiptContent = $('#print-receipt').html();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PrintReceipt", "POS")',
+                data: JSON.stringify({ receiptContent: receiptContent }),  // تحويل البيانات إلى JSON
+                contentType: "application/json",  // تعيين نوع المحتوى كـ JSON
+                dataType: "json",  // تحديد نوع البيانات المتوقع في الرد
+                success: function (response) {
+                    // التعامل مع الرد إذا لزم الأمر
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 
