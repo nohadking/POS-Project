@@ -39,7 +39,7 @@ namespace Task_management.Areas.Admin.APIsControllers
             };
 
             iInvoseHeder.saveData(invoiceHeader);
-            return Ok(invoiceHeader.IdInvoseHeder); 
+            return Ok(invoiceHeader); 
         }
     }
 }

@@ -40,5 +40,14 @@ namespace Task_management.Areas.Admin.APIsControllers
             iInvose.saveData(invoice);
             return Ok(invoice);
         }
+
+
+        [HttpGet("{invUnm}")]
+        public IActionResult GetIvnoiceInfo(int invUnm)
+        {
+            var invoice = iInvose.GetByInvoiceNumber(invUnm);
+            return Ok(invoice);
+
+        }
     }
 }

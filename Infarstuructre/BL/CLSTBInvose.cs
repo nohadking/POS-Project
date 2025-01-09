@@ -10,6 +10,7 @@ namespace Infarstuructre.BL
         bool UpdateData(TBInvose updatss);
         bool deleteData(int IdInvose);
         TBViewInvose GetByIdview(int IdInvose);
+        List<TBViewInvose> GetByInvoiceNumber(int invNum);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -81,6 +82,15 @@ namespace Infarstuructre.BL
         {
             TBViewInvose sslid = dbcontext.ViewInvose.FirstOrDefault(a => a.IdInvose == IdInvose);
             return sslid;
+        }
+
+
+        /// ///////////// /API/ ////////////////////////////
+
+        public List<TBViewInvose> GetByInvoiceNumber(int invNum)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.InvoiceNumber == invNum).ToList();
+            return invoices;
         }
     }
 }
