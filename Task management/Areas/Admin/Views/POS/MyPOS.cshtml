@@ -393,7 +393,7 @@
                                 </div>
                             @*   كامل  النواقص *@
                             <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="checked">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                                             <input hidden class="form-check-input" value="0" role="switch" id="idForInvHed">
                                             <label class="form-check-label" for="flexSwitchCheckChecked">
                                                  تعليق الفاتورة 
@@ -402,7 +402,7 @@
                                     <input type="hidden" id="UserIdentity" class="form-control" value="@User.Identity.Name">
                                     <input type="hidden" id="timeNow"  value="@DateTime.Now">
                                <div style="display: none;">
-                            <input class="form-check-input" type="checkbox" role="switch" id="carintstaite" checked="checked">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="carintstaite" checked>
                            
                              </div>
                            </div>
@@ -609,12 +609,6 @@
 
 
 
-
-
-
-
-
-
     <!-- Print Receipt -->
 
     <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
@@ -649,11 +643,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
                     <table class="table-borderless w-100 table-fit">
                         <thead>
                             <tr>
@@ -677,34 +666,19 @@
                         <p>Thank You For Shopping With Us. Please Come Again</p>
                         <a href="javascript:void(0);" class="btn btn-primary" id="printButton">Print Receipt</a>
                     </div>
-            
-
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- /Print Receipt -->
+
+
+
+
+
+
+
+
     <!-- Products -->
     <div class="modal fade modal-default pos-modal" id="products" aria-labelledby="products">
         <div class="modal-dialog modal-dialog-centered">
@@ -1837,11 +1811,14 @@
             const invoieNumberr = parseInt(document.querySelector('#IIdInvoiceNumberForSave').textContent.trim(), 10);
             const idPaymentMethodd = parseInt(document.querySelector('#idPayMeth1')?.textContent?.trim(), 10) || null;
             const idForInvHed = parseInt(0, 10);
-            const flexSwitchCheckChecked = document.querySelector("#flexSwitchCheckChecked").value === 'true';
-            const carintstaite = document.querySelector("#carintstaite").value === 'true';
+            const flexSwitchCheckChecked = document.querySelector("#flexSwitchCheckChecked").checked;
+            const carintstaite = document.querySelector("#carintstaite").checked;
 
             const UserIdentity = document.querySelector("#UserIdentity").value;
             const timeNow = new Date().toISOString();
+
+
+
 
             const payload = {
                 "idInvoseHeder": idForInvHed,
@@ -1854,6 +1831,11 @@
                 "outstandingBill": flexSwitchCheckChecked,
                 "currentState": carintstaite
             }
+
+            console.log("payload " + JSON.stringify(
+
+                payload
+            ))
 
             const baseUrl = `${window.location.origin}/api`;
             fetch(`${baseUrl}/InvoiceHeader`, {
@@ -1966,7 +1948,7 @@
                                 quantityCell.textContent = item.quantity;
 
                                 let totalCell = document.createElement("td");
-                                totalCell.textContent = item.total;
+                                totalCell.textContent = parseFloat(item.price) * parseInt(item.quantity);
 
                                 row.appendChild(nameCell);
                                 row.appendChild(priceCell);
@@ -2057,7 +2039,7 @@
                                     <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" title="minus" onclick="changeQuantity('${productName}', -1)">
                                         <i data-feather="minus-circle" class="feather-14"></i>
                                     </a>
-                                    <input type="text" class="form-control text-center" name="qty" value="1">
+                                            <input type="text" class="form-control text-center qutOfPro" name="qty" value="1">
                                     <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" title="plus" onclick="changeQuantity('${productName}', 1)">
                                         <i data-feather="plus-circle" class="feather-14"></i>
                                     </a>
@@ -2093,7 +2075,7 @@
             const productElement = Array.from(document.querySelectorAll('.product-name a'))
                 .find(el => el.textContent.trim() === productName);
             const priceElement = productElement.closest('.product-name').nextElementSibling.querySelector('p');
-            const nativePrice = priceElement.textContent;
+            const nativePrice = parseFloat(priceElement.textContent);
 
 
 
@@ -2102,7 +2084,7 @@
                 // تحديث السعر الكلي
                 const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
                 const totalPrice = newQty * nativePrice;
-                product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
+                product.querySelector('.info p').textContent = `$${nativePrice.toFixed(2)}`;
                 // تحديث الإجماليات
                 updateOrderTotal();
             }
@@ -2130,7 +2112,8 @@
             // حساب Sub Total
             products.forEach(product => {
                 const priceText = product.querySelector('.info p').textContent.replace(/[^0-9.]/g, '');
-                const price = parseFloat(priceText) || 0;
+                const qty = product.querySelector(".qutOfPro").value;
+                const price = parseFloat(priceText) * parseInt(qty) || 0;
                 subTotal += price;
             });
             // الحسابات الأخرى
