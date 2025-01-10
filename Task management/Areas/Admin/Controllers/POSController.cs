@@ -102,28 +102,23 @@ namespace Task_management.Areas.Admin.Controllers
             {
                 return RedirectToAction("MyPOS");
             }
-
             // تسجيل محتوى الفاتورة للتأكد من وصول البيانات بشكل صحيح
             Console.WriteLine("Invoice No: " + receiptData.InvoiceNo); // رقم الفاتورة
             Console.WriteLine("Receipt Content: " + receiptData.ReceiptContent); // محتوى الفاتورة
-
             // جلب بيانات الفاتورة
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewInvose = iInvose.GetByInvoiceNumber(Convert.ToInt32(receiptData.InvoiceNo));
-
             // التأكد من وجود بيانات الفاتورة
             if (vmodel.ListViewInvose == null || !vmodel.ListViewInvose.Any())
             {
                 return RedirectToAction("MyPOS");
             }
-
             // إعداد معلومات الشركة
             string companyName = "My Company Name";
             string companyAddress = "123 Main Street, City, Country";
             string companyPhone = "Phone: +123456789";
             string companyTaxInfo = "VAT No: 123456789";
             decimal totalAmount = 0;
-
             // إعداد مستند الطباعة
             //PrintDocument pd = new PrintDocument
             //{
@@ -135,31 +130,25 @@ namespace Task_management.Areas.Admin.Controllers
             };
             // تعيين حجم الورق الحراري (عرض 8 سم - 80 مم)
             pd.DefaultPageSettings.PaperSize = new PaperSize("Custom", 320, 1180); // 80mm x 118mm تقريبا كحجم ورقة حرارية
-
             pd.PrintPage += (sender, e) =>
             {
                 Font headerFont = new Font("Arial", 10, FontStyle.Bold);
                 Font bodyFont = new Font("Arial", 8);
                 Font totalFont = new Font("Arial", 8, FontStyle.Bold);
-
                 int yPosition = 10; // الموضع الأولي للطباعة
                 int leftMargin = 10; // الهامش الأيسر
-
                 // إضافة هيدر الفاتورة بمعلومات الشركة
                 e.Graphics.DrawString(companyName, headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
                 e.Graphics.DrawString(companyAddress, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
                 e.Graphics.DrawString(companyPhone, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
                 e.Graphics.DrawString(companyTaxInfo, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
-
-                // إضافة عنوان الفاتورة
+               // إضافة عنوان الفاتورة
                 e.Graphics.DrawString("Invoice Receipt", headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
                 e.Graphics.DrawString($"Invoice No: {receiptData.InvoiceNo}", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
                 e.Graphics.DrawString($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
-
                 // طباعة تفاصيل المنتجات كجدول
                 e.Graphics.DrawString("Product Details:", headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
                 e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
-
                 // رأس الجدول
                 e.Graphics.DrawString("الصنف", bodyFont, Brushes.Black, leftMargin, yPosition);
                 e.Graphics.DrawString("الكمية", bodyFont, Brushes.Black, leftMargin + 65, yPosition); // المسافة بين الأعمدة
@@ -181,7 +170,6 @@ namespace Task_management.Areas.Admin.Controllers
 
                     totalAmount += product.total; // حساب المجموع الإجمالي
                 }
-
                 e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
 
                 // طباعة المجاميع
@@ -195,11 +183,9 @@ namespace Task_management.Areas.Admin.Controllers
 
             // تنفيذ عملية الطباعة
             await Task.Run(() => pd.Print());
-
             // إعادة التوجيه إلى صفحة MyPOS بعد الطباعة
             return RedirectToAction("MyPOS");
         }
-
         // تعريف الكلاس لاستقبال البيانات
         public class ReceiptData
         {
