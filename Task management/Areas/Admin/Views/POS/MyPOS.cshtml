@@ -2173,6 +2173,9 @@
                 success: function (response) {
                     // التعامل مع الرد إذا لزم الأمر
                     window.location.reload();
+                    let tableBody = document.querySelector("#TBForRecipt");
+                    tableBody.innerHTML = "";
+
                 },
                 error: function (err) {
                     console.log(err);
