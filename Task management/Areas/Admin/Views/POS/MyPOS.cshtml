@@ -2145,35 +2145,84 @@
 
 
 
+ @*   هذا الكود مهم جدا للطباعة  *@
+
     <script>
-        $('#king').on('click', function () {
-            var receiptContent = $('#print-receipt').html();
-            var invoiceNo = $('#InvoiceNoToPrint').text(); // الحصول على رقم الفاتورة من العنصر
+        $('#printButton').on('click', function () {
+            // جلب محتوى الطباعة من العنصر
+            var printContent = document.getElementById('print-receipt').innerHTML;
 
-            // تحقق من أن المحتوى غير فارغ
-            if ( !invoiceNo.trim()) {
-                console.log('البيانات فارغة');
-                return;
-            }
+            // إضافة تنسيق CSS خاص للطباعة الحرارية بعرض 8 سم
+            var printStyle = `
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    font-size: 10px;
+                                    margin: 0;
+                                    padding: 0;
+                                    width: 8cm;
+                                }
+                                .text-center {
+                                    text-align: center;
+                                }
+                                .table-borderless {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                }
+                                .table-borderless th,
+                                .table-borderless td {
+                                    text-align: left;
+                                    padding: 4px 0;
+                                }
+                                .table-borderless th {
+                                    border-bottom: 1px solid #000;
+                                }
+                                .invoice-bar {
+                                    margin-top: 20px;
+                                    text-align: center;
+                                }
+                            </style>
+                        `;
 
-            // إرسال البيانات عبر AJAX مع رقم الفاتورة
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("PrintReceipt", "POS")',
-                data: JSON.stringify({ receiptContent: receiptContent, invoiceNo: invoiceNo }),  // إرسال البيانات
-                contentType: "application/json",  // تعيين نوع المحتوى كـ JSON
-                dataType: "json",  // تحديد نوع البيانات المتوقع في الرد
-                success: function (response) {
-                    // التعامل مع الرد إذا لزم الأمر
-                    window.location.reload();
-                    let tableBody = document.querySelector("#TBForRecipt");
-                    tableBody.innerHTML = "";
-
-                },
-                error: function (err) {
-                    console.log(err);
-                }
+            // حساب المجاميع (نموذج افتراضي لتجميع البيانات من جدول الفاتورة)
+            var totalAmount = 0;
+            var vatRate = 0.15; // مثال: نسبة الضريبة 15%
+            $('#TBForRecipt tr').each(function () {
+                var rowTotal = parseFloat($(this).find('.row-total').text()) || 0;
+                totalAmount += rowTotal;
             });
+
+            var vatAmount = totalAmount * vatRate;
+            var grandTotal = totalAmount + vatAmount;
+
+            // إضافة المجاميع إلى محتوى الطباعة
+            var summaryHtml = `
+                            <div style="margin-top: 20px; text-align: center;">
+                                <p><strong>Total Amount:</strong> ${totalAmount.toFixed(2)}</p>
+                                <p><strong>VAT (15%):</strong> ${vatAmount.toFixed(2)}</p>
+                                <p><strong>Grand Total:</strong> ${grandTotal.toFixed(2)}</p>
+                            </div>
+                        `;
+
+            // دمج تنسيق الطباعة مع المحتوى
+            var fullPrintContent = `
+                            ${printStyle}
+                            <div>${printContent}</div>
+                            ${summaryHtml}
+                        `;
+
+            // حفظ المحتوى الأصلي للصفحة
+            var originalContent = document.body.innerHTML;
+
+            // استبدال محتوى الصفحة بالمحتوى المراد طباعته
+            document.body.innerHTML = fullPrintContent;
+
+            // استدعاء نافذة الطباعة
+            window.print();
+
+            // إعادة الصفحة الأصلية
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // إعادة تحميل الصفحة إذا لزم الأمر
         });
     </script>
 
@@ -2181,9 +2230,38 @@
 
 
 
-  
 
+    @*     <script>
+    $('#king').on('click', function () {
+    var receiptContent = $('#print-receipt').html();
+    var invoiceNo = $('#InvoiceNoToPrint').text(); // الحصول على رقم الفاتورة من العنصر
 
+    // تحقق من أن المحتوى غير فارغ
+    if ( !invoiceNo.trim()) {
+    console.log('البيانات فارغة');
+    return;
+    }
+
+    // إرسال البيانات عبر AJAX مع رقم الفاتورة
+    $.ajax({
+    type: "POST",
+    url: '@Url.Action("PrintReceipt", "POS")',
+    data: JSON.stringify({ receiptContent: receiptContent, invoiceNo: invoiceNo }),  // إرسال البيانات
+    contentType: "application/json",  // تعيين نوع المحتوى كـ JSON
+    dataType: "json",  // تحديد نوع البيانات المتوقع في الرد
+    success: function (response) {
+    // التعامل مع الرد إذا لزم الأمر
+    window.location.reload();
+    let tableBody = document.querySelector("#TBForRecipt");
+    tableBody.innerHTML = "";
+
+    },
+    error: function (err) {
+    console.log(err);
+    }
+    });
+    });
+    </script> *@
 
 
 
