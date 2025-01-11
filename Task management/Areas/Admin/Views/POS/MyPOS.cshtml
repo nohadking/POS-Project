@@ -656,6 +656,9 @@
                         </tbody>
                     </table>
 
+                    <div class="d-flex justify-content-center"><span>Total amount: <span id="totalPriceForAll"></span></span></div>
+                    <div class="d-flex justify-content-center"><span>Total quantity: <span id="totalQTYForAll"></span></span></div>
+
 
                     <div class="text-center invoice-bar" id="receipt-content">
                         <p>**VAT against this challan is payable through central registration. Thank you for your business!</p>
@@ -1927,6 +1930,9 @@
 
                             let tableBody = document.querySelector("#TBForRecipt");
                             tableBody.innerHTML = "";
+
+                            var tot = 0;
+                            var qtyy = 0;
                             data.forEach(item => {
                                 let row = document.createElement("tr");
 
@@ -1942,6 +1948,9 @@
                                 let totalCell = document.createElement("td");
                                 totalCell.textContent = parseFloat(item.price) * parseInt(item.quantity);
 
+                                tot =  tot + item.price;
+                                qtyy = qtyy + item.quantity;
+
                                 row.appendChild(nameCell);
                                 row.appendChild(priceCell);
                                 row.appendChild(quantityCell);
@@ -1951,7 +1960,11 @@
                                 tableBody.appendChild(row);
                             });
 
+                            console.log("tot " +tot) ;
+                            console.log("qtyy"  +qtyy) ;
 
+                            document.querySelector("#totalPriceForAll").textContent = tot.toString();
+                            document.querySelector("#totalQTYForAll").textContent = qtyy.toString();
                         })
                         .catch(error => {
                             console.error('حدث خطأ أثناء الحذف:', error);
