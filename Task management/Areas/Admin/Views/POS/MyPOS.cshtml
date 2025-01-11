@@ -1856,7 +1856,7 @@
                         const productName = product.querySelector(".product-info h6 a").textContent.trim();
                         const idPro = parseInt(product.querySelector(".iiddPro").textContent.trim(), 10);
                         const price = parseFloat(
-                            product.querySelector(".product-info .info p").textContent.trim().replace(/[^0-9.]/g, '')
+                            product.querySelector(".product-info .info h5").textContent.trim().replace(/[^0-9.]/g, '')
                         );
                         const qty = parseInt(product.querySelector('input[name="qty"]').value);
 
@@ -1866,7 +1866,7 @@
                             "idProduct": idPro,
                             "quantity": qty,
                             "price": price,
-                            "total": parseFloat(price, 10),
+                            "total": parseFloat(price, 10) * qty,
                             "dataEntry": UserIdentity,
                             "dateTimeEntry": new Date().toISOString(),
                             "currentState": true
@@ -2025,6 +2025,7 @@
                                     <div class="info">
                                         <h6><a href="javascript:void(0);">${productName}</a></h6>
                                         <p>$${price.toFixed(2)}</p>
+                                        <h5>$${price.toFixed(2)}</h5>
                                     </div>
                                 </div>
                                 <div class="qty-item text-center">
@@ -2076,7 +2077,7 @@
                 // تحديث السعر الكلي
                 const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
                 const totalPrice = newQty * nativePrice;
-                product.querySelector('.info p').textContent = `$${nativePrice.toFixed(2)}`;
+                product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
                 // تحديث الإجماليات
                 updateOrderTotal();
             }
@@ -2103,7 +2104,7 @@
             let subTotal = 0;
             // حساب Sub Total
             products.forEach(product => {
-                const priceText = product.querySelector('.info p').textContent.replace(/[^0-9.]/g, '');
+                const priceText = product.querySelector('.info h5').textContent.replace(/[^0-9.]/g, '');
                 const qty = product.querySelector(".qutOfPro").value;
                 const price = parseFloat(priceText) * parseInt(qty) || 0;
                 subTotal += price;
