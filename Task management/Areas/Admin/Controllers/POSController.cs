@@ -124,9 +124,15 @@ namespace Task_management.Areas.Admin.Controllers
             //{
             //    PrinterSettings = { PrinterName = "Microsoft Print to PDF" }
             //};
+            //PrintDocument pd = new PrintDocument
+            //{
+            //    PrinterSettings = { PrinterName = null } // استخدام الطابعة الافتراضية
+            //};
+
+            // إعداد مستند الطباعة
             PrintDocument pd = new PrintDocument
             {
-                PrinterSettings = { PrinterName = null } // استخدام الطابعة الافتراضية
+                PrinterSettings = { PrinterName = new PrinterSettings().PrinterName } // تعيين الطابعة الافتراضية
             };
             // تعيين حجم الورق الحراري (عرض 8 سم - 80 مم)
             pd.DefaultPageSettings.PaperSize = new PaperSize("Custom", 320, 1180); // 80mm x 118mm تقريبا كحجم ورقة حرارية
@@ -173,9 +179,13 @@ namespace Task_management.Areas.Admin.Controllers
                 e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
 
                 // طباعة المجاميع
+                //e.Graphics.DrawString($"Total Amount: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+                //e.Graphics.DrawString($"VAT (15%): {totalAmount * 0.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+                //e.Graphics.DrawString($"Grand Total: {totalAmount * 1.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
+
                 e.Graphics.DrawString($"Total Amount: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
-                e.Graphics.DrawString($"VAT (15%): {totalAmount * 0.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
-                e.Graphics.DrawString($"Grand Total: {totalAmount * 1.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
+                //e.Graphics.DrawString($"VAT (15%): {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+                e.Graphics.DrawString($"Grand Total: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
 
                 // إضافة رسالة شكر
                 e.Graphics.DrawString("Thank you for shopping with us!", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;

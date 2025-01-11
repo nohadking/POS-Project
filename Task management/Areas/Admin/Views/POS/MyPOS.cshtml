@@ -393,7 +393,7 @@
                                 </div>
                             @*   كامل  النواقص *@
                             <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" >
                                             <input hidden class="form-check-input" value="0" role="switch" id="idForInvHed">
                                             <label class="form-check-label" for="flexSwitchCheckChecked">
                                                  تعليق الفاتورة 
@@ -1813,13 +1813,8 @@
             const idForInvHed = parseInt(0, 10);
             const flexSwitchCheckChecked = document.querySelector("#flexSwitchCheckChecked").checked;
             const carintstaite = document.querySelector("#carintstaite").checked;
-
             const UserIdentity = document.querySelector("#UserIdentity").value;
             const timeNow = new Date().toISOString();
-
-
-
-
             const payload = {
                 "idInvoseHeder": idForInvHed,
                 "invoiceNumber": invoieNumberr,
@@ -1836,7 +1831,6 @@
 
                 payload
             ))
-
             const baseUrl = `${window.location.origin}/api`;
             fetch(`${baseUrl}/InvoiceHeader`, {
                 method: 'POST',
@@ -1855,11 +1849,9 @@
                     console.log('Response Data (InvoiceHeader):', data);
 
                     document.querySelector("#InvoiceNumberMaimAlMain").textContent = data.invoiceNumber.toString();
-
                     //معلومات المنتجات
                     const addedProducts = document.querySelectorAll("#productsAddedToOrder .product-list");
                     const productRequests = [];
-
                     addedProducts.forEach(product => {
                         const productName = product.querySelector(".product-info h6 a").textContent.trim();
                         const idPro = parseInt(product.querySelector(".iiddPro").textContent.trim(), 10);
