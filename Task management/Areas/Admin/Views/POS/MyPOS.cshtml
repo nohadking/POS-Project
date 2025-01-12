@@ -549,24 +549,12 @@
                                 <div class="order-total">
                                     <table class="table table-responsive table-borderless">
                                         <tr>
-                                            <td>Sub Total</td>
-                                            <td class="text-end" id="sub-total">$0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tax (GST 5%)</td>
-                                            <td class="text-end" id="tax">$0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping</td>
-                                            <td class="text-end" id="shipping">$10.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="danger">Discount (10%)</td>
-                                            <td class="danger text-end" id="discount">-$0.00</td>
+                                            <td>Quantity Total</td>
+                                            <td class="text-end" id="Quantity-total">$0.00</td>
                                         </tr>
                                         <tr>
                                             <td>Total</td>
-                                            <td class="text-end" id="total">$0.00</td>
+                                            <td id="totalOnceforPrintNum1" class="text-end">$0.00</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -592,8 +580,8 @@
                                 </div>
                             </div>
                             <div class="d-grid btn-block">
-                                <a class="btn btn-secondary" href="javascript:void(0);">
-                                    Grand Total : $64,024.5
+                                <a id="TotalPriceAgane12" class="btn btn-secondary" href="javascript:void(0);">
+                                    Grand Total : $0,00
                                 </a>
                             </div>
                             <div class="btn-row d-sm-flex align-items-center justify-content-between">
@@ -2046,12 +2034,174 @@
 
     </script>
 
+    <script>
+            const productElement = Array.from(document.querySelectorAll('.product-name a'))
+                .find(el => el.textContent.trim() === productName);
+            const priceElement = productElement.closest('.product-name').nextElementSibling.querySelector('p');
+            const nativePrice = parseFloat(priceElement.textContent);
+
+
+
+            if (newQty >= 1) {
+                qtyInput.value = newQty;
+                // تحديث السعر الكلي
+                const price = parseFloat(product.querySelector('.info p').textContent.replace(/[^0-9.]/g, ''));
+                const totalPrice = newQty * nativePrice;
+                product.querySelector('.info p').textContent = `$${totalPrice.toFixed(2)}`;
+                // تحديث الإجماليات
+                updateOrderTotal();
+            }
+        }
+        // حذف منتج من السلة
+        function removeProduct(productName) {
+            const productWrap = document.querySelector(".product-added .product-wrap");
+            const product = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
+            if (product) {
+                product.remove();
+                // تحديث العدد (count)
+                const countElement = document.querySelector(".product-added .count");
+                const newCount = productWrap.querySelectorAll(".product-list").length;
+                countElement.textContent = newCount;
+
+                // تحديث الإجماليات
+                updateOrderTotal();
+            }
+        }
+        // حساب الإجماليات
+        function updateOrderTotal() {
+            const productWrap = document.querySelector(".product-added .product-wrap");
+            const products = productWrap.querySelectorAll(".product-list");
+            let subTotal = 0;
+            let qt = 0;
+            // حساب Sub Total
+            products.forEach(product => {
+                const priceText = product.querySelector('.info h5').textContent.replace(/[^0-9.]/g, '');
+                const qty = parseInt(product.querySelector(".qutOfPro").value);
+                const price = parseFloat(priceText) * parseInt(qty) || 0;
+                subTotal += price;
+                qt += qty;
+            });
+            // الحسابات الأخرى
+            const taxRate = 0.00; // 5% ضريبة
+            const discountRate = 0.0; // 10% خصم
+            const shippingCost = 0.0; // تكلفة الشحن الثابتة
+
+            const tax = subTotal * taxRate;
+            const discount = subTotal * discountRate;
+
+            const total = subTotal + tax + shippingCost - discount;
+            // تحديث القيم في الجدول
+            document.getElementById("Quantity-total").textContent = `${qt.toFixed(2)}`;
+            document.getElementById("totalOnceforPrintNum1").textContent = `$${total.toFixed(2)}`;
+            document.getElementById("TotalPriceAgane12").textContent = `$${total.toFixed(2)}`;
+
+
+            // document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+            // document.getElementById("shipping").textContent = `$${shippingCost.toFixed(2)}`;
+            // document.getElementById("discount").textContent = `-$${discount.toFixed(2)}`;
+
+        }
+        // حذف جميع المنتجات
+        function clearAllProducts() {
+            const productWrap = document.querySelector(".product-added .product-wrap");
+            productWrap.innerHTML = '';
+            updateOrderTotal();
+            document.querySelector(".product-added .count").textContent = '0';
+        }
+
+        function selectMethod(item){
+            console.log(item)
+            document.querySelector('#PayMeth').textContent = '';
+            document.querySelector('#idPayMeth1').textContent = '';
+            document.querySelector('#PayMeth').textContent = item['paymentMethodAr'];
+            document.querySelector('#idPayMeth1').textContent = item['idPaymentMethod'];
+        }
+
+    </script>
 
 
 
 
+ @*   هذا الكود مهم جدا للطباعة  *@
 
-    <script src="~/js/printer.js"></script>
+    <script>
+        $('#printButton').on('click', function () {
+            // جلب محتوى الطباعة من العنصر
+            var printContent = document.getElementById('print-receipt').innerHTML;
+
+            // إضافة تنسيق CSS خاص للطباعة الحرارية بعرض 8 سم
+            var printStyle = `
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    font-size: 10px;
+                                    margin: 0;
+                                    padding: 0;
+                                    width: 8cm;
+                                }
+                                .text-center {
+                                    text-align: center;
+                                }
+                                .table-borderless {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                }
+                                .table-borderless th,
+                                .table-borderless td {
+                                    text-align: left;
+                                    padding: 4px 0;
+                                }
+                                .table-borderless th {
+                                    border-bottom: 1px solid #000;
+                                }
+                                .invoice-bar {
+                                    margin-top: 20px;
+                                    text-align: center;
+                                }
+                            </style>
+                        `;
+
+            // حساب المجاميع (نموذج افتراضي لتجميع البيانات من جدول الفاتورة)
+            var totalAmount = 0;
+            var vatRate = 0.15; // مثال: نسبة الضريبة 15%
+            $('#TBForRecipt tr').each(function () {
+                var rowTotal = parseFloat($(this).find('.row-total').text()) || 0;
+                totalAmount += rowTotal;
+            });
+
+            var vatAmount = totalAmount * vatRate;
+            var grandTotal = totalAmount + vatAmount;
+
+            // إضافة المجاميع إلى محتوى الطباعة
+            var summaryHtml = `
+                            <div style="margin-top: 20px; text-align: center;">
+                                <p><strong>Total Amount:</strong> ${totalAmount.toFixed(2)}</p>
+                                <p><strong>VAT (15%):</strong> ${vatAmount.toFixed(2)}</p>
+                                <p><strong>Grand Total:</strong> ${grandTotal.toFixed(2)}</p>
+                            </div>
+                        `;
+
+            // دمج تنسيق الطباعة مع المحتوى
+            var fullPrintContent = `
+                            ${printStyle}
+                            <div>${printContent}</div>
+                            ${summaryHtml}
+                        `;
+
+            // حفظ المحتوى الأصلي للصفحة
+            var originalContent = document.body.innerHTML;
+
+            // استبدال محتوى الصفحة بالمحتوى المراد طباعته
+            document.body.innerHTML = fullPrintContent;
+
+            // استدعاء نافذة الطباعة
+            window.print();
+
+            // إعادة الصفحة الأصلية
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // إعادة تحميل الصفحة إذا لزم الأمر
+        });
+    </script>
 
 
 
