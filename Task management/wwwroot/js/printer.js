@@ -23,6 +23,10 @@
     selectedCategoryItem.classList.add('active');
         }
 
+
+
+
+
         // تحديد كل المنتجات القابلة للإضافة
     document.querySelectorAll(".product-info.default-cover").forEach(function (productCard) {
         productCard.addEventListener("click", function () {
@@ -90,7 +94,11 @@
             updateOrderTotal();
         });
         });
-    // تحديث الكمية في السلة
+// تحديث الكمية في السلة
+
+
+
+
     function changeQuantity(productName, change) {
             const productWrap = document.querySelector(".product-added .product-wrap");
     const product = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
@@ -115,7 +123,8 @@
     updateOrderTotal();
             }
         }
-    // حذف منتج من السلة
+// حذف نتج من السلة
+
     function removeProduct(productName) {
             const productWrap = document.querySelector(".product-added .product-wrap");
     const product = productWrap.querySelector(`.product-list[data-product-name="${productName}"]`);
@@ -129,19 +138,25 @@
     // تحديث الإجماليات
     updateOrderTotal();
             }
-        }
+}
+
+
     // حساب الإجماليات
     function updateOrderTotal() {
             const productWrap = document.querySelector(".product-added .product-wrap");
     const products = productWrap.querySelectorAll(".product-list");
-    let subTotal = 0;
+        let subTotal = 0;
+        let qtty = 0;
             // حساب Sub Total
             products.forEach(product => {
                 const priceText = product.querySelector('.info h5').textContent.replace(/[^0-9.]/g, '');
-    const qty = product.querySelector(".qutOfPro").value;
-    const price = parseFloat(priceText) * parseInt(qty) || 0;
-    subTotal += price;
+                const qty = product.querySelector(".qutOfPro").value;
+                const price = parseFloat(priceText) * parseInt(qty) || 0;
+                subTotal += price;
+                qtty += parseInt(qty)
             });
+
+
     // الحسابات الأخرى
     const taxRate = 0.00; // 5% ضريبة
     const discountRate = 0.0; // 10% خصم
@@ -151,11 +166,12 @@
     const discount = subTotal * discountRate;
     const total = subTotal + tax + shippingCost - discount;
     // تحديث القيم في الجدول
-    document.getElementById("sub-total").textContent = `$${subTotal.toFixed(2)}`;
-    document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
-    document.getElementById("shipping").textContent = `$${shippingCost.toFixed(2)}`;
-    document.getElementById("discount").textContent = `-$${discount.toFixed(2)}`;
-    document.getElementById("total").textContent = `$${total.toFixed(2)}`;
+        document.getElementById("Quantity-total").textContent = `${qtty}`;
+        document.getElementById("totalOnceforPrintNum1").textContent = `$${subTotal.toFixed(2)}`;
+        document.getElementById("TotalPriceAgane12").textContent = `$${subTotal.toFixed(2)}`;
+    ////document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+    ////document.getElementById("shipping").textContent = `$${shippingCost.toFixed(2)}`;
+    ////document.getElementById("discount").textContent = `-$${discount.toFixed(2)}`;
         }
         // حذف جميع المنتجات
         function clearAllProducts() {
@@ -174,6 +190,7 @@
         }
 
    
+
 
 
 
