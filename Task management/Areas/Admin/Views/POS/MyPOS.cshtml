@@ -1,4 +1,12 @@
 ﻿@model ViewmMODeElMASTER
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+    var roles = await userManager.GetRolesAsync(user);
+    var userRole = roles.FirstOrDefault();
+}
 @{
     ViewData["Title"] = "MyPOS";
     Layout = null;
@@ -49,7 +57,6 @@
             border-radius: 10px; /* حواف دائرية */
             text-align: center; /* توسيط النص */
         }
-
             .total-info div {
                 margin-bottom: 10px; /* زيادة المسافة بين الأسطر */
             }
@@ -74,11 +81,9 @@
             .table tbody tr {
                 margin: 0; /* إزالة أي هوامش إضافية بين الصفوف */
             }
-
                 .table tbody tr:hover {
                     background-color: #f9f9f9; /* تأثير التمرير على الصف */
                 }
-
         .text-end {
             text-align: right; /* محاذاة النص إلى اليمين */
         }
@@ -312,11 +317,11 @@
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                         <span class="user-info">
                             <span class="user-letter">
-                                <img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="" class="img-fluid">
+                                <img src="@Helper.PathImageuser@user.ImageUser" alt="" class="img-fluid">
                             </span>
                             <span class="user-detail">
-                                <span class="user-name">John Smilga</span>
-                                <span class="user-role">Super Admin</span>
+                                <span class="user-name">@user.Name</span>
+                                <span class="user-role">@userRole</span>
                             </span>
                         </span>
                     </a>
@@ -324,12 +329,12 @@
                         <div class="profilename">
                             <div class="profileset">
                                 <span class="user-img">
-                                    <img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="">
+                                    <img src="@Helper.PathImageuser@user.ImageUser" alt="">
                                     <span class="status online"></span>
                                 </span>
                                 <div class="profilesets">
-                                    <h6>John Smilga</h6>
-                                    <h5>Super Admin</h5>
+                                    <h6>@user.Name</h6>
+                                    <h5>@userRole</h5>
                                 </div>
                             </div>
                             <hr class="m-0">
@@ -354,7 +359,6 @@
             <!-- /Mobile Menu -->
         </div>
         <!-- Header -->
-
         <div class="page-wrapper pos-pg-wrapper ms-0">
             <div class="content pos-design p-0">
                 <div class="btn-row d-sm-flex align-items-center">
@@ -362,7 +366,6 @@
                     <a href="javascript:void(0);" class="btn btn-info"><span class="me-1 d-flex align-items-center"><i data-feather="rotate-cw" class="feather-16"></i></span>Reset</a>
                     <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recents"><span class="me-1 d-flex align-items-center"><i data-feather="refresh-ccw" class="feather-16"></i></span>Transaction</a>
                 </div>
-
                 <div class="row align-items-start pos-wrapper">
                     <div class="col-md-12 col-lg-8">
                         <div class="pos-categories tabs_wrapper">
@@ -382,7 +385,6 @@
                                 }
                             </ul>
                         </div>
-
                         <div class="pos-products">
                             <div class="d-flex align-items-center justify-content-between">
                                 <h5 class="mb-3">Products</h5>
@@ -435,7 +437,6 @@
 										<label for="flatpickr-multi" class="form-label">Multiple Dates Picker</label>
 										<input type="text" class="form-control" placeholder="YYYY-MM-DD HH:MM" id="flatpickr-multi" />
 									</div> *@
-
                                 </div>
                             @*   كامل  النواقص *@
                             <div class="form-check form-switch">
@@ -444,17 +445,12 @@
                                             <label class="form-check-label" for="flexSwitchCheckChecked">
                                                  تعليق الفاتورة 
                                             </label>
-
                                     <input type="hidden" id="UserIdentity" class="form-control" value="@User.Identity.Name">
                                     <input type="hidden" id="timeNow"  value="@DateTime.Now">
                                <div style="display: none;">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="carintstaite" checked>
-                           
+                                        <input class="form-check-input" type="checkbox" role="switch" id="carintstaite" checked>                        
                              </div>
-                           </div>
-                           
-                                     
-                           
+                           </div>                                                                                      
                                   <div class="col-md-6 col-lg-4 item">
                                             <div class="default-cover paymentMethod">
                                                 <a href="javascript:void(0);">
@@ -476,9 +472,6 @@
                                         <select id="idForUCustCate" class="form-select" asp-for="@Model.Product.IdCategory" asp-items="@(new SelectList(ViewBag.user, "Id", "Name")) ">
                                         </select>
                                     </div>
-
-
-
                                     <a href="#" class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#create"><i data-feather="user-plus" class="feather-16"></i></a>
                                 </div>
                                 @* 	<div class="input-block">
@@ -493,13 +486,11 @@
 									</select>
 								</div> *@
                             </div>
-
                             <div class="product-added block-section">
                                 <div class="head-text d-flex align-items-center justify-content-between">
                                     <h6 class="d-flex align-items-center mb-0">Product Added<span class="count">2</span></h6>
                                     <a href="javascript:void(0);" class="d-flex align-items-center text-danger" onclick="clearAllProducts()"><span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all</a>
                                 </div>
-
                                 <div id="productsAddedToOrder" class="product-wrap">
                                  @*    المنتجات المضافة  *@
                                 </div>
@@ -561,9 +552,7 @@
                             </div>
                        @*      طرق الدفع  *@
                             <div class="block-section payment-method">
-
                                 <h6>Payment Method</h6>
-
                                 <div class="row d-flex align-items-center justify-content-center methods">
                                     @foreach (var item in Model.ListPaymentMethod)
                                     {
@@ -576,7 +565,6 @@
                                             </div>
                                         </div>
                                     }
-
                                 </div>
                             </div>
                             <div class="d-grid btn-block">
@@ -590,9 +578,7 @@
                                 <a href="javascript:void(0);" onclick="SaveInvoiceInDB()" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#payment-completed"><span class="me-1 d-flex align-items-center"><i data-feather="credit-card" class="feather-16"></i></span>Payment</a>
                             </div>
                         </aside>
-                    </div>
-
-           
+                    </div>       
                 </div>@*     كود الفاتورة ينتهي هنا
                 
 
@@ -632,19 +618,7 @@
     </div>
     <!-- /Payment Completed -->
 
-
-
-
-
-
-
-
-
-
-
-
     <!-- Print Receipt -->
-
     <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="king">
@@ -654,21 +628,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="icon-head text-center">
-                        <a href="javascript:void(0);">
-                            <img src="~/AdminEn/assets/img/logo.png" width="100" height="30" alt="Receipt Logo">
-                        </a>
-                    </div>
-                    <div class="text-center info text-center">
-                        <h6>Dreamguys Technologies Pvt Ltd.,</h6>
-                        <p class="mb-0">Phone Number: +1 5656665656</p>
-                        <p class="mb-0">Email: <a href="mailto:example@gmail.com">example@gmail.com</a></p>
-                    </div>
+                   @foreach (var item in Model.ListCompanyInformation)
+                    {
+                        <div class="icon-head text-center">
+                            <a href="javascript:void(0);">
+                                <img src="@string.Format("/Images/Home/{0}", item.Photo)" width="100" height="30" alt="Receipt Logo">
+                            </a>
+                        </div>
+                        <div class="text-center info text-center">
+                            <h6>@item.AddressAr</h6>
+                            <p class="mb-0">Phone Number: @item.Mobile</p>
+                            <p class="mb-0">Email: <a href="@item.EmailCompany">@item.EmailCompany</a></p>
+                        </div>
+                    }
+                   
+                     
                     <div class="tax-invoice">
                         <h6 class="text-center">Tax Invoice</h6>
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
+                                <div class="invoice-user-name"><span>الكاشير: </span><span>@user.Name</span></div>
                                 <div class="invoice-user-name"><span>Invoice No:<span id="InvoiceNoToPrint"></span> </span><span></span></div>
                             </div>
                             <div class="col-sm-12 col-md-6">
@@ -678,7 +657,6 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-
                         <table class="table mb-0">
                         <thead>
                             <tr>

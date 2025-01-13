@@ -110,6 +110,8 @@ builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
 
 
 
+builder.Services.AddCustomServices();
+
 
 
 

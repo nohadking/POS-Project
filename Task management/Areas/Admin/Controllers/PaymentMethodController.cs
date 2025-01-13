@@ -8,22 +8,26 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IIPaymentMethod iPaymentMethod;
-		public PaymentMethodController(MasterDbcontext dbcontext1,IIPaymentMethod iPaymentMethod1)
+		IICompanyInformation iCompanyInformation;
+		public PaymentMethodController(MasterDbcontext dbcontext1,IIPaymentMethod iPaymentMethod1, IICompanyInformation iCompanyInformation1)
         {
 			dbcontext = dbcontext1;
             iPaymentMethod = iPaymentMethod1;
+			iCompanyInformation = iCompanyInformation1;
 		}
 
 
 		public IActionResult MyPaymentMethod()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListPaymentMethod = iPaymentMethod.GetAll();
 			return View(vmodel);
 		}
 		public IActionResult AddPaymentMethod(int? IdPaymentMethod)
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListPaymentMethod = iPaymentMethod.GetAll();
 			if (IdPaymentMethod != null)
 			{

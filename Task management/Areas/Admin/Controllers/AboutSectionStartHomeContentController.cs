@@ -7,15 +7,18 @@ namespace Task_management.Areas.Admin.Controllers
     public class AboutSectionStartHomeContentController : Controller
     {
         IIAboutSectionStartHomeContent iAboutSectionStartHomeContent;
-        public AboutSectionStartHomeContentController(IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1)
+		IICompanyInformation iCompanyInformation;
+		public AboutSectionStartHomeContentController(IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICompanyInformation iCompanyInformation1)
         {
             iAboutSectionStartHomeContent = iAboutSectionStartHomeContent1;
-        }
+            iCompanyInformation = iCompanyInformation1;
+		}
         public IActionResult MyAboutSectionStartHomeContent()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListAboutSectionStartHomeContent = iAboutSectionStartHomeContent.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
       
         public IActionResult AddAboutSectionStartHomeContent(int? IdAboutSectionStartHomeContent)

@@ -16,7 +16,8 @@ namespace Task_management.Areas.Admin.Controllers
 		IIUserInformation iUserInformation;
 		IIPaymentMethod iPaymentMethod;
         IIInvose iInvose;
-        public POSController(IICategory iCategory1,IIProduct iProduct1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1,IIPaymentMethod iPaymentMethod1,IIInvose iInvose1)
+        IICompanyInformation iCompanyInformation;
+        public POSController(IICategory iCategory1,IIProduct iProduct1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1,IIPaymentMethod iPaymentMethod1,IIInvose iInvose1,IICompanyInformation iCompanyInformation1)
         {
             iCategory = iCategory1;
             iProduct = iProduct1;
@@ -24,6 +25,7 @@ namespace Task_management.Areas.Admin.Controllers
 			iUserInformation = iUserInformation1;
 			iPaymentMethod = iPaymentMethod1;
             iInvose = iInvose1;
+            iCompanyInformation = iCompanyInformation1;
 
 
         }
@@ -42,6 +44,8 @@ namespace Task_management.Areas.Admin.Controllers
             var payMeth = vmodel.ListPaymentMethod.FirstOrDefault(p => p.PaymentMethodAr.Contains("نقد"));
             TempData["idForPay"] = payMeth.IdPaymentMethod;
 			TempData["ArDesForPay"] = payMeth.PaymentMethodAr;
+
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             return View(vmodel); 
         }
 

@@ -385,7 +385,7 @@
     <value>EmailAlart Setting</value>
   </data>
   <data name="LbEmailCompany" xml:space="preserve">
-    <value>E-mail</value>
+    <value>البريد الاكتروني</value>
   </data>
   <data name="LbEndtDate" xml:space="preserve">
     <value>Endt Date</value>
@@ -1123,7 +1123,7 @@
     <value>Email Master</value>
   </data>
   <data name="LbAddressAr" xml:space="preserve">
-    <value>Address Ar</value>
+    <value>العنوان عربي </value>
   </data>
   <data name="LbOnerNameAr" xml:space="preserve">
     <value>Oner Name Ar</value>
@@ -1244,5 +1244,50 @@
   </data>
   <data name="LBMYCompanyInformation" xml:space="preserve">
     <value>معلومات الشركة </value>
+  </data>
+  <data name="lbNameCompanyAr" xml:space="preserve">
+    <value>الشركة عربي</value>
+  </data>
+  <data name="lbNameCompanyEn" xml:space="preserve">
+    <value>الشركة انكليزي</value>
+  </data>
+  <data name="lbPhone" xml:space="preserve">
+    <value>الهاتف</value>
+  </data>
+  <data name="lbMobile" xml:space="preserve">
+    <value>الموبايل</value>
+  </data>
+  <data name="lbNameOner" xml:space="preserve">
+    <value>المدير التنفيذي</value>
+  </data>
+  <data name="lbPhoneOner" xml:space="preserve">
+    <value>هاتف المدير التنفيذي</value>
+  </data>
+  <data name="lbEmailOner" xml:space="preserve">
+    <value>اميل المدير التنفيذي</value>
+  </data>
+  <data name="lbShortDescriptionAr" xml:space="preserve">
+    <value>الوصف القصير عربي</value>
+  </data>
+  <data name="lbShortDescriptionEn" xml:space="preserve">
+    <value>الوصف القصير انكليزي</value>
+  </data>
+  <data name="LbAddressEn" xml:space="preserve">
+    <value>العنوان انكليزي</value>
+  </data>
+  <data name="lbFaceBoock" xml:space="preserve">
+    <value>رابط الفيس بوك </value>
+  </data>
+  <data name="lbInstagram" xml:space="preserve">
+    <value>رابط الانستجرام </value>
+  </data>
+  <data name="lbYouTube" xml:space="preserve">
+    <value>رابط اليوتيوب</value>
+  </data>
+  <data name="lbMabs" xml:space="preserve">
+    <value>رابط الخرائط والعنوان </value>
+  </data>
+  <data name="LBAddEditCompanyInformation" xml:space="preserve">
+    <value>إضافة  وتعديل  بيانات الشركة </value>
   </data>
 </root>

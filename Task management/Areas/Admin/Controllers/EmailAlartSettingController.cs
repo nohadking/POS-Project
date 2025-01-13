@@ -8,29 +8,34 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IIEmailAlartSetting iEmailAlartSetting;
-        public EmailAlartSettingController(MasterDbcontext dbcontext1, IIEmailAlartSetting iEmailAlartSetting1)
+		IICompanyInformation iCompanyInformation;
+		public EmailAlartSettingController(MasterDbcontext dbcontext1, IIEmailAlartSetting iEmailAlartSetting1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext = dbcontext1;
             iEmailAlartSetting = iEmailAlartSetting1;
+			iCompanyInformation = iCompanyInformation1;
 
-        }
+		}
         public IActionResult MyEmailAlartSetting()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
             return View(vmodel);
         }
 
         public IActionResult MyEmailAlartSettingAr()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEmailAlartSetting(int? IdEmailAlartSetting)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
             if (IdEmailAlartSetting != null)
             {
                 vmodel.EmailAlartSetting = iEmailAlartSetting.GetById(Convert.ToInt32(IdEmailAlartSetting));
@@ -45,7 +50,8 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult AddEmailAlartSettingAr(int? IdEmailAlartSetting)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListEmailAlartSetting = iEmailAlartSetting.GetAll();
             if (IdEmailAlartSetting != null)
             {
                 vmodel.EmailAlartSetting = iEmailAlartSetting.GetById(Convert.ToInt32(IdEmailAlartSetting));
@@ -186,10 +192,7 @@ namespace Task_management.Areas.Admin.Controllers
 
             }
         }
-        public IActionResult test1 ()
-        {
-            return View();
-        }
+      
 
 
 

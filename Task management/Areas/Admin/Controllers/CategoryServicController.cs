@@ -9,16 +9,19 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IICategoryServic iCategoryServic;
-        public CategoryServicController(MasterDbcontext dbcontext1,IICategoryServic iCategoryServic1)
+		IICompanyInformation iCompanyInformation;
+		public CategoryServicController(MasterDbcontext dbcontext1,IICategoryServic iCategoryServic1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext=dbcontext1;
             iCategoryServic=iCategoryServic1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
         public IActionResult MYCategoryServic()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            
-            vmodel.ListCategoryServic = iCategoryServic.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
+			vmodel.ListCategoryServic = iCategoryServic.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEditCategoryServic(int? IdCategoryServic)
@@ -26,7 +29,8 @@ namespace Task_management.Areas.Admin.Controllers
         
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
-            if (IdCategoryServic != null)
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (IdCategoryServic != null)
             {
                 vmodel.CategoryServic = iCategoryServic.GetById(Convert.ToInt32(IdCategoryServic));
                 return View(vmodel);
@@ -180,15 +184,17 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult MYCategoryServicAr()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-       
-            vmodel.ListCategoryServic = iCategoryServic.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
+			vmodel.ListCategoryServic = iCategoryServic.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEditCategoryServicAr(int? IdCategoryServic)
         {
           
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCategoryServic = iCategoryServic.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListCategoryServic = iCategoryServic.GetAll();
             if (IdCategoryServic != null)
             {
                 vmodel.CategoryServic = iCategoryServic.GetById(Convert.ToInt32(IdCategoryServic));

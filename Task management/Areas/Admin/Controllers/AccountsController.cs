@@ -23,12 +23,12 @@ namespace Task_management.Areas.Admin.Controllers
         private readonly MasterDbcontext _context;
         IIRolsInformation iRolsInformation;
         IIUserInformation iUserInformation;
-      
-        #endregion
+		IICompanyInformation iCompanyInformation;
+		#endregion
 
-        #region Constructor
-        public AccountsController(RoleManager<IdentityRole> roleManager,
-            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MasterDbcontext context, IIRolsInformation iRolsInformation1, IIUserInformation iUserInformation1, ITokenService tokenService)
+		#region Constructor
+		public AccountsController(RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MasterDbcontext context, IIRolsInformation iRolsInformation1, IIUserInformation iUserInformation1, ITokenService tokenService, IICompanyInformation iCompanyInformation1)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -38,9 +38,10 @@ namespace Task_management.Areas.Admin.Controllers
             iUserInformation = iUserInformation1;
             _tokenService = tokenService;
             _context = context;
-         
+			iCompanyInformation = iCompanyInformation1;
 
-        }
+
+		}
         #endregion
 
         #region Method
@@ -58,7 +59,8 @@ namespace Task_management.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
 
         [Authorize(Roles = "Admin,User")]
@@ -66,13 +68,16 @@ namespace Task_management.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
 
         public IActionResult AddEditRoles(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListIdentityRole = iRolsInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListIdentityRole = iRolsInformation.GetAll();
+
             if (Id != null)
             {
                 vmodel.sIdentityRole = iRolsInformation.GetById(Convert.ToString(Id));
@@ -87,7 +92,8 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult AddEditRolesAr(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListIdentityRole = iRolsInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListIdentityRole = iRolsInformation.GetAll();
             if (Id != null)
             {
                 vmodel.sIdentityRole = iRolsInformation.GetById(Convert.ToString(Id));
@@ -198,8 +204,10 @@ namespace Task_management.Areas.Admin.Controllers
                 NewRegister = new NewRegister(),
                 Roles = _roleManager.Roles.OrderBy(x => x.Name).ToList(),
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
+
             };
-            return View(model);
+			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(model);
         }
 
         public IActionResult RegistersAr()
@@ -221,7 +229,8 @@ namespace Task_management.Areas.Admin.Controllers
                 Roles = _roleManager.Roles.OrderBy(x => x.Name).ToList(),
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
             };
-            return View(model);
+			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(model);
         }
 
 
@@ -329,8 +338,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePassword(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -345,8 +355,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePasswordAr(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -582,8 +593,9 @@ namespace Task_management.Areas.Admin.Controllers
         {
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -598,6 +610,7 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			//vmodel.ListVwUser = iUserInformation.GetAll();
 			if (Id != null)
 			{

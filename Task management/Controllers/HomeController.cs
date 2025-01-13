@@ -15,7 +15,8 @@ namespace Task_management.Controllers
         IIAboutSectionStartHomeContent iAboutSectionStartHomeContent;
         IICategoryServic iCategoryServic;
         IIBrandProduct iBrandProduct;
-        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1)
+        IICompanyInformation iCompanyInformation;
+        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1)
         {
             _logger = logger;
             iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
@@ -25,7 +26,7 @@ namespace Task_management.Controllers
             iCategoryServic = iCategoryServic1;
 
             iBrandProduct = iBrandProduct1;
-
+            iCompanyInformation= iCompanyInformation1;
         }
 
         public IActionResult Index()
@@ -37,6 +38,8 @@ namespace Task_management.Controllers
             vmodel.ListAboutSectionStartHomeContent = iAboutSectionStartHomeContent.GetAll().Take(1).ToList();
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
 
             return View(vmodel);
         }

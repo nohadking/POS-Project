@@ -7,13 +7,18 @@ namespace Task_management.Areas.Admin.Controllers
     public class InvoseController : Controller
     {
         IIInvose iInvose;
-        public InvoseController(IIInvose iInvose1)
+		IICompanyInformation iCompanyInformation;
+		public InvoseController(IIInvose iInvose1, IICompanyInformation iCompanyInformation1)
         {
             iInvose=iInvose1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
         public IActionResult Index()
         {
-            return View();
-        }
+			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			
+			return View(vmodel);
+		}
     }
 }

@@ -8,22 +8,26 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IIHomeSliderContent iHomeSliderContent;
+		IICompanyInformation iCompanyInformation;
 
-        public HomeSliderContentController(MasterDbcontext dbcontext1,IIHomeSliderContent iHomeSliderContent1)
+		public HomeSliderContentController(MasterDbcontext dbcontext1,IIHomeSliderContent iHomeSliderContent1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext=dbcontext1;
             iHomeSliderContent=iHomeSliderContent1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
         public IActionResult MyHomeSliderContent()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
             return View(vmodel);
         } 
        public IActionResult AddHomeSliderContent(int? IdHomeSliderContent)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListHomeSliderContent = iHomeSliderContent.GetAll();
 
             // تأكد من أن HomeSliderContent مهيأ حتى لو لم يكن هناك ID
             if (vmodel.HomeSliderContent == null)

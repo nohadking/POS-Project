@@ -8,22 +8,27 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IICategory iCategory;
-        public CategoryController(MasterDbcontext dbcontext1,IICategory iCategory1)
+		IICompanyInformation iCompanyInformation;
+		public CategoryController(MasterDbcontext dbcontext1,IICategory iCategory1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext=dbcontext1;
             iCategory=iCategory1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
 
         public IActionResult MYCategory()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCategory = iCategory.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
         public IActionResult AddEditCategory(int? IdCategory)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCategory = iCategory.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListCategory = iCategory.GetAll();
+
             if (IdCategory != null)
             {
                 vmodel.Category = iCategory.GetById(Convert.ToInt32(IdCategory));
@@ -38,7 +43,8 @@ namespace Task_management.Areas.Admin.Controllers
         {
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCategory = iCategory.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListCategory = iCategory.GetAll();
             if (IdCategory != null)
             {
                 vmodel.Category = iCategory.GetById(Convert.ToInt32(IdCategory));

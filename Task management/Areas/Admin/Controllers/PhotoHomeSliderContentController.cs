@@ -9,10 +9,12 @@ namespace Task_management.Areas.Admin.Controllers
     {
         IIHomeSliderContent iHomeSliderContent;
 		IIPhotoHomeSliderContent iPhotoHomeSliderContent;
-		public PhotoHomeSliderContentController(IIHomeSliderContent iHomeSliderContent1,IIPhotoHomeSliderContent iPhotoHomeSliderContent1)
+		IICompanyInformation iCompanyInformation;
+		public PhotoHomeSliderContentController(IIHomeSliderContent iHomeSliderContent1,IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IICompanyInformation iCompanyInformation1)
         {
             iHomeSliderContent = iHomeSliderContent1;
 			iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
+			iCompanyInformation = iCompanyInformation1;
 		}
     
 		public IActionResult MYPhotoHomeSliderContent()
@@ -20,12 +22,14 @@ namespace Task_management.Areas.Admin.Controllers
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			ViewBag.HomeSliderContent = iHomeSliderContent.GetAll();
 			vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			return View(vmodel);
 		}
 		public IActionResult AddEditPhotoHomeSliderContent(int? IdPhotoHomeSliderContent)
 		{
 			ViewBag.HomeSliderContent = iHomeSliderContent.GetAll();
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
 			if (IdPhotoHomeSliderContent != null)
 			{
@@ -154,7 +158,8 @@ namespace Task_management.Areas.Admin.Controllers
 		public IActionResult MYPhotoHomeSliderContentAr()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-						ViewBag.HomeSliderContent = iHomeSliderContent.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			ViewBag.HomeSliderContent = iHomeSliderContent.GetAll();
 			vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
 			return View(vmodel);
 		}
@@ -162,6 +167,7 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 						ViewBag.HomeSliderContent = iHomeSliderContent.GetAll();
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
 			if (IdPhotoHomeSliderContent != null)
 			{

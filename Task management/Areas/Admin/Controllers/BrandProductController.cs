@@ -10,23 +10,26 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IIBrandProduct iBrandProduct;
-        public BrandProductController(MasterDbcontext dbcontext1,IIBrandProduct iBrandProduct1)
+		IICompanyInformation iCompanyInformation;
+		public BrandProductController(MasterDbcontext dbcontext1,IIBrandProduct iBrandProduct1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext = dbcontext1;
             iBrandProduct = iBrandProduct1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
         public IActionResult MYBrandProduct()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-
-            vmodel.ListBrandProduct = iBrandProduct.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListBrandProduct = iBrandProduct.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEditBrandProduct(int? IdBrandProduct)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
-            if (IdBrandProduct != null)
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (IdBrandProduct != null)
             {
                 vmodel.BrandProduct = iBrandProduct.GetById(Convert.ToInt32(IdBrandProduct));
                 return View(vmodel);

@@ -1,4 +1,6 @@
-﻿@inject SignInManager<ApplicationUser> signInManager
+﻿@model ViewmMODeElMASTER
+@inject SignInManager<ApplicationUser> signInManager
+
 @* <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,8 +91,12 @@
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="~/Web/assets/images/favicon/1.png" type="image/x-icon" />
-    <link rel="shortcut icon" href="~/Web/assets/images/favicon/1.png" type="image/x-icon" />
+      @foreach (var item in Model.ListCompanyInformation)
+                                    {
+        <link rel="icon" href="@string.Format("/Images/Home/{0}", item.Photo)" type="image/x-icon" />
+
+        <link rel="shortcut icon" href="@string.Format("/Images/Home/{0}", item.Photo)" type="image/x-icon" />
+                                    }
     <title>Multikart - Multi-purpopse E-commerce Html Template</title>
 
     <!--Google font-->
@@ -127,14 +133,18 @@
             <div class="top-header d-none d-sm-block">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="header-contact">
-                                <ul>
-                                    <li>Welcome to Our store Multikart</li>
-                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
-                                </ul>
+                        @foreach (var item in Model.ListCompanyInformation)
+                        {
+                            <div class="col-lg-6">
+                                <div class="header-contact">
+                                    <ul>
+                                        <li>@item.ShortDescriptionEn</li>
+                                        <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: @item.Mobile</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        }
+                      
                         <div class="col-lg-6 text-right">
                             <ul class="header-dropdown">
                                 <li class="mobile-wishlist">
@@ -162,12 +172,16 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="brand-logo">
-                                        <a href="index.html">
-                                            <img src="~/Web/assets/images/icon/logo.png"
-                                                 class="img-fluid blur-up lazyload" alt="">
-                                        </a>
-                                    </div>
+                                    @foreach (var item in Model.ListCompanyInformation)
+                                    {
+                                        <div class="brand-logo">
+                                            <a asp-area=""asp-controller="Home"asp-action="Index">
+                                                <img src="@string.Format("/Images/Home/{0}", item.Photo)"
+                                                     class="img-fluid blur-up lazyload" alt="" style="height:75px;width:75px">
+                                            </a>
+                                        </div>
+                                    }
+                                   
                                 </div>
                                 <div class="menu-right pull-right">
                                     <div>
@@ -641,12 +655,15 @@
                                         </nav>
                                     </div>
                                 </div>
-                                <div class="brand-logo">
-                                    <a href="index.html">
-                                        <img src="~/Web/assets/images/icon/logo.png"
-                                             class="img-fluid blur-up lazyload" alt="">
-                                    </a>
-                                </div>
+                                @foreach (var item in Model.ListCompanyInformation)
+                                {
+                                    <div class="brand-logo">
+                                        <a asp-area="" asp-controller="Home" asp-action="Index">
+                                            <img src="@string.Format("/Images/Home/{0}", item.Photo)"
+                                                 class="img-fluid blur-up lazyload" alt=""style="height:75px;width:75px">
+                                        </a>
+                                    </div>
+                                }
                             </div>
                             <div class="menu-right pull-right">
                                 <div>

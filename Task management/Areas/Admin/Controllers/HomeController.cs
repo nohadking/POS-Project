@@ -13,18 +13,21 @@ namespace Task_management.Areas.Admin.Controllers
 		MasterDbcontext dbcontext;
 	
 		IIUserInformation iUserInformation;
-		
-		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1)
+		IICompanyInformation iCompanyInformation;
+
+		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1)
 		{
 			_userManager = userManager;
 		
 			iUserInformation = iUserInformation1;
-			
+			iCompanyInformation = iCompanyInformation1;
+
 		}
 
 		public async Task<IActionResult> Index(string userId)
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			//vmodel.ListlicationUser = iUserInformation.GetAllByName(user.UserName).Take(1);
 			var userd = vmodel.sUser = iUserInformation.GetById(userId);
 

@@ -13,16 +13,19 @@ namespace Task_management.Areas.Admin.Controllers
 		IIInvoseHeder iInvoseHeder;
 		IIUserInformation iUserInformation;
 		IICustomerCategorie iCustomerCategorie;
-		public InvoseHederController(MasterDbcontext dbcontext1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1,IICustomerCategorie iCustomerCategorie1)
+		IICompanyInformation iCompanyInformation;
+		public InvoseHederController(MasterDbcontext dbcontext1,IIInvoseHeder iInvoseHeder1, IIUserInformation iUserInformation1,IICustomerCategorie iCustomerCategorie1, IICompanyInformation iCompanyInformation1)
         {
 			dbcontext=dbcontext1;
 			iInvoseHeder= iInvoseHeder1;
 			iUserInformation = iUserInformation1;
 			iCustomerCategorie = iCustomerCategorie1;
+			iCompanyInformation = iCompanyInformation1;
 		}
 		public IActionResult MyInvoseHeder()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewInvoseHede = iInvoseHeder.GetAll();
 			return View(vmodel);
 		}
@@ -32,6 +35,7 @@ namespace Task_management.Areas.Admin.Controllers
 	
 			ViewBag.CustomerCategorie = iCustomerCategorie.GetAll();
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewInvoseHede = iInvoseHeder.GetAll();
 			if (IdInvoseHeder != null)
 			{
