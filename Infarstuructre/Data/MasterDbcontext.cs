@@ -167,7 +167,7 @@ namespace Infarstuructre.Data
             //---------------------------------  
 
             //*********************************************************
-       
+
             //---------------------------------
             builder.Entity<TBHomeSliderContent>()
            .Property(b => b.DateTimeEntry)
@@ -211,8 +211,15 @@ namespace Infarstuructre.Data
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
             //---------------------------------
-
-
+            //---------------------------------
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+        
+            //---------------------------------
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -233,6 +240,7 @@ namespace Infarstuructre.Data
         public DbSet<TBAboutSectionStartHomeContent> TBAboutSectionStartHomeContents { get; set; }
         public DbSet<TBCategoryServic> TBCategoryServics { get; set; }
         public DbSet<TBBrandProduct> TBBrandProducts { get; set; }
+        public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
 
     }
 }

@@ -262,7 +262,7 @@
     <value>Please include a description of the link between the customer and the pricing. The process is completed successfully...!</value>
   </data>
   <data name="VlDescriptionEn" xml:space="preserve">
-    <value>يرجى كتابة اسم المنتج باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+    <value>يرجى كتابة وصف الشركة باللغة الانكليزية لتتم العملية بنجاح </value>
   </data>
   <data name="VlDescriptionOrder" xml:space="preserve">
     <value>Please include the order description for the process to complete successfully</value>
@@ -271,7 +271,7 @@
     <value>Please include the nickname for the process to complete successfully..!</value>
   </data>
   <data name="VlEmailCompany" xml:space="preserve">
-    <value>Please include the company's email so that the process is completed successfully...!</value>
+    <value>يرجى إدراج إميل الشركة لتتم العملية بنجاح ....!</value>
   </data>
   <data name="VlFAQ" xml:space="preserve">
     <value>please include FAQ to complete successfully...!</value>
@@ -418,7 +418,7 @@
     <value>يرجى أدراج العنوان باللغة العربية لتتم العملية بنجاح ...!</value>
   </data>
   <data name="VlAddressEn" xml:space="preserve">
-    <value>Please enter the address in English for the process to be completed successfully...!</value>
+    <value>يرجى إدراج العنوان باللغة الانكليزية لتتم العملية بنجاح ...1</value>
   </data>
   <data name="VlRating" xml:space="preserve">
     <value>يرجى أدراج تقيم الشركة لتتم العملية بنجاح ..!</value>
@@ -506,5 +506,41 @@
   </data>
   <data name="VlTitleButtonEn" xml:space="preserve">
     <value>يرجى أدراج عنوان الزر باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameCompanyAr" xml:space="preserve">
+    <value>يرجى ادراج اسم الشركة باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameCompanyEn" xml:space="preserve">
+    <value>يرجى إدراج اسم الشركة باللغة الأنكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlMobile" xml:space="preserve">
+    <value>يرجى أدراج رقم الهاتف  لتمم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameOner" xml:space="preserve">
+    <value>يرجى إدراج اسم المدير التنفيذي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlPhoneOner" xml:space="preserve">
+    <value>يرجى أدراج هاتف المدير التنفيذي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmailOner" xml:space="preserve">
+    <value>يرجى أدراج البريد الاكتروني الخاص بالمدير التنفيذي لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlShortDescriptionAr" xml:space="preserve">
+    <value>يرجى إدراج الوصف القصير باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlShortDescriptionEn" xml:space="preserve">
+    <value>يرجى إدراج الوصف القصير باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlFaceBoock" xml:space="preserve">
+    <value>يرجى إدراج رابط الفيس بوك لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlInstagram" xml:space="preserve">
+    <value>يرجى إدراج رابط الانستجرام لتتم العملية بنجاح </value>
+  </data>
+  <data name="VlYouTube" xml:space="preserve">
+    <value>يرجى إدراج رابط اليو تيوب لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlMabs" xml:space="preserve">
+    <value>يرجى إدراج رابط العنوان على خارئط جوجل لتتم العملية بنجاح ...!</value>
   </data>
 </root>

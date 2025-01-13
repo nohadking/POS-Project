@@ -1,6 +1,6 @@
 ﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = ResourceWeb.LBMYCategory;
+    ViewData["Title"] = ResourceWeb.LBMYCompanyInformation;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -354,53 +354,5 @@
     </div>
 </div>
 @section Scripts {
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-
-            // حفظ اسم الصورة في الحقل المخفي (category-photo)
-            var file = event.target.files[0];
-            var fileName = file.name;  // الحصول على اسم الصورة فقط
-
-            // تحديث الحقل المخفي باسم الصورة
-            document.getElementById('category-photo').value = fileName;
-        };
-    </script>
-
-    <script>
-        $("#url").val(window.location.href);
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var editCategoryModal = document.getElementById('edit-category');
-            editCategoryModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget;
-
-                // استخراج البيانات من الـ data-attributes
-                var categoryId = button.getAttribute('data-category-id');
-                var categoryNameAr = button.getAttribute('data-category-name-ar');
-                var categoryNameEn = button.getAttribute('data-category-name-en');
-                var categoryPhoto = button.getAttribute('data-category-photo');
-                var categoryActive = button.getAttribute('data-category-active') === "true";
-                var categoryCurrentState = button.getAttribute('data-category-currentstate') === "true";
-
-                // تعبئة حقول المودال
-                var modal = editCategoryModal;
-                modal.querySelector('#category-id').value = categoryId;
-                modal.querySelector('#category-name-ar').value = categoryNameAr;
-                modal.querySelector('#category-name-en').value = categoryNameEn;
-                modal.querySelector('#output').src = categoryPhoto;  // عرض الصورة
-                modal.querySelector('#category-active').checked = categoryActive;
-                modal.querySelector('#category-CurrentState').checked = categoryCurrentState;
-
-                // تعيين اسم الصورة في الحقل المخفي عند التعديل
-                if (categoryPhoto) {
-                    var categoryPhotoName = categoryPhoto.split('/').pop(); // استخراج اسم الصورة فقط
-                    modal.querySelector('#category-photo').value = categoryPhotoName;  // تعيين اسم الصورة المخزن في الـ data-attributes
-                }
-            });
-        });
-    </script>
 }
+

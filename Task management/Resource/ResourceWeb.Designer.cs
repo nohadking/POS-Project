@@ -1483,6 +1483,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to معلومات الشركة .
+        /// </summary>
+        internal static string LBMYCompanyInformation {
+            get {
+                return ResourceManager.GetString("LBMYCompanyInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currencies.
         /// </summary>
         internal static string LBMyCurrenciesExchangeRates {
@@ -2955,6 +2964,24 @@ namespace Task_management.Resource {
         internal static string VLCompanieTypeWorkDoplceted {
             get {
                 return ResourceManager.GetString("VLCompanieTypeWorkDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال اسم الشركة باللغة العربية مسبقا يرجى التأكد وإعادة المحاولة لاحقا...!.
+        /// </summary>
+        internal static string VLCompanyInformationsArDoplceted {
+            get {
+                return ResourceManager.GetString("VLCompanyInformationsArDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال اسم الشركة باللغة الأنكليزية مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLCompanyInformationsEnDoplceted {
+            get {
+                return ResourceManager.GetString("VLCompanyInformationsEnDoplceted", resourceCulture);
             }
         }
         

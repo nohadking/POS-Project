@@ -1236,4 +1236,13 @@
   <data name="LBMyAboutSectionStartHomeContent" xml:space="preserve">
     <value>عن المطعم </value>
   </data>
+  <data name="VLCompanyInformationsEnDoplceted" xml:space="preserve">
+    <value>تم إدخال اسم الشركة باللغة الأنكليزية مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
+  </data>
+  <data name="VLCompanyInformationsArDoplceted" xml:space="preserve">
+    <value>تم إدخال اسم الشركة باللغة العربية مسبقا يرجى التأكد وإعادة المحاولة لاحقا...!</value>
+  </data>
+  <data name="LBMYCompanyInformation" xml:space="preserve">
+    <value>معلومات الشركة </value>
+  </data>
 </root>
