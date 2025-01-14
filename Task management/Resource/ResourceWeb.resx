@@ -1290,4 +1290,19 @@
   <data name="LBAddEditCompanyInformation" xml:space="preserve">
     <value>إضافة  وتعديل  بيانات الشركة </value>
   </data>
+  <data name="LbInvoiceNo" xml:space="preserve">
+    <value>رقم الفاتورة </value>
+  </data>
+  <data name="LbDateInvos" xml:space="preserve">
+    <value>تاريخ الفاتورة</value>
+  </data>
+  <data name="LbQuantity" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Lbtotal" xml:space="preserve">
+    <value>الاجمالي</value>
+  </data>
+  <data name="LbOutstandingBill" xml:space="preserve">
+    <value>حالة الفاتورة</value>
+  </data>
 </root>

@@ -880,6 +880,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ الفاتورة.
+        /// </summary>
+        internal static string LbDateInvos {
+            get {
+                return ResourceManager.GetString("LbDateInvos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to وقت وتاريخ الادخال.
         /// </summary>
         internal static string LbDateTimeEntry {
@@ -1290,6 +1299,15 @@ namespace Task_management.Resource {
         internal static string lbInstagram {
             get {
                 return ResourceManager.GetString("lbInstagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الفاتورة .
+        /// </summary>
+        internal static string LbInvoiceNo {
+            get {
+                return ResourceManager.GetString("LbInvoiceNo", resourceCulture);
             }
         }
         
@@ -2140,6 +2158,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حالة الفاتورة.
+        /// </summary>
+        internal static string LbOutstandingBill {
+            get {
+                return ResourceManager.GetString("LbOutstandingBill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paiding Informations.
         /// </summary>
         internal static string LBPaidingInformations {
@@ -2397,6 +2424,15 @@ namespace Task_management.Resource {
         internal static string LbProjectTypeAr {
             get {
                 return ResourceManager.GetString("LbProjectTypeAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الكمية.
+        /// </summary>
+        internal static string LbQuantity {
+            get {
+                return ResourceManager.GetString("LbQuantity", resourceCulture);
             }
         }
         
@@ -2775,6 +2811,15 @@ namespace Task_management.Resource {
         internal static string lbTitleTwoEn {
             get {
                 return ResourceManager.GetString("lbTitleTwoEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الاجمالي.
+        /// </summary>
+        internal static string Lbtotal {
+            get {
+                return ResourceManager.GetString("Lbtotal", resourceCulture);
             }
         }
         

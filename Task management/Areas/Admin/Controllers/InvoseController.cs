@@ -13,10 +13,12 @@ namespace Task_management.Areas.Admin.Controllers
             iInvose=iInvose1;
 			iCompanyInformation = iCompanyInformation1;
 		}
-        public IActionResult Index()
+        public IActionResult MyInvose()
         {
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListViewInvose = iInvose.GetAll();
+
 			
 			return View(vmodel);
 		}

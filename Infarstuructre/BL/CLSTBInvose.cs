@@ -19,10 +19,9 @@ namespace Infarstuructre.BL
         {
             dbcontext=dbcontext1;
         }
-
         public List<TBViewInvose> GetAll()
         {
-            List<TBViewInvose> MySlider = dbcontext.ViewInvose.OrderByDescending(n => n.IdInvose).Where(a => a.CurrentState == true).ToList();
+            List<TBViewInvose> MySlider = dbcontext.ViewInvose.Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
         public TBInvose GetById(int IdInvose)
@@ -83,10 +82,7 @@ namespace Infarstuructre.BL
             TBViewInvose sslid = dbcontext.ViewInvose.FirstOrDefault(a => a.IdInvose == IdInvose);
             return sslid;
         }
-
-
         /// ///////////// /API/ ////////////////////////////
-
         public List<TBViewInvose> GetByInvoiceNumber(int invNum)
         {
             var invoices = dbcontext.ViewInvose.Where(a => a.InvoiceNumber == invNum).ToList();

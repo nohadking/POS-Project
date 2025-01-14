@@ -77,13 +77,13 @@
                                     {
 			<div class="header-left active">
 				<a href="index.html" class="logo logo-normal">
-						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt=""style="height:75px;width:75px">
 				</a>
 				<a href="index.html" class="logo logo-white">
-						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="" style="height:75px;width:75px">
 				</a>
 				<a href="index.html" class="logo-small">
-						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="" style="height:75px;width:75px">
 				</a>
 				<a id="toggle_btn" href="javascript:void(0);">
 					<i data-feather="chevrons-left" class="feather-16"></i>
@@ -332,11 +332,11 @@
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
 						<span class="user-info">
 							<span class="user-letter">
-								<img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="" class="img-fluid">
+								<img src="@Helper.PathImageuser@user.ImageUser" alt="" class="img-fluid">
 							</span>
 							<span class="user-detail">
-								<span class="user-name">John Smilga</span>
-								<span class="user-role">Super Admin</span>
+								<span class="user-name">@user.Name</span>
+								<span class="user-role">@userRole</span>
 							</span>
 						</span>
 					</a>
@@ -344,12 +344,12 @@
 						<div class="profilename">
 							<div class="profileset">
 								<span class="user-img">
-									<img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="">
+									<img src="@Helper.PathImageuser@user.ImageUser" alt="">
 									<span class="status online"></span>
 								</span>
 								<div class="profilesets">
-									<h6>John Smilga</h6>
-									<h5>Super Admin</h5>
+									<h6>@user.Name</h6>
+									<h5>@userRole</h5>
 								</div>
 							</div>
 							<hr class="m-0">
@@ -444,7 +444,7 @@
 							<h6 class="submenu-hdr">Sales</h6>
 							<ul>
 								<li><a href="sales-list.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li>
-								<li><a href="invoice-report.html"><i data-feather="file-text"></i><span>Invoices</span></a></li>
+								<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
 								<li><a href="sales-returns.html"><i data-feather="copy"></i><span>Sales Return</span></a></li>
 								<li><a href="quotation-list.html"><i data-feather="save"></i><span>Quotation</span></a></li>
 								<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><i data-feather="hard-drive"></i><span>POS</span></a></li>
@@ -985,7 +985,7 @@
 						</ul>
 						<ul class="tab-pane" id="sales" aria-labelledby="profile-tab">
 							<li><a href="sales-list.html"><span>Sales</span></a></li>
-							<li><a href="invoice-report.html"><span>Invoices</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
 							<li><a href="sales-returns.html"><span>Sales Return</span></a></li>
 							<li><a href="quotation-list.html"><span>Quotation</span></a></li>
 							<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><span>POS</span></a></li>
@@ -1424,7 +1424,7 @@
 								<a href="javascript:void(0);"><span>Sales</span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="sales-list.html"><span>Sales</span></a></li>
-									<li><a href="invoice-report.html"><span>Invoices</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
 									<li><a href="sales-returns.html"><span>Sales Return</span></a></li>
 									<li><a href="quotation-list.html"><span>Quotation</span></a></li>
 									<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><span>POS</span></a></li>
