@@ -85,7 +85,7 @@ namespace Infarstuructre.ViewModel
         public TBBrandProduct BrandProduct { get; set; }
 
         public List<TBViewInvose> ListViewInvose { get; set; }
-        public TBInvoic Invoic { get; set; }
+        public TBInvose Invoic { get; set; }
 
 
         public List<TBCompanyInformation> ListCompanyInformation { get; set; }
