@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task_management.Areas.Admin.APIsControllers
 {
@@ -9,10 +10,28 @@ namespace Task_management.Areas.Admin.APIsControllers
     {
         IIInvose iInvose;
         UserManager<ApplicationUser> userManager;
-        public InvoiceController(IIInvose iInvose, UserManager<ApplicationUser> userManager)
+        MasterDbcontext dbcontext;
+        public InvoiceController(IIInvose iInvose, UserManager<ApplicationUser> userManager, MasterDbcontext dbcontext)
         {
             this.iInvose = iInvose;
             this.userManager = userManager;
+            this.dbcontext = dbcontext;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllData()
+        {
+            var invoices = iInvose.GetAll();
+            return Ok(invoices);
+        }
+
+
+        [HttpGet("{invUnm}")]
+        public IActionResult GetIvnoiceInfo(int invUnm)
+        {
+            var invoice = iInvose.GetByInvoiceNumber(invUnm);
+            return Ok(invoice);
+
         }
 
         [HttpPost]
@@ -41,13 +60,29 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(invoice);
         }
 
-
-        [HttpGet("{invUnm}")]
-        public IActionResult GetIvnoiceInfo(int invUnm)
+        [HttpPut("{idInvoic}")]
+        public async Task<IActionResult> EdidInvoic(int idInvoic, [FromBody] TBInvoic model)
         {
-            var invoice = iInvose.GetByInvoiceNumber(invUnm);
-            return Ok(invoice);
+            var invoice = iInvose.GetById(idInvoic);
+            if(invoice == null)
+                return BadRequest();
 
+            dbcontext.Entry(invoice).CurrentValues.SetValues(model);
+            dbcontext.SaveChanges();
+            return Ok(invoice);
         }
+
+        [HttpDelete("{idInvoic}")]
+        public async Task<IActionResult> DeleteInvoice(int idInvoic)
+        {
+            var invoice = iInvose.GetById(idInvoic);
+            if (invoice == null)
+                return BadRequest();
+
+            iInvose.deleteData(idInvoic);
+
+            return Ok(invoice);
+        }
+
     }
 }
