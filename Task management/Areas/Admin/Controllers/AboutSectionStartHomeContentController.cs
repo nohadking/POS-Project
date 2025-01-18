@@ -86,55 +86,7 @@ namespace Task_management.Areas.Admin.Controllers
                 return RedirectToAction("AddAboutSectionStartHomeContent");
             }
         }
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> SaveAr(ViewmMODeElMASTER model, TBAboutSectionStartHomeContent slider, List<IFormFile> Files, string returnUrl)
-        {
-            try
-            {
-                slider.IdAboutSectionStartHomeContent = model.AboutSectionStartHomeContent.IdAboutSectionStartHomeContent;
-                slider.TitleOneAr = model.AboutSectionStartHomeContent.TitleOneAr;
-                slider.TitleOneEn = model.AboutSectionStartHomeContent.TitleOneEn;
-                slider.TitleTwoEn = model.AboutSectionStartHomeContent.TitleTwoEn;
-                slider.TitleTwoAr = model.AboutSectionStartHomeContent.TitleTwoAr;
-                slider.DataEntry = model.AboutSectionStartHomeContent.DataEntry;
-                slider.DateTimeEntry = model.AboutSectionStartHomeContent.DateTimeEntry;
-                slider.CurrentState = model.AboutSectionStartHomeContent.CurrentState;
-                if (slider.IdAboutSectionStartHomeContent == 0 || slider.IdAboutSectionStartHomeContent == null)
-                {
-                    var reqwest = iAboutSectionStartHomeContent.saveData(slider);
-                    if (reqwest == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWebAr.VLSavedSuccessfully;
-                        return RedirectToAction("MyAboutSectionStartHomeContentAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWebAr.VLErrorSave;
-                        return RedirectToAction("AddAboutSectionStartHomeContentAr");
-                    }
-                }
-                else
-                {
-                    var reqestUpdate = iAboutSectionStartHomeContent.UpdateData(slider);
-                    if (reqestUpdate == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWebAr.VLUpdatedSuccessfully;
-                        return RedirectToAction("MyAboutSectionStartHomeContentAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWebAr.VLErrorUpdate;
-                        return RedirectToAction("AddAboutSectionStartHomeContentAr");
-                    }
-                }
-            }
-            catch
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorSave;
-                return RedirectToAction("AddAboutSectionStartHomeContentAr");
-            }
-        }
+    
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdAboutSectionStartHomeContent)
         {
@@ -150,20 +102,6 @@ namespace Task_management.Areas.Admin.Controllers
                 return RedirectToAction("MyAboutSectionStartHomeContent");
             }
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteDataAr(int IdAboutSectionStartHomeContent)
-        {
-            var reqwistDelete = iAboutSectionStartHomeContent.deleteData(IdAboutSectionStartHomeContent);
-            if (reqwistDelete == true)
-            {
-                TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-                return RedirectToAction("MyAboutSectionStartHomeContentAr");
-            }
-            else
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-                return RedirectToAction("MyAboutSectionStartHomeContentAr");
-            }
-        }
+    
     }
 }

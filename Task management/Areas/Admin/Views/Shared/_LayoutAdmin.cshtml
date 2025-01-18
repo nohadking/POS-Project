@@ -465,13 +465,13 @@
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">Finance & Accounts</h6>
+							<h6 class="submenu-hdr">المحاسبة</h6>
 							<ul>
 								<li class="submenu">
-									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>Expenses</span><span class="menu-arrow"></span></a>
+									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>المصاريف</span><span class="menu-arrow"></span></a>
 									<ul>
-										<li><a href="expense-list.html">Expenses</a></li>
-										<li><a href="expense-category.html">Expense Category</a></li>
+										<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+										<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -999,10 +999,10 @@
 							<li><a href="stock-adjustment.html"><span>Stock Adjustment</span></a></li>
 							<li><a href="stock-transfer.html"><span>Stock Transfer</span></a></li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Expenses</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المصاريف</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="expense-list.html">Expenses</a></li>
-									<li><a href="expense-category.html">Expense Category</a></li>
+									<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+									<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 								</ul>
 							</li>
 
@@ -1443,10 +1443,10 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Expenses</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المصاريف</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="expense-list.html">Expenses</a></li>
-									<li><a href="expense-category.html">Expense Category</a></li>
+									<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+									<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 								</ul>
 							</li>
 						</ul>

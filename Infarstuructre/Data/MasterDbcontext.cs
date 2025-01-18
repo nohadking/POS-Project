@@ -78,6 +78,16 @@ namespace Infarstuructre.Data
 
             //*********************************************************
 
+               
+            builder.Entity<TBViewExpense>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewExpense");
+            });
+
+
+            //*********************************************************
+
 
 
 
@@ -121,7 +131,6 @@ namespace Infarstuructre.Data
             builder.Entity<TBProduct>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------  
             //---------------------------------
             builder.Entity<TBCustomerCategorie>()
@@ -133,7 +142,6 @@ namespace Infarstuructre.Data
             builder.Entity<TBCustomerCategorie>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------  
             //---------------------------------
             builder.Entity<TBInvoseHeder>()
@@ -164,10 +172,8 @@ namespace Infarstuructre.Data
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
 
-            //---------------------------------  
-
+            //--------------------------------- 
             //*********************************************************
-
             //---------------------------------
             builder.Entity<TBHomeSliderContent>()
            .Property(b => b.DateTimeEntry)
@@ -218,7 +224,26 @@ namespace Infarstuructre.Data
             builder.Entity<TBCompanyInformation>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
-        
+
+            //---------------------------------
+            //---------------------------------
+            builder.Entity<TBExpenseCategory>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBExpenseCategory>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBExpenseCategory>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBExpense>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBExpense>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
             //---------------------------------
         }
         //***********************************
@@ -241,6 +266,10 @@ namespace Infarstuructre.Data
         public DbSet<TBCategoryServic> TBCategoryServics { get; set; }
         public DbSet<TBBrandProduct> TBBrandProducts { get; set; }
         public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
+        public DbSet<TBExpenseCategory> TBExpenseCategorys { get; set; }
+        public DbSet<TBExpense> TBExpenses { get; set; }
+        public DbSet<TBViewExpense> ViewExpense { get; set; }
+
 
     }
 }

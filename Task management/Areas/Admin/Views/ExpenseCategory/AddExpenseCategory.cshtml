@@ -1,10 +1,10 @@
 ﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = ResourceWeb.LBAddAboutSectionStartHomeContent;
+    ViewData["Title"] = ResourceWeb.LBAddExpenseCategory;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<form class="flex-fill" method="post" asp-controller="AboutSectionStartHomeContent" asp-action="Save" enctype="multipart/form-data">
+<form class="flex-fill" method="post" asp-controller="ExpenseCategory" asp-action="Save" enctype="multipart/form-data">
     <div class="page-wrapper cardhead">
         <div class="content container-fluid">
 
@@ -32,9 +32,9 @@
                         <div class="card-body">
 
 
-                            <input type="hidden" asp-for="@Model.AboutSectionStartHomeContent.DataEntry" class="form-control" value="@User.Identity.Name">
-                            <input type="hidden" asp-for="@Model.AboutSectionStartHomeContent.IdAboutSectionStartHomeContent" class="form-control">
-                            <input type="hidden" asp-for="@Model.AboutSectionStartHomeContent.DateTimeEntry" value="@DateTime.Now">
+                            <input type="hidden" asp-for="@Model.ExpenseCategory.DataEntry" class="form-control" value="@User.Identity.Name">
+                            <input type="hidden" asp-for="@Model.ExpenseCategory.IdExpenseCategory" class="form-control">
+                            <input type="hidden" asp-for="@Model.ExpenseCategory.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
                             <span style="color:royalblue"> <strong>@TempData["Saved successfully"]</strong></span>
                             <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
@@ -43,31 +43,15 @@
                             <div class="card-content">
                                 <div class="row small-spacing">
                                     <div class="col-lg-6 col-xs-6">
-                                        <label for="exampleInputEmail1">@ResourceWeb.lbTitleOneAr</label>
-                                        <input type="text" asp-for="@Model.AboutSectionStartHomeContent.TitleOneAr" placeholder="@ResourceWeb.lbTitleOneAr" class="form-control" maxlength="300">
-                                        <span asp-validation-for="@Model.AboutSectionStartHomeContent.TitleOneAr" class="text-danger"></span>
+                                        <label for="exampleInputEmail1">@ResourceWeb.lbExpenseCategory</label>
+                                        <input type="text" asp-for="@Model.ExpenseCategory.ExpenseCategory" placeholder="@ResourceWeb.lbExpenseCategory" class="form-control" maxlength="300">
+                                        <span asp-validation-for="@Model.ExpenseCategory.ExpenseCategory" class="text-danger"></span>
 
                                     </div>
                                     <div class="col-lg-6 col-xs-6">
-                                        <label for="exampleInputEmail1">@ResourceWeb.lbTitleOneEn</label>
-                                        <input type="text" asp-for="@Model.AboutSectionStartHomeContent.TitleOneEn" placeholder="@ResourceWeb.lbTitleOneEn" class="form-control" maxlength="300">
-                                        <span asp-validation-for="@Model.AboutSectionStartHomeContent.TitleOneEn" class="text-danger"></span>
-
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="card-content">
-                                <div class="row small-spacing">
-                                    <div class="col-lg-6 col-xs-6">
-                                        <label for="exampleInputEmail1">@ResourceWeb.lbTitleTwoAr</label>
-                                        <input type="text" asp-for="@Model.AboutSectionStartHomeContent.TitleTwoAr" placeholder="@ResourceWeb.lbTitleTwoAr" class="form-control" maxlength="300">
-                                        <span asp-validation-for="@Model.AboutSectionStartHomeContent.TitleTwoAr" class="text-danger"></span>
-
-                                    </div>
-                                    <div class="col-lg-6 col-xs-6">
-                                        <label for="exampleInputEmail1">@ResourceWeb.lbTitleTwoEn</label>
-                                        <input type="text" asp-for="@Model.AboutSectionStartHomeContent.TitleTwoEn" placeholder="@ResourceWeb.lbTitleTwoEn" class="form-control" maxlength="300">
-                                        <span asp-validation-for="@Model.AboutSectionStartHomeContent.TitleTwoEn" class="text-danger"></span>
+                                        <label for="exampleInputEmail1">@ResourceWeb.LbDescription</label>
+                                        <input type="text" asp-for="@Model.ExpenseCategory.Description" placeholder="@ResourceWeb.LbDescription" class="form-control" maxlength="300">
+                                        <span asp-validation-for="@Model.ExpenseCategory.Description" class="text-danger"></span>
 
                                     </div>
                                 </div>
@@ -81,9 +65,22 @@
                                 <div class="row small-spacing">
                                     <div class="col-lg-6 col-xs-6">
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" asp-for="@Model.AboutSectionStartHomeContent.CurrentState" role="switch" id="flexSwitchCheckChecked" checked="">
+                                            <input class="form-check-input" type="checkbox" asp-for="@Model.ExpenseCategory.Active" role="switch" id="flexSwitchCheckChecked" checked="">
                                             <label class="form-check-label" for="flexSwitchCheckChecked">
-                                                "@Model.AboutSectionStartHomeContent.CurrentState /الحالة
+                                                @Model.ExpenseCategory.Active /التفعيل
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-content" style="margin-top:50px">
+                                <div class="row small-spacing">
+                                    <div class="col-lg-6 col-xs-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" asp-for="@Model.ExpenseCategory.CurrentState" role="switch" id="flexSwitchCheckChecked" checked="">
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                                "@Model.ExpenseCategory.CurrentState /الحالة
                                             </label>
                                         </div>
                                     </div>

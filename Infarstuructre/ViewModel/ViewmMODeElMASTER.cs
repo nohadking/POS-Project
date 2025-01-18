@@ -89,7 +89,12 @@ namespace Infarstuructre.ViewModel
 
 
         public List<TBCompanyInformation> ListCompanyInformation { get; set; }
-        public TBCompanyInformation CompanyInformation { get; set; }
+        public TBCompanyInformation CompanyInformation { get; set; } 
+		public List<TBExpenseCategory> ListExpenseCategory { get; set; }
+        public TBExpenseCategory ExpenseCategory { get; set; }
+
+        public List<TBViewExpense> ListViewExpense { get; set; }
+        public TBExpense Expense { get; set; }
 
     }
  }

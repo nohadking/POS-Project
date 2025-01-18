@@ -556,7 +556,7 @@ namespace Domin.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter The Description.
+        ///   Looks up a localized string similar to يرجى إدراج الوصف لتتم العملية بنجاح.
         /// </summary>
         internal static string VlDescription {
             get {
@@ -633,6 +633,15 @@ namespace Domin.Resource {
         internal static string VlEmailOner {
             get {
                 return ResourceManager.GetString("VlEmailOner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج فئة المصروفات لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlExpenseCategory {
+            get {
+                return ResourceManager.GetString("VlExpenseCategory", resourceCulture);
             }
         }
         
@@ -1083,6 +1092,15 @@ namespace Domin.Resource {
         internal static string VlSmtpServer {
             get {
                 return ResourceManager.GetString("VlSmtpServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدخال بيان سند الصرف لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlStatement {
+            get {
+                return ResourceManager.GetString("VlStatement", resourceCulture);
             }
         }
         

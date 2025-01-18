@@ -106,6 +106,8 @@ builder.Services.AddScoped<IIInvoseHeder, CLSTBInvoseHeder>();
 builder.Services.AddScoped<IIPaymentMethod, CLSTBPaymentMethod>();
 builder.Services.AddScoped<IIInvose, CLSTBInvose>();
 builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
+builder.Services.AddScoped<IIExpenseCategory, CLSTBExpenseCategory>();
+builder.Services.AddScoped<IIExpense, CLSTBExpense>();
 
 
 

@@ -20,7 +20,6 @@ namespace Infarstuructre.BL
 		public CLSTBPhotoHomeSliderContent(MasterDbcontext dbcontext1)
         {
 			dbcontext=dbcontext1;
-
 		}
 		public List<TBViewPhotoHomeSliderContent> GetAll()
 		{

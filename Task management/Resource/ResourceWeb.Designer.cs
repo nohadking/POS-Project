@@ -97,6 +97,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أضافة وتعديل قسم عنا في الرئيسية .
+        /// </summary>
+        internal static string LBAddAboutSectionStartHomeContent {
+            get {
+                return ResourceManager.GetString("LBAddAboutSectionStartHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying regions.
         /// </summary>
         internal static string LBAddArea {
@@ -237,6 +246,15 @@ namespace Task_management.Resource {
         internal static string LBAddExchangeRate {
             get {
                 return ResourceManager.GetString("LBAddExchangeRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل فئات المصاريف.
+        /// </summary>
+        internal static string LBAddExpenseCategory {
+            get {
+                return ResourceManager.GetString("LBAddExpenseCategory", resourceCulture);
             }
         }
         
@@ -493,7 +511,7 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount.
+        ///   Looks up a localized string similar to المبلغ.
         /// </summary>
         internal static string LbAmount {
             get {
@@ -507,6 +525,15 @@ namespace Task_management.Resource {
         internal static string Lbbgw {
             get {
                 return ResourceManager.GetString("Lbbgw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم السند.
+        /// </summary>
+        internal static string lbBondNumber {
+            get {
+                return ResourceManager.GetString("lbBondNumber", resourceCulture);
             }
         }
         
@@ -916,7 +943,7 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Region.
+        ///   Looks up a localized string similar to الوصف.
         /// </summary>
         internal static string LbDescription {
             get {
@@ -1074,6 +1101,15 @@ namespace Task_management.Resource {
         internal static string LbExchangeRate {
             get {
                 return ResourceManager.GetString("LbExchangeRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فئة المصاريف.
+        /// </summary>
+        internal static string lbExpenseCategory {
+            get {
+                return ResourceManager.GetString("lbExpenseCategory", resourceCulture);
             }
         }
         
@@ -1623,6 +1659,24 @@ namespace Task_management.Resource {
         internal static string LBMyExchangeRate {
             get {
                 return ResourceManager.GetString("LBMyExchangeRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المصاريف.
+        /// </summary>
+        internal static string LBMyExpense {
+            get {
+                return ResourceManager.GetString("LBMyExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فئات المصاريف.
+        /// </summary>
+        internal static string LBMyExpenseCategory {
+            get {
+                return ResourceManager.GetString("LBMyExpenseCategory", resourceCulture);
             }
         }
         
@@ -2698,6 +2752,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to البيان.
+        /// </summary>
+        internal static string lbStatement {
+            get {
+                return ResourceManager.GetString("lbStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street.
         /// </summary>
         internal static string LBStreet {
@@ -3351,6 +3414,15 @@ namespace Task_management.Resource {
         internal static string VLExchangeRateDoplceted {
             get {
                 return ResourceManager.GetString("VLExchangeRateDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم ادخال فئة المصروفات مسبقا  يرجى التأكد واعادة المحاولة لاحقا  لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VLExpenseCategoryDoplceted {
+            get {
+                return ResourceManager.GetString("VLExpenseCategoryDoplceted", resourceCulture);
             }
         }
         

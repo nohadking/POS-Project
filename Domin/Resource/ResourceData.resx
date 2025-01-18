@@ -253,7 +253,7 @@
     <value>Please include descreption for the process to complete successfully...!</value>
   </data>
   <data name="VlDescription" xml:space="preserve">
-    <value>Enter The Description</value>
+    <value>يرجى إدراج الوصف لتتم العملية بنجاح</value>
   </data>
   <data name="VlDescriptionAr" xml:space="preserve">
     <value>يرجى أدراج الوصف باللغة العربية لتتم العملية بنجاح ...!</value>
@@ -542,5 +542,11 @@
   </data>
   <data name="VlMabs" xml:space="preserve">
     <value>يرجى إدراج رابط العنوان على خارئط جوجل لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlExpenseCategory" xml:space="preserve">
+    <value>يرجى إدراج فئة المصروفات لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlStatement" xml:space="preserve">
+    <value>يرجى إدخال بيان سند الصرف لتتم العملية بنجاح ...!</value>
   </data>
 </root>

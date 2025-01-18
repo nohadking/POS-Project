@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250116201550_TBExpenseCategory")]
+    partial class TBExpenseCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -482,47 +485,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable("TBEmailAlartSettings");
                 });
 
-            modelBuilder.Entity("Domin.Entity.TBExpense", b =>
-                {
-                    b.Property<int>("IdExpense")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdExpense"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("BondNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<int>("IdExpenseCategory")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Statement")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("IdExpense");
-
-                    b.ToTable("TBExpenses");
-                });
-
             modelBuilder.Entity("Domin.Entity.TBExpenseCategory", b =>
                 {
                     b.Property<int>("IdExpenseCategory")
@@ -962,40 +924,6 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IServiceSectionStartContent");
 
                     b.ToTable("TBServiceSectionStartHomeContents");
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewExpense", b =>
-                {
-                    b.Property<int>("BondNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExpenseCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdExpense")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdExpenseCategory")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Statement")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewExpense", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewInvose", b =>
