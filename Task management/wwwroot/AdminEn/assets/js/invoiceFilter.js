@@ -1,0 +1,163 @@
+﻿
+$(document).ready(function () {
+
+})
+
+$('#CasherName').on('change', function () {
+
+    const cacherName = $(this).find('option:selected').text();
+
+
+    const originalUrl = window.origin;
+
+    fetch(`${originalUrl}/api/Invoice/GetByCasherName/${cacherName}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('حدث خطأ في جلب البيانات');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            console.log("data: " + JSON.stringify(data, null, 2));
+            
+            const tbody = $('#TblForResult');
+            tbody.empty();
+            let totalPrice = 0;
+            $('#totalPri').val(0);
+
+            data.forEach(item => {
+                const row = `
+                        <tr>
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+                            <td>${item.invoiceNumber}</td>
+                            <td>${item.dateInvos}</td>
+                            <td>${item.paymentMethodAr}</td>
+                            <td>${item.name}</td>
+                            <td>${item.productNameAr}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price}</td>
+                            <td>$${item.total}</td>
+                            <td>${item.dataEntry}</td>
+                            <td>
+                                <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                    ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                </span>
+                            </td>
+                        </tr>`;
+                tbody.append(row);
+                totalPrice += item.total;
+            });
+
+            $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+        })
+        .catch(error => {
+
+            outputElement.textContent = `خطأ: ${error.message}`;
+        });
+
+});
+
+
+$('#PayMeth').on('change', function () {
+
+    console.log("CasherId Changed");
+
+    const payMeth = $(this).find('option:selected').text();
+    const cacherName = $("#CasherName").find('option:selected').text();
+
+    const originalUrl = window.origin;
+
+    fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethod/${cacherName}/${payMeth}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('حدث خطأ في جلب البيانات');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("data: " + JSON.stringify(data, null, 2));
+
+
+            const tbody = $('#TblForResult');
+            tbody.empty();
+            let totalPrice = 0;
+            $('#totalPri').val(0);
+
+            data.forEach(item => {
+                const row = `
+                        <tr>
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+                            <td>${item.invoiceNumber}</td>
+                            <td>${item.dateInvos}</td>
+                            <td>${item.paymentMethodAr}</td>
+                            <td>${item.name}</td>
+                            <td>${item.productNameAr}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price}</td>
+                            <td>$${item.total}</td>
+                            <td>${item.dataEntry}</td>
+                            <td>
+                                <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                    ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                </span>
+                            </td>
+                        </tr>`;
+                tbody.append(row);
+                totalPrice += item.total;
+            });
+            $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+        })
+        .catch(error => {
+
+            outputElement.textContent = `خطأ: ${error.message}`;
+        });
+});
+
+
+$('#DatePeriod').on('input', function () {
+    let dateValue = $(this).val(); 
+    console.log('القيمة الكاملة:', dateValue);
+
+    // تقسيم القيم إذا كانت مفصولة بـ " - "
+    let dates = dateValue.split(' - ');
+
+    if (dates.length === 2) {
+        let fromDate = dates[0].trim();
+        let toDate = dates[1].trim();  
+
+        console.log('تاريخ البداية:', fromDate);
+        console.log('تاريخ النهاية:', toDate);
+    } else {
+        console.log('القيمة غير صحيحة أو الحقل فارغ.');
+    }
+});
+
+
+function updateTotalPrice() {
+    let totalPrice = 0;
+
+    $('#TblForResult tr').each(function () {
+        let totalCell = $(this).find('td:nth-child(9)');
+        if (totalCell.length > 0) {
+            let totalValue = parseFloat(totalCell.text().replace('$', '').trim()) || 0;
+            totalPrice += totalValue;
+        }
+    });
+
+    $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+}
+
+$(document).ready(function () {
+    updateTotalPrice();
+});
