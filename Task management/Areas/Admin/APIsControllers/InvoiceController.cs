@@ -84,5 +84,19 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(invoice);
         }
 
+        [HttpGet("GetByCasherName/{casherName}")]
+        public IActionResult GetByCasherName(string casherName)
+        {
+            var invoices = iInvose.GetByCacherName(casherName);
+            return Ok(invoices);
+        }
+
+        [HttpGet("GetByCasherNameAndPayMethod/{casherName}/{payMeth}")]
+        public IActionResult GetByCasherNameAndPayMethod(string casherName, string payMeth)
+        {
+            var invoices = iInvose.GetByCacherNameAndPay(casherName, payMeth);
+            return Ok(invoices);
+        }
+
     }
 }

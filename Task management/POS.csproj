@@ -31,10 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\AdminEn\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Domin\Domin.csproj" />
     <ProjectReference Include="..\Infarstuructre\Infarstuructre.csproj" />
   </ItemGroup>

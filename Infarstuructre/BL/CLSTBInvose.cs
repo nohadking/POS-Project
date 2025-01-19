@@ -6,11 +6,13 @@ namespace Infarstuructre.BL
     {
         List<TBViewInvose> GetAll();
         TBInvose GetById(int IdInvose);
+        List<TBViewInvose> GetByCacherName(string name);
         bool saveData(TBInvose savee);
         bool UpdateData(TBInvose updatss);
         bool deleteData(int IdInvose);
         TBViewInvose GetByIdview(int IdInvose);
         List<TBViewInvose> GetByInvoiceNumber(int invNum);
+        List<TBViewInvose> GetByCacherNameAndPay(string name, string pay);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -86,6 +88,18 @@ namespace Infarstuructre.BL
         public List<TBViewInvose> GetByInvoiceNumber(int invNum)
         {
             var invoices = dbcontext.ViewInvose.Where(a => a.InvoiceNumber == invNum).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCacherName(string name)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCacherNameAndPay(string name, string pay)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay).ToList();
             return invoices;
         }
     }
