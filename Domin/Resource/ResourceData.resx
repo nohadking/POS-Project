@@ -549,4 +549,19 @@
   <data name="VlStatement" xml:space="preserve">
     <value>يرجى إدخال بيان سند الصرف لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlSupplierName" xml:space="preserve">
+    <value>يرجى اسم المورد لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlSpecialization" xml:space="preserve">
+    <value>يرجى إدراج اختصاص المورد لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlDebtlimit" xml:space="preserve">
+    <value>يرجى أدراج سقف المديونية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlGracePeriod" xml:space="preserve">
+    <value>يرجى إدراج فترة السماح لتتم العملية بنجاح .....!</value>
+  </data>
+  <data name="Vlwebsite" xml:space="preserve">
+    <value>يرجى أدراج موقع الشركة لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

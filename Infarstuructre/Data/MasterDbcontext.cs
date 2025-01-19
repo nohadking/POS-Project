@@ -244,6 +244,18 @@ namespace Infarstuructre.Data
             builder.Entity<TBExpense>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");  
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBSupplier>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupplier>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
+            builder.Entity<TBSupplier>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");  
             //---------------------------------
         }
         //***********************************
@@ -269,6 +281,7 @@ namespace Infarstuructre.Data
         public DbSet<TBExpenseCategory> TBExpenseCategorys { get; set; }
         public DbSet<TBExpense> TBExpenses { get; set; }
         public DbSet<TBViewExpense> ViewExpense { get; set; }
+        public DbSet<TBSupplier> TBSuppliers { get; set; }
 
 
     }
