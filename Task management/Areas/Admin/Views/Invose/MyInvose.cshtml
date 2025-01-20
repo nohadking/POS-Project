@@ -397,3 +397,11 @@
  
     }
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("DatePeriod").value = `${today} - ${today}`;
+    });
+</script>
+
