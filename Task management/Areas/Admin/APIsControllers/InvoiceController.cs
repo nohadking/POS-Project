@@ -98,5 +98,20 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(invoices);
         }
 
+
+        [HttpGet("GetByDateTimeEntry/{date}")]
+        public IActionResult GetByDateTimeEntry(DateTime date)
+        {
+            var invoices = iInvose.GetByDateTimeEntry(date);
+            return Ok(invoices);
+        }
+
+        [HttpGet("GetByCasherNameAndPayMethAndDateTimeEntry/{casherName}/{payMeth}/{date}")]
+        public IActionResult GetByCasherNameAndPayMethAndDateTimeEntry(string casherName, string payMeth, DateTime date)
+        {
+            var invoices = iInvose.GetByCasherNameAndPayMethAndDateTimeEntry(casherName, payMeth, date);
+            return Ok(invoices);
+        }
+
     }
 }

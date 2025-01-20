@@ -66,7 +66,7 @@
                         </div>
                         <div class="form-sort"dir="ltr">
                            @*  <i data-feather="sliders" class="info-img"></i> *@
-                            <select class="form-select" asp-items="@(new SelectList(ViewBag.dateTai))">
+                            <select id="SelectDateEntry" class="form-select" asp-items="@(new SelectList(ViewBag.dateTai))">
                             </select>
                         </div>
                     </div>
@@ -175,4 +175,128 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/adminen/assets/js/invoicefilter.js"></script>
 
+<script>
+    $('#SelectDateEntry').on('change', function () {
+        console.log("SelectDateEntry changed");
+        const originalUrl = window.origin;
 
+        var date = $(this).find("option:selected").val().toString();
+
+        const formattedDate = new Date(date).toISOString().split('T')[0];
+
+
+        if ($('#filter_inputs').css('display') === 'none') {
+
+            console.log("SelectDateEntry changed and display none");
+
+            fetch(`${originalUrl}/api/Invoice/GetByDateTimeEntry/${formattedDate}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    const tbody = $('#TblForResult');
+                    tbody.empty();
+                    let totalPrice = 0;
+                    $('#totalPri').val(0);
+
+                    data.forEach(item => {
+                        const row = `
+                                <tr>
+                                    <td>
+                                        <label class="checkboxs">
+                                            <input type="checkbox">
+                                            <span class="checkmarks"></span>
+                                        </label>
+                                    </td>
+                                    <td>${item.invoiceNumber}</td>
+                                    <td>${item.dateInvos}</td>
+                                    <td>${item.paymentMethodAr}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.productNameAr}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>$${item.price}</td>
+                                    <td>$${item.total}</td>
+                                    <td>${item.dataEntry}</td>
+                                    <td>
+                                        <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                            ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                        </span>
+                                    </td>
+                                </tr>`;
+                        tbody.append(row);
+                        totalPrice += item.total;
+                    });
+
+                    $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+                })
+                .catch(error => {
+
+                    outputElement.textContent = `خطأ: ${error.message}`;
+                });
+
+        } else {
+            console.log("SelectDateEntry changed and display block");
+            const payMeth = $("#PayMeth").find('option:selected').text();
+            const cacherName = $('#CasherName').find('option:selected').text();
+            fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethAndDateTimeEntry/${cacherName}/${payMeth}/${formattedDate}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    const tbody = $('#TblForResult');
+                    tbody.empty();
+                    let totalPrice = 0;
+                    $('#totalPri').val(0);
+
+                    data.forEach(item => {
+                        const row = `
+                                <tr>
+                                    <td>
+                                        <label class="checkboxs">
+                                            <input type="checkbox">
+                                            <span class="checkmarks"></span>
+                                        </label>
+                                    </td>
+                                    <td>${item.invoiceNumber}</td>
+                                    <td>${item.dateInvos}</td>
+                                    <td>${item.paymentMethodAr}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.productNameAr}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>$${item.price}</td>
+                                    <td>$${item.total}</td>
+                                    <td>${item.dataEntry}</td>
+                                    <td>
+                                        <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                            ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                        </span>
+                                    </td>
+                                </tr>`;
+                        tbody.append(row);
+                        totalPrice += item.total;
+                    });
+
+                    $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+                })
+                .catch(error => {
+
+                    outputElement.textContent = `خطأ: ${error.message}`;
+                });
+
+        }
+
+    });
+
+</script>

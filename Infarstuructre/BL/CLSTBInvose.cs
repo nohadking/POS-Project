@@ -13,6 +13,8 @@ namespace Infarstuructre.BL
         TBViewInvose GetByIdview(int IdInvose);
         List<TBViewInvose> GetByInvoiceNumber(int invNum);
         List<TBViewInvose> GetByCacherNameAndPay(string name, string pay);
+        List<TBViewInvose> GetByDateTimeEntry(DateTime date);
+        List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -100,6 +102,18 @@ namespace Infarstuructre.BL
         public List<TBViewInvose> GetByCacherNameAndPay(string name, string pay)
         {
             var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByDateTimeEntry(DateTime date)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DateTimeEntry == date).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay && a.DateTimeEntry == date).ToList();
             return invoices;
         }
     }
