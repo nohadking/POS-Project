@@ -196,6 +196,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل المواد.
+        /// </summary>
+        internal static string LBAddEditClassCard {
+            get {
+                return ResourceManager.GetString("LBAddEditClassCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إضافة  وتعديل  بيانات الشركة .
         /// </summary>
         internal static string LBAddEditCompanyInformation {
@@ -529,6 +538,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل الوحدة .
+        /// </summary>
+        internal static string LBAddUnit {
+            get {
+                return ResourceManager.GetString("LBAddUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to المبلغ.
         /// </summary>
         internal static string LbAmount {
@@ -660,6 +678,15 @@ namespace Task_management.Resource {
         internal static string Lbcode {
             get {
                 return ResourceManager.GetString("Lbcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كود المادة.
+        /// </summary>
+        internal static string lbCodeItem {
+            get {
+                return ResourceManager.GetString("lbCodeItem", resourceCulture);
             }
         }
         
@@ -1141,6 +1168,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ الانتهاء.
+        /// </summary>
+        internal static string lbExpiryDate {
+            get {
+                return ResourceManager.GetString("lbExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رابط الفيس بوك .
         /// </summary>
         internal static string lbFaceBoock {
@@ -1411,6 +1447,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to المادة.
+        /// </summary>
+        internal static string lbItemName {
+            get {
+                return ResourceManager.GetString("lbItemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Latitude.
         /// </summary>
         internal static string Lblat {
@@ -1605,6 +1650,15 @@ namespace Task_management.Resource {
         internal static string LBMyCityDeliveryTariffs {
             get {
                 return ResourceManager.GetString("LBMyCityDeliveryTariffs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بطاقة مادة.
+        /// </summary>
+        internal static string LBMYClassCard {
+            get {
+                return ResourceManager.GetString("LBMYClassCard", resourceCulture);
             }
         }
         
@@ -1983,6 +2037,15 @@ namespace Task_management.Resource {
         internal static string LBMyTypeSystemDelivery {
             get {
                 return ResourceManager.GetString("LBMyTypeSystemDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الوحدات .
+        /// </summary>
+        internal static string LBMyUnit {
+            get {
+                return ResourceManager.GetString("LBMyUnit", resourceCulture);
             }
         }
         
@@ -2397,6 +2460,15 @@ namespace Task_management.Resource {
         internal static string LBPricingSystem {
             get {
                 return ResourceManager.GetString("LBPricingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ الصنع.
+        /// </summary>
+        internal static string lbProductionDate {
+            get {
+                return ResourceManager.GetString("lbProductionDate", resourceCulture);
             }
         }
         
@@ -3031,6 +3103,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الوحدة.
+        /// </summary>
+        internal static string lbUnit {
+            get {
+                return ResourceManager.GetString("lbUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         internal static string lbUpdate {
@@ -3535,6 +3616,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم إدخال المادة مسبقا يرجى التأكد وإعاد المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLItemNameDoplceted {
+            get {
+                return ResourceManager.GetString("VLItemNameDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The merchant has been introduced to the pricing system. Please confirm and try again later...!.
         /// </summary>
         internal static string VLMerchantDoplceted {
@@ -3765,6 +3855,15 @@ namespace Task_management.Resource {
         internal static string VLTypeSystemDoplceted {
             get {
                 return ResourceManager.GetString("VLTypeSystemDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال الوحدة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLUnitDoplceted {
+            get {
+                return ResourceManager.GetString("VLUnitDoplceted", resourceCulture);
             }
         }
         

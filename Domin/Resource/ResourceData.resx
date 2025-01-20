@@ -564,4 +564,13 @@
   <data name="Vlwebsite" xml:space="preserve">
     <value>يرجى أدراج موقع الشركة لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlUnit" xml:space="preserve">
+    <value>يرجى إدراج الوحدة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlItemName" xml:space="preserve">
+    <value>يرجى أدراج اسم المادة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlCodeItem" xml:space="preserve">
+    <value>يرجى أدراج رمز المادة لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

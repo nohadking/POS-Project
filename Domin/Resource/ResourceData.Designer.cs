@@ -448,6 +448,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج رمز المادة لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlCodeItem {
+            get {
+                return ResourceManager.GetString("VlCodeItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدرج حالة الشركة الفعلية لتتم العملية بنجاح ...!.
         /// </summary>
         internal static string VlCompanieTypeWorkAr {
@@ -714,6 +723,15 @@ namespace Domin.Resource {
         internal static string VlInstagram {
             get {
                 return ResourceManager.GetString("VlInstagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج اسم المادة لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlItemName {
+            get {
+                return ResourceManager.GetString("VlItemName", resourceCulture);
             }
         }
         
@@ -1335,6 +1353,15 @@ namespace Domin.Resource {
         internal static string VlTypeSystemDelivery {
             get {
                 return ResourceManager.GetString("VlTypeSystemDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج الوحدة لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlUnit {
+            get {
+                return ResourceManager.GetString("VlUnit", resourceCulture);
             }
         }
         

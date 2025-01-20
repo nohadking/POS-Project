@@ -98,6 +98,11 @@ namespace Infarstuructre.ViewModel
         public List<TBViewSupplier> ListViewSupplier { get; set; }
         public TBSupplier Supplier { get; set; }
 
+        public List<TBUnit> ListUnit { get; set; }
+        public TBUnit Unit { get; set; }
+
+        public List<TBViewClassCard> ListViewClassCard { get; set; }
+        public TBClassCard ClassCard { get; set; }
     }
  }
 

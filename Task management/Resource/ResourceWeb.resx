@@ -1356,4 +1356,37 @@
   <data name="LBAddEditSupplier" xml:space="preserve">
     <value>إضافة وتعديل بيانات مورد</value>
   </data>
+  <data name="VLUnitDoplceted" xml:space="preserve">
+    <value>تم إدخال الوحدة مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
+  </data>
+  <data name="LBMyUnit" xml:space="preserve">
+    <value>الوحدات </value>
+  </data>
+  <data name="lbUnit" xml:space="preserve">
+    <value>الوحدة</value>
+  </data>
+  <data name="LBAddUnit" xml:space="preserve">
+    <value>إضافة وتعديل الوحدة </value>
+  </data>
+  <data name="VLItemNameDoplceted" xml:space="preserve">
+    <value>تم إدخال المادة مسبقا يرجى التأكد وإعاد المحاولة لاحقا ...!</value>
+  </data>
+  <data name="LBMYClassCard" xml:space="preserve">
+    <value>بطاقة مادة</value>
+  </data>
+  <data name="lbItemName" xml:space="preserve">
+    <value>المادة</value>
+  </data>
+  <data name="lbCodeItem" xml:space="preserve">
+    <value>كود المادة</value>
+  </data>
+  <data name="lbProductionDate" xml:space="preserve">
+    <value>تاريخ الصنع</value>
+  </data>
+  <data name="lbExpiryDate" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="LBAddEditClassCard" xml:space="preserve">
+    <value>إضافة وتعديل المواد</value>
+  </data>
 </root>

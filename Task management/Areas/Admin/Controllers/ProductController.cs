@@ -21,7 +21,8 @@ namespace Task_management.Areas.Admin.Controllers
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewProduct = iproduct.GetAll();
-			return View(vmodel);
+            ViewBag.category = category.GetAll();
+            return View(vmodel);
 		}
 		public IActionResult AddEditProduct(int? IdProduct)
 		{

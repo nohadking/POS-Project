@@ -1,11 +1,5 @@
 ﻿
 
-
-
-
-using Infarstuructre.BL;
-using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -94,10 +88,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
-
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
-
 builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
 builder.Services.AddScoped<IICategory, CLSTBCategory>();
 builder.Services.AddScoped<IIProduct, CLCTBProduct>();
@@ -109,6 +101,8 @@ builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
 builder.Services.AddScoped<IIExpenseCategory, CLSTBExpenseCategory>();
 builder.Services.AddScoped<IIExpense, CLSTBExpense>();
 builder.Services.AddScoped<IISupplier, CLSTBSupplier>();
+builder.Services.AddScoped<IIUnit, CLSTBUnit>();
+builder.Services.AddScoped<IIClassCard, CLSTBClassCard>();
 
 
 

@@ -124,6 +124,7 @@
 									</h6>
 									<ul class="search-tags">
 										<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct">المنتجات</a></li>
+										<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard">@ResourceWeb.LBMYClassCard</a></li>
 										<li><a href="javascript:void(0);">Sales</a></li>
 										<li><a href="javascript:void(0);">Applications</a></li>
 									</ul>
@@ -417,7 +418,8 @@
 							<h6 class="submenu-hdr">المخازن والمستودعات </h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><i data-feather="box"></i><span>المنتجات </span></a></li>
-								<li><a href="add-product.html"><i data-feather="plus-square"></i><span>Create Product</span></a></li>
+								<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
+							
 								<li><a href="expired-products.html"><i data-feather="codesandbox"></i><span>Expired Products</span></a></li>
 								<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a></li>
 
@@ -685,7 +687,9 @@
 									</a>
 									<ul>
 										<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
-										<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+
+										<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
+
 										<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 										<li><a href="tax-rates.html">Tax Rates</a></li>
 										<li><a href="currency-settings.html">Currencies</a></li>
@@ -972,7 +976,7 @@
 						</ul>
 						<ul class="tab-pane" id="product" aria-labelledby="messages-tab">
 							<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><span>المنتجات</span></a></li>
-							<li><a href="add-product.html"><span>Create Product</span></a></li>
+							<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
 							<li><a href="expired-products.html"><span>Expired Products</span></a></li>
 							<li><a href="low-stocks.html"><span>Low Stocks</span></a></li>
 							<li><a asp-area="Admin" asp-controller="Category" asp-action="MYCategory"><span>الفئات</span></a></li>
@@ -1320,7 +1324,7 @@
 								<a href="javascript:void(0);"><span>إعدادات المحاسبة </span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
-									<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+									<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
 									<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 									<li><a href="tax-rates.html">Tax Rates</a></li>
 									<li><a href="currency-settings.html">Currencies</a></li>
@@ -1405,7 +1409,7 @@
 						</a>
 						<ul>
 							<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><span>المنتجات</span></a></li>
-							<li><a href="add-product.html"><span>Create Product</span></a></li>
+							<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
 							<li><a href="expired-products.html"><span>Expired Products</span></a></li>
 							<li><a href="low-stocks.html"><span>Low Stocks</span></a></li>
 							<li><a asp-area="Admin" asp-controller="Category" asp-action="MYCategory"><span>الفئات</span></a></li>
@@ -1780,7 +1784,7 @@
 								<a href="javascript:void(0);"><span>إعدادات المحاسبة </span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
-									<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+									<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
 									<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 									<li><a href="tax-rates.html">Tax Rates</a></li>
 									<li><a href="currency-settings.html">Currencies</a></li>

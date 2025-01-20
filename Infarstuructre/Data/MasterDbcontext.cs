@@ -101,6 +101,19 @@ namespace Infarstuructre.Data
             //*********************************************************
 
 
+               //*********************************************************
+
+               
+            builder.Entity<TBViewClassCard>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewClassCard");
+            });
+
+
+            //*********************************************************
+
+
 
 
 
@@ -267,8 +280,29 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");   
             builder.Entity<TBSupplier>()
            .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");  
+           .HasDefaultValueSql("((1))");
             //---------------------------------
+            //---------------------------------
+            builder.Entity<TBUnit>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBUnit>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBClassCard>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBClassCard>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
+            builder.Entity<TBClassCard>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -295,6 +329,9 @@ namespace Infarstuructre.Data
         public DbSet<TBViewExpense> ViewExpense { get; set; }
         public DbSet<TBSupplier> TBSuppliers { get; set; }
         public DbSet<TBViewSupplier> ViewSupplier { get; set; }
+        public DbSet<TBUnit> TBUnits { get; set; }
+        public DbSet<TBClassCard> TBClassCards { get; set; }
+        public DbSet<TBViewClassCard> ViewClassCard { get; set; }
 
 
     }
