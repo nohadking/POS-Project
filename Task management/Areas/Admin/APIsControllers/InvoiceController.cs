@@ -113,5 +113,12 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(invoices);
         }
 
+        [HttpGet("GetByCasherNameAndPayMethodAndPeriodDate/{casherName}/{payMeth}/{start}/{end}")]
+        public IActionResult GetByCasherNameAndPayMethodAndPeriodDate(string casherName, string payMeth, DateTime start, DateTime end)
+        {
+            var invoices = iInvose.GetByCasherNameAndPayMethodAndPeriodDate(casherName, payMeth, start, end);
+            return Ok(invoices);
+        }
+
     }
 }

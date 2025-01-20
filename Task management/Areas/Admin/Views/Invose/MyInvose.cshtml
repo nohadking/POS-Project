@@ -91,7 +91,7 @@
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="input-blocks">
                                         <div class="position-relative daterange-wraper">
-                                            <input id="DatePeriod" type="text" class="form-control" name="datetimes" placeholder="From Date - To Date">
+                                            <input id="DatePeriod" onchange="periodDate()" type="text" class="form-control" name="datetimes" placeholder="From Date - To Date">
                                             <i data-feather="calendar" class="feather-14 info-img"></i>
                                         </div>
                                     </div>
@@ -298,5 +298,100 @@
         }
 
     });
+
+</script>
+<script>
+    $(function () {
+        $('#DatePeriod').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD' // تنسيق التاريخ
+            }
+        });
+    });
+    $('#DatePeriod').on('apply.daterangepicker', function (ev, picker) {
+        var fromDate = picker.startDate.format('YYYY-MM-DD');
+        var toDate = picker.endDate.format('YYYY-MM-DD');
+
+        console.log("From Date:", fromDate);
+        console.log("To Date:", toDate);
+    });
+
+</script>
+
+<script>
+
+    function periodDate(){
+
+        var datePeriod = $('#DatePeriod').val();
+
+        var dates = datePeriod.split(" - ");
+
+        var startDate = dates[0];
+        var endDate = dates[1];
+
+        console.log("تاريخ البدء: " + startDate);
+        console.log("تاريخ النهاية: " + endDate);
+
+        const formattedDateStart = new Date(startDate).toISOString().split('T')[0];
+        const formattedDateEnd = new Date(endDate).toISOString().split('T')[0];
+
+        const payMeth = $('#PayMeth').find('option:selected').text();
+        const cacherName = $("#CasherName").find('option:selected').text();
+
+        const originalUrl = window.origin;
+
+        fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethodAndPeriodDate/${cacherName}/${payMeth}/${formattedDateStart}/${formattedDateEnd}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('حدث خطأ في جلب البيانات');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("data: " + JSON.stringify(data, null, 2));
+
+                const tbody = $('#TblForResult');
+                tbody.empty();
+                let totalPrice = 0;
+                $('#totalPri').val(0);
+
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+                            <td>${item.invoiceNumber}</td>
+                            <td>${item.dateInvos}</td>
+                            <td>${item.paymentMethodAr}</td>
+                            <td>${item.name}</td>
+                            <td>${item.productNameAr}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price}</td>
+                            <td>$${item.total}</td>
+                            <td>${item.dataEntry}</td>
+                            <td>
+                                <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                    ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                </span>
+                            </td>
+                        </tr>`;
+                    tbody.append(row);
+                    totalPrice += item.total;
+                });
+                $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+            })
+            .catch(error => {
+                const outputElement = document.getElementById('outputElement');
+                if (outputElement) {
+                    outputElement.textContent = `خطأ: ${error.message}`;
+                }
+            });
+    }
+
+   
 
 </script>
