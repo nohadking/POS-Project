@@ -322,76 +322,78 @@
 
     function periodDate(){
 
-        var datePeriod = $('#DatePeriod').val();
+        if ($('#filter_inputs').css('display') === 'none') { }
 
-        var dates = datePeriod.split(" - ");
+        else{
+            var datePeriod = $('#DatePeriod').val();
 
-        var startDate = dates[0];
-        var endDate = dates[1];
+            var dates = datePeriod.split(" - ");
 
-        console.log("تاريخ البدء: " + startDate);
-        console.log("تاريخ النهاية: " + endDate);
+            var startDate = dates[0];
+            var endDate = dates[1];
 
-        const formattedDateStart = new Date(startDate).toISOString().split('T')[0];
-        const formattedDateEnd = new Date(endDate).toISOString().split('T')[0];
+            console.log("تاريخ البدء: " + startDate);
+            console.log("تاريخ النهاية: " + endDate);
 
-        const payMeth = $('#PayMeth').find('option:selected').text();
-        const cacherName = $("#CasherName").find('option:selected').text();
+            const formattedDateStart = new Date(startDate).toISOString().split('T')[0];
+            const formattedDateEnd = new Date(endDate).toISOString().split('T')[0];
 
-        const originalUrl = window.origin;
+            const payMeth = $('#PayMeth').find('option:selected').text();
+            const cacherName = $("#CasherName").find('option:selected').text();
 
-        fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethodAndPeriodDate/${cacherName}/${payMeth}/${formattedDateStart}/${formattedDateEnd}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('حدث خطأ في جلب البيانات');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("data: " + JSON.stringify(data, null, 2));
+            const originalUrl = window.origin;
 
-                const tbody = $('#TblForResult');
-                tbody.empty();
-                let totalPrice = 0;
-                $('#totalPri').val(0);
+            fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethodAndPeriodDate/${cacherName}/${payMeth}/${formattedDateStart}/${formattedDateEnd}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
 
-                data.forEach(item => {
-                    const row = `
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox">
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>${item.invoiceNumber}</td>
-                            <td>${item.dateInvos}</td>
-                            <td>${item.paymentMethodAr}</td>
-                            <td>${item.name}</td>
-                            <td>${item.productNameAr}</td>
-                            <td>${item.quantity}</td>
-                            <td>$${item.price}</td>
-                            <td>$${item.total}</td>
-                            <td>${item.dataEntry}</td>
-                            <td>
-                                <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
-                                    ${item.OutstandingBill ? 'Active' : 'DeActive'}
-                                </span>
-                            </td>
-                        </tr>`;
-                    tbody.append(row);
-                    totalPrice += item.total;
+                    const tbody = $('#TblForResult');
+                    tbody.empty();
+                    let totalPrice = 0;
+                    $('#totalPri').val(0);
+
+                    data.forEach(item => {
+                        const row = `
+                            <tr>
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td>${item.invoiceNumber}</td>
+                                <td>${item.dateInvos}</td>
+                                <td>${item.paymentMethodAr}</td>
+                                <td>${item.name}</td>
+                                <td>${item.productNameAr}</td>
+                                <td>${item.quantity}</td>
+                                <td>$${item.price}</td>
+                                <td>$${item.total}</td>
+                                <td>${item.dataEntry}</td>
+                                <td>
+                                    <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                        ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                    </span>
+                                </td>
+                            </tr>`;
+                        tbody.append(row);
+                        totalPrice += item.total;
+                    });
+                    $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+                })
+                .catch(error => {
+                    const outputElement = document.getElementById('outputElement');
+                    if (outputElement) {
+                        outputElement.textContent = `خطأ: ${error.message}`;
+                    }
                 });
-                $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
-            })
-            .catch(error => {
-                const outputElement = document.getElementById('outputElement');
-                if (outputElement) {
-                    outputElement.textContent = `خطأ: ${error.message}`;
-                }
-            });
+        }
+ 
     }
-
-   
-
 </script>
