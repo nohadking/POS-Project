@@ -1,7 +1,7 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
-})
+});
+
 
 $('#CasherName').on('change', function () {
 
@@ -161,3 +161,4 @@ function updateTotalPrice() {
 $(document).ready(function () {
     updateTotalPrice();
 });
+
