@@ -232,6 +232,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل بيانات مورد.
+        /// </summary>
+        internal static string LBAddEditSupplier {
+            get {
+                return ResourceManager.GetString("LBAddEditSupplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying Email Alart Setting.
         /// </summary>
         internal static string LBAddEmailAlartSetting {
@@ -372,6 +381,15 @@ namespace Task_management.Resource {
         internal static string LbAddresCompany {
             get {
                 return ResourceManager.GetString("LbAddresCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان .
+        /// </summary>
+        internal static string lbAddress {
+            get {
+                return ResourceManager.GetString("lbAddress", resourceCulture);
             }
         }
         
@@ -925,6 +943,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سقف المديونية.
+        /// </summary>
+        internal static string lbDebtlimit {
+            get {
+                return ResourceManager.GetString("lbDebtlimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Charges.
         /// </summary>
         internal static string Lbdelivery_charges {
@@ -1200,6 +1227,15 @@ namespace Task_management.Resource {
         internal static string Lbgisurl {
             get {
                 return ResourceManager.GetString("Lbgisurl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فترة السماح.
+        /// </summary>
+        internal static string LbGracePeriod {
+            get {
+                return ResourceManager.GetString("LbGracePeriod", resourceCulture);
             }
         }
         
@@ -1848,6 +1884,15 @@ namespace Task_management.Resource {
         internal static string LBMyShippingPrice {
             get {
                 return ResourceManager.GetString("LBMyShippingPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بيانات الموردين .
+        /// </summary>
+        internal static string LBMYSupplier {
+            get {
+                return ResourceManager.GetString("LBMYSupplier", resourceCulture);
             }
         }
         
@@ -2734,6 +2779,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الاختصاص.
+        /// </summary>
+        internal static string lbSpecialization {
+            get {
+                return ResourceManager.GetString("lbSpecialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ssl validity.
         /// </summary>
         internal static string lbSsl_validity {
@@ -2766,6 +2820,15 @@ namespace Task_management.Resource {
         internal static string LBStreet {
             get {
                 return ResourceManager.GetString("LBStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المورد.
+        /// </summary>
+        internal static string lbSupplierName {
+            get {
+                return ResourceManager.GetString("lbSupplierName", resourceCulture);
             }
         }
         
@@ -3081,6 +3144,15 @@ namespace Task_management.Resource {
         internal static string LBUsersInformationEn {
             get {
                 return ResourceManager.GetString("LBUsersInformationEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الموقع الاكتروني.
+        /// </summary>
+        internal static string Lbwebsite {
+            get {
+                return ResourceManager.GetString("Lbwebsite", resourceCulture);
             }
         }
         
@@ -3585,6 +3657,15 @@ namespace Task_management.Resource {
         internal static string VLSavedSuccessfully {
             get {
                 return ResourceManager.GetString("VLSavedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال اسم المورد مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!.
+        /// </summary>
+        internal static string VLSuppliersEnDoplceted {
+            get {
+                return ResourceManager.GetString("VLSuppliersEnDoplceted", resourceCulture);
             }
         }
         

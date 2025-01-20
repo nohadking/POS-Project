@@ -88,6 +88,18 @@ namespace Infarstuructre.Data
 
             //*********************************************************
 
+             //*********************************************************
+
+               
+            builder.Entity<TBViewSupplier>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewSupplier");
+            });
+
+
+            //*********************************************************
+
 
 
 
@@ -282,6 +294,7 @@ namespace Infarstuructre.Data
         public DbSet<TBExpense> TBExpenses { get; set; }
         public DbSet<TBViewExpense> ViewExpense { get; set; }
         public DbSet<TBSupplier> TBSuppliers { get; set; }
+        public DbSet<TBViewSupplier> ViewSupplier { get; set; }
 
 
     }

@@ -94,7 +94,9 @@ namespace Infarstuructre.ViewModel
         public TBExpenseCategory ExpenseCategory { get; set; }
 
         public List<TBViewExpense> ListViewExpense { get; set; }
-        public TBExpense Expense { get; set; }
+        public TBExpense Expense { get; set; }     
+        public List<TBViewSupplier> ListViewSupplier { get; set; }
+        public TBSupplier Supplier { get; set; }
 
     }
  }
