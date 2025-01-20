@@ -125,24 +125,6 @@ $('#PayMeth').on('change', function () {
 });
 
 
-$('#DatePeriod').on('input', function () {
-    let dateValue = $(this).val(); 
-    console.log('القيمة الكاملة:', dateValue);
-
-    // تقسيم القيم إذا كانت مفصولة بـ " - "
-    let dates = dateValue.split(' - ');
-
-    if (dates.length === 2) {
-        let fromDate = dates[0].trim();
-        let toDate = dates[1].trim();  
-
-        console.log('تاريخ البداية:', fromDate);
-        console.log('تاريخ النهاية:', toDate);
-    } else {
-        console.log('القيمة غير صحيحة أو الحقل فارغ.');
-    }
-});
-
 
 function updateTotalPrice() {
     let totalPrice = 0;
@@ -161,4 +143,8 @@ function updateTotalPrice() {
 $(document).ready(function () {
     updateTotalPrice();
 });
+
+
+
+
 

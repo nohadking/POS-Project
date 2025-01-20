@@ -15,6 +15,7 @@ namespace Infarstuructre.BL
         List<TBViewInvose> GetByCacherNameAndPay(string name, string pay);
         List<TBViewInvose> GetByDateTimeEntry(DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date);
+        List<TBViewInvose> GetByCasherNameAndPayMethodAndPeriodDate(string name, string pay, DateTime start, DateTime end);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -107,13 +108,22 @@ namespace Infarstuructre.BL
 
         public List<TBViewInvose> GetByDateTimeEntry(DateTime date)
         {
-            var invoices = dbcontext.ViewInvose.Where(a => a.DateTimeEntry == date).ToList();
+            var invoices = dbcontext.ViewInvose
+                .Where(a => a.DateTimeEntry.Date == date.Date) // مقارنة التاريخ فقط
+                .ToList();
             return invoices;
         }
 
         public List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date)
         {
-            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay && a.DateTimeEntry == date).ToList();
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay && a.DateTimeEntry.Date == date.Date).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCasherNameAndPayMethodAndPeriodDate(string name, string pay, DateTime start, DateTime end)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay
+            && a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
             return invoices;
         }
     }
