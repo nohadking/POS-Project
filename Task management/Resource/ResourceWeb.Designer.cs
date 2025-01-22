@@ -70,6 +70,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اسم الحساب.
+        /// </summary>
+        internal static string lbAccountingName {
+            get {
+                return ResourceManager.GetString("lbAccountingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حالة الفئة.
         /// </summary>
         internal static string LbActive {
@@ -102,6 +111,15 @@ namespace Task_management.Resource {
         internal static string LBAddAboutSectionStartHomeContent {
             get {
                 return ResourceManager.GetString("LBAddAboutSectionStartHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل القيود المحاسبية .
+        /// </summary>
+        internal static string LBAddAccountingRestriction {
+            get {
+                return ResourceManager.GetString("LBAddAccountingRestriction", resourceCulture);
             }
         }
         
@@ -574,6 +592,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to نوع السند.
+        /// </summary>
+        internal static string lbBondType {
+            get {
+                return ResourceManager.GetString("lbBondType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to branch.
         /// </summary>
         internal static string Lbbranch {
@@ -835,6 +862,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to دائن.
+        /// </summary>
+        internal static string lbcreditor {
+            get {
+                return ResourceManager.GetString("lbcreditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency.
         /// </summary>
         internal static string LbCurrency {
@@ -975,6 +1011,15 @@ namespace Task_management.Resource {
         internal static string lbDebtlimit {
             get {
                 return ResourceManager.GetString("lbDebtlimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مدين.
+        /// </summary>
+        internal static string lbDebtor {
+            get {
+                return ResourceManager.GetString("lbDebtor", resourceCulture);
             }
         }
         
@@ -1609,6 +1654,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to القيود المحاسبية .
+        /// </summary>
+        internal static string LBMyAccountingRestriction {
+            get {
+                return ResourceManager.GetString("LBMyAccountingRestriction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regions.
         /// </summary>
         internal static string LBMyArea {
@@ -2203,7 +2257,7 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Noute.
+        ///   Looks up a localized string similar to الملاحظات.
         /// </summary>
         internal static string LbNouts {
             get {
@@ -2217,6 +2271,15 @@ namespace Task_management.Resource {
         internal static string LbNoutsOrder {
             get {
                 return ResourceManager.GetString("LbNoutsOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم القيد.
+        /// </summary>
+        internal static string lbNumberaccountingRestrictions {
+            get {
+                return ResourceManager.GetString("lbNumberaccountingRestrictions", resourceCulture);
             }
         }
         

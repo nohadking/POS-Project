@@ -664,7 +664,7 @@
     <value>Error during the editing process. Please check and try again later..!</value>
   </data>
   <data name="LbNouts" xml:space="preserve">
-    <value>Noute</value>
+    <value>الملاحظات</value>
   </data>
   <data name="LbNoutsOrder" xml:space="preserve">
     <value>Nouts Order</value>
@@ -1388,5 +1388,26 @@
   </data>
   <data name="LBAddEditClassCard" xml:space="preserve">
     <value>إضافة وتعديل المواد</value>
+  </data>
+  <data name="LBMyAccountingRestriction" xml:space="preserve">
+    <value>القيود المحاسبية </value>
+  </data>
+  <data name="lbNumberaccountingRestrictions" xml:space="preserve">
+    <value>رقم القيد</value>
+  </data>
+  <data name="lbAccountingName" xml:space="preserve">
+    <value>اسم الحساب</value>
+  </data>
+  <data name="lbBondType" xml:space="preserve">
+    <value>نوع السند</value>
+  </data>
+  <data name="lbDebtor" xml:space="preserve">
+    <value>مدين</value>
+  </data>
+  <data name="lbcreditor" xml:space="preserve">
+    <value>دائن</value>
+  </data>
+  <data name="LBAddAccountingRestriction" xml:space="preserve">
+    <value>إضافة وتعديل القيود المحاسبية </value>
   </data>
 </root>

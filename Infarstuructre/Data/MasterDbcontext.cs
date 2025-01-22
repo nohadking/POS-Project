@@ -302,6 +302,24 @@ namespace Infarstuructre.Data
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
 
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBPurchase>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBPurchase>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
+      
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBAccountingRestriction>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBAccountingRestriction>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -332,6 +350,8 @@ namespace Infarstuructre.Data
         public DbSet<TBUnit> TBUnits { get; set; }
         public DbSet<TBClassCard> TBClassCards { get; set; }
         public DbSet<TBViewClassCard> ViewClassCard { get; set; }
+        public DbSet<TBPurchase> TBPurchases { get; set; }
+        public DbSet<TBAccountingRestriction> TBAccountingRestrictions { get; set; }
 
 
     }

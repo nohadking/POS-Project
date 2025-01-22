@@ -573,4 +573,22 @@
   <data name="VlCodeItem" xml:space="preserve">
     <value>يرجى أدراج رمز المادة لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="StatementPurchase" xml:space="preserve">
+    <value>يرجى إدخال البيان الخاص بسند الشراء لتتم العملية بنجاح...!</value>
+  </data>
+  <data name="VlPurchaseDate" xml:space="preserve">
+    <value>يرجى إدخال  تاريخ سند الشراء لتتم العملية بنجاح ..!</value>
+  </data>
+  <data name="VlPurchasePrice" xml:space="preserve">
+    <value>يرجى إدراج سعر الشراء لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTotal" xml:space="preserve">
+    <value>يرجى إدراج الاجمالي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlStatementPurchase" xml:space="preserve">
+    <value>يرجى أدراج البيان لتتم العملية بنجاح </value>
+  </data>
+  <data name="LBAddAccountingRestriction" xml:space="preserve">
+    <value>إضافة وتعديل القيود المحاسبية </value>
+  </data>
 </root>

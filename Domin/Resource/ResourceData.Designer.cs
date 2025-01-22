@@ -88,6 +88,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل القيود المحاسبية .
+        /// </summary>
+        internal static string LBAddAccountingRestriction {
+            get {
+                return ResourceManager.GetString("LBAddAccountingRestriction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Companie Type Work En.
         /// </summary>
         internal static string LbCompanieTypeWorkEn {
@@ -282,6 +291,15 @@ namespace Domin.Resource {
         internal static string RoleName {
             get {
                 return ResourceManager.GetString("RoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدخال البيان الخاص بسند الشراء لتتم العملية بنجاح...!.
+        /// </summary>
+        internal static string StatementPurchase {
+            get {
+                return ResourceManager.GetString("StatementPurchase", resourceCulture);
             }
         }
         
@@ -1015,6 +1033,24 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى إدخال  تاريخ سند الشراء لتتم العملية بنجاح ..!.
+        /// </summary>
+        internal static string VlPurchaseDate {
+            get {
+                return ResourceManager.GetString("VlPurchaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج سعر الشراء لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlPurchasePrice {
+            get {
+                return ResourceManager.GetString("VlPurchasePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدخال الكمية لتتم العملية بنجاح ...!.
         /// </summary>
         internal static string VlQuantity {
@@ -1150,6 +1186,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج البيان لتتم العملية بنجاح .
+        /// </summary>
+        internal static string VlStatementPurchase {
+            get {
+                return ResourceManager.GetString("VlStatementPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the Street.
         /// </summary>
         internal static string VlStreet {
@@ -1281,6 +1326,15 @@ namespace Domin.Resource {
         internal static string VlTitleTwoEn {
             get {
                 return ResourceManager.GetString("VlTitleTwoEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج الاجمالي لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlTotal {
+            get {
+                return ResourceManager.GetString("VlTotal", resourceCulture);
             }
         }
         

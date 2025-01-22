@@ -475,6 +475,11 @@
 										<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
 										<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 									</ul>
+									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>الحركات </span><span class="menu-arrow"></span></a>
+									<ul>
+										<li><a asp-area="Admin" asp-controller="AccountingRestriction" asp-action="MyAccountingRestriction">@ResourceWeb.LBMyAccountingRestriction</a></li>
+									
+									</ul>
 								</li>
 							</ul>
 						</li>
@@ -541,7 +546,7 @@
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">User Management</h6>
+							<h6 class="submenu-hdr">المستخدمين </h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><i data-feather="shield"></i><span>الصلاحيات</span></a></li>
@@ -882,8 +887,6 @@
 			</div>
 		</div>
 		<!-- /Sidebar -->
-
-
 		<!-- Sidebar -->
 		<div class="sidebar collapsed-sidebar" id="collapsed-sidebar">
 			<div class="sidebar-inner slimscroll">

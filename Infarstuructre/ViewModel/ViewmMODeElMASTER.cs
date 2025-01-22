@@ -25,14 +25,11 @@ namespace Infarstuructre.ViewModel
 		public IEnumerable<RegisterViewModel> ListRegisterViewModel { get; set; }
 		public IEnumerable<NewRegister> ListNewRegister { get; set; }
 		public ChangePasswordViewModel SChangePassword { get; set; }
-
         public bool Rememberme { get; set; }
         public List<SelectListItem> Roles1 { get; set; }
         public string SelectedRoleId { get; set; }
-
-        public IEnumerable<Product> Product1 { get; set; }
-
-        public string UserName { get; set; }
+       public IEnumerable<Product> Product1 { get; set; }
+       public string UserName { get; set; }
 		public string UserId { get; set; }
 		public string UserImage { get; set; }
 		public string Name { get; set; }
@@ -40,38 +37,28 @@ namespace Infarstuructre.ViewModel
 		public NewRegister NewRegister { get; set; }
 		public string Id { get; set; }
 		public string RoleName { get; set; }
-		public string Email { get; set; }
+	public string Email { get; set; }
 		public string? ImageUser { get; set; }
 		public bool ActiveUser { get; set; }
 		public string Password { get; set; }
 		public string ComparePassword { get; set; }
 		public string userName { get; set; }
-		public string PhoneNumber { get; set; }	
-		
+		public string PhoneNumber { get; set; }		
 		public List<IdentityRole> Roles { get; set; }
-		public List<VwUser> Users { get; set; }	
-		
-	
+		public List<VwUser> Users { get; set; }		
 		public List<TBEmailAlartSetting> ListEmailAlartSetting { get; set; }
         public TBEmailAlartSetting EmailAlartSetting { get; set; }	
 		public List<TBCategory> ListCategory { get; set; }
         public TBCategory Category { get; set; }
-
-
 		public List<TBViewProduct> ListViewProduct { get; set; }
 		public TBProduct Product { get; set; }
-
-
 		public List<TBCustomerCategorie> ListCustomerCategorie { get; set; }
 		public TBCustomerCategorie CustomerCategorie { get; set; }
-
-
 		public List<TBViewInvoseHeder> ListViewInvoseHede { get; set; }
 		public TBInvoseHeder InvoseHeder { get; set; }
 		public List<TBPaymentMethod> ListPaymentMethod { get; set; }
 		public TBPaymentMethod PaymentMethod { get; set; }
-
-        public List<TBHomeSliderContent> ListHomeSliderContent { get; set; }
+      public List<TBHomeSliderContent> ListHomeSliderContent { get; set; }
         public TBHomeSliderContent HomeSliderContent { get; set; }
         public List<TBViewPhotoHomeSliderContent> ListViewPhotoHomeSliderContent { get; set; }
         public TBPhotoHomeSliderContent PhotoHomeSliderContent { get; set; }
@@ -83,26 +70,23 @@ namespace Infarstuructre.ViewModel
         public TBCategoryServic CategoryServic { get; set; }
         public List<TBBrandProduct> ListBrandProduct { get; set; }
         public TBBrandProduct BrandProduct { get; set; }
-
         public List<TBViewInvose> ListViewInvose { get; set; }
         public TBInvose Invoic { get; set; }
-
-
         public List<TBCompanyInformation> ListCompanyInformation { get; set; }
         public TBCompanyInformation CompanyInformation { get; set; } 
 		public List<TBExpenseCategory> ListExpenseCategory { get; set; }
         public TBExpenseCategory ExpenseCategory { get; set; }
-
         public List<TBViewExpense> ListViewExpense { get; set; }
         public TBExpense Expense { get; set; }     
         public List<TBViewSupplier> ListViewSupplier { get; set; }
         public TBSupplier Supplier { get; set; }
-
         public List<TBUnit> ListUnit { get; set; }
         public TBUnit Unit { get; set; }
-
         public List<TBViewClassCard> ListViewClassCard { get; set; }
         public TBClassCard ClassCard { get; set; }
+        public List<TBAccountingRestriction> ListAccountingRestriction { get; set; }
+        public TBAccountingRestriction AccountingRestriction { get; set; }
+
     }
  }
 
