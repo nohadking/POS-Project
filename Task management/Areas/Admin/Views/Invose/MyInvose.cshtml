@@ -24,7 +24,8 @@
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Mail"><img src="~/AdminEn/assets/img/icons/mail.svg" alt="img"></a>                  
                     </li>
                     <li>
-                        <a asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
+                       @* <a asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a> *@
+                       <a onclick="CreatePdf()" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
                     </li>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
@@ -67,6 +68,7 @@
                         <div class="form-sort"dir="ltr">
                            @*  <i data-feather="sliders" class="info-img"></i> *@
                             <select id="SelectDateEntry" class="form-select" asp-items="@(new SelectList(ViewBag.dateTai))">
+                                <option></option>
                             </select>
                         </div>
                     </div>
@@ -78,6 +80,7 @@
                                     <div class="input-blocks">
                                         <i data-feather="user" class="info-img"></i>
                                         <select id="CasherName" class="form-select" asp-items="@(new SelectList(ViewBag.CasherName))">
+                                            <option></option>
                                         </select>
                                     </div>
                                 </div>
@@ -85,6 +88,7 @@
                                     <div class="input-blocks">
                                         <i data-feather="stop-circle" class="info-img" ></i>
                                         <select id="PayMeth" class="form-select" asp-items="@(new SelectList(ViewBag.PayMoTh))">
+                                            <option></option>
                                         </select>
                                     </div>
                                 </div>
@@ -320,88 +324,155 @@
 
 <script>
 
-    function periodDate(){
+    function periodDate() {
+        if ($('#filter_inputs').css('display') === 'none') return;
 
-        if ($('#filter_inputs').css('display') === 'none') { }
+        const datePeriod = $('#DatePeriod').val(); // قراءة التاريخ من الحقل
+        const dates = datePeriod.split(" - "); // تقسيم التواريخ بناءً على الفاصل " - "
 
-        else{
-            var datePeriod = $('#DatePeriod').val();
-
-            var dates = datePeriod.split(" - ");
-
-            var startDate = dates[0];
-            var endDate = dates[1];
-
-            console.log("تاريخ البدء: " + startDate);
-            console.log("تاريخ النهاية: " + endDate);
-
-            const formattedDateStart = new Date(startDate).toISOString().split('T')[0];
-            const formattedDateEnd = new Date(endDate).toISOString().split('T')[0];
-
-            const payMeth = $('#PayMeth').find('option:selected').text();
-            const cacherName = $("#CasherName").find('option:selected').text();
-
-            const originalUrl = window.origin;
-
-            fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethodAndPeriodDate/${cacherName}/${payMeth}/${formattedDateStart}/${formattedDateEnd}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('حدث خطأ في جلب البيانات');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("data: " + JSON.stringify(data, null, 2));
-
-                    const tbody = $('#TblForResult');
-                    tbody.empty();
-                    let totalPrice = 0;
-                    $('#totalPri').val(0);
-
-                    data.forEach(item => {
-                        const row = `
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>${item.invoiceNumber}</td>
-                                <td>${item.dateInvos}</td>
-                                <td>${item.paymentMethodAr}</td>
-                                <td>${item.name}</td>
-                                <td>${item.productNameAr}</td>
-                                <td>${item.quantity}</td>
-                                <td>$${item.price}</td>
-                                <td>$${item.total}</td>
-                                <td>${item.dataEntry}</td>
-                                <td>
-                                    <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
-                                        ${item.OutstandingBill ? 'Active' : 'DeActive'}
-                                    </span>
-                                </td>
-                            </tr>`;
-                        tbody.append(row);
-                        totalPrice += item.total;
-                    });
-                    $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
-                })
-                .catch(error => {
-                    const outputElement = document.getElementById('outputElement');
-                    if (outputElement) {
-                        outputElement.textContent = `خطأ: ${error.message}`;
-                    }
-                });
+        if (!datePeriod || dates.length !== 2) {
+            console.error("التواريخ المدخلة غير صحيحة.");
+            return;
         }
- 
+
+        // استخراج تاريخ البداية والنهاية
+        const startDateString = dates[0].trim(); // تاريخ البداية
+        const endDateString = dates[1].trim();   // تاريخ النهاية
+
+        // تحويل النصوص إلى كائنات تاريخ
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        if (isNaN(startDate) || isNaN(endDate)) {
+            console.error("التواريخ غير صالحة. تأكد من تنسيق الإدخال.");
+            return;
+        }
+
+        // تنسيق التواريخ للإخراج
+        const formattedDateStart = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate.getDate().toString().padStart(2, '0')}`;
+        const formattedDateEnd = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getDate().toString().padStart(2, '0')}`;
+
+        console.log("تاريخ البدء: " + formattedDateStart);
+        console.log("تاريخ النهاية: " + formattedDateEnd);
+
+        const payMeth = $('#PayMeth').find('option:selected').text();
+        const cacherName = $("#CasherName").find('option:selected').text();
+
+        if (!payMeth || !cacherName) {
+            console.error("طريقة الدفع أو اسم الكاشير غير محددين.");
+            return;
+        }
+
+        const originalUrl = window.origin;
+
+        // استدعاء API باستخدام التواريخ المدخلة
+        fetch(`${originalUrl}/api/Invoice/GetByCasherNameAndPayMethodAndPeriodDate/${cacherName}/${payMeth}/${formattedDateStart}/${formattedDateEnd}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('حدث خطأ في جلب البيانات');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("data: " + JSON.stringify(data, null, 2));
+
+                const tbody = $('#TblForResult');
+                tbody.empty();
+                let totalPrice = 0;
+                $('#totalPri').val(0);
+
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+                            <td>${item.invoiceNumber}</td>
+                            <td>${item.dateInvos}</td>
+                            <td>${item.paymentMethodAr}</td>
+                            <td>${item.name}</td>
+                            <td>${item.productNameAr}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price}</td>
+                            <td>$${item.total}</td>
+                            <td>${item.dataEntry}</td>
+                            <td>
+                                <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                    ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                </span>
+                            </td>
+                        </tr>`;
+                    tbody.append(row);
+                    totalPrice += item.total;
+                });
+                $('#totalPri').val(totalPrice.toFixed(2) + ' $').trigger('change');
+            })
+            .catch(error => {
+                const outputElement = document.getElementById('outputElement');
+                if (outputElement) {
+                    outputElement.textContent = `خطأ: ${error.message}`;
+                }
+            });
     }
+
+
+
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById("DatePeriod").value = `${today} - ${today}`;
-    });
+    function CreatePdf() {
+        const cacherName = document.querySelector('#CasherName').value;
+        const payMethod = document.querySelector('#PayMeth').value; 
+        const detectedPeriod = document.querySelector('#DatePeriod').value;
+        const searchWord = document.querySelector('#filter_search').value;
+        const oneDate = document.querySelector('#SelectDateEntry').value;
+
+        if (cacherName != null && payMethod == null){
+
+            fetch(`/GeneratePdfByCacherName/${cacherName}`)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.error(error));
+
+        }
+
+        else if (cacherName != null && payMethod != null){
+
+            fetch(`/GeneratePdfByCacherNameAndPayMethod/${cacherName}/${payMethod}`)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.error(error));
+
+        }
+        else if (searchWord != null ) {
+            fetch(`/GeneratePdfByKeywordSearch/${searchWord}`)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.error(error));
+        }
+
+        else if (oneDate != null) {
+            fetch(`/GeneratePdfByKeywordSearch/${oneDate}`)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.error(error));
+        }
+        else if (oneDate == null && searchWord == null && cacherName == null && payMethod == null) {
+            fetch(`/GeneratePdf}`)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.error(error));
+        }
+
+        console.log("cacherName: " + cacherName);
+        console.log("payMethod: " + payMethod);
+        console.log("detectedPeriod: " + detectedPeriod);
+        console.log("searchWord: " + searchWord);
+        console.log("oneDate: " + oneDate);
+    }
+
 </script>
 

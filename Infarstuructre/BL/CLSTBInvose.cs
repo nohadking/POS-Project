@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Kiota.Abstractions;
+
 namespace Infarstuructre.BL
 {
     public interface IIInvose
@@ -16,6 +18,7 @@ namespace Infarstuructre.BL
         List<TBViewInvose> GetByDateTimeEntry(DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethodAndPeriodDate(string name, string pay, DateTime start, DateTime end);
+        List<TBViewInvose> GetBySearchWord(string word);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -87,6 +90,7 @@ namespace Infarstuructre.BL
             TBViewInvose sslid = dbcontext.ViewInvose.FirstOrDefault(a => a.IdInvose == IdInvose);
             return sslid;
         }
+
         /// ///////////// /API/ ////////////////////////////
         public List<TBViewInvose> GetByInvoiceNumber(int invNum)
         {
@@ -124,6 +128,24 @@ namespace Infarstuructre.BL
         {
             var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.PaymentMethodAr == pay
             && a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return invoices;
+        }
+
+
+        public List<TBViewInvose> GetBySearchWord(string word)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == word 
+            || a.PaymentMethodAr == word
+            || a.InvoiceNumber == int.Parse(word)
+            || a.Quantity == int.Parse(word)
+            || a.price == decimal.Parse(word)
+            || a.total == decimal.Parse(word)
+            || a.PaymentMethodEn == word
+            || a.ProductNameEn == word
+            || a.PhoneNumber == word
+            || a.DateTimeEntry == Convert.ToDateTime(word)
+            || a.DateInvos == Convert.ToDateTime(word)
+            || a.ProductNameAr == word).ToList();
             return invoices;
         }
     }
