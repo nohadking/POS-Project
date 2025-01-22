@@ -2,6 +2,7 @@
 
 using Infarstuructre.BL;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Immutable;
 
 namespace Task_management.Areas.Admin.Controllers
 {
@@ -14,15 +15,15 @@ namespace Task_management.Areas.Admin.Controllers
 	
 		IIUserInformation iUserInformation;
 		IICompanyInformation iCompanyInformation;
+		IIInvose iInvose;
 
-		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1)
+        public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1,IIInvose iInvose1)
 		{
 			_userManager = userManager;
-		
 			iUserInformation = iUserInformation1;
 			iCompanyInformation = iCompanyInformation1;
-
-		}
+			iInvose = iInvose1;
+        }
 
 		public async Task<IActionResult> Index(string userId)
 		{
@@ -39,21 +40,40 @@ namespace Task_management.Areas.Admin.Controllers
 
 			ViewBag.UserRole = role.FirstOrDefault();
 
-			// جلب البيانات وإعداد النموذج
-		//	vmodel.ListViewOrderNew = iOrderNew.GetAll();
-			//var filteredOrders = vmodel.ListViewOrderNew=iOrderNew.GetAll();
 
-			//ViewBag.Favorit = filteredOrders.Sum(c => c.CostPrice);
 
-		//	ViewBag.price = filteredOrders.Sum(c => c.Price);
-		//	ViewBag.total = ViewBag.price - ViewBag.Favorit;
+			// جلب البيانات من الـ View أو من المصدر المطلوب
+			var total = vmodel.ListViewInvose = iInvose.GetAll();
+			// حساب المجموع من القائمة أو قاعدة البيانات
+			var totalAmount = total.Sum(a => a.total);
+			ViewBag.TotalAmount = totalAmount;
 
-		//	vmodel.ListViewPaings = iPaidings.GetAll();
-		//	var paidings = vmodel.ListViewPaings = iPaidings.GetAll();
 
-			//ViewBag.paidings = paidings.Sum(p => p.ResivedMony);
+			// حساب الأصناف الأكثر مبيعًا وعدد المبيعات
+			var topSellingItems = total
+				.GroupBy(item => item.IdProduct) // افترضنا أن هناك ProductId لكل منتج
+				.Select(group => new
+				{
+					ProductId = group.Key,
+					ProductName = group.FirstOrDefault().ProductNameAr, // تأكد أن المنتج يحتوي على اسم
+					TotalSales = group.Sum(item => item.total), // حساب مجموع المبيعات لكل منتج
+					SalesCount = group.Sum(item => item.Quantity), // حساب إجمالي الكمية المباعة لكل منتج (افترض أن الكمية مخزنة في 'Quantity')
+					ProductImage = group.FirstOrDefault().Photo // إضافة صورة المنتج
+				})
+				.OrderByDescending(item => item.SalesCount) // ترتيب الأصناف حسب إجمالي المبيعات
+				/*.Take(10)*/ // عرض الأصناف الخمسة الأكثر مبيعًا
+				.ToList();
 
-			// إرسال النموذج إلى العرض
+			ViewBag.TopSellingItems = topSellingItems;
+			// إضافة الأصناف الأكثر مبيعًا إلى ViewBag
+
+			//إجمالي الكمية المباعة 
+			var Quantity = total.Sum(a => a.Quantity);
+			ViewBag.Quantity = Quantity;
+
+
+			var maxnomb = total.Max(a => a.InvoiceNumber);
+			ViewBag.max = maxnomb;
 			return View(vmodel);
 		}
 
