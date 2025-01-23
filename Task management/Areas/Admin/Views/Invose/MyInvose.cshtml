@@ -427,46 +427,44 @@
         const cacherName = document.querySelector('#CasherName').value;
         const payMethod = document.querySelector('#PayMeth').value; 
         const detectedPeriod = document.querySelector('#DatePeriod').value;
-        const searchWord = document.querySelector('#filter_search').value;
+        const searchWord = document.querySelector('.form-control.form-control-sm').value;
         const oneDate = document.querySelector('#SelectDateEntry').value;
 
-        if (cacherName != null && payMethod == null){
+        if (
+            (!oneDate || oneDate === "") &&
+            (!searchWord || searchWord === "") &&
+            (!cacherName || cacherName === "") &&
+            (!payMethod || payMethod === "")
+        ) {
+            console.log("GeneratePdf");
+            fetch(`/GeneratePdf`);
+        }
 
-            fetch(`/GeneratePdfByCacherName/${cacherName}`)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.error(error));
+
+
+        else if (searchWord) {
+            console.log("searchWord");
+            fetch(`/GeneratePdfByKeywordSearch/${searchWord}`);
+        }
+
+        else if (oneDate) {
+            console.log("oneDate");
+            const formattedDate = new Date(oneDate).toISOString().split('T')[0];
+            fetch(`/GeneratePdfByOneDate/${formattedDate}`);
+        }
+
+        else if (cacherName && (!payMethod || payMethod === "")) {
+            console.log("GeneratePdfByCacherName");
+            fetch(`/GeneratePdfByCacherName/${cacherName}`);
 
         }
 
-        else if (cacherName != null && payMethod != null){
-
-            fetch(`/GeneratePdfByCacherNameAndPayMethod/${cacherName}/${payMethod}`)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.error(error));
+        else if (cacherName && payMethod){
+            console.log("GeneratePdfByCacherNameAndPayMethod");
+            fetch(`/GeneratePdfByCacherNameAndPayMethod/${cacherName}/${payMethod}`);
 
         }
-        else if (searchWord != null ) {
-            fetch(`/GeneratePdfByKeywordSearch/${searchWord}`)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.error(error));
-        }
-
-        else if (oneDate != null) {
-            fetch(`/GeneratePdfByKeywordSearch/${oneDate}`)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.error(error));
-        }
-        else if (oneDate == null && searchWord == null && cacherName == null && payMethod == null) {
-            fetch(`/GeneratePdf}`)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.error(error));
-        }
-
+         
         console.log("cacherName: " + cacherName);
         console.log("payMethod: " + payMethod);
         console.log("detectedPeriod: " + detectedPeriod);
