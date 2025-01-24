@@ -25,7 +25,7 @@
                     </li>
                     <li>
                        @* <a asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a> *@
-                       <a onclick="CreatePdf()" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
+                        <a onclick="CreatePdf()" title="Pdf" asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
                     </li>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
@@ -71,6 +71,9 @@
                                 <option></option>
                             </select>
                         </div>
+
+
+
                     </div>
                     <!-- /Filter -->
                     <div class="card" id="filter_inputs">
@@ -80,8 +83,9 @@
                                     <div class="input-blocks">
                                         <i data-feather="user" class="info-img"></i>
                                         <select id="CasherName" class="form-select" asp-items="@(new SelectList(ViewBag.CasherName))">
-                                            <option></option>
+                                            <option value="">اختر مدخل البيانات</option>
                                         </select>
+                                        <button type="button" onclick="CreatePdf()" class="btn btn-primary">إنشاء ملف PDF</button>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12" dir="ltr">
@@ -179,7 +183,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/adminen/assets/js/invoicefilter.js"></script>
 
-<script>
+@* <script>
     $('#SelectDateEntry').on('change', function () {
         console.log("SelectDateEntry changed");
         const originalUrl = window.origin;
@@ -420,9 +424,9 @@
 
 
 
-</script>
+</script> *@
 
-<script>
+@* <script>
     function CreatePdf() {
         const cacherName = document.querySelector('#CasherName').value;
         const payMethod = document.querySelector('#PayMeth').value; 
@@ -472,5 +476,34 @@
         console.log("oneDate: " + oneDate);
     }
 
+</script> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function CreatePdf() {
+        // جلب القيمة المحددة من القائمة المنسدلة
+        var selectedDate = document.getElementById("CasherName").value;
+        console.log(selectedDate+"nnnn");
+        if (!selectedDate) {
+            alert("يرج اختيار منشء السندPDF.");
+            return;
+        }
+
+        // إعادة توجيه إلى الإجراء مع تمرير القيمة كمعلمة
+        var url = `/Admin/Invose/GeneratePdf?selectedDate=${encodeURIComponent(selectedDate)}`;
+        window.location.href = url;
+    }
 </script>
 
