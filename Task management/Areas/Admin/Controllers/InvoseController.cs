@@ -52,6 +52,7 @@ namespace Task_management.Areas.Admin.Controllers
             ViewBag.dateTai = distinctDates;
             return View(vmodel);
         }
+        //علي شوف هي الفنثكشن  ضروري 
         [HttpGet]
         public IActionResult GeneratePdf(string selectedDate)
         {
