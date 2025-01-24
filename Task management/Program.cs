@@ -130,6 +130,7 @@ builder.Services.AddScoped<IIAboutSectionStartHomeContent, CLSTBAboutSectionStar
 builder.Services.AddScoped<IICategoryServic, CLSTBCategoryServic>();
 builder.Services.AddScoped<IIBrandProduct, CLSTBBrandProduct>();
 builder.Services.AddScoped<IIAccountingRestriction, CLSTBAccountingRestriction>();
+builder.Services.AddScoped<IIPurchase, CLSTBPurchase>();
 
 
 // تفعيل الترخيص لـ QuestPDF

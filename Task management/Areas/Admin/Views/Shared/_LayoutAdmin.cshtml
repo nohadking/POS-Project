@@ -550,10 +550,10 @@
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><i data-feather="shield"></i><span>الصلاحيات</span></a></li>
-								<li><a href="delete-account.html"><i data-feather="lock"></i><span>Delete Account Request</span></a></li>
+								
 							</ul>
 						</li>
-						<li class="submenu-open">
+						@* <li class="submenu-open">
 							<h6 class="submenu-hdr">Pages</h6>
 							<ul>
 								<li><a href="profile.html"><i data-feather="user"></i><span>Profile</span></a></li>
@@ -635,7 +635,7 @@
 									<a href="under-maintenance.html"><i data-feather="alert-triangle"></i><span>Under Maintenance</span> </a>
 								</li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Settings</h6>
 							<ul>
@@ -715,7 +715,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="submenu-open">
+					@* 	<li class="submenu-open">
 							<h6 class="submenu-hdr">UI Interface</h6>
 							<ul>
 								<li class="submenu">
@@ -855,7 +855,7 @@
 									</ul>
 								</li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Help</h6>
 							<ul>
@@ -1065,9 +1065,9 @@
 							<li><a href="profit-and-loss.html"><span>Profit & Loss</span></a></li>
 						</ul>
 						<ul class="tab-pane" id="permission" aria-labelledby="set-tab4">
-							<li><a href="users.html"><span>Users</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 							<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
-							<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
+		
 
 							<li class="submenu">
 								<a href="javascript:void(0);">
@@ -1476,11 +1476,10 @@
 								<a href="javascript:void(0);"><span>Roles &amp; Permissions</span><span class="menu-arrow"></span></a>
 								<ul>
 
-									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 
 									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات </span></a></li>
 
-									<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
 
 								</ul>
 							</li>
@@ -1673,7 +1672,7 @@
 									<li><a href="lock-screen.html">Lock Screen</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+						@* 	<li class="submenu">
 								<a href="javascript:void(0);"><span>Pages</span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="error-404.html">404 Error </a></li>
@@ -1682,7 +1681,7 @@
 									<li><a href="coming-soon.html"><span>Coming Soon</span> </a></li>
 									<li><a href="under-maintenance.html"><span>Under Maintenance</span> </a></li>
 								</ul>
-							</li>
+							</li> *@
 							<li class="submenu">
 								<a href="javascript:void(0);"><span>Places</span><span class="menu-arrow"></span></a>
 								<ul>

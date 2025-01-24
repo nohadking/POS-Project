@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domin.Entity
 {
-    public class TBPurchase
+    public class TBPurchase 
     {
         [Key] 
         public int IdPurchase { get; set; }

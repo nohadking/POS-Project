@@ -113,6 +113,18 @@ namespace Infarstuructre.Data
 
             //*********************************************************
 
+                  //*********************************************************
+
+               
+            builder.Entity<TBViewPurchase>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewPurchase");
+            });
+
+
+            //*********************************************************
+
 
 
 
@@ -352,6 +364,7 @@ namespace Infarstuructre.Data
         public DbSet<TBViewClassCard> ViewClassCard { get; set; }
         public DbSet<TBPurchase> TBPurchases { get; set; }
         public DbSet<TBAccountingRestriction> TBAccountingRestrictions { get; set; }
+        public DbSet<TBViewPurchase> ViewPurchase { get; set; }
 
 
     }

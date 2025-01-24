@@ -1,7 +1,7 @@
 ﻿using Domin.Entity;
 using Domin.Resource;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -87,6 +87,8 @@ namespace Infarstuructre.ViewModel
         public List<TBAccountingRestriction> ListAccountingRestriction { get; set; }
         public TBAccountingRestriction AccountingRestriction { get; set; }
 
-    }
+		public List<TBViewPurchase> ListViewPurchase { get; set; }
+		public TBPurchase Purchase { get; set; }
+	}
  }
 
