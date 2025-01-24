@@ -493,17 +493,19 @@
 
 <script>
     function CreatePdf() {
-        // جلب القيمة المحددة من القائمة المنسدلة
-        var selectedDate = document.getElementById("CasherName").value;
-        console.log(selectedDate+"nnnn");
-        if (!selectedDate) {
-            alert("يرج اختيار منشء السندPDF.");
-            return;
-        }
+
+        const cacherName = document.querySelector('#CasherName').value;
+        const payMethod = document.querySelector('#PayMeth').value;
+        const detectedPeriod = document.querySelector('#DatePeriod').value;
+        const searchWord = document.querySelector('.form-control.form-control-sm').value;
+        const oneDate = document.querySelector('#SelectDateEntry').value;
 
         // إعادة توجيه إلى الإجراء مع تمرير القيمة كمعلمة
-        var url = `/Admin/Invose/GeneratePdf?selectedDate=${encodeURIComponent(selectedDate)}`;
+        var url = `/Admin/Invose/GeneratePdf?cacherName=${encodeURIComponent(cacherName)}&payMeth=${encodeURIComponent(payMethod)}&oneDate=${encodeURIComponent(oneDate)}&search=${encodeURIComponent(searchWord)}`;
+
         window.location.href = url;
     }
 </script>
+
+
 
