@@ -25,7 +25,7 @@
                     </li>
                     <li>
                        @* <a asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a> *@
-                        <a onclick="CreatePdf()" title="Pdf" asp-area="Admin" asp-controller="Invose" asp-action="GeneratePdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
+                        <a onclick="CreatePdf()" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
                     </li>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
@@ -85,7 +85,7 @@
                                         <select id="CasherName" class="form-select" asp-items="@(new SelectList(ViewBag.CasherName))">
                                             <option value="">اختر مدخل البيانات</option>
                                         </select>
-                                        <button type="button" onclick="CreatePdf()" class="btn btn-primary">إنشاء ملف PDF</button>
+                                  
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12" dir="ltr">

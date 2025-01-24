@@ -54,7 +54,7 @@ namespace Task_management.Areas.Admin.Controllers
         }
         //علي شوف هي الفنثكشن  ضروري 
         [HttpGet]
-        public IActionResult GeneratePdf(string selectedDate)
+        public IActionResult GeneratePdf(string? selectedDate)
         {
             // **1. جلب البيانات من الجداول**
             // هنا يمكنك إضافة منطق جلب البيانات من قاعدة البيانات
