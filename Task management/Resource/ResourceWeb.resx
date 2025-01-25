@@ -1410,4 +1410,25 @@
   <data name="LBAddAccountingRestriction" xml:space="preserve">
     <value>إضافة وتعديل القيود المحاسبية </value>
   </data>
+  <data name="LBPurchaseNumber" xml:space="preserve">
+    <value>رقم سند الشراء</value>
+  </data>
+  <data name="LBPurchaseSubNumber" xml:space="preserve">
+    <value>الرقم الفرعي</value>
+  </data>
+  <data name="LBTotalQuantity" xml:space="preserve">
+    <value>إجمالي الكمية</value>
+  </data>
+  <data name="LBTotalDiscount" xml:space="preserve">
+    <value>إجمالي الخصم</value>
+  </data>
+  <data name="LBshipping" xml:space="preserve">
+    <value>رسمو شحن</value>
+  </data>
+  <data name="LBTotalAll" xml:space="preserve">
+    <value>المجموع العام </value>
+  </data>
+  <data name="lbPurchaseDate" xml:space="preserve">
+    <value>تاريخ السند </value>
+  </data>
 </root>

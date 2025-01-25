@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Task_management.Areas.Admin.Controllers
 {
 	[Area("Admin")]
@@ -23,18 +25,17 @@ namespace Task_management.Areas.Admin.Controllers
 			iUnit = iUnit1;
 			iClassCard = iClassCard1;
 			iPurchase= iPurchase1;
-
 		}
 		public IActionResult MyPurchase()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			vmodel.ListViewPurchase = iPurchase.GetAll();
+			vmodel.ListViewPurchase = iPurchase.GetAll() .GroupBy(i => i.PurchaseNumber) .Select(g => g.First()) .ToList();
 			ViewBag.Supplier = vmodel.ListViewSupplier = iSupplier.GetAll();
 			ViewBag.PaymentMethod = vmodel.ListPaymentMethod = iPaymentMethod.GetAll();
 			ViewBag.Unit = vmodel.ListUnit = iUnit.GetAll();
 			ViewBag.ClassCard = vmodel.ListViewClassCard = iClassCard.GetAll();
-			var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll();
+			var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll().Distinct().ToList();
 			ViewBag.nomberMax = numberinvose.Any()
 		? numberinvose.Max(c => c.PurchaseNumber) + 1
 		: 1;
@@ -44,12 +45,12 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			vmodel.ListViewPurchase = iPurchase.GetAll();
+			vmodel.ListViewPurchase = iPurchase.GetAll().GroupBy(i => i.PurchaseNumber).Select(g => g.First()).ToList();
 			ViewBag.Supplier = vmodel.ListViewSupplier = iSupplier.GetAll();
 			ViewBag.PaymentMethod = vmodel.ListPaymentMethod = iPaymentMethod.GetAll();
 			ViewBag.Unit = vmodel.ListUnit = iUnit.GetAll();
 			ViewBag.ClassCard = vmodel.ListViewClassCard = iClassCard.GetAll();
-			var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll();
+			var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll().Distinct().ToList();
 			ViewBag.nomberMax = numberinvose.Any()
 		? numberinvose.Max(c => c.PurchaseNumber) + 1
 		: 1;
@@ -145,5 +146,33 @@ namespace Task_management.Areas.Admin.Controllers
 
 			}
 		}
-	}
+
+
+        [HttpGet]
+        public IActionResult GetSupplierImage(int id)
+        {
+            var supplier = dbcontext.TBSuppliers.FirstOrDefault(s => s.IdSupplier == id);
+            if (supplier != null)
+            {
+                // المسار الصحيح بناءً على مكان تخزين الصور في wwwroot
+                var imageUrl = Url.Content("~/Images/Home/" + supplier.Photo);
+                return Json(new { imageUrl });
+            }
+            return Json(null);
+        }
+
+        [HttpGet]
+        public IActionResult GetLastPurchasePrice(int id)
+        {
+            // البحث عن آخر سعر شراء للمنتج بناءً على IdProduct
+            var lastPurchase = dbcontext.TBPurchases
+                .Where(p => p.IdProduct == id)
+                .OrderByDescending(p => p.PurchaseDate) // ترتيب العمليات حسب تاريخ الشراء
+                .Select(p => (decimal?)p.PurchasePrice) // تحويل إلى decimal? للتعامل مع القيم الفارغة
+                .FirstOrDefault();
+
+            // إذا لم يتم العثور على سعر، قم بإرجاع 0
+            return Json(new { lastPrice = lastPurchase.GetValueOrDefault(0) });
+        }
+    }
 }

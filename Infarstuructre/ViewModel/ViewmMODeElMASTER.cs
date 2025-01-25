@@ -1,7 +1,7 @@
 ﻿using Domin.Entity;
 using Domin.Resource;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

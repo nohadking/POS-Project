@@ -459,9 +459,9 @@
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">Purchases</h6>
+							<h6 class="submenu-hdr">المشتريات </h6>
 							<ul>
-								<li><a href="purchase-list.html"><i data-feather="shopping-bag"></i><span>Purchases</span></a></li>
+								<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 								<li><a href="purchase-order-report.html"><i data-feather="file-minus"></i><span>Purchase Order</span></a></li>
 								<li><a href="purchase-returns.html"><i data-feather="refresh-cw"></i><span>Purchase Return</span></a></li>
 							</ul>
@@ -1000,7 +1000,7 @@
 							<li><a href="coupons.html"><span>Coupons</span></a></li>
 						</ul>
 						<ul class="tab-pane" id="purchase" aria-labelledby="report-tab">
-							<li><a href="purchase-list.html"><span>Purchases</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 							<li><a href="purchase-order-report.html"><span>Purchase Order</span></a></li>
 							<li><a href="purchase-returns.html"><span>Purchase Return</span></a></li>
 							<li><a href="manage-stocks.html"><span>Manage Stock</span></a></li>
@@ -1440,9 +1440,9 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Purchase</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المشتريات</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="purchase-list.html"><span>Purchases</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 									<li><a href="purchase-order-report.html"><span>Purchase Order</span></a></li>
 									<li><a href="purchase-returns.html"><span>Purchase Return</span></a></li>
 									<li><a href="manage-stocks.html"><span>Manage Stock</span></a></li>

@@ -2662,6 +2662,33 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ السند .
+        /// </summary>
+        internal static string lbPurchaseDate {
+            get {
+                return ResourceManager.GetString("lbPurchaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم سند الشراء.
+        /// </summary>
+        internal static string LBPurchaseNumber {
+            get {
+                return ResourceManager.GetString("LBPurchaseNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الرقم الفرعي.
+        /// </summary>
+        internal static string LBPurchaseSubNumber {
+            get {
+                return ResourceManager.GetString("LBPurchaseSubNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الكمية.
         /// </summary>
         internal static string LbQuantity {
@@ -2829,6 +2856,15 @@ namespace Task_management.Resource {
         internal static string LBservice_charges {
             get {
                 return ResourceManager.GetString("LBservice_charges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رسمو شحن.
+        /// </summary>
+        internal static string LBshipping {
+            get {
+                return ResourceManager.GetString("LBshipping", resourceCulture);
             }
         }
         
@@ -3081,6 +3117,33 @@ namespace Task_management.Resource {
         internal static string Lbtotal {
             get {
                 return ResourceManager.GetString("Lbtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المجموع العام .
+        /// </summary>
+        internal static string LBTotalAll {
+            get {
+                return ResourceManager.GetString("LBTotalAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إجمالي الخصم.
+        /// </summary>
+        internal static string LBTotalDiscount {
+            get {
+                return ResourceManager.GetString("LBTotalDiscount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إجمالي الكمية.
+        /// </summary>
+        internal static string LBTotalQuantity {
+            get {
+                return ResourceManager.GetString("LBTotalQuantity", resourceCulture);
             }
         }
         
