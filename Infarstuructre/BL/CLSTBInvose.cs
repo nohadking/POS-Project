@@ -18,7 +18,11 @@ namespace Infarstuructre.BL
         List<TBViewInvose> GetByDateTimeEntry(DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethodAndPeriodDate(string name, string pay, DateTime start, DateTime end);
+        List<TBViewInvose> GetByCasherNameAndPeriodDate(string name, DateTime start, DateTime end);
+        List<TBViewInvose> GetByPeriodDate(DateTime start, DateTime end);
         List<TBViewInvose> GetBySearchWord(string word);
+        List<TBViewInvose> GetByPayMeth(string payMeth);
+        List<TBViewInvose> GetByPayMethAndPeriodDate(string pay, DateTime start, DateTime end);
     }
     public class CLSTBInvose: IIInvose
     {
@@ -146,6 +150,32 @@ namespace Infarstuructre.BL
             || a.DateTimeEntry == Convert.ToDateTime(word)
             || a.DateInvos == Convert.ToDateTime(word)
             || a.ProductNameAr == word).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByPayMeth(string payMeth)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.PaymentMethodAr == payMeth).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCasherNameAndPeriodDate(string name, DateTime start, DateTime end)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name
+            && a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByPayMethAndPeriodDate(string pay, DateTime start, DateTime end)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.PaymentMethodAr == pay
+            && a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByPeriodDate(DateTime start, DateTime end)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
             return invoices;
         }
     }

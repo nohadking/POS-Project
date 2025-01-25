@@ -15,6 +15,7 @@ using PdfSharp.Pdf;
 using Infarstuructre.ViewModel;
 using MimeKit;
 using PdfSharpCore.Pdf;
+using Microsoft.Graph.Models.Security;
 namespace Task_management.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -56,49 +57,305 @@ namespace Task_management.Areas.Admin.Controllers
         }
         //علي شوف هي الفنثكشن  ضروري 
         [HttpGet]
-        public IActionResult GeneratePdf(string? cacherName, string? payMeth, string? oneDate, string? search)
+        public IActionResult GeneratePdf(string? cacherName, string? payMeth, string? oneDate, string? search, string startDate, string endDate)
         {
-            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
             // **1. جلب البيانات من الجداول**
             // هنا يمكنك إضافة منطق جلب البيانات من قاعدة البيانات
             // var products = _context.Products.Select(p => new { p.Name, p.Price }).ToList();
             // var orders = _context.Orders.Select(o => new { o.Id, o.TotalAmount }).ToList();
 
             // **2. إنشاء ملف PDF**
-            if (cacherName == null && payMeth == null && oneDate == null && search == null)
+            if (cacherName == null && payMeth == null && oneDate == null && search == null && startDate == null && endDate == null)
             {
-                var pdfDocument = Document.Create(container =>
+                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+            }
+            else
+            {
+                if (search != null)
                 {
-                    // **حساب الإجماليات**
-                    var products = vmodel.ListViewInvose = iInvose.GetAll().ToList();
-                    var totalQuantity = products.Sum(p => p.Quantity);
-                    var totalAmount = products.Sum(p => p.total);
-
-                    container.Page(page =>
+                    // حسب كلمة بحث
+                    CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                }
+                else if (cacherName == null && payMeth != null && oneDate == null && search == null && startDate == null && endDate == null)
+                {
+                    // حسب طريقة دفع
+                    CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                }
+                else if (startDate != null && endDate != null)
+                {
+                    if (cacherName != null)
+                    {
+                        if (payMeth != null)
+                        {
+                            // حسب اسم كاشير وطريقة دفع ومن تاريخ لتاريخ  
+                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                        }
+                        else
+                        {
+                            // حسب اسم كاشير ومن تاريخ لتاريخ  
+                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                        }
+                    }
+                    else
+                    {
+                        if (payMeth != null)
+                        {
+                            // حسب طريقة دفع ومن تاريخ لتاريخ  
+                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                        }
+                        else
+                        {
+                            // من تاريخ لتاريخ
+                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                        }
+                    }
+                }
+                else
+                {
+                    if (cacherName != null)
+                    {
+                        if (payMeth != null)
+                        {
+                            if (oneDate != null)
                             {
-                                page.Size(PageSizes.A4);
-                                page.Margin(2, Unit.Centimetre);
-                                page.DefaultTextStyle(x => x.FontSize(12));
+                                // حسب اسم كاشير وطريقة دفع وتاريخ يوم محدد
+                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            }
+                            else
+                            {
+                                // حسب اسم كاشير وطريقة دفع
+                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            }
+                        }
+                        else
+                        {
+                            if (oneDate != null)
+                            {
+                                // حسب اسم كاشير ويوم محدد
+                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (oneDate != null)
+                        {
+                            // حسب يوم محدد
+                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                        }
+                    }
+                }
+            }
+            return Content("Invalid parameters or no data found.", "text/plain");
+        }
 
-                                page.Header()
-                                        .Column(header =>
-                                        {
-                                            header.Item().Border(1).AlignCenter().Text("تقرير الفواتير العام ").FontSize(20).Bold();
-                                            if (compny != null)
-                                            {
-                                                header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                                header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                                header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                            }
-                                        });
 
-                                page.Content().Column(content =>
+        public IActionResult CreatePDF(string? cacherName, string? payMeth, string? oneDate, string? search, string startDate, string endDate)
+        {
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
+            var products = new List<TBViewInvose>();
+
+            var pdfDocument = Document.Create(container =>
+            {
+
+                // **حساب الإجماليات**
+                if (cacherName == null && payMeth == null && oneDate == null && search == null && startDate == null && endDate == null)
+                {
+                   products = vmodel.ListViewInvose = iInvose.GetAll();
+                }
+                else
+                {
+                    if (search != null)
+                    {
+                        // حسب كلمة بحث
+                        products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                    }
+                    else if (cacherName == null && payMeth != null && oneDate == null && search == null && startDate == null && endDate == null)
+                    {
+                        // حسب طريقة دفع
+                        products = vmodel.ListViewInvose = iInvose.GetByPayMeth(payMeth);
+                    }
+                    else if (startDate != null && endDate != null)
+                    {
+                        var start = Convert.ToDateTime(startDate);
+                        var end = Convert.ToDateTime(endDate);
+                        if (cacherName != null)
+                        {
+                            if (payMeth != null)
+                            {
+                                // حسب اسم كاشير وطريقة دفع ومن تاريخ لتاريخ  
+                                products = vmodel.ListViewInvose = iInvose.GetByCasherNameAndPayMethodAndPeriodDate(cacherName, payMeth, start, end);
+                            }
+                            else
+                            {
+                                // حسب اسم كاشير ومن تاريخ لتاريخ  
+                                products = vmodel.ListViewInvose = iInvose.GetByCasherNameAndPeriodDate(cacherName, start, end);
+                            }
+                        }
+                        else
+                        {
+                            if (payMeth != null)
+                            {
+                                // حسب طريقة دفع ومن تاريخ لتاريخ  
+                                products = vmodel.ListViewInvose = iInvose.GetByPayMethAndPeriodDate(payMeth, start, end);
+                            }
+                            else
+                            {
+                                // من تاريخ لتاريخ
+                                products = vmodel.ListViewInvose = iInvose.GetByPeriodDate(start, end);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (cacherName != null)
+                        {
+                            if (payMeth != null)
+                            {
+                                if (oneDate != null)
                                 {
-                                    content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
-                                    content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
-                                    content.Item().Table(table =>
+                                    // حسب اسم كاشير وطريقة دفع وتاريخ يوم محدد
+                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                }
+                                else
+                                {
+                                    // حسب اسم كاشير وطريقة دفع
+                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                }
+                            }
+                            else
                             {
+                                if (oneDate != null)
+                                {
+                                    // حسب اسم كاشير ويوم محدد
+                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (oneDate != null)
+                            {
+                                // حسب يوم محدد
+                                products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                            }
+                        }
+                    }
+                }
+
+                var totalQuantity = products.Sum(p => p.Quantity);
+                var totalAmount = products.Sum(p => p.total);
+
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, Unit.Centimetre);
+                    page.DefaultTextStyle(x => x.FontSize(12));
+
+                    page.Header()
+                            .Column(header =>
+                            {
+                                // الترويسة العليا للفاتورة
+                                if (cacherName == null && payMeth == null && oneDate == null && search == null && startDate == null && endDate == null)
+                                {
+                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير ").FontSize(20).Bold();
+                                }
+                                else
+                                {
+                                    if (search != null)
+                                    {
+                                        // حسب كلمة بحث
+                                        header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير حسب {search}").FontSize(20).Bold();
+                                    }
+                                    else if (cacherName == null && payMeth != null && oneDate == null && search == null && startDate == null && endDate == null)
+                                    {
+                                        // حسب طريقة دفع
+                                        header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير بطريقة الدفع:  {payMeth}").FontSize(20).Bold();
+                                    }
+                                    else if (startDate != null && endDate != null)
+                                    {
+                                        var start = Convert.ToDateTime(startDate);
+                                        var end = Convert.ToDateTime(endDate);
+                                        if (cacherName != null)
+                                        {
+                                            if (payMeth != null)
+                                            {
+                                                // حسب اسم كاشير وطريقة دفع ومن تاريخ لتاريخ  
+                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف  {cacherName} بطريقة الدفع {payMeth} من تاريخ{startDate} لتاريخ {endDate}").FontSize(20).Bold();
+                                            }
+                                            else
+                                            {
+                                                // حسب اسم كاشير ومن تاريخ لتاريخ  
+                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف  {cacherName} من تاريخ{startDate} لتاريخ {endDate}").FontSize(20).Bold();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (payMeth != null)
+                                            {
+                                                // حسب طريقة دفع ومن تاريخ لتاريخ  
+                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير بطريقة الدفع {payMeth} من تاريخ{startDate} لتاريخ {endDate}").FontSize(20).Bold();
+                                            }
+                                            else
+                                            {
+                                                // من تاريخ لتاريخ
+                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير من تاريخ{startDate} لتاريخ {endDate}").FontSize(20).Bold();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (cacherName != null)
+                                        {
+                                            if (payMeth != null)
+                                            {
+                                                if (oneDate != null)
+                                                {
+                                                    // حسب اسم كاشير وطريقة دفع وتاريخ يوم محدد
+                                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} بطريقة الدفع {payMeth} لتاريخ {oneDate}").FontSize(20).Bold();
+                                                }
+                                                else
+                                                {
+                                                    // حسب اسم كاشير وطريقة دفع
+                                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} بطريقة الدفع {payMeth}").FontSize(20).Bold();
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (oneDate != null)
+                                                {
+                                                    // حسب اسم كاشير ويوم محدد
+                                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} لتاريخ {oneDate}").FontSize(20).Bold();
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (oneDate != null)
+                                            {
+                                                // حسب يوم محدد
+                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير لتاريخ {oneDate}").FontSize(20).Bold();
+
+                                            }
+                                        }
+                                    }
+                                }
+          
+                                if (compny != null)
+                                {
+                                    header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
+                                    header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
+                                    header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
+                                }
+                            });
+
+                    page.Content().Column(content =>
+                    {
+                        content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
+                        content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
+                        content.Item().Table(table =>
+                        {
                             table.ColumnsDefinition(columns =>
                             {
                                 columns.ConstantColumn(40);  // رقم الفاتورة
@@ -133,470 +390,41 @@ namespace Task_management.Areas.Admin.Controllers
                             }
                         });
 
-                                    content.Item().PaddingTop(10);
+                        content.Item().PaddingTop(10);
 
 
-                                    // **إضافة الفوتر في نهاية التقرير**
-                                    content.Item().PaddingTop(20).Table(table =>
-                            {
-                                // تعريف الأعمدة
+                        // **إضافة الفوتر في نهاية التقرير**
+                        content.Item().PaddingTop(20).Table(table =>
+                        {
+                            // تعريف الأعمدة
                             table.ColumnsDefinition(columns =>
                             {
                                 columns.RelativeColumn(); // العمود الأول: مجموع الكمية
                                 columns.RelativeColumn(); // العمود الثاني: المجموع العام
                             });
 
-                                // المسميات في السطر الأول
+                            // المسميات في السطر الأول
                             table.Header(header =>
                             {
                                 header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
                                 header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
                             });
 
-                                // القيم في السطر الثاني
+                            // القيم في السطر الثاني
                             table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
                             table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
                         });
 
-                                    // إضافة تاريخ الطباعة أسفل التقرير
-                                    content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-                                });
-
-
-                            });
-                });
-
-                var pdfData = pdfDocument.GeneratePdf();
-                return File(pdfData, "application/pdf", "Report.pdf");
-            }
-            else
-            {
-                if (search != null)
-                {
-                    var pdfDocument = Document.Create(container =>
-                    {
-                        // **حساب الإجماليات**
-                        var products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
-
-                        var totalQuantity = products.Sum(p => p.Quantity);
-                        var totalAmount = products.Sum(p => p.total);
-
-                        container.Page(page =>
-                        {
-                            page.Size(PageSizes.A4);
-                            page.Margin(2, Unit.Centimetre);
-                            page.DefaultTextStyle(x => x.FontSize(12));
-
-                            page.Header()
-                                    .Column(header =>
-                                    {
-                                        header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName}").FontSize(20).Bold();
-                                        if (compny != null)
-                                        {
-                                            header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                            header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                            header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                        }
-                                    });
-
-                            page.Content().Column(content =>
-                            {
-                                content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
-                                content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
-                                content.Item().Table(table =>
-                                {
-                                    table.ColumnsDefinition(columns =>
-                                    {
-                                        columns.ConstantColumn(40);  // رقم الفاتورة
-                                        columns.RelativeColumn(100); // اسم المنتج
-                                        columns.ConstantColumn(50);  // الكمية
-                                        columns.ConstantColumn(50);  // السعر
-                                        columns.ConstantColumn(50);  // الإجمالي
-                                        columns.ConstantColumn(100); // مدخل البيانات
-                                        columns.ConstantColumn(100); // وقت وتاريخ الإدخال
-                                    });
-
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().Border(1).AlignCenter().Text("ر.ف").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("الصنف").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("الكمية").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("السعر").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("الإجمالي").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
-                                        header.Cell().Border(1).AlignCenter().Text("وقت وتاريخ").Bold();
-                                    });
-
-                                    foreach (var product in products)
-                                    {
-                                        table.Cell().Border(1).AlignCenter().Text(product.InvoiceNumber.ToString());
-                                        table.Cell().Border(1).AlignCenter().Text(product.ProductNameAr);
-                                        table.Cell().Border(1).AlignCenter().Text(product.Quantity.ToString());
-                                        table.Cell().Border(1).AlignCenter().Text($"${product.price}");
-                                        table.Cell().Border(1).AlignCenter().Text($"${product.total}");
-                                        table.Cell().Border(1).AlignCenter().Text(product.DataEntry);
-                                        table.Cell().Border(1).AlignCenter().Text(product.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-                                    }
-                                });
-
-                                content.Item().PaddingTop(10);
-
-
-                                // **إضافة الفوتر في نهاية التقرير**
-                                content.Item().PaddingTop(20).Table(table =>
-                                {
-                                    // تعريف الأعمدة
-                                    table.ColumnsDefinition(columns =>
-                                    {
-                                        columns.RelativeColumn(); // العمود الأول: مجموع الكمية
-                                        columns.RelativeColumn(); // العمود الثاني: المجموع العام
-                                    });
-
-                                    // المسميات في السطر الأول
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
-                                        header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
-                                    });
-
-                                    // القيم في السطر الثاني
-                                    table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
-                                    table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
-                                });
-
-                                // إضافة تاريخ الطباعة أسفل التقرير
-                                content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-                            });
-
-
-                        });
+                        // إضافة تاريخ الطباعة أسفل التقرير
+                        content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
                     });
-                    var pdfData = pdfDocument.GeneratePdf();
-                    return File(pdfData, "application/pdf", "Report.pdf");
-                }
-
-                else
-                {
-                    if (cacherName != null)
-                    {
-                        if (payMeth != null)
-                        {
-                            if (oneDate != null)
-                            {
-                                var pdfDocument = Document.Create(container =>
-                                {
-                                    // **حساب الإجماليات**
-                                    var products = vmodel.ListViewInvose = iInvose.GetAll().Where(a => a.DataEntry == cacherName && a.PaymentMethodAr == payMeth
-                                    && a.DateTimeEntry == Convert.ToDateTime(oneDate).Date).ToList();
-
-                                    var totalQuantity = products.Sum(p => p.Quantity);
-                                    var totalAmount = products.Sum(p => p.total);
-
-                                    container.Page(page =>
-                                    {
-                                        page.Size(PageSizes.A4);
-                                        page.Margin(2, Unit.Centimetre);
-                                        page.DefaultTextStyle(x => x.FontSize(12));
-
-                                        page.Header()
-                                                .Column(header =>
-                                                {
-                                                    header.Item().Border(1).AlignCenter().Text("تقرير الفواتير العام ").FontSize(20).Bold();
-                                                    if (compny != null)
-                                                    {
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                                    }
-                                                });
-
-                                        page.Content().Column(content =>
-                                        {
-                                            content.Item().AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} بطريقة الدفع {payMeth} لتاريخ {Convert.ToDateTime(oneDate).Date}").FontSize(16).Bold();
-                                            content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
-                                            content.Item().Table(table =>
-                                            {
-                                                table.ColumnsDefinition(columns =>
-                                                {
-                                                    columns.ConstantColumn(40);  // رقم الفاتورة
-                                                    columns.RelativeColumn(100); // اسم المنتج
-                                                    columns.ConstantColumn(50);  // الكمية
-                                                    columns.ConstantColumn(50);  // السعر
-                                                    columns.ConstantColumn(50);  // الإجمالي
-                                                    columns.ConstantColumn(100); // مدخل البيانات
-                                                    columns.ConstantColumn(100); // وقت وتاريخ الإدخال
-                                                });
-
-                                                table.Header(header =>
-                                                {
-                                                    header.Cell().Border(1).AlignCenter().Text("ر.ف").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الصنف").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الكمية").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("السعر").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الإجمالي").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("وقت وتاريخ").Bold();
-                                                });
-
-                                                foreach (var product in products)
-                                                {
-                                                    table.Cell().Border(1).AlignCenter().Text(product.InvoiceNumber.ToString());
-                                                    table.Cell().Border(1).AlignCenter().Text(product.ProductNameAr);
-                                                    table.Cell().Border(1).AlignCenter().Text(product.Quantity.ToString());
-                                                    table.Cell().Border(1).AlignCenter().Text($"${product.price}");
-                                                    table.Cell().Border(1).AlignCenter().Text($"${product.total}");
-                                                    table.Cell().Border(1).AlignCenter().Text(product.DataEntry);
-                                                    table.Cell().Border(1).AlignCenter().Text(product.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-                                                }
-                                            });
-
-                                            content.Item().PaddingTop(10);
 
 
-                                            // **إضافة الفوتر في نهاية التقرير**
-                                            content.Item().PaddingTop(20).Table(table =>
-                                            {
-                                                // تعريف الأعمدة
-                                                table.ColumnsDefinition(columns =>
-                                                {
-                                                    columns.RelativeColumn(); // العمود الأول: مجموع الكمية
-                                                    columns.RelativeColumn(); // العمود الثاني: المجموع العام
-                                                });
-
-                                                // المسميات في السطر الأول
-                                                table.Header(header =>
-                                                {
-                                                    header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
-                                                    header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
-                                                });
-
-                                                // القيم في السطر الثاني
-                                                table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
-                                                table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
-                                            });
-
-                                            // إضافة تاريخ الطباعة أسفل التقرير
-                                            content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-                                        });
-
-
-                                    });
-                                });
-                                var pdfData = pdfDocument.GeneratePdf();
-                                return File(pdfData, "application/pdf", "Report.pdf");
-                            }
-                            else
-                            {
-                                var pdfDocument = Document.Create(container =>
-                                {
-                                    // **حساب الإجماليات**
-                                    var products = vmodel.ListViewInvose = iInvose.GetAll().Where(a => a.DataEntry == cacherName && a.PaymentMethodAr == payMeth).ToList();
-
-                                    var totalQuantity = products.Sum(p => p.Quantity);
-                                    var totalAmount = products.Sum(p => p.total);
-
-                                    container.Page(page =>
-                                    {
-                                        page.Size(PageSizes.A4);
-                                        page.Margin(2, Unit.Centimetre);
-                                        page.DefaultTextStyle(x => x.FontSize(12));
-
-                                        page.Header()
-                                                .Column(header =>
-                                                {
-                                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} بطريقة الدفع {payMeth}").FontSize(20).Bold();
-                                                    if (compny != null)
-                                                    {
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                                        header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                                    }
-                                                });
-
-                                        page.Content().Column(content =>
-                                        {
-                                            content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
-                                            content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
-                                            content.Item().Table(table =>
-                                            {
-                                                table.ColumnsDefinition(columns =>
-                                                {
-                                                    columns.ConstantColumn(40);  // رقم الفاتورة
-                                                    columns.RelativeColumn(100); // اسم المنتج
-                                                    columns.ConstantColumn(50);  // الكمية
-                                                    columns.ConstantColumn(50);  // السعر
-                                                    columns.ConstantColumn(50);  // الإجمالي
-                                                    columns.ConstantColumn(100); // مدخل البيانات
-                                                    columns.ConstantColumn(100); // وقت وتاريخ الإدخال
-                                                });
-
-                                                table.Header(header =>
-                                                {
-                                                    header.Cell().Border(1).AlignCenter().Text("ر.ف").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الصنف").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الكمية").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("السعر").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("الإجمالي").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
-                                                    header.Cell().Border(1).AlignCenter().Text("وقت وتاريخ").Bold();
-                                                });
-
-                                                foreach (var product in products)
-                                                {
-                                                    table.Cell().Border(1).AlignCenter().Text(product.InvoiceNumber.ToString());
-                                                    table.Cell().Border(1).AlignCenter().Text(product.ProductNameAr);
-                                                    table.Cell().Border(1).AlignCenter().Text(product.Quantity.ToString());
-                                                    table.Cell().Border(1).AlignCenter().Text($"${product.price}");
-                                                    table.Cell().Border(1).AlignCenter().Text($"${product.total}");
-                                                    table.Cell().Border(1).AlignCenter().Text(product.DataEntry);
-                                                    table.Cell().Border(1).AlignCenter().Text(product.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-                                                }
-                                            });
-
-                                            content.Item().PaddingTop(10);
-
-
-                                            // **إضافة الفوتر في نهاية التقرير**
-                                            content.Item().PaddingTop(20).Table(table =>
-                                            {
-                                                // تعريف الأعمدة
-                                                table.ColumnsDefinition(columns =>
-                                                {
-                                                    columns.RelativeColumn(); // العمود الأول: مجموع الكمية
-                                                    columns.RelativeColumn(); // العمود الثاني: المجموع العام
-                                                });
-
-                                                // المسميات في السطر الأول
-                                                table.Header(header =>
-                                                {
-                                                    header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
-                                                    header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
-                                                });
-
-                                                // القيم في السطر الثاني
-                                                table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
-                                                table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
-                                            });
-
-                                            // إضافة تاريخ الطباعة أسفل التقرير
-                                            content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-                                        });
-
-
-                                    });
-                                });
-                                var pdfData = pdfDocument.GeneratePdf();
-                                return File(pdfData, "application/pdf", "Report.pdf");
-                            }
-                        }
-                        else
-                        {
-                            var pdfDocument = Document.Create(container =>
-                            {
-                                // **حساب الإجماليات**
-                                var products = vmodel.ListViewInvose = iInvose.GetAll().Where(a => a.DataEntry == cacherName).ToList();
-
-                                var totalQuantity = products.Sum(p => p.Quantity);
-                                var totalAmount = products.Sum(p => p.total);
-
-                                container.Page(page =>
-                                {
-                                    page.Size(PageSizes.A4);
-                                    page.Margin(2, Unit.Centimetre);
-                                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                                    page.Header()
-                                            .Column(header =>
-                                            {
-                                                header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName}").FontSize(20).Bold();
-                                                if (compny != null)
-                                                {
-                                                    header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                                    header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                                    header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                                }
-                                            });
-
-                                    page.Content().Column(content =>
-                                    {
-                                        content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
-                                        content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
-                                        content.Item().Table(table =>
-                                        {
-                                            table.ColumnsDefinition(columns =>
-                                            {
-                                                columns.ConstantColumn(40);  // رقم الفاتورة
-                                                columns.RelativeColumn(100); // اسم المنتج
-                                                columns.ConstantColumn(50);  // الكمية
-                                                columns.ConstantColumn(50);  // السعر
-                                                columns.ConstantColumn(50);  // الإجمالي
-                                                columns.ConstantColumn(100); // مدخل البيانات
-                                                columns.ConstantColumn(100); // وقت وتاريخ الإدخال
-                                            });
-
-                                            table.Header(header =>
-                                            {
-                                                header.Cell().Border(1).AlignCenter().Text("ر.ف").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("الصنف").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("الكمية").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("السعر").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("الإجمالي").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
-                                                header.Cell().Border(1).AlignCenter().Text("وقت وتاريخ").Bold();
-                                            });
-
-                                            foreach (var product in products)
-                                            {
-                                                table.Cell().Border(1).AlignCenter().Text(product.InvoiceNumber.ToString());
-                                                table.Cell().Border(1).AlignCenter().Text(product.ProductNameAr);
-                                                table.Cell().Border(1).AlignCenter().Text(product.Quantity.ToString());
-                                                table.Cell().Border(1).AlignCenter().Text($"${product.price}");
-                                                table.Cell().Border(1).AlignCenter().Text($"${product.total}");
-                                                table.Cell().Border(1).AlignCenter().Text(product.DataEntry);
-                                                table.Cell().Border(1).AlignCenter().Text(product.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-                                            }
-                                        });
-
-                                        content.Item().PaddingTop(10);
-
-
-                                        // **إضافة الفوتر في نهاية التقرير**
-                                        content.Item().PaddingTop(20).Table(table =>
-                                        {
-                                            // تعريف الأعمدة
-                                            table.ColumnsDefinition(columns =>
-                                            {
-                                                columns.RelativeColumn(); // العمود الأول: مجموع الكمية
-                                                columns.RelativeColumn(); // العمود الثاني: المجموع العام
-                                            });
-
-                                            // المسميات في السطر الأول
-                                            table.Header(header =>
-                                            {
-                                                header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
-                                                header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
-                                            });
-
-                                            // القيم في السطر الثاني
-                                            table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
-                                            table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
-                                        });
-
-                                        // إضافة تاريخ الطباعة أسفل التقرير
-                                        content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-                                    });
-                                });
-                            });
-                            var pdfData = pdfDocument.GeneratePdf();
-                            return File(pdfData, "application/pdf", "Report.pdf");
-                        }
-
-                    }
-                }
-            }
-            return Content("Invalid parameters or no data found.", "text/plain");
+                });
+            });
+            var pdfData = pdfDocument.GeneratePdf();
+            return File(pdfData, "application/pdf", "Report.pdf");
         }
-
 
         /// <summary>
         /// ////////
