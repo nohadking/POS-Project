@@ -83,7 +83,7 @@
                                     <div class="input-blocks">
                                         <i data-feather="user" class="info-img"></i>
                                         <select id="CasherName" class="form-select" asp-items="@(new SelectList(ViewBag.CasherName))">
-                                            <option value="">اختر مدخل البيانات</option>
+                                            <option></option>
                                         </select>
                                   
                                     </div>
@@ -99,7 +99,7 @@
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="input-blocks">
                                         <div class="position-relative daterange-wraper">
-                                            <input id="DatePeriod" onchange="periodDate()" type="text" class="form-control" name="datetimes" placeholder="From Date - To Date">
+                                            <input id="DatePeriod" value="" onchange="periodDate()" type="text" class="form-control" name="datetimes" placeholder="From Date - To Date">
                                             <i data-feather="calendar" class="feather-14 info-img"></i>
                                         </div>
                                     </div>
@@ -179,9 +179,10 @@
     </div>
 </div>
 <!-- /product list -->
+<script src="~/AdminEn/assets/js/jquery-3.7.1.min.js"></script>
+<script src="~/AdminEn/assets/js/moment.min.js"></script>
+<script src="~/AdminEn/assets/plugins/daterangepicker/daterangepicker.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="~/adminen/assets/js/invoicefilter.js"></script>
 
 @* <script>
     $('#SelectDateEntry').on('change', function () {
@@ -480,18 +481,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("dad");
+        if ($('#filter_inputs').css('display') !== 'none'){
+            $('#DatePeriod').daterangepicker({
+                autoUpdateInput: false
+            });
+        document.getElementById("DatePeriod").value = "";
+        }
+    });
+
+
+
     function CreatePdf() {
 
         const cacherName = document.querySelector('#CasherName').value;
@@ -500,8 +504,19 @@
         const searchWord = document.querySelector('.form-control.form-control-sm').value;
         const oneDate = document.querySelector('#SelectDateEntry').value;
 
+        const dates = detectedPeriod.split(" - ");
+
+        const startDateString = dates[0].trim();
+        const endDateString = dates[1].trim();
+
+        console.log("CasherName: " + CasherName);
+        console.log("payMethod: " + payMethod);
+        console.log("searchWord: " + searchWord);
+        console.log("oneDate: " + oneDate);
+
+
         // إعادة توجيه إلى الإجراء مع تمرير القيمة كمعلمة
-        var url = `/Admin/Invose/GeneratePdf?cacherName=${encodeURIComponent(cacherName)}&payMeth=${encodeURIComponent(payMethod)}&oneDate=${encodeURIComponent(oneDate)}&search=${encodeURIComponent(searchWord)}`;
+        var url = `/Admin/Invose/GeneratePdf?cacherName=${encodeURIComponent(cacherName)}&payMeth=${encodeURIComponent(payMethod)}&oneDate=${encodeURIComponent(oneDate)}&search=${encodeURIComponent(searchWord)}&startDate=${encodeURIComponent(startDateString)}&endDate=${encodeURIComponent(endDateString)}`;
 
         window.location.href = url;
     }
