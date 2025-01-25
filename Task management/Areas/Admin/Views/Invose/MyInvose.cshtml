@@ -96,11 +96,19 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="input-blocks">
-                                        <div class="position-relative daterange-wraper">
-                                            <input id="DatePeriod" value="" onchange="periodDate()" type="text" class="form-control" name="datetimes" placeholder="From Date - To Date">
-                                            <i data-feather="calendar" class="feather-14 info-img"></i>
+                                        <label>من تاريخ</label>
+                                        <div class="input-groupicon calender-input">
+                                            <input id="startDate" type="date" class="form-control" placeholder="Choose">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>الى تاريخ</label>
+                                        <div class="input-groupicon calender-input">
+                                            <input id="endDate" type="date" class="form-control" placeholder="Choose">
                                         </div>
                                     </div>
                                 </div>
@@ -483,31 +491,14 @@
 
 <script>
 
-
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("dad");
-        if ($('#filter_inputs').css('display') !== 'none'){
-            $('#DatePeriod').daterangepicker({
-                autoUpdateInput: false
-            });
-        document.getElementById("DatePeriod").value = "";
-        }
-    });
-
-
-
     function CreatePdf() {
 
         const cacherName = document.querySelector('#CasherName').value;
         const payMethod = document.querySelector('#PayMeth').value;
-        const detectedPeriod = document.querySelector('#DatePeriod').value;
         const searchWord = document.querySelector('.form-control.form-control-sm').value;
         const oneDate = document.querySelector('#SelectDateEntry').value;
-
-        const dates = detectedPeriod.split(" - ");
-
-        const startDateString = dates[0].trim();
-        const endDateString = dates[1].trim();
+        const startDateString = document.querySelector('#startDate').value;
+        const endDateString = document.querySelector('#endDate').value;
 
         console.log("CasherName: " + CasherName);
         console.log("payMethod: " + payMethod);
