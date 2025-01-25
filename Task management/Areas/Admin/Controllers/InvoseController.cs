@@ -67,19 +67,22 @@ namespace Task_management.Areas.Admin.Controllers
             // **2. إنشاء ملف PDF**
             if (cacherName == null && payMeth == null && oneDate == null && search == null && startDate == null && endDate == null)
             {
-                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+               var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                return pdf;
             }
             else
             {
                 if (search != null)
                 {
                     // حسب كلمة بحث
-                    CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                    var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                    return pdf;
                 }
                 else if (cacherName == null && payMeth != null && oneDate == null && search == null && startDate == null && endDate == null)
                 {
                     // حسب طريقة دفع
-                    CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                    var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                    return pdf;
                 }
                 else if (startDate != null && endDate != null)
                 {
@@ -88,12 +91,14 @@ namespace Task_management.Areas.Admin.Controllers
                         if (payMeth != null)
                         {
                             // حسب اسم كاشير وطريقة دفع ومن تاريخ لتاريخ  
-                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            return pdf;
                         }
                         else
                         {
                             // حسب اسم كاشير ومن تاريخ لتاريخ  
-                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            return pdf;
                         }
                     }
                     else
@@ -101,12 +106,14 @@ namespace Task_management.Areas.Admin.Controllers
                         if (payMeth != null)
                         {
                             // حسب طريقة دفع ومن تاريخ لتاريخ  
-                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            return pdf;
                         }
                         else
                         {
                             // من تاريخ لتاريخ
-                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            return pdf;
                         }
                     }
                 }
@@ -119,12 +126,14 @@ namespace Task_management.Areas.Admin.Controllers
                             if (oneDate != null)
                             {
                                 // حسب اسم كاشير وطريقة دفع وتاريخ يوم محدد
-                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                return pdf;
                             }
                             else
                             {
                                 // حسب اسم كاشير وطريقة دفع
-                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                return pdf;
                             }
                         }
                         else
@@ -132,7 +141,8 @@ namespace Task_management.Areas.Admin.Controllers
                             if (oneDate != null)
                             {
                                 // حسب اسم كاشير ويوم محدد
-                                CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                return pdf;
                             }
                         }
                     }
@@ -141,7 +151,8 @@ namespace Task_management.Areas.Admin.Controllers
                         if (oneDate != null)
                         {
                             // حسب يوم محدد
-                            CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                            return pdf;
                         }
                     }
                 }
