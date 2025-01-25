@@ -144,6 +144,12 @@ namespace Task_management.Areas.Admin.Controllers
                                 var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
                                 return pdf;
                             }
+                            else
+                            {
+                                // حسب اسم كاشير  
+                                var pdf = CreatePDF(cacherName, payMeth, oneDate, search, startDate, endDate);
+                                return pdf;
+                            }
                         }
                     }
                     else
@@ -242,6 +248,11 @@ namespace Task_management.Areas.Admin.Controllers
                                     // حسب اسم كاشير ويوم محدد
                                     products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
                                 }
+                                else
+                                {
+                                    // حسب اسم كاشير  
+                                    products = vmodel.ListViewInvose = iInvose.GetByCacherName(cacherName);
+                                }
                             }
                         }
                         else
@@ -338,6 +349,11 @@ namespace Task_management.Areas.Admin.Controllers
                                                 {
                                                     // حسب اسم كاشير ويوم محدد
                                                     header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName} لتاريخ {oneDate}").FontSize(20).Bold();
+                                                }
+                                                else
+                                                {
+                                                    // حسب اسم كاشير محدد
+                                                    header.Item().Border(1).AlignCenter().Text($"تقرير الفواتير للموظف {cacherName}").FontSize(20).Bold();
                                                 }
                                             }
                                         }
