@@ -23,6 +23,7 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult AddBestSellingProductsHomeContent(int? IdBestSellingProductsHomeContent)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll();
             // تأكد من أن BestSellingProductsHomeContent مهيأ حتى لو لم يكن هناك ID
             if (vmodel.BestSellingProductsHomeContent == null)

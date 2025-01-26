@@ -142,6 +142,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل  عناوين الاكثر مبيعا .
+        /// </summary>
+        internal static string LBAddBestSellingProductsHomeContent {
+            get {
+                return ResourceManager.GetString("LBAddBestSellingProductsHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying city data.
         /// </summary>
         internal static string LBAddCity {
@@ -1677,6 +1686,15 @@ namespace Task_management.Resource {
         internal static string LBMyAreaDeliveryTariffs {
             get {
                 return ResourceManager.GetString("LBMyAreaDeliveryTariffs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عناوين المنتجات الاكثر مبيعا .
+        /// </summary>
+        internal static string LBMyBestSellingProductsHomeContent {
+            get {
+                return ResourceManager.GetString("LBMyBestSellingProductsHomeContent", resourceCulture);
             }
         }
         

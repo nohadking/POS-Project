@@ -1431,4 +1431,10 @@
   <data name="lbPurchaseDate" xml:space="preserve">
     <value>تاريخ السند </value>
   </data>
+  <data name="LBMyBestSellingProductsHomeContent" xml:space="preserve">
+    <value>عناوين المنتجات الاكثر مبيعا </value>
+  </data>
+  <data name="LBAddBestSellingProductsHomeContent" xml:space="preserve">
+    <value>إضافة وتعديل  عناوين الاكثر مبيعا </value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Task_management.Models;
 
@@ -43,39 +43,29 @@ namespace Task_management.Controllers
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 
 
-
-
-
-
-
-
-
-            // ??? ???????? ?? ??? View ?? ?? ?????? ???????
-            var total = vmodel.ListViewInvose = iInvose.GetAll();
-            // ???? ??????? ?? ??????? ?? ????? ????????
+            // جلب كل  المبيعا 
+            var total = vmodel.ListViewInvose = iInvose.GetAll(); 
             var totalAmount = total.Sum(a => a.total);
             ViewBag.TotalAmount = totalAmount;
-
-
-            // ???? ??????? ?????? ?????? ???? ????????
+            //كود جلب الاكثر مبيعا 
             var topSellingItems = total
-                .GroupBy(item => item.IdProduct) // ??????? ?? ???? ProductId ??? ????
+                .GroupBy(item => item.IdProduct) 
                 .Select(group => new
                 {
                     ProductId = group.Key,
-                    ProductName = group.FirstOrDefault().ProductNameAr, // ???? ?? ?????? ????? ??? ???
-                    TotalSales = group.Sum(item => item.total), // ???? ????? ???????? ??? ????
-                    SalesCount = group.Sum(item => item.Quantity), // ???? ?????? ?????? ??????? ??? ???? (????? ?? ?????? ????? ?? 'Quantity')
-                    ProductImage = group.FirstOrDefault().Photo, //???
-                    Price = group.FirstOrDefault().price //
-                                                                // ????? ???? ??????
+                    ProductName = group.FirstOrDefault().ProductNameAr, 
+                    TotalSales = group.Sum(item => item.total), 
+                    SalesCount = group.Sum(item => item.Quantity), 
+                    ProductImage = group.FirstOrDefault().Photo, 
+                    Price = group.FirstOrDefault().price 
+                                                               
                 })
-                .OrderByDescending(item => item.SalesCount) // ????? ??????? ??? ?????? ????????
-                .Take(10)// ??? ??????? ?????? ?????? ??????
+                .OrderByDescending(item => item.SalesCount) 
+                //.Take(10)
                 .ToList();
 
             ViewBag.TopSellingItems = topSellingItems;
-            // ????? ??????? ?????? ?????? ??? ViewBag
+          
 
             return View(vmodel);
         }
@@ -88,7 +78,33 @@ namespace Task_management.Controllers
             vmodel.ListAboutSectionStartHomeContent = iAboutSectionStartHomeContent.GetAll().Take(1).ToList();
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
-            return View(vmodel);
+
+
+
+			// جلب كل  المبيعا 
+			var total = vmodel.ListViewInvose = iInvose.GetAll();
+			var totalAmount = total.Sum(a => a.total);
+			ViewBag.TotalAmount = totalAmount;
+			//كود جلب الاكثر مبيعا 
+			var topSellingItems = total
+				.GroupBy(item => item.IdProduct)
+				.Select(group => new
+				{
+					ProductId = group.Key,
+					ProductName = group.FirstOrDefault().ProductNameAr,
+					TotalSales = group.Sum(item => item.total),
+					SalesCount = group.Sum(item => item.Quantity),
+					ProductImage = group.FirstOrDefault().Photo,
+					Price = group.FirstOrDefault().price
+
+				})
+				.OrderByDescending(item => item.SalesCount)
+				//.Take(10)
+				.ToList();
+
+			ViewBag.TopSellingItems = topSellingItems;
+
+			return View(vmodel);
         }
         public IActionResult Privacy()
         {
