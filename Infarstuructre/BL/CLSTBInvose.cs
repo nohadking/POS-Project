@@ -15,6 +15,7 @@ namespace Infarstuructre.BL
         TBViewInvose GetByIdview(int IdInvose);
         List<TBViewInvose> GetByInvoiceNumber(int invNum);
         List<TBViewInvose> GetByCacherNameAndPay(string name, string pay);
+        List<TBViewInvose> GetByCacherNameOneDate(string name, DateTime date);
         List<TBViewInvose> GetByDateTimeEntry(DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethAndDateTimeEntry(string name, string pay, DateTime date);
         List<TBViewInvose> GetByCasherNameAndPayMethodAndPeriodDate(string name, string pay, DateTime start, DateTime end);
@@ -138,20 +139,31 @@ namespace Infarstuructre.BL
 
         public List<TBViewInvose> GetBySearchWord(string word)
         {
-            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == word 
-            || a.PaymentMethodAr == word
-            || a.InvoiceNumber == int.Parse(word)
-            || a.Quantity == int.Parse(word)
-            || a.price == decimal.Parse(word)
-            || a.total == decimal.Parse(word)
-            || a.PaymentMethodEn == word
-            || a.ProductNameEn == word
-            || a.PhoneNumber == word
-            || a.DateTimeEntry == Convert.ToDateTime(word)
-            || a.DateInvos == Convert.ToDateTime(word)
-            || a.ProductNameAr == word).ToList();
+            if (string.IsNullOrWhiteSpace(word))
+                return new List<TBViewInvose>();
+
+            int? parsedInt = int.TryParse(word, out int tempInt) ? tempInt : (int?)null;
+            decimal? parsedDecimal = decimal.TryParse(word, out decimal tempDecimal) ? tempDecimal : (decimal?)null;
+            DateTime? parsedDateTime = DateTime.TryParse(word, out DateTime tempDateTime) ? tempDateTime : (DateTime?)null;
+
+            var invoices = dbcontext.ViewInvose.Where(a =>
+                a.DataEntry == word ||
+                a.PaymentMethodAr == word ||
+                (parsedInt.HasValue && a.InvoiceNumber == parsedInt.Value) ||
+                (parsedInt.HasValue && a.Quantity == parsedInt.Value) ||
+                (parsedDecimal.HasValue && a.price == parsedDecimal.Value) ||
+                (parsedDecimal.HasValue && a.total == parsedDecimal.Value) ||
+                a.PaymentMethodEn == word ||
+                a.ProductNameEn == word ||
+                a.PhoneNumber == word ||
+                (parsedDateTime.HasValue && a.DateTimeEntry == parsedDateTime.Value) ||
+                (parsedDateTime.HasValue && a.DateInvos == parsedDateTime.Value) ||
+                a.ProductNameAr == word
+            ).ToList();
+
             return invoices;
         }
+
 
         public List<TBViewInvose> GetByPayMeth(string payMeth)
         {
@@ -176,6 +188,12 @@ namespace Infarstuructre.BL
         public List<TBViewInvose> GetByPeriodDate(DateTime start, DateTime end)
         {
             var invoices = dbcontext.ViewInvose.Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return invoices;
+        }
+
+        public List<TBViewInvose> GetByCacherNameOneDate(string name, DateTime date)
+        {
+            var invoices = dbcontext.ViewInvose.Where(a => a.DataEntry == name && a.DateTimeEntry.Date == date.Date).ToList();
             return invoices;
         }
     }

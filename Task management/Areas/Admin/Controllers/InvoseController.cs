@@ -179,10 +179,15 @@ namespace Task_management.Areas.Admin.Controllers
 
         public IActionResult CreatePDF(string? cacherName, string? payMeth, string? oneDate, string? search, string startDate, string endDate)
         {
-            var cachname = dbcontext.VwUsers
+            string cachname = string.Empty;
+            if (cacherName != null)
+            {
+                cachname = dbcontext.VwUsers
                                      .Where(a => a.Email == cacherName)
                                      .Select(a => a.Name)
                                      .FirstOrDefault();
+            }
+            
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
             var products = new List<TBViewInvose>();
@@ -247,12 +252,13 @@ namespace Task_management.Areas.Admin.Controllers
                                 if (oneDate != null)
                                 {
                                     // حسب اسم كاشير وطريقة دفع وتاريخ يوم محدد
-                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                    var date = Convert.ToDateTime(oneDate);
+                                    products = vmodel.ListViewInvose = iInvose.GetByCasherNameAndPayMethAndDateTimeEntry(cacherName, payMeth, date);
                                 }
                                 else
                                 {
                                     // حسب اسم كاشير وطريقة دفع
-                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                    products = vmodel.ListViewInvose = iInvose.GetByCacherNameAndPay(cacherName, payMeth);
                                 }
                             }
                             else
@@ -260,7 +266,8 @@ namespace Task_management.Areas.Admin.Controllers
                                 if (oneDate != null)
                                 {
                                     // حسب اسم كاشير ويوم محدد
-                                    products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                    var date = Convert.ToDateTime(oneDate);
+                                    products = vmodel.ListViewInvose = iInvose.GetByCacherNameOneDate(cacherName, date);
                                 }
                                 else
                                 {
@@ -274,7 +281,8 @@ namespace Task_management.Areas.Admin.Controllers
                             if (oneDate != null)
                             {
                                 // حسب يوم محدد
-                                products = vmodel.ListViewInvose = iInvose.GetBySearchWord(search);
+                                var date = Convert.ToDateTime(oneDate);
+                                products = vmodel.ListViewInvose = iInvose.GetByDateTimeEntry(date);
                             }
                         }
                     }
