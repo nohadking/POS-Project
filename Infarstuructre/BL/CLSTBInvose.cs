@@ -118,7 +118,7 @@ namespace Infarstuructre.BL
         public List<TBViewInvose> GetByDateTimeEntry(DateTime date)
         {
             var invoices = dbcontext.ViewInvose
-                .Where(a => a.DateTimeEntry.Date == date.Date) // مقارنة التاريخ فقط
+                .Where(a => a.DateTimeEntry.Date == date.Date)
                 .ToList();
             return invoices;
         }
