@@ -145,6 +145,8 @@ $('#PayMeth').on('change', function () {
 
 
 
+
+
 function updateTotalPrice() {
     let totalPrice = 0;
 
@@ -162,6 +164,8 @@ function updateTotalPrice() {
 $(document).ready(function () {
     updateTotalPrice();
 });
+
+
 
 
 

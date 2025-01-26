@@ -98,6 +98,13 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(invoices);
         }
 
+        [HttpGet("GetByPeriodDate/{start}/{end}")]
+        public IActionResult GetByPeriodDate(DateTime start, DateTime end)
+        {
+            var invoices = iInvose.GetByPeriodDate(start, end);
+            return Ok(invoices);
+        }
+
 
         [HttpGet("GetByDateTimeEntry/{date}")]
         public IActionResult GetByDateTimeEntry(DateTime date)
