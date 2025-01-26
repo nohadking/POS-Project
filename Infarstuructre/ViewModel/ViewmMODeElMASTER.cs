@@ -89,6 +89,8 @@ namespace Infarstuructre.ViewModel
 
 		public List<TBViewPurchase> ListViewPurchase { get; set; }
 		public TBPurchase Purchase { get; set; }
+		public List<TBBestSellingProductsHomeContent> ListBestSellingProductsHomeContent { get; set; }
+		public TBBestSellingProductsHomeContent BestSellingProductsHomeContent { get; set; }
 	}
  }
 

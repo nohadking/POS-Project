@@ -288,18 +288,43 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="title3">
+             @*    <div class="title3">
                     <h2 class="title-inner3">Popular products</h2>
                     <div class="line"></div>
-                </div>
+                </div> *@
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="title3">
+                                    <h2 class="title-inner3">Popular products</h2>
+                                    <div class="line"></div>
+                                </div>
+                                <div class="about-text">
+                                    <p>
+                                        Popular products
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div class="product-5 product-m no-arrow">
+
+
+
+
+                    	@foreach (var item in ViewBag.TopSellingItems)
+									{
+
+
                     <div class="product-box product-wrap">
                         <div class="img-wrapper">
                             <div class="ribbon"><span>new</span></div>
                             <div class="front">
                                 <a href="product-page(no-sidebar).html">
                                     <img alt=""
-                                         src="~/Web/assets/images/tools/pro/1.jpg"
+                                             src="@Url.Content("~/Images/Home/" + item.ProductImage)"
                                          class="img-fluid blur-up lazyload bg-img">
                                 </a>
                             </div>
@@ -334,11 +359,16 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <a href="product-page(no-sidebar).html">
-                                <h6>Slim Fit Cotton Shirt</h6>
+                                    <h6>@item.ProductName</h6>
                             </a>
-                            <h4>$500.00</h4>
+                                <h4>$@item.Price</h4>
                         </div>
                     </div>
+
+
+                                    }
+
+@* 
                     <div class="product-box product-wrap">
                         <div class="img-wrapper">
                             <div class="front">
@@ -520,7 +550,12 @@
                             </a>
                             <h4>$500.00</h4>
                         </div>
-                    </div>
+                    </div> *@
+
+
+
+
+
                 </div>
             </div>
         </div>

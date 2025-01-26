@@ -332,6 +332,14 @@ namespace Infarstuructre.Data
             builder.Entity<TBAccountingRestriction>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------
+            //---------------------------------
+            builder.Entity<TBBestSellingProductsHomeContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBBestSellingProductsHomeContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -365,6 +373,7 @@ namespace Infarstuructre.Data
         public DbSet<TBPurchase> TBPurchases { get; set; }
         public DbSet<TBAccountingRestriction> TBAccountingRestrictions { get; set; }
         public DbSet<TBViewPurchase> ViewPurchase { get; set; }
+        public DbSet<TBBestSellingProductsHomeContent> TBBestSellingProductsHomeContents { get; set; }
 
 
     }
