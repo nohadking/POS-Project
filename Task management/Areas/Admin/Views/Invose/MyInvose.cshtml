@@ -100,8 +100,8 @@
                                     <div class="input-blocks">
                                         
                                         <div class="input-groupicon calender-input">
-                                            <label></label>
-                                            <input id="startDate" type="text" class="datetimepicker" placeholder="من تاريخ">
+                                            <label>من تاريخ</label>
+                                            <input id="startDate" class="form-control" type="date" placeholder="من تاريخ">
                                         </div>
                                     </div>
                                 </div>
@@ -109,8 +109,8 @@
                                     <div class="input-blocks">
                                        
                                         <div class="input-groupicon calender-input">
-                                            <label></label>
-                                            <input id="endDate" type="text" class="datetimepicker" placeholder="إلى تاريخ">
+                                            <label>الى تاريخ</label>
+                                            <input id="endDate" class="form-control" type="date" placeholder="إلى تاريخ">
                                         </div>
                                     </div>
                                 </div>
@@ -358,6 +358,83 @@
 
         window.location.href = url;
     }
+
+</script>
+
+<script>
+    $('#endDate').on('change', function () {
+        console.log("kiki");
+
+        const endDate = $(this).val();
+        const startDate = $("#startDate").val();
+        const originalUrl = window.origin;
+
+        const formattedDateStart = new Date(startDate).toISOString();
+        const formattedDateEnd = new Date(endDate).toISOString();
+
+        fetch(`${originalUrl}/api/Invoice/GetByPeriodDate/${formattedDateStart}/${formattedDateEnd}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('حدث خطأ في جلب البيانات');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("data: " + JSON.stringify(data, null, 2));
+
+                if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                    $('#TblForResultTBL').DataTable().clear().destroy();
+                }
+
+                const tbody = $('#TblForResult');
+                tbody.empty();
+                let totalPrice = 0;
+                $('#totalPri').val(0);
+
+
+                data.forEach(item => {
+                    const row = `
+                         <tr>
+                             <td>
+                                 <label class="checkboxs">
+                                     <input type="checkbox">
+                                     <span class="checkmarks"></span>
+                                 </label>
+                             </td>
+                             <td>${item.invoiceNumber}</td>
+                             <td>${item.dateInvos}</td>
+                             <td>${item.paymentMethodAr}</td>
+                             <td>${item.name}</td>
+                             <td>${item.productNameAr}</td>
+                             <td>${item.quantity}</td>
+                             <td>$${item.price}</td>
+                             <td>$${item.total}</td>
+                             <td>${item.dataEntry}</td>
+                             <td>
+                                 <span class="badge ${item.OutstandingBill ? 'badge-linesuccess' : 'badge-linedanger'}">
+                                     ${item.OutstandingBill ? 'Active' : 'DeActive'}
+                                 </span>
+                             </td>
+                         </tr>`;
+                    tbody.append(row);
+                    totalPrice += item.total;
+                });
+
+                $('#totalPri').val(totalPrice.toFixed(2).toString() + ' $').trigger('change');
+
+                $('#TblForResultTBL').DataTable({
+                    paging: true,
+                    searching: false,
+                    ordering: false,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                    }
+                });
+            })
+            .catch(error => {
+                console.error(`خطأ: ${error.message}`);
+            });
+    });
 
 </script>
 
