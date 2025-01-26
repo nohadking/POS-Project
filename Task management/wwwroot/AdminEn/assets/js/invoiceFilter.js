@@ -1,8 +1,4 @@
-﻿$(document).ready(function () {
-
-});
-
-
+﻿
 $('#CasherName').on('change', function () {
 
     const cacherName = $(this).find('option:selected').text();

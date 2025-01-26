@@ -51,8 +51,13 @@ namespace Task_management.Areas.Admin.Controllers
 
             //تاريخ الفاتورة 
             var distinctDates = allInvoices
-            .Select(i => i.DateTimeEntry.Date).Distinct().ToList();
+                .Select(i => i.DateTimeEntry.Date)
+                .Distinct()
+                .Select(d => d.ToString("yyyy-MM-dd"))
+                .ToList();
+
             ViewBag.dateTai = distinctDates;
+
             return View(vmodel);
         }
         //علي شوف هي الفنثكشن  ضروري 
