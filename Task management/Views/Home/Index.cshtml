@@ -292,23 +292,28 @@
                     <h2 class="title-inner3">Popular products</h2>
                     <div class="line"></div>
                 </div> *@
-                <section>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8 offset-lg-2">
-                                <div class="title3">
-                                    <h2 class="title-inner3">Popular products</h2>
-                                    <div class="line"></div>
-                                </div>
-                                <div class="about-text">
-                                    <p>
-                                        Popular products
-                                    </p>
+                @foreach (var item in Model.ListBestSellingProductsHomeContent)
+                {
+                    <section>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2">
+                                    <div class="title3">
+                                        <h2 class="title-inner3">@item.TitleOneEn</h2>
+                                        <div class="line"></div>
+                                    </div>
+                                    <div class="about-text">
+                                        <p>
+                                            @item.TitleTwoEn
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                }
+             
+
                 <div class="product-5 product-m no-arrow">
 
 
@@ -359,7 +364,7 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <a href="product-page(no-sidebar).html">
-                                    <h6>@item.ProductName</h6>
+                                    <h6>@item.ProductNameEn</h6>
                             </a>
                                 <h4>$@item.Price</h4>
                         </div>

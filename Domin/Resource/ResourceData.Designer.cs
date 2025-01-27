@@ -1276,6 +1276,42 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى ادراج العنوان الخامس  باللغة العربية لتتم العملية  بنجاح ...!.
+        /// </summary>
+        internal static string VlTitlefiveAr {
+            get {
+                return ResourceManager.GetString("VlTitlefiveAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج العنوان الخامس باللغة الانكليزية لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlTitlefiveEn {
+            get {
+                return ResourceManager.GetString("VlTitlefiveEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج العنوان الرابع باللغة العربية لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlTitleForAr {
+            get {
+                return ResourceManager.GetString("VlTitleForAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج العنوان الرابع باللغة الانكليزية لتتم العملية بنجاح ..!.
+        /// </summary>
+        internal static string VlTitleForEn {
+            get {
+                return ResourceManager.GetString("VlTitleForEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدراج العناون الاول  باللغة العربية لتتم العملية بنجاح ....!.
         /// </summary>
         internal static string VlTitleOneAr {
@@ -1308,6 +1344,24 @@ namespace Domin.Resource {
         internal static string VlTitleShipping {
             get {
                 return ResourceManager.GetString("VlTitleShipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدخال  العنوان الثالث باللغة العربية لتتم العملية بنجاح ....!.
+        /// </summary>
+        internal static string VlTitleThreAr {
+            get {
+                return ResourceManager.GetString("VlTitleThreAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدخال العنوان الثالث باللغة الانكليزية لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlTitleThreEn {
+            get {
+                return ResourceManager.GetString("VlTitleThreEn", resourceCulture);
             }
         }
         

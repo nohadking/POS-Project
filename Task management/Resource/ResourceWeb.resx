@@ -1437,4 +1437,28 @@
   <data name="LBAddBestSellingProductsHomeContent" xml:space="preserve">
     <value>إضافة وتعديل  عناوين الاكثر مبيعا </value>
   </data>
+  <data name="LBMYCategoryServic" xml:space="preserve">
+    <value>فئات الخدمات</value>
+  </data>
+  <data name="lbTitleThreAr" xml:space="preserve">
+    <value>العنوان الثالث عربي</value>
+  </data>
+  <data name="lbTitleThreEn" xml:space="preserve">
+    <value>العنوان الثالث انكليزي</value>
+  </data>
+  <data name="lbTitleForAr" xml:space="preserve">
+    <value>العنوان الرابع عربي</value>
+  </data>
+  <data name="lbTitleForEn" xml:space="preserve">
+    <value>العنوان الرابع انكليزي</value>
+  </data>
+  <data name="lbTitlefiveAr" xml:space="preserve">
+    <value>العنوان الخامس  عربي</value>
+  </data>
+  <data name="lbTitlefiveEn" xml:space="preserve">
+    <value>العنوان الخامس  انكليزي</value>
+  </data>
+  <data name="LBAddEditCategoryServic" xml:space="preserve">
+    <value>إضافة وتعديل فئات الخدمات </value>
+  </data>
 </root>

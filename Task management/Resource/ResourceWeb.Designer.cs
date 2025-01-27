@@ -223,6 +223,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل فئات الخدمات .
+        /// </summary>
+        internal static string LBAddEditCategoryServic {
+            get {
+                return ResourceManager.GetString("LBAddEditCategoryServic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إضافة وتعديل المواد.
         /// </summary>
         internal static string LBAddEditClassCard {
@@ -1708,6 +1717,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فئات الخدمات.
+        /// </summary>
+        internal static string LBMYCategoryServic {
+            get {
+                return ResourceManager.GetString("LBMYCategoryServic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cities data.
         /// </summary>
         internal static string LBMyCity {
@@ -3085,6 +3103,42 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to العنوان الخامس  عربي.
+        /// </summary>
+        internal static string lbTitlefiveAr {
+            get {
+                return ResourceManager.GetString("lbTitlefiveAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان الخامس  انكليزي.
+        /// </summary>
+        internal static string lbTitlefiveEn {
+            get {
+                return ResourceManager.GetString("lbTitlefiveEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان الرابع عربي.
+        /// </summary>
+        internal static string lbTitleForAr {
+            get {
+                return ResourceManager.GetString("lbTitleForAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان الرابع انكليزي.
+        /// </summary>
+        internal static string lbTitleForEn {
+            get {
+                return ResourceManager.GetString("lbTitleForEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to العنوان الاول عربي.
         /// </summary>
         internal static string lbTitleOneAr {
@@ -3108,6 +3162,24 @@ namespace Task_management.Resource {
         internal static string LbTitleShipping {
             get {
                 return ResourceManager.GetString("LbTitleShipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان الثالث عربي.
+        /// </summary>
+        internal static string lbTitleThreAr {
+            get {
+                return ResourceManager.GetString("lbTitleThreAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العنوان الثالث انكليزي.
+        /// </summary>
+        internal static string lbTitleThreEn {
+            get {
+                return ResourceManager.GetString("lbTitleThreEn", resourceCulture);
             }
         }
         

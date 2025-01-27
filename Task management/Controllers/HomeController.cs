@@ -17,7 +17,8 @@ namespace Task_management.Controllers
         IIBrandProduct iBrandProduct;
         IICompanyInformation iCompanyInformation;
         IIInvose iInvose;
-        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1)
+        IIBestSellingProductsHomeContent iBestSellingProductsHomeContent;
+        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1)
         {
             _logger = logger;
             iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
@@ -28,7 +29,8 @@ namespace Task_management.Controllers
 
             iBrandProduct = iBrandProduct1;
             iCompanyInformation= iCompanyInformation1;
-            iInvose = iInvose1; 
+            iInvose = iInvose1;
+            iBestSellingProductsHomeContent     = iBestSellingProductsHomeContent1;
         }
 
         public IActionResult Index()
@@ -54,6 +56,7 @@ namespace Task_management.Controllers
                 {
                     ProductId = group.Key,
                     ProductName = group.FirstOrDefault().ProductNameAr, 
+                    ProductNameEn = group.FirstOrDefault().ProductNameEn, 
                     TotalSales = group.Sum(item => item.total), 
                     SalesCount = group.Sum(item => item.Quantity), 
                     ProductImage = group.FirstOrDefault().Photo, 
@@ -65,7 +68,8 @@ namespace Task_management.Controllers
                 .ToList();
 
             ViewBag.TopSellingItems = topSellingItems;
-          
+            vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+
 
             return View(vmodel);
         }
@@ -92,7 +96,8 @@ namespace Task_management.Controllers
 				{
 					ProductId = group.Key,
 					ProductName = group.FirstOrDefault().ProductNameAr,
-					TotalSales = group.Sum(item => item.total),
+                    ProductNameEn = group.FirstOrDefault().ProductNameEn,
+                    TotalSales = group.Sum(item => item.total),
 					SalesCount = group.Sum(item => item.Quantity),
 					ProductImage = group.FirstOrDefault().Photo,
 					Price = group.FirstOrDefault().price
@@ -104,7 +109,9 @@ namespace Task_management.Controllers
 
 			ViewBag.TopSellingItems = topSellingItems;
 
-			return View(vmodel);
+            vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+
+            return View(vmodel);
         }
         public IActionResult Privacy()
         {

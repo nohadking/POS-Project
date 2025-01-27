@@ -591,4 +591,22 @@
   <data name="LBAddAccountingRestriction" xml:space="preserve">
     <value>إضافة وتعديل القيود المحاسبية </value>
   </data>
+  <data name="VlTitleThreAr" xml:space="preserve">
+    <value>يرجى إدخال  العنوان الثالث باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleThreEn" xml:space="preserve">
+    <value>يرجى إدخال العنوان الثالث باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleForAr" xml:space="preserve">
+    <value>يرجى إدراج العنوان الرابع باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleForEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الرابع باللغة الانكليزية لتتم العملية بنجاح ..!</value>
+  </data>
+  <data name="VlTitlefiveAr" xml:space="preserve">
+    <value>يرجى ادراج العنوان الخامس  باللغة العربية لتتم العملية  بنجاح ...!</value>
+  </data>
+  <data name="VlTitlefiveEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الخامس باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
 </root>
