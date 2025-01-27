@@ -1,7 +1,10 @@
 ﻿
 
+using Domin.Entity;
 using Infarstuructre.BL;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 
 namespace Task_management.Areas.Admin.Controllers
@@ -12,18 +15,27 @@ namespace Task_management.Areas.Admin.Controllers
     {
 		private readonly UserManager<ApplicationUser> _userManager;
 		MasterDbcontext dbcontext;
-	
+		private readonly RoleManager<IdentityRole> _roleManager;
 		IIUserInformation iUserInformation;
 		IICompanyInformation iCompanyInformation;
 		IIInvose iInvose;
+		IIPurchase iPurchase;
+		IIExpense iExpense;
+		IISupplier iSupplier;
+		IIUserService iUserService;
 
-        public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1,IIInvose iInvose1)
+		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIPurchase iPurchase1,IIExpense iExpense1,IISupplier iSupplier1, RoleManager<IdentityRole> roleManager, IIUserService iUserService1)
 		{
 			_userManager = userManager;
 			iUserInformation = iUserInformation1;
 			iCompanyInformation = iCompanyInformation1;
 			iInvose = iInvose1;
-        }
+			iPurchase = iPurchase1;
+			iExpense = iExpense1;
+			iSupplier= iSupplier1;
+			_roleManager = roleManager;
+			iUserService = iUserService1;
+		}
 
 		public async Task<IActionResult> Index(string userId)
 		{
@@ -74,7 +86,77 @@ namespace Task_management.Areas.Admin.Controllers
 
 			var maxnomb = total.Max(a => a.InvoiceNumber);
 			ViewBag.max = maxnomb;
+
+
+			var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll();
+			var allPrchaase = TotalPrchaase.Sum(a => a.TotalAll);
+			ViewBag.totaallpurches = allPrchaase;
+
+
+			var maxpurshess = TotalPrchaase.DefaultIfEmpty(new TBViewPurchase { PurchaseNumber = 0 }).Max(a => a.PurchaseNumber);
+			ViewBag.maxpurs = maxpurshess > 0 ? maxpurshess : 1;
+
+
+
+
+			var exching=vmodel.ListViewExpense= iExpense.GetAll();
+			var totalexchinh = exching.Sum(a => a.Amount);
+			ViewBag.totalExch = totalexchinh;
+
+			//جلب عدد الموردين 
+
+			var supler=vmodel.ListViewSupplier= iSupplier.GetAll();
+			var contSuplaer= supler.Count();
+			ViewBag.contsupler = contSuplaer;
+
+			//جلب  عدد العملاء
+
+			var contcus= iUserInformation.GetAllByRole("Customer");
+			var totalcontcu= contcus.Count();
+			ViewBag.cont = totalcontcu;
+			var online= iUserService.GetActiveCustomers();
+
+
+
+
+
+
+
+
+
+
+
+			var onnn = online
+			.GroupBy(item => item.Id) // افترضنا أن هناك ProductId لكل منتج
+			.Select(group => new
+			{
+				ProductId = group.Key,
+				name = group.FirstOrDefault().Name, // تأكد أن المنتج يحتوي على اسم
+				email = group.FirstOrDefault().Email, // تأكد أن المنتج يحتوي على اسم
+				PhoneNumber = group.FirstOrDefault().PhoneNumber, // تأكد أن المنتج يحتوي على اسم
+			 // حساب إجمالي الكمية المباعة لكل منتج (افترض أن الكمية مخزنة في 'Quantity')
+				ProductImage = group.FirstOrDefault().ImageUser // إضافة صورة المنتج
+			})
+			.OrderByDescending(item => item.name) // ترتيب الأصناف حسب إجمالي المبيعات
+			/*.Take(10)*/ // عرض الأصناف الخمسة الأكثر مبيعًا
+			.ToList();
+
+			ViewBag.onlineuser = onnn;
+
+
+
+
+
+
+
+
+
+
+
+
 			return View(vmodel);
+
+
 		}
 
 

@@ -18,7 +18,8 @@ namespace Infarstuructre.ViewModel
         public IdentityRole? sIdentityRole { get; set; } 
         public IEnumerable<VwUser> ListVwUser { get; set; }
         public IEnumerable<ApplicationUser> ListlicationUser { get; set; }
-        public VwUser sVwUser { get; set; }
+		public int CustomerCount { get; set; } // إضافة الخاصية هنا
+		public VwUser sVwUser { get; set; }
         public ApplicationUser sUser { get; set; }
         public RegisterViewModel ruser { get; set; }
         public NewRegister SNewRegister { get; set; }

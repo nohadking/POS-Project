@@ -132,6 +132,7 @@ builder.Services.AddScoped<IIBrandProduct, CLSTBBrandProduct>();
 builder.Services.AddScoped<IIAccountingRestriction, CLSTBAccountingRestriction>();
 builder.Services.AddScoped<IIPurchase, CLSTBPurchase>();
 builder.Services.AddScoped<IIBestSellingProductsHomeContent, CLSTBBestSellingProductsHomeContent>();
+builder.Services.AddScoped<IIUserService, CLSUserService>();
 
 
 // تفعيل الترخيص لـ QuestPDF
