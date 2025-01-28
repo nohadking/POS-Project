@@ -1888,6 +1888,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to صورة الخلفية بالرئيسية.
+        /// </summary>
+        internal static string LBMYHomeBackgroundimage {
+            get {
+                return ResourceManager.GetString("LBMYHomeBackgroundimage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to معلومات الهدر بالرئيسية .
         /// </summary>
         internal static string LBMyHomeSliderContent {

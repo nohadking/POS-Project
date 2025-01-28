@@ -1461,4 +1461,7 @@
   <data name="LBAddEditCategoryServic" xml:space="preserve">
     <value>إضافة وتعديل فئات الخدمات </value>
   </data>
+  <data name="LBMYHomeBackgroundimage" xml:space="preserve">
+    <value>صورة الخلفية بالرئيسية</value>
+  </data>
 </root>

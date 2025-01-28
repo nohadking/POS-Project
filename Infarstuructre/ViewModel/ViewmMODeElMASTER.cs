@@ -92,6 +92,9 @@ namespace Infarstuructre.ViewModel
 		public TBPurchase Purchase { get; set; }
 		public List<TBBestSellingProductsHomeContent> ListBestSellingProductsHomeContent { get; set; }
 		public TBBestSellingProductsHomeContent BestSellingProductsHomeContent { get; set; }
+
+		public List<TBHomeBackgroundimage> ListHomeBackgroundimage { get; set; }
+		public TBHomeBackgroundimage HomeBackgroundimage { get; set; }
 	}
  }
 

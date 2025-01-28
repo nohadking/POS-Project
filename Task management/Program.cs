@@ -133,6 +133,7 @@ builder.Services.AddScoped<IIAccountingRestriction, CLSTBAccountingRestriction>(
 builder.Services.AddScoped<IIPurchase, CLSTBPurchase>();
 builder.Services.AddScoped<IIBestSellingProductsHomeContent, CLSTBBestSellingProductsHomeContent>();
 builder.Services.AddScoped<IIUserService, CLSUserService>();
+builder.Services.AddScoped<IIHomeBackgroundimage, CLSTBHomeBackgroundimage>();
 
 
 // تفعيل الترخيص لـ QuestPDF
