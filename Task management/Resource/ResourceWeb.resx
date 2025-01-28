@@ -1464,4 +1464,7 @@
   <data name="LBMYHomeBackgroundimage" xml:space="preserve">
     <value>صورة الخلفية بالرئيسية</value>
   </data>
+  <data name="LBAddEditHomeBackgroundimage" xml:space="preserve">
+    <value>إضافة وتعديل صورة الخلفية بالرئيسية </value>
+  </data>
 </root>

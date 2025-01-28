@@ -250,6 +250,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل صورة الخلفية بالرئيسية .
+        /// </summary>
+        internal static string LBAddEditHomeBackgroundimage {
+            get {
+                return ResourceManager.GetString("LBAddEditHomeBackgroundimage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add and modify company data.
         /// </summary>
         internal static string LbAddEditInformationCompanies {

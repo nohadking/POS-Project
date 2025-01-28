@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infarstuructre.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Task_management.Models;
 
@@ -18,7 +20,12 @@ namespace Task_management.Controllers
         IICompanyInformation iCompanyInformation;
         IIInvose iInvose;
         IIBestSellingProductsHomeContent iBestSellingProductsHomeContent;
-        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1)
+        IIHomeBackgroundimage iHomeBackgroundimage;
+        IICategory iCategory;
+        IIProduct iProduct;
+        MasterDbcontext dbcontext;
+
+        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1,IIHomeBackgroundimage iHomeBackgroundimage1,IICategory iCategory1,IIProduct iProduct1,MasterDbcontext dbcontext1)
         {
             _logger = logger;
             iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
@@ -31,9 +38,13 @@ namespace Task_management.Controllers
             iCompanyInformation= iCompanyInformation1;
             iInvose = iInvose1;
             iBestSellingProductsHomeContent     = iBestSellingProductsHomeContent1;
+            iHomeBackgroundimage = iHomeBackgroundimage1;
+            iCategory = iCategory1;
+            iProduct = iProduct1;
+            dbcontext   = dbcontext1;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
@@ -69,7 +80,25 @@ namespace Task_management.Controllers
 
             ViewBag.TopSellingItems = topSellingItems;
             vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+            vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
+            ViewBag.Category = vmodel.ListCategory = iCategory.GetAll();
+            vmodel.ListViewProduct = iProduct.GetAll();
+            if (categoryId.HasValue)
+            {
+                // جلب المنتجات بناءً على الـ categoryId
+                var getprod = vmodel.ListViewProduct = iProduct.GetAllv(categoryId.Value);
 
+                // إرسال البيانات إلى ViewBag
+                ViewBag.Products = getprod;
+            }
+            else
+            {
+                // جلب كافة المنتجات في حال لم يتم تحديد فئة
+                var getprod = vmodel.ListViewProduct = iProduct.GetAll();
+
+                // إرسال البيانات إلى ViewBag
+                ViewBag.Products = getprod;
+            }
 
             return View(vmodel);
         }
@@ -82,11 +111,11 @@ namespace Task_management.Controllers
             vmodel.ListAboutSectionStartHomeContent = iAboutSectionStartHomeContent.GetAll().Take(1).ToList();
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
+            vmodel.ListViewProduct = iProduct.GetAll();
 
 
-
-			// جلب كل  المبيعا 
-			var total = vmodel.ListViewInvose = iInvose.GetAll();
+            // جلب كل  المبيعا 
+            var total = vmodel.ListViewInvose = iInvose.GetAll();
 			var totalAmount = total.Sum(a => a.total);
 			ViewBag.TotalAmount = totalAmount;
 			//كود جلب الاكثر مبيعا 
@@ -110,6 +139,8 @@ namespace Task_management.Controllers
 			ViewBag.TopSellingItems = topSellingItems;
 
             vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+            vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
+            ViewBag.Category = vmodel.ListCategory = iCategory.GetAll();
 
             return View(vmodel);
         }
@@ -123,5 +154,53 @@ namespace Task_management.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+        //public IActionResult GetProductsByCategory(int? categoryId)
+        //{
+        //    ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+        //    var getprod = vmodel.ListViewProduct = iProduct.GetAll(); // قائمة المنتجات
+
+        //    if (categoryId.HasValue)
+        //    {
+        //        // جلب المنتجات بناءً على الـ categoryId
+        //        getprod = iProduct.GetAllv(categoryId.Value);
+        //    }
+        //    else
+        //    {
+        //        // جلب كافة المنتجات في حال لم يتم تحديد فئة
+        //        getprod = iProduct.GetAll();
+        //    }
+
+        //    // إرجاع البيانات بتنسيق JSON
+        //    return Json(getprod);
+        //}
+
+        public IActionResult GetProductsByCategory(int categoryId)
+        {
+            try
+            {
+                // استبدل هذا بالكود الخاص بك لجلب المنتجات بناءً على الفئة
+                var products = iProduct.GetAllv(categoryId);
+
+                // تحقق من أن المنتجات ليست فارغة
+                if (products == null || !products.Any())
+                {
+                    return PartialView("_ProductList.cshtml", Enumerable.Empty<ViewmMODeElMASTER>()); // إرسال قائمة فارغة
+                }
+
+                // إرسال المنتجات إلى الـ Partial View
+                return PartialView("_ProductList.cshtml", products);
+            }
+            catch (Exception ex)
+            {
+                // سجل الخطأ لمعرفة السبب
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
     }
 }
