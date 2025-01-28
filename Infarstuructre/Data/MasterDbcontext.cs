@@ -340,6 +340,15 @@ namespace Infarstuructre.Data
             builder.Entity<TBBestSellingProductsHomeContent>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------  
+            //---------------------------------
+            //---------------------------------
+            builder.Entity<TBHomeBackgroundimage>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBHomeBackgroundimage>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -374,6 +383,7 @@ namespace Infarstuructre.Data
         public DbSet<TBAccountingRestriction> TBAccountingRestrictions { get; set; }
         public DbSet<TBViewPurchase> ViewPurchase { get; set; }
         public DbSet<TBBestSellingProductsHomeContent> TBBestSellingProductsHomeContents { get; set; }
+        public DbSet<TBHomeBackgroundimage> TBHomeBackgroundimages { get; set; }
 
 
     }
