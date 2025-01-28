@@ -16,7 +16,7 @@ namespace Domin.Entity
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlStatementPurchase")]
         [MaxLength(500, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength500")]
         [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
-        public string Statement { get; set; }//البيان
+        public string Statement { get; set; } //البيان
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlPurchaseDate")]
         public DateOnly PurchaseDate { get; set; }//تاريخ السند
         public int PurchaseNumber { get; set; }//رقم السند

@@ -1,9 +1,16 @@
 ﻿@using Infarstuructre.BL
 @model ViewmMODeElMASTER;
+@inject UserManager<ApplicationUser> userManager
 @{
     ViewData["Title"] = "MyPurchase";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
+@{
+    var user = await userManager.GetUserAsync(User);
+}
+
+<div hidden id="UserName">@user.UserName</div>
 
 <div class="page-wrapper">
     <div class="content">
@@ -263,7 +270,7 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-sm-10 col-10">
                                                 <select class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))" id="supplierSelect">
-                                              <option value="">اختر المورد</option>
+                                              <option>اختر المورد</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-sm-2 col-2 ps-0">
@@ -279,30 +286,34 @@
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="input-blocks">
                                         <label>@ResourceWeb.lbPurchaseDate</label>
-
                                         <div class="input-groupicon calender-input">
-                                            <i data-feather="calendar" class="info-img"></i>
-                                            <input type="text" class="datetimepicker" placeholder="Choose">
+                                            <input id="PurcheasDt" type="date" class="form-control" placeholder="Choose">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks">
+                                        <label>بيان الطلب</label>
+                                        <div class="input-groupicon calender-input">
+                                            <input id="purStatment" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <div class="input-blocks">
                                         <label>@ResourceWeb.lbPaymentMethodAr</label>
-                                        <select class="form-select" asp-for="@Model.Purchase.IdPaymentMethod" asp-items="@(new SelectList(ViewBag.PaymentMethod, "IdPaymentMethod", "PaymentMethodAr"))">
+                                        <select id="PayMethId" class="form-select" asp-for="@Model.Purchase.IdPaymentMethod" asp-items="@(new SelectList(ViewBag.PaymentMethod, "IdPaymentMethod", "PaymentMethodAr"))">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <div class="input-blocks">
                                         <label>@ResourceWeb.LBPurchaseNumber</label>
-                                        <input type="text" class="form-control" value="@ViewBag.nomberMax">
+                                        <input id="PurcheasNu" type="text" class="form-control" value="@ViewBag.nomberMax">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <div class="input-blocks">
                                         <label>@ResourceWeb.LBPurchaseSubNumber</label>
-                                        <input type="text" class="form-control" >
+                                        <input id="PurcheasSubNu" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +403,12 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-blocks">
+                                            <label>Shipping</label>
+                                            <input id="OrderTotalShipping" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks">
                                             <label>Order Total Price</label>
                                             <input id="OrderTotalPrice" type="text">
                                         </div>
@@ -402,7 +419,7 @@
                             <div class="col-lg-12">
                                 <div class="input-blocks summer-description-box">
                                     <label>Notes</label>
-                                    <input type="text" class="form-control">
+                                    <input id="NotesForPurcheas" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -778,20 +795,26 @@
             console.log("productName: " + productName);
             console.log("productImg: " + productImg);
 
-            // الحصول على الجدول
             var tbl = $('#TBLToAddPurcheas');
+            var unitData = @Html.Raw(Json.Serialize(ViewBag.Unit));
+            let options = unitData.map(unit => `<option value="${unit.idUnit}">${unit.unit}</option>`).join('');
 
-            // إنشاء الصف مع الأعمدة ديناميكيًا باستخدام القيم
             const row = `
                 <tr>
-                   <td style="width: 200px;"><img src="/Images/Home/${productImg}" alt="${productName}" style="width: 50px; height: 50px;" /> ${productName}</td>
-                   <td><input style="width: 100px;" class="form-control quaitity" type="number" /></td>
-                   <td><input style="width: 100px;" class="form-control freeQuaitity" type="number" /></td>
-                   <td><input style="width: 100px;" class="form-control price" type="number" /></td>
-                   <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
-                   <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
-                   <td style="width: 100px;" class="totalQty"></td>
-                   <td style="width: 100px;" class="totalPrc"></td>
+                    <td style="width: 200px;"><img src="/Images/Home/${productImg}" alt="${productName}" style="width: 50px; height: 50px;" /> <span class="productName">${productName}</span><span hidden class="productIId">${productId}</span></td>
+                    <td><input style="width: 100px;" class="form-control quaitity" type="number" /></td>
+                                                <td>
+                                <select style="width: 200px;" class="idUnitt form-control">
+                                    <option>اختر نوع الوحدة</option>
+                                    ${options}
+                                </select>
+                            </td>
+                    <td><input style="width: 100px;" class="form-control freeQuaitity" type="number" /></td>
+                    <td><input style="width: 100px;" class="form-control price" type="number" /></td>
+                    <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
+                    <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
+                    <td style="width: 100px;" class="totalQty"></td>
+                    <td style="width: 100px;" class="totalPrc"></td>
                 </tr>
             `;
 
@@ -800,9 +823,104 @@
 
 
 
-    function SavePurcheasInDB() {
 
+
+
+    function SavePurcheasInDB() {
+        var productId = $('#productSelect').find("option:selected").val();
+        var supplierId = $('#supplierSelect').find("option:selected").val();
+        var PayMethId = $('#PayMethId').find("option:selected").val();
+        var PurcheasDt = $('#PurcheasDt').val();
+        var PurcheasNu = $('#PurcheasNu').val();
+        var PurcheasSubNu = $('#PurcheasSubNu').val();
+        var purStatment = $('#purStatment').val();
+        var UserName = $('#UserName').text();
+
+            ///////////////////////
+
+        var PurcheasTotalPrice = $('#OrderTotalPrice').val();
+        var PurcheasTotalQTY = $('#OrderTotalQTY').val();
+        var PurcheasTotalDiscount = $('#OrderTotalDiscount').val();
+        var PurcheasTotalTax = $('#OrderTotalTax').val();
+        var PurcheasNotes = $('#NotesForPurcheas').val();
+        var OrderTotalShipping = $('#OrderTotalShipping').val();
+
+        var dateNow = new Date();
+        var day = dateNow.getDate();
+        var month = dateNow.getMonth() + 1;
+        var year = dateNow.getFullYear();
+
+        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+            $('#TBLToAddPurcheas tr').each(function (index, row) {
+
+                var productIId = $(row).find('.productIId').text();
+                var quantity = $(row).find('.quaitity').val(); 
+                var freeQuantity = $(row).find('.freeQuaitity').val();
+                var price = $(row).find('.price').val(); 
+                var discount = $(row).find('.discount').val(); 
+                var tax = $(row).find('.tax').val(); 
+                var totalQty = $(row).find('.totalQty').text(); 
+                var totalPrc = $(row).find('.totalPrc').text();
+                var idUnit = $(row).find('.idUnitt').find("option:selected").val();
+
+
+
+
+                var url = window.origin + '/api/PurcheasApi';
+                var payLoad = {
+                    "idPurchase": 0,
+                    'idSupplier': parseInt(supplierId),
+                    "idPaymentMethod": parseInt(PayMethId),
+                    "statement": purStatment,
+                    "purchaseDate": PurcheasDt,
+                    "purchaseNumber": parseInt(PurcheasNu),
+                    "purchaseSubNumber": parseInt(PurcheasSubNu),
+                    "idProduct": parseInt(productIId),
+                    "idUnit": parseInt(idUnit),
+                    "quantity": parseInt(quantity),
+                    "freeQuantity": parseInt(freeQuantity),
+                    "allQuantity": parseInt(totalQty),
+                    "singleDiscount": parseFloat(discount),
+                    "purchasePrice": parseFloat(PurcheasTotalPrice),
+                    "total": parseFloat(totalPrc),
+                    "shipping": parseFloat(OrderTotalShipping),
+                    "nouts": PurcheasNotes,
+                    "totalQuantity": parseInt(PurcheasTotalQTY),
+                    "totalDiscount": parseInt(PurcheasTotalDiscount),
+                    "totalAll": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+                    "dataEntry": UserName,
+                    "dateTimeEntry": new Date(),
+                    "currentState": true,
+                };
+
+                console.log("payLoad " + JSON.stringify(payLoad));
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payLoad)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Data received:', data);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            
+            });
     }
+
+
+
 
         $(document).on('input', '.quaitity, .freeQuaitity, .price', function () {
             // تحديد الصف الحالي
