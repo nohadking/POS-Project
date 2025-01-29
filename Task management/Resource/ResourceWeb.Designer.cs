@@ -259,6 +259,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل الصور اسفل المنتجات .
+        /// </summary>
+        internal static string LBAddEditHomeImageProdact {
+            get {
+                return ResourceManager.GetString("LBAddEditHomeImageProdact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add and modify company data.
         /// </summary>
         internal static string LbAddEditInformationCompanies {
@@ -1902,6 +1911,15 @@ namespace Task_management.Resource {
         internal static string LBMYHomeBackgroundimage {
             get {
                 return ResourceManager.GetString("LBMYHomeBackgroundimage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صورة أسفل المنتجات .
+        /// </summary>
+        internal static string LBMYHomeImageProdact {
+            get {
+                return ResourceManager.GetString("LBMYHomeImageProdact", resourceCulture);
             }
         }
         

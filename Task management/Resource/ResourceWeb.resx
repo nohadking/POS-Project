@@ -1467,4 +1467,10 @@
   <data name="LBAddEditHomeBackgroundimage" xml:space="preserve">
     <value>إضافة وتعديل صورة الخلفية بالرئيسية </value>
   </data>
+  <data name="LBMYHomeImageProdact" xml:space="preserve">
+    <value>صورة أسفل المنتجات </value>
+  </data>
+  <data name="LBAddEditHomeImageProdact" xml:space="preserve">
+    <value>إضافة وتعديل الصور اسفل المنتجات </value>
+  </data>
 </root>

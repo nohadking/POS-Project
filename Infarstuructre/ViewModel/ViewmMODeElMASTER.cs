@@ -104,7 +104,9 @@ namespace Infarstuructre.ViewModel
 		public TBBestSellingProductsHomeContent BestSellingProductsHomeContent { get; set; }
 
 		public List<TBHomeBackgroundimage> ListHomeBackgroundimage { get; set; }
-		public TBHomeBackgroundimage HomeBackgroundimage { get; set; }
+		public TBHomeBackgroundimage HomeBackgroundimage { get; set; }	
+		public List<TBHomeImageProdact> ListHomeImageProdact { get; set; }
+		public TBHomeImageProdact HomeImageProdact { get; set; }
 	}
  }
 

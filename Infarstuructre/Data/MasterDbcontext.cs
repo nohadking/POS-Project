@@ -349,6 +349,22 @@ namespace Infarstuructre.Data
             builder.Entity<TBHomeBackgroundimage>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBHomeImageProdact>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBHomeImageProdact>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
+            //---------------------------------   
+            //---------------------------------
+            builder.Entity<TBOrderProductsFromSupplier>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBOrderProductsFromSupplier>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -384,6 +400,8 @@ namespace Infarstuructre.Data
         public DbSet<TBViewPurchase> ViewPurchase { get; set; }
         public DbSet<TBBestSellingProductsHomeContent> TBBestSellingProductsHomeContents { get; set; }
         public DbSet<TBHomeBackgroundimage> TBHomeBackgroundimages { get; set; }
+        public DbSet<TBHomeImageProdact> TBHomeImageProdacts { get; set; }
+        public DbSet<TBOrderProductsFromSupplier> TBOrderProductsFromSuppliers { get; set; }
 
 
     }

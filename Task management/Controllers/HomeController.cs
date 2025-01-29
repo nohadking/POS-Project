@@ -24,7 +24,9 @@ namespace Task_management.Controllers
         IICategory iCategory;
         IIProduct iProduct;
         MasterDbcontext dbcontext;
-        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1,IIHomeBackgroundimage iHomeBackgroundimage1,IICategory iCategory1,IIProduct iProduct1,MasterDbcontext dbcontext1)
+        IISupplier iSupplier;
+        IIHomeImageProdact iHomeImageProdact;    
+        public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1,IIHomeBackgroundimage iHomeBackgroundimage1,IICategory iCategory1,IIProduct iProduct1,MasterDbcontext dbcontext1,IISupplier iSupplier1,IIHomeImageProdact iHomeImageProdact1)
         {
             _logger = logger;
             iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
@@ -40,6 +42,8 @@ namespace Task_management.Controllers
             iCategory = iCategory1;
             iProduct = iProduct1;
             dbcontext   = dbcontext1;
+            iSupplier = iSupplier1;
+            iHomeImageProdact = iHomeImageProdact1;
         }
 
         public IActionResult Index(int? categoryId)
@@ -95,6 +99,8 @@ namespace Task_management.Controllers
                 // إرسال البيانات إلى ViewBag
                 ViewBag.Products = getprod;
             }
+            vmodel.ListViewSupplier = iSupplier.GetAll();
+            vmodel.ListHomeImageProdact = iHomeImageProdact.GetAll().Take(1).ToList();
 
             return View(vmodel);
         }
@@ -137,7 +143,8 @@ namespace Task_management.Controllers
             vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
             vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
             ViewBag.Category = vmodel.ListCategory = iCategory.GetAll();
-
+            vmodel.ListViewSupplier = iSupplier.GetAll();
+            vmodel.ListHomeImageProdact = iHomeImageProdact.GetAll().Take(1).ToList();
             return View(vmodel);
         }
         public IActionResult Privacy()

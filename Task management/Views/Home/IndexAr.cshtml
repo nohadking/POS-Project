@@ -767,9 +767,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="banner-tools">
-                    <img src="~/Web/assets/images/tools/banner.jpg" alt="" class="img-fluid">
-                </div>
+                @foreach (var item in Model.ListHomeImageProdact)
+                {
+                    <div class="banner-tools">
+                        <img src=" @string.Format("/Images/Home/{0}", item.Photo)" alt="@item.Photo" style="height:250px;width:1250px">
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -781,15 +784,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="brand-6 no-arrow">
-                    @foreach (var item in Model.ListBrandProduct)
+                    @foreach (var item in Model.ListViewSupplier)
                     {
-                        <div>
-                            <div class="logo-block">
-                                <a href="@item.URlButtonAr">
-                                    <img src=" @string.Format("/Images/Home/{0}", item.Photo)" alt="@item.TitelOneAr" style="height:150px;width:150px">
-                                </a>
+                            <div>
+                                <div class="logo-block">
+                                    <a href="@item.website">
+                                        <img src=" @string.Format("/Images/Home/{0}", item.Photo)" alt="@item.SupplierName" style="height:150px;width:150px">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                     }
                 </div>
             </div>

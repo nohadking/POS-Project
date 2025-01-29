@@ -420,35 +420,35 @@
 								<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><i data-feather="box"></i><span>المنتجات </span></a></li>
 								<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
 							
-								<li><a href="expired-products.html"><i data-feather="codesandbox"></i><span>Expired Products</span></a></li>
-								<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a></li>
+				@* 				<li><a href="expired-products.html"><i data-feather="codesandbox"></i><span>Expired Products</span></a></li>
+								<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a></li> *@
 
 								<li><a asp-area="Admin" asp-controller="Category"asp-action="MYCategory"><i data-feather="codepen"></i><span>الفئات</span></a></li>
 
-								<li><a href="sub-categories.html"><i data-feather="speaker"></i><span>Sub Category</span></a></li>
+						@* 		<li><a href="sub-categories.html"><i data-feather="speaker"></i><span>Sub Category</span></a></li>
 								<li><a href="brand-list.html"><i data-feather="tag"></i><span>Brands</span></a></li>
 								<li><a href="units.html"><i data-feather="speaker"></i><span>Units</span></a></li>
 								<li><a href="varriant-attributes.html"><i data-feather="layers"></i><span>Variant Attributes</span></a></li>
 								<li><a href="warranty.html"><i data-feather="bookmark"></i><span>Warranties</span></a></li>
 								<li><a href="barcode.html"><i data-feather="align-justify"></i><span>Print Barcode</span></a></li>
-								<li><a href="qrcode.html"><i data-feather="maximize"></i><span>Print QR Code</span></a></li>
+								<li><a href="qrcode.html"><i data-feather="maximize"></i><span>Print QR Code</span></a></li> *@
 							</ul>
 						</li>
-						<li class="submenu-open">
+						@* <li class="submenu-open">
 							<h6 class="submenu-hdr">Stock</h6>
 							<ul>
 								<li><a href="manage-stocks.html"><i data-feather="package"></i><span>Manage Stock</span></a></li>
 								<li><a href="stock-adjustment.html"><i data-feather="clipboard"></i><span>Stock Adjustment</span></a></li>
 								<li><a href="stock-transfer.html"><i data-feather="truck"></i><span>Stock Transfer</span></a></li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Sales</h6>
 							<ul>
-								<li><a href="sales-list.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li>
+								@* <li><a href="sales-list.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li> *@
 								<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
-								<li><a href="sales-returns.html"><i data-feather="copy"></i><span>Sales Return</span></a></li>
-								<li><a href="quotation-list.html"><i data-feather="save"></i><span>Quotation</span></a></li>
+							@* 	<li><a href="sales-returns.html"><i data-feather="copy"></i><span>Sales Return</span></a></li>
+								<li><a href="quotation-list.html"><i data-feather="save"></i><span>Quotation</span></a></li> *@
 								<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><i data-feather="hard-drive"></i><span>POS</span></a></li>
 							</ul>
 						</li>
@@ -489,11 +489,11 @@
 								<li><a asp-area="Admin" asp-controller="CustomerCategorie" asp-action="MyCustomerCategorie"><i data-feather="user"></i><span>@ResourceWeb.LBMyCustomerCategorie</span></a></li>
 
 								<li><a asp-area="Admin" asp-controller="Supplier" asp-action="MYSupplier"><i data-feather="user"></i><span>@ResourceWeb.LBMYSupplier</span></a></li>
-								<li><a href="suppliers.html"><i data-feather="users"></i><span>custmour</span></a></li>
+								@* <li><a href="suppliers.html"><i data-feather="users"></i><span>custmour</span></a></li>
 								<li><a href="store-list.html"><i data-feather="home"></i><span>Stores</span></a></li>
 								<li>
 									<a href="warehouse.html"><i data-feather="archive"></i><span>Warehouses</span></a>
-								</li>
+								</li> *@
 							</ul>
 						</li>
 						<li class="submenu-open">
@@ -657,7 +657,7 @@
 										<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
 										<li><a asp-area="Admin" asp-controller="BestSellingProductsHomeContent" asp-action="MyBestSellingProductsHomeContent">@ResourceWeb.LBMyBestSellingProductsHomeContent</a></li>
 										<li><a asp-area="Admin" asp-controller="HomeBackgroundimage" asp-action="MYHomeBackgroundimage">@ResourceWeb.LBMYHomeBackgroundimage</a></li>
-										<li><a href="appearance.html">Appearance</a></li>
+										<li><a asp-area="Admin" asp-controller="HomeImageProdact" asp-action="MYHomeImageProdact">@ResourceWeb.LBMYHomeImageProdact</a></li>
 										<li><a href="social-authentication.html">Social Authentication</a></li>
 										<li><a href="language-settings.html">Language</a></li>
 									</ul>
@@ -1297,8 +1297,10 @@
 								<ul>
 									<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
 									<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
-
 									<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
+									<li><a asp-area="Admin" asp-controller="BestSellingProductsHomeContent" asp-action="MyBestSellingProductsHomeContent">@ResourceWeb.LBMyBestSellingProductsHomeContent</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeBackgroundimage" asp-action="MYHomeBackgroundimage">@ResourceWeb.LBMYHomeBackgroundimage</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeImageProdact" asp-action="MYHomeImageProdact">@ResourceWeb.LBMYHomeImageProdact</a></li>
 									<li><a href="prefixes.html">Prefixes</a></li>
 									<li><a href="preference.html">Preference</a></li>
 									<li><a href="appearance.html">Appearance</a></li>
