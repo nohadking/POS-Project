@@ -30,13 +30,20 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			vmodel.ListViewPurchase = iPurchase.GetAll() .GroupBy(i => i.PurchaseNumber) .Select(g => g.First()) .ToList();
+			//vmodel.ListViewPurchase = iPurchase.GetAll() .GroupBy(i => i.PurchaseNumber) .Select(g => g.First()) .ToList();
 			ViewBag.Supplier = vmodel.ListViewSupplier = iSupplier.GetAll();
 			ViewBag.PaymentMethod = vmodel.ListPaymentMethod = iPaymentMethod.GetAll();
 			ViewBag.Unit = vmodel.ListUnit = iUnit.GetAll();
 			ViewBag.ClassCard = vmodel.ListViewClassCard = iClassCard.GetAll();
-			var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll().Distinct().ToList();
-			ViewBag.nomberMax = numberinvose.Any()
+
+
+
+
+            var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll()
+    .GroupBy(p => p.PurchaseNumber) // تجميع حسب رقم السند
+    .Select(g => g.First())        // أخذ السجل الأول من كل مجموعة
+    .ToList();
+            ViewBag.nomberMax = numberinvose.Any()
 		? numberinvose.Max(c => c.PurchaseNumber) + 1
 		: 1;
 			return View(vmodel);

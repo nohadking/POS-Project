@@ -14,7 +14,7 @@ namespace Domin.Entity
         public string PhotoSupplier { get; set; }
         public string SupplierName { get; set; }
         public int IdPaymentMethod { get; set; }
-        public int PaymentMethodAr { get; set; }
+        public string PaymentMethodAr { get; set; }
         public string Statement { get; set; }
         public DateOnly PurchaseDate { get; set; }
         public int PurchaseNumber { get; set; }

@@ -400,8 +400,11 @@
                         <div class="tools-form">
                             <div class="search-box">
 
-                                <select id="categorySelect" name="engine" class="form-control" asp-items="@(new SelectList(ViewBag.Category, "IdCategory", "CategoryNameAr"))">
-                                    <option value="">Select category</option>
+                                <select id="categorySelect" name="engine" class="form-control" asp-items="@(new SelectList(ViewBag.Category, "IdCategory", "CategoryNameEn"))">
+                                    @foreach (var category in ViewBag.Category)
+                                    {
+                                        <option value="@category.IdCategory">@category.CategoryNameEn</option>
+                                    }
                                 </select>
                             </div>
                             <div class="search-button">
@@ -1191,36 +1194,45 @@
     </div>
 </section>
 @section Scripts {
-<script>
-    $(document).ready(function () {
-        // عند تغيير الفئة المحددة في القائمة المنسدلة
-        $('#categorySelect').change(function () {
-            // الحصول على قيمة الفئة المحددة
-            var categoryId = $(this).val();
+    <script>
+        // عند تغيير الاختيار في القائمة
+        document.getElementById("categorySelect").addEventListener("change", function () {
+            var selectedCategory = this.value;
+            var productBoxes = document.querySelectorAll(".product-box");
 
-            // التحقق إذا تم اختيار فئة
-            if (categoryId) {
-                // إرسال طلب Ajax إلى السيرفر لجلب المنتجات
-                $.ajax({
-                    url: '@Url.Action("GetProductsByCategory", "Home")', // استدعاء الأكشن في الكونترولر
-                    type: 'GET',
-                    data: { categoryId: categoryId },
-                    success: function (partialViewHtml) {
-                        // استبدال محتوى قائمة المنتجات بالـ Partial View التي يتم إرجاعها من السيرفر
-                        $('#productListContainer').html(partialViewHtml);
-                    },
-                    error: function () {
-                        // عرض رسالة خطأ في حال حدوث مشكلة
-                        $('#productListContainer').html('<p>There was an error retrieving the products. Please try again later.</p>');
-                    }
+            productBoxes.forEach(function (productBox) {
+                var productCategoryId = productBox.getAttribute("data-category-id");
+
+                // إذا تم اختيار فئة معينة، إظهار المنتج إذا كان تابعًا لتلك الفئة
+                if (selectedCategory === "" || selectedCategory === productCategoryId) {
+                    productBox.style.display = "block"; // إظهار المنتج
+                } else {
+                    productBox.style.display = "none"; // إخفاء المنتج
+                }
+            });
+        });
+
+        // عند تحميل الصفحة
+        window.onload = function () {
+            var selectedCategory = document.getElementById("categorySelect").value;
+            var productBoxes = document.querySelectorAll(".product-box");
+
+            // في البداية، عرض جميع المنتجات إذا كانت القيمة فارغة
+            if (selectedCategory === "") {
+                productBoxes.forEach(function (productBox) {
+                    productBox.style.display = "block"; // إظهار جميع المنتجات
                 });
             } else {
-                // إذا لم يتم اختيار أي فئة، يتم عرض رسالة للمستخدم
-                $('#productListContainer').html('<p>Please select a category to view products.</p>');
+                // عرض المنتجات التي تتعلق بالفئة المختارة فقط
+                productBoxes.forEach(function (productBox) {
+                    var productCategoryId = productBox.getAttribute("data-category-id");
+                    if (selectedCategory === productCategoryId) {
+                        productBox.style.display = "block"; // إظهار المنتج
+                    } else {
+                        productBox.style.display = "none"; // إخفاء المنتج
+                    }
+                });
             }
-        });
-    });
-</script>
-
-
+        };
+    </script>
 }

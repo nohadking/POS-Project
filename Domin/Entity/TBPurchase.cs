@@ -44,5 +44,11 @@ namespace Domin.Entity
         public string DataEntry { get; set; }//وقت وتاريخ ادخال السند
         public DateTime DateTimeEntry { get; set; }//مدخل البيانات
         public bool CurrentState { get; set; }//حالة السند 
+
+
+
+
+
+
     }
 }

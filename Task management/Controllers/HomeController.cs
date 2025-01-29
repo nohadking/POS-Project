@@ -24,7 +24,6 @@ namespace Task_management.Controllers
         IICategory iCategory;
         IIProduct iProduct;
         MasterDbcontext dbcontext;
-
         public HomeController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1, IIServiceSectionStartHomeContent iServiceSectionStartHomeContent1, IIAboutSectionStartHomeContent iAboutSectionStartHomeContent1, IICategoryServic iCategoryServic1, IIBrandProduct iBrandProduct1,IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1,IIHomeBackgroundimage iHomeBackgroundimage1,IICategory iCategory1,IIProduct iProduct1,MasterDbcontext dbcontext1)
         {
             _logger = logger;
@@ -33,7 +32,6 @@ namespace Task_management.Controllers
             iServiceSectionStartHomeContent = iServiceSectionStartHomeContent1;
             iAboutSectionStartHomeContent = iAboutSectionStartHomeContent1;
             iCategoryServic = iCategoryServic1;
-
             iBrandProduct = iBrandProduct1;
             iCompanyInformation= iCompanyInformation1;
             iInvose = iInvose1;
@@ -54,8 +52,6 @@ namespace Task_management.Controllers
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-
-
             // جلب كل  المبيعا 
             var total = vmodel.ListViewInvose = iInvose.GetAll(); 
             var totalAmount = total.Sum(a => a.total);
@@ -157,50 +153,7 @@ namespace Task_management.Controllers
 
 
 
-        //public IActionResult GetProductsByCategory(int? categoryId)
-        //{
-        //    ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-
-        //    var getprod = vmodel.ListViewProduct = iProduct.GetAll(); // قائمة المنتجات
-
-        //    if (categoryId.HasValue)
-        //    {
-        //        // جلب المنتجات بناءً على الـ categoryId
-        //        getprod = iProduct.GetAllv(categoryId.Value);
-        //    }
-        //    else
-        //    {
-        //        // جلب كافة المنتجات في حال لم يتم تحديد فئة
-        //        getprod = iProduct.GetAll();
-        //    }
-
-        //    // إرجاع البيانات بتنسيق JSON
-        //    return Json(getprod);
-        //}
-
-        public IActionResult GetProductsByCategory(int categoryId)
-        {
-            try
-            {
-                // استبدل هذا بالكود الخاص بك لجلب المنتجات بناءً على الفئة
-                var products = iProduct.GetAllv(categoryId);
-
-                // تحقق من أن المنتجات ليست فارغة
-                if (products == null || !products.Any())
-                {
-                    return PartialView("_ProductList.cshtml", Enumerable.Empty<ViewmMODeElMASTER>()); // إرسال قائمة فارغة
-                }
-
-                // إرسال المنتجات إلى الـ Partial View
-                return PartialView("_ProductList.cshtml", products);
-            }
-            catch (Exception ex)
-            {
-                // سجل الخطأ لمعرفة السبب
-                Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+    
 
     }
 }

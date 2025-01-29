@@ -23,8 +23,17 @@ namespace Infarstuructre.BL
 
 		public List<TBViewPurchase> GetAll()
 		{
-			List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase).Where(a => a.CurrentState == true).ToList();
-			return MySlider;
+			try
+			{
+                List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase).Where(a => a.CurrentState == true).ToList();
+                return MySlider;
+            }
+			catch (Exception)
+			{
+
+				throw;
+			}
+		
 		}
 		public TBPurchase GetById(int IdPurchase)
 		{
