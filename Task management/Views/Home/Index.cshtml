@@ -2,32 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style>
-    #productList .product-box {
-        margin: 15px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
 
-    #productList .product-info h4 {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .slick-prev, .slick-next {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-        padding: 10px;
-        color: white;
-    }
-
-        .slick-prev:hover, .slick-next:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-</style>
 <section id="tool-bg" class="p-0 height-85 tools_slider">
     <div class="slide-1 home-slider">
         @foreach (var item in Model.ListHomeSliderContent)
@@ -137,10 +112,10 @@
                                   fill="#ff4c3b"></path>
                             <path d="M323.48,108.52c-3.124-3.123-8.188-3.123-11.312,0L226.2,194.48c-6.495-2.896-13.914-2.896-20.408,0l-40.704-40.704     c-3.178-3.069-8.243-2.981-11.312,0.197c-2.994,3.1-2.994,8.015,0,11.115l40.624,40.624c-5.704,11.94-0.648,26.244,11.293,31.947     c9.165,4.378,20.095,2.501,27.275-4.683c7.219-7.158,9.078-18.118,4.624-27.256l85.888-85.888     C326.603,116.708,326.603,111.644,323.48,108.52z M221.658,221.654c-0.001,0.001-0.001,0.001-0.002,0.002     c-3.164,3.025-8.148,3.025-11.312,0c-3.125-3.124-3.125-8.189-0.002-11.314c3.124-3.125,8.189-3.125,11.314-0.002     C224.781,213.464,224.781,218.53,221.658,221.654z"
                                   fill="#ff4c3b"></path>
+                                                    </g>
                                                 </g>
                                             </g>
-                                        </g>
-                                    </svg>
+                                        </svg>
                             <div class="media-body">
                                 <h4>@item.TitleThreEn</h4>
                                 <p>@item.TitleForEn</p>
@@ -192,10 +167,10 @@
                                   fill="#ff4c3b"></path>
                             <path d="M107.215,358.057l-4.525,4.525c-4.165,4.164-4.165,10.918,0,15.085c2.083,2.082,4.813,3.123,7.542,3.123     s5.459-1.041,7.542-3.123l4.525-4.525c4.165-4.166,4.165-10.92,0-15.085C118.133,353.891,111.381,353.891,107.215,358.057z"
                                   fill="#ff4c3b"></path>
+                                                    </g>
                                                 </g>
                                             </g>
-                                        </g>
-                                    </svg>
+                                        </svg>
                             <div class="media-body">
                                 <h4>@item.TitleSevenEn</h4>
                                 <p>@item.TitleEightEn</p>
@@ -313,9 +288,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-             @*    <div class="title3">
-                    <h2 class="title-inner3">Popular products</h2>
-                    <div class="line"></div>
+                @*    <div class="title3">
+                <h2 class="title-inner3">Popular products</h2>
+                <div class="line"></div>
                 </div> *@
                 @foreach (var item in Model.ListBestSellingProductsHomeContent)
                 {
@@ -337,66 +312,66 @@
                         </div>
                     </section>
                 }
-             
+
 
                 <div class="product-5 product-m no-arrow">
 
 
 
 
-                    	@foreach (var item in ViewBag.TopSellingItems)
-									{
+                    @foreach (var item in ViewBag.TopSellingItems)
+                    {
 
 
-                    <div class="product-box product-wrap">
-                        <div class="img-wrapper">
-                            <div class="ribbon"><span>new</span></div>
-                            <div class="front">
-                                <a href="product-page(no-sidebar).html">
-                                    <img alt=""
+                        <div class="product-box product-wrap">
+                            <div class="img-wrapper">
+                                <div class="ribbon"><span>new</span></div>
+                                <div class="front">
+                                    <a href="product-page(no-sidebar).html">
+                                        <img alt=""
                                              src="@Url.Content("~/Images/Home/" + item.ProductImage)"
-                                         class="img-fluid blur-up lazyload bg-img">
-                                </a>
+                                             class="img-fluid blur-up lazyload bg-img">
+                                    </a>
+                                </div>
+                                <div class="cart-info cart-wrap">
+                                    <a href="javascript:void(0)" title="Add to Wishlist">
+                                        <i class="fa fa-heart"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <button title="Add to cart" onclick="openCart()">
+                                        <i class="ti-shopping-cart"></i>
+                                        Add to cart
+                                    </button>
+                                    <a href="compare.html" title="Compare">
+                                        <i class="fa fa-refresh"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a class="mobile-quick-view" href="#" data-toggle="modal" data-target="#quick-view"
+                                       title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="quick-view-part">
+                                    <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
+                                        <i class="ti-search" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="cart-info cart-wrap">
-                                <a href="javascript:void(0)" title="Add to Wishlist">
-                                    <i class="fa fa-heart"
-                                       aria-hidden="true"></i>
-                                </a>
-                                <button title="Add to cart" onclick="openCart()">
-                                    <i class="ti-shopping-cart"></i>
-                                    Add to cart
-                                </button>
-                                <a href="compare.html" title="Compare">
-                                    <i class="fa fa-refresh"
-                                       aria-hidden="true"></i>
-                                </a>
-                                <a class="mobile-quick-view" href="#" data-toggle="modal" data-target="#quick-view"
-                                   title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="quick-view-part">
-                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                    <i class="ti-search" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <a href="product-page(no-sidebar).html">
+                            <div class="product-info">
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <a href="product-page(no-sidebar).html">
                                     <h6>@item.ProductNameEn</h6>
-                            </a>
+                                </a>
                                 <h4>$@item.Price</h4>
+                            </div>
                         </div>
-                    </div>
 
 
-                                    }
+                    }
 
 
 
@@ -413,9 +388,9 @@
 <section class="full-banner parallax small-slider tools-parallax-product">
     @foreach (var item in Model.ListHomeBackgroundimage)
     {
-             <img src="@string.Format("/Images/Home/{0}",item.Photo)" alt="" class="bg-img blur-up lazyload">
+        <img src="@string.Format("/Images/Home/{0}",item.Photo)" alt="" class="bg-img blur-up lazyload">
     }
-   
+
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-12">
@@ -426,6 +401,10 @@
                             <div class="search-box">
 
                                 <select id="categorySelect" name="engine" class="form-control" asp-items="@(new SelectList(ViewBag.Category, "IdCategory", "CategoryNameEn"))">
+                                    @foreach (var category in ViewBag.Category)
+                                    {
+                                        <option value="@category.IdCategory">@category.CategoryNameEn</option>
+                                    }
                                 </select>
                             </div>
                             <div class="search-button">
@@ -484,8 +463,8 @@
 
 
 
-         
-       
+
+
         </div>
     </div>
 </section>
@@ -505,7 +484,7 @@
                                 <div class="media">
                                     <a href="product-page(no-sidebar).html">
                                         <img class="img-fluid blur-up lazyload"
-                                             src="@Url.Content("~/Images/Home/" + item.Photo)" alt=""style="width:100px;height:100px">
+                                             src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
                                     <div class="media-body align-self-center">
                                         <div class="rating">
@@ -525,12 +504,12 @@
                                     </div>
                                 </div>
                             }
-                          
 
 
 
 
-                       
+
+
                         </div>
                         <div>
                             @foreach (var item in Model.ListViewProduct.Skip(4).Take(4))
@@ -558,7 +537,7 @@
                                     </div>
                                 </div>
                             }
-                         
+
                         </div>
                         <div>
                             @foreach (var item in Model.ListViewProduct.Skip(8).Take(4))
@@ -812,13 +791,11 @@
                         <img src=" @string.Format("/Images/Home/{0}", item.Photo)" alt="@item.Photo" style="height:250px;width:1250px">
                     </div>
                 }
-              
+
             </div>
         </div>
     </div>
 </section>
-
-<input hidden id="idForCategory" />
 <!-- product section end -->
 <!-- logo section -->
 
@@ -897,6 +874,8 @@
 </section>
 @section Scripts {
 
+
+
     <script>
 
         function displayProducts(products) {
@@ -920,7 +899,7 @@
                   <img alt="Product Image" src="~/Images/Home/${product.photo}" class="img-fluid blur-up lazyload bg-img" />
 
                   </a>
-                        </div>  
+                        </div>
                 <div class="cart-info cart-wrap">
                   <a href="javascript:void(0)" title="Add to Wishlist">
                     <i class="fa fa-heart" aria-hidden="true"></i>
