@@ -158,9 +158,15 @@ namespace Task_management.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet("/Home/GetProductsByCategoryId/{CategoryId}")]
+        public IActionResult GetProductsByCategoryId(int CategoryId)
+        {
+            var products = dbcontext.ViewProduct.Where(p => p.IdCategory == CategoryId).ToList();
+            return Ok(products);
+        }
+        
 
 
-    
 
     }
 }
