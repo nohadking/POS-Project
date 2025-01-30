@@ -114,8 +114,6 @@ namespace Task_management.Controllers
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
             vmodel.ListViewProduct = iProduct.GetAll();
-
-
             // جلب كل  المبيعا 
             var total = vmodel.ListViewInvose = iInvose.GetAll();
 			var totalAmount = total.Sum(a => a.total);
@@ -151,22 +149,16 @@ namespace Task_management.Controllers
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         [HttpGet("/Home/GetProductsByCategoryId/{CategoryId}")]
         public IActionResult GetProductsByCategoryId(int CategoryId)
         {
             var products = dbcontext.ViewProduct.Where(p => p.IdCategory == CategoryId).ToList();
             return Ok(products);
         }
-        
-
-
-
     }
 }

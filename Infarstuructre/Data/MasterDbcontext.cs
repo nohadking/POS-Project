@@ -123,6 +123,17 @@ namespace Infarstuructre.Data
             });
 
 
+            //*********************************************************  
+            //*********************************************************
+
+               
+            builder.Entity<TBViewOrderProductsFromSupplier>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewOrderProductsFromSupplier");
+            });
+
+
             //*********************************************************
 
 
@@ -365,6 +376,17 @@ namespace Infarstuructre.Data
             builder.Entity<TBOrderProductsFromSupplier>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBMainAccount>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBMainAccount>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+            builder.Entity<TBMainAccount>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -402,6 +424,8 @@ namespace Infarstuructre.Data
         public DbSet<TBHomeBackgroundimage> TBHomeBackgroundimages { get; set; }
         public DbSet<TBHomeImageProdact> TBHomeImageProdacts { get; set; }
         public DbSet<TBOrderProductsFromSupplier> TBOrderProductsFromSuppliers { get; set; }
+        public DbSet<TBViewOrderProductsFromSupplier> ViewOrderProductsFromSupplier { get; set; }
+        public DbSet<TBMainAccount> TBMainAccounts { get; set; }
 
 
     }

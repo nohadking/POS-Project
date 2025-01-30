@@ -36,9 +36,6 @@ namespace Task_management.Areas.Admin.Controllers
 			ViewBag.Unit = vmodel.ListUnit = iUnit.GetAll();
 			ViewBag.ClassCard = vmodel.ListViewClassCard = iClassCard.GetAll();
 
-
-
-
             var numberinvose = vmodel.ListViewPurchase = iPurchase.GetAll()
     .GroupBy(p => p.PurchaseNumber) // تجميع حسب رقم السند
     .Select(g => g.First())        // أخذ السجل الأول من كل مجموعة

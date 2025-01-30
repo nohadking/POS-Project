@@ -609,4 +609,7 @@
   <data name="VlTitlefiveEn" xml:space="preserve">
     <value>يرجى إدراج العنوان الخامس باللغة الانكليزية لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlAccountName" xml:space="preserve">
+    <value>يرجى إدراج اسم الحساب الرئيسي لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

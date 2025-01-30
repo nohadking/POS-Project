@@ -349,6 +349,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج اسم الحساب الرئيسي لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlAccountName {
+            get {
+                return ResourceManager.GetString("VlAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدراج منشأ المهمة لتتم العملية بنجاح ...!.
         /// </summary>
         internal static string VlAddedBy {

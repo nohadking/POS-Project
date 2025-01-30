@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250129133133_TBViewOrderProductsFromSupplier")]
+    partial class TBViewOrderProductsFromSupplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -936,46 +939,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable("TBInvoseHeders");
                 });
 
-            modelBuilder.Entity("Domin.Entity.TBMainAccount", b =>
-                {
-                    b.Property<int>("IdMainAccount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMainAccount"));
-
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<int>("NumberAccount")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdMainAccount");
-
-                    b.ToTable("TBMainAccounts");
-                });
-
             modelBuilder.Entity("Domin.Entity.TBOrderProductsFromSupplier", b =>
                 {
                     b.Property<int>("IdOrderProductsFromSupplier")
@@ -1727,9 +1690,6 @@ namespace Infarstuructre.Migrations
                     b.Property<DateTime>("DateTimeEntry")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdOrderProductsFromSupplier")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
@@ -1747,6 +1707,9 @@ namespace Infarstuructre.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOrderProducts")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderProductsFromSupplier")
                         .HasColumnType("int");
 
                     b.Property<string>("PhotoItem")

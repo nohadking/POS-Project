@@ -874,10 +874,8 @@
 </section>
 @section Scripts {
 
-
-
+@* 
     <script>
-
         function displayProducts(products) {
             const productListContainer = document.getElementById('productList');
 
@@ -892,85 +890,81 @@
 
                 // إنشاء الهيكل الداخلي للمنتج
                 productBox.innerHTML = `
-              <div class="img-wrapper">
-                <div class="ribbon"><span>new</span></div>
-                <div class="front">
-                  <a href="product-page(no-sidebar).html">
-                  <img alt="Product Image" src="~/Images/Home/${product.photo}" class="img-fluid blur-up lazyload bg-img" />
-
-                  </a>
+                        <div class="img-wrapper">
+                            <div class="ribbon"><span>new</span></div>
+                            <div class="front">
+                                <a href="product-page(no-sidebar).html">
+                                    <img alt="Product Image" src="~/Images/Home/${product.photo}" class="img-fluid blur-up lazyload bg-img" />
+                                </a>
+                            </div>
+                            <div class="cart-info cart-wrap">
+                                <a href="javascript:void(0)" title="Add to Wishlist">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
+                                <button onclick="openCart()" title="Add to cart" class="btn btn-add-cart">
+                                    <i class="ti-shopping-cart"></i> Add to cart
+                                </button>
+                                <a href="compare.html" title="Compare">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </a>
+                                <a class="mobile-quick-view" href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
+                                    <i class="ti-search" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
-                <div class="cart-info cart-wrap">
-                  <a href="javascript:void(0)" title="Add to Wishlist">
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                  </a>
-                  <button onclick="openCart()" title="Add to cart" class="btn btn-add-cart">
-                    <i class="ti-shopping-cart"></i> Add to cart
-                  </button>
-                  <a href="compare.html" title="Compare">
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                  </a>
-                  <a class="mobile-quick-view" href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                    <i class="ti-search" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product-info">
-                <div class="rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <a href="product-page(no-sidebar).html">
-                          <h6>${product.productNameEn}</h6>
-                </a>
-                <h4>$${product.price}</h4>
-              </div>
-            `;
+                        <div class="product-info">
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <a href="product-page(no-sidebar).html">
+                                <h6>${product.productNameEn}</h6>
+                            </a>
+                            <h4>$${product.price}</h4>
+                        </div>
+                    `;
 
                 // إضافة المنتج إلى الحاوية
                 productListContainer.appendChild(productBox);
             });
 
             // تفعيل Slick carousel بعد إضافة العناصر
-            $(document).ready(function () {
-                $('#productList').slick({
-                    slidesToShow: 4, // عدد العناصر التي تظهر في السلايد
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true, // عرض نقاط التصفح
-                    arrows: true, // عرض الأسهم للتنقل
-                    responsive: [
-                        {
-                            breakpoint: 1024,
-                            settings: {
-                                slidesToShow: 3, // عدد العناصر في الشاشات المتوسطة
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 2, // عدد العناصر في الشاشات الصغيرة
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1, // عدد العناصر في الشاشات الصغيرة جدًا
-                                slidesToScroll: 1
-                            }
+            $('#productList').slick({
+                slidesToShow: 4, // عدد العناصر التي تظهر في السلايد
+                slidesToScroll: 1,
+                infinite: true,
+                dots: true, // عرض نقاط التصفح
+                arrows: true, // عرض الأسهم للتنقل
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3, // عدد العناصر في الشاشات المتوسطة
+                            slidesToScroll: 1
                         }
-                    ]
-                });
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2, // عدد العناصر في الشاشات الصغيرة
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1, // عدد العناصر في الشاشات الصغيرة جدًا
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
             });
         }
 
-
-        $('#categorySelect').on('change', function(){
+        $('#categorySelect').on('change', function () {
             var CategoryId = $(this).find('option:selected').val();
             console.log(CategoryId)
 
@@ -995,8 +989,8 @@
                 .catch(error => {
                     console.error('خطأ:', error);
                 });
-        })
+        });
+    </script> *@
 
-    </script>
 
 }
