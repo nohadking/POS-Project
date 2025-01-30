@@ -13,7 +13,9 @@ namespace Domin.Entity
         public int IdaccountingRestrictions { get; set; }
         public int NumberaccountingRestrictions { get; set; } // max number + 1 
         public string AccountingName { get; set; }  // supllier
-        public string BondType { get; set; } // سند شراء 
+        public string BondType { get; set; } // سند شرا
+        public int BondNumber { get; set; } // سند شرا
+                                             // ء 
         public decimal Debtor { get; set; } // 0
         public decimal creditor { get; set; } // القيمة الاجمالية للسند total price for purcheas
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlStatementPurchase")]

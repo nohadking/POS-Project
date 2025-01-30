@@ -116,6 +116,7 @@
                                 <th>@ResourceWeb.lbNumberaccountingRestrictions</th>
                                 <th>@ResourceWeb.lbAccountingName</th>
                                 <th>@ResourceWeb.lbBondType</th>
+                                <th>@ResourceWeb.lbBondNumber</th>
                                 <th>@ResourceWeb.lbDebtor</th>
                                 <th>@ResourceWeb.lbcreditor</th>
                                 <th>@ResourceWeb.lbStatement</th>
@@ -139,6 +140,7 @@
                                     <td>@item.NumberaccountingRestrictions</td>
                                     <td>@item.AccountingName</td>
                                     <td>@item.BondType</td>
+                                    <td>@item.BondNumber</td>
                                     <td>@item.Debtor</td>
                                     <td>@item.creditor</td>
                                     <td>@item.Statement</td>
@@ -204,6 +206,11 @@
                                 <label class="form-label" asp-for="@Model.AccountingRestriction.BondType">@ResourceWeb.lbBondType</label>
                                 <input type="text" class="form-control" asp-for="@Model.AccountingRestriction.BondType">
                                 <span asp-validation-for="@Model.AccountingRestriction.BondType" class="text-danger"></span>
+                            </div> 
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="@Model.AccountingRestriction.BondNumber">@ResourceWeb.lbBondNumber</label>
+                                <input type="text" class="form-control" asp-for="@Model.AccountingRestriction.BondNumber">
+                                <span asp-validation-for="@Model.AccountingRestriction.BondNumber" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">

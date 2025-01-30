@@ -51,6 +51,7 @@ namespace Task_management.Areas.Admin.Controllers
                 slider.NumberaccountingRestrictions = model.AccountingRestriction.NumberaccountingRestrictions;
                 slider.AccountingName = model.AccountingRestriction.AccountingName;
                 slider.BondType = model.AccountingRestriction.BondType;
+                slider.BondNumber = model.AccountingRestriction.BondNumber;
                 slider.Debtor = model.AccountingRestriction.Debtor;
                 slider.creditor = model.AccountingRestriction.creditor;
                 slider.Statement = model.AccountingRestriction.Statement;

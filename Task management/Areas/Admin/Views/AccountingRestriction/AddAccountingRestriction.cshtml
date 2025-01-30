@@ -54,15 +54,21 @@
 
                             <div class="card-content">
                                 <div class="row small-spacing">
-                                    <div class="col-lg-6 col-xs-6">
+                                    <div class="col-lg-6 col-xs-4">
                                         <label for="exampleInputEmail1">@ResourceWeb.lbBondType</label>
                                         <input type="text" asp-for="@Model.AccountingRestriction.BondType" placeholder="@ResourceWeb.lbBondType" class="form-control" maxlength="300">
                                         <span asp-validation-for="@Model.AccountingRestriction.BondType" class="text-danger"></span>
                                     </div>
-                                    <div class="col-lg-6 col-xs-6">
+                                    <div class="col-lg-6 col-xs-4">
                                         <label for="exampleInputEmail1">@ResourceWeb.lbStatement</label>
                                         <input type="text" asp-for="@Model.AccountingRestriction.Statement" placeholder="@ResourceWeb.lbStatement" class="form-control" maxlength="300">
                                         <span asp-validation-for="@Model.AccountingRestriction.Statement" class="text-danger"></span>
+
+                                    </div>  
+                                    <div class="col-lg-6 col-xs-4">
+                                        <label for="exampleInputEmail1">@ResourceWeb.lbBondNumber</label>
+                                        <input type="text" asp-for="@Model.AccountingRestriction.BondNumber" placeholder="@ResourceWeb.lbBondNumber" class="form-control" maxlength="300">
+                                        <span asp-validation-for="@Model.AccountingRestriction.BondNumber" class="text-danger"></span>
 
                                     </div>
                                 </div>
