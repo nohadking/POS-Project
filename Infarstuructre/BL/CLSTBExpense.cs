@@ -72,6 +72,7 @@ namespace Infarstuructre.BL
                 saveaccount.NumberaccountingRestrictions = max;
                 saveaccount.AccountingName = expnsevcatrg.ExpenseCategory;
                 saveaccount.BondType = "سند صرف";
+                saveaccount.BondNumber = savee.BondNumber;
                 saveaccount.Debtor = savee.Amount;
                 saveaccount.creditor = 0;
                 saveaccount.Statement = savee.Statement;
