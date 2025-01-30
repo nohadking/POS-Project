@@ -211,7 +211,7 @@
                                             <a class="me-2 p-2" href="javascript:void(0);">
                                                 <i data-feather="eye" class="action-eye"></i>
                                             </a>
-                                            <a class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                            <a onclick="EditPurcheasData(@item.IdPurchase)" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
                                             <a class="confirm-text p-2" href="javascript:void(0);">
@@ -448,6 +448,23 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* ////////////////////////////////////////    Edit Purcheas /////////////////////////////////////////////////// *@
+
+
+
 <!-- /Add Purchase -->
 <!-- Edit Purchase -->
 <div class="modal fade" id="edit-units">
@@ -472,10 +489,8 @@
                                             <label>Supplier Name</label>
                                             <div class="row">
                                                 <div class="col-lg-10 col-sm-10 col-10">
-                                                    <select class="select">
-                                                        <option>Dazzle Shoes</option>
-                                                        <option>Apex Computers</option>
-                                                        <option>Beats Headphones</option>
+                                                    <select class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))" id="supplierSelectForEdit">
+                                                        <option>اختر المورد</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 col-sm-2 col-2 ps-0">
@@ -490,7 +505,7 @@
                                         <div class="input-blocks">
                                             <label>Purchase Date </label>
                                             <div class="input-groupicon">
-                                                <input type="text" placeholder="19 Jan 2023" class="datetimepicker">
+                                                <input id="DatePurcheasForEdit" type="date" placeholder="19 Jan 2023" class="datetimepicker">
                                                 <div class="addonset">
                                                     <img src="~/AdminEn/assets/img/icons/calendars.svg" alt="img">
                                                 </div>
@@ -542,35 +557,8 @@
                                                             <th></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="productimgname">
-                                                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                                                        <img src="~/AdminEn/assets/img/products/stock-img-02.png" alt="product">
-                                                                    </a>
-                                                                    <a href="javascript:void(0);">Nike Jordan</a>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-quantity">
-                                                                    <span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-                                                                    <input type="text" class="quntity-input" value="10">
-                                                                    <span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-                                                                </div>
-                                                            </td>
-                                                            <td>2000</td>
-                                                            <td>500.00</td>
-                                                            <td>0.00</td>
-                                                            <td>0.00</td>
-                                                            <td>0.00</td>
-                                                            <td>1500</td>
-                                                            <td>
-                                                                <a class="delete-set">
-                                                                    <img src="~/AdminEn/assets/img/icons/delete.svg" alt="svg">
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                    <tbody id="TBProductsForEdit">
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -762,6 +750,39 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+@* ////////////////////////////////////////  End  Edit Purcheas /////////////////////////////////////////////////// *@
+@* ////////////////////////////////////////  End  Edit Purcheas /////////////////////////////////////////////////// *@
+@* ////////////////////////////////////////  End  Edit Purcheas /////////////////////////////////////////////////// *@
+@* ////////////////////////////////////////  End  Edit Purcheas /////////////////////////////////////////////////// *@
+@* ////////////////////////////////////////  End  Edit Purcheas /////////////////////////////////////////////////// *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- /Import Purchase -->
 <div class="customizer-links" id="setdata">
     <ul class="sticky-sidebar">
@@ -794,27 +815,50 @@
             const row = `
                         <tr>
                             <td ><img src="/Images/Home/${productImg}" alt="${productName}" style="width: 50px; height: 50px;" /> <span class="productName">${productName}</span><span hidden class="productIId">${productId}</span></td>
-                            <td><div class="product-quantity" style="margin-right:25px;">
-                             <span class="quantity-btn">+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></span>
-                            <input type="text" class="quntity-input quaitity" value="0">
-                            <span class="quantity-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></span>
-                             </div>
+                        <td>
+                            <div class="product-quantity" style="margin-right:25px;">
+                                <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                    +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </span>
+                                <input type="text" class="quntity-input quaitity" value="0">
+                                <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+                        <select style="width: 50px;" class="idUnitt form-control">
+                            <option>اختر</option>
+                                    ${options}
+                                </select>
                             </td>
-                               <td>
-                                <select style="width: 50px;" class="idUnitt form-control">
-                                  <option>اختر</option>
-                                            ${options}
-                                        </select>
-                                    </td>
-                            <td>
+                        <td>
+                            <div class="product-quantity">
+                                <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                    +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </span>
+                                <input type="text" class="quntity-input freeQuaitity" value="0">
+                                <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                        </td>
 
-
-                                    <div class="product-quantity">
-                                 <span class="quantity-btn">+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></span>
-                                  <input type="text" class="quntity-input freeQuaitity" value="0">
-                                   <span class="quantity-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg></span>
-                                  </div>
-                          </td>
                             <td><input style="width: 100px;" class="form-control price" type="number" /></td>
                             <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
                             <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
@@ -831,9 +875,158 @@
 
 
 
+        // function SavePurcheasInDB() {
+        //     var productId = $('#productSelect').find("option:selected").val();
+        //     var supplierId = $('#supplierSelect').find("option:selected").val();
+        //     var supplierNm = $('#supplierSelect').find("option:selected").text();
+        //     var PayMethId = $('#PayMethId').find("option:selected").val();
+        //     var PurcheasDt = $('#PurcheasDt').val();
+        //     var PurcheasNu = $('#PurcheasNu').val();
+        //     var PurcheasSubNu = $('#PurcheasSubNu').val();
+        //     var purStatment = $('#purStatment').val();
+        //     var UserName = $('#UserName').text();
+
+        //     ///////////////////////
+
+        //     var PurcheasTotalPrice = $('#OrderTotalPrice').val();
+        //     var PurcheasTotalQTY = $('#OrderTotalQTY').val();
+        //     var PurcheasTotalDiscount = $('#OrderTotalDiscount').val();
+        //     var PurcheasTotalTax = $('#OrderTotalTax').val();
+        //     var PurcheasNotes = $('#NotesForPurcheas').val();
+        //     var OrderTotalShipping = $('#OrderTotalShipping').val();
+
+        //     var dateNow = new Date();
+        //     var day = dateNow.getDate();
+        //     var month = dateNow.getMonth() + 1;
+        //     var year = dateNow.getFullYear();
+
+        //     var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+        //     let successfulRequests = 0;
+        //     $('#TBLToAddPurcheas tr').each(function (index, row) {
+
+        //         var productIId = $(row).find('.productIId').text();
+        //         var quantity = $(row).find('.quaitity').val();
+        //         var freeQuantity = $(row).find('.freeQuaitity').val();
+        //         var price = $(row).find('.price').val();
+        //         var discount = $(row).find('.discount').val();
+        //         var tax = $(row).find('.tax').val();
+        //         var totalQty = $(row).find('.totalQty').text();
+        //         var totalPrc = $(row).find('.totalPrc').text();
+        //         var idUnit = $(row).find('.idUnitt').find("option:selected").val();
+
+
+
+
+        //         var url = window.origin + '/api/PurcheasApi';
+        //         var payLoad = {
+        //             "idPurchase": 0,
+        //             'idSupplier': parseInt(supplierId),
+        //             "idPaymentMethod": parseInt(PayMethId),
+        //             "statement": purStatment,
+        //             "purchaseDate": PurcheasDt,
+        //             "purchaseNumber": parseInt(PurcheasNu),
+        //             "purchaseSubNumber": parseInt(PurcheasSubNu),
+        //             "idProduct": parseInt(productIId),
+        //             "idUnit": parseInt(idUnit),
+        //             "quantity": parseInt(quantity),
+        //             "freeQuantity": parseInt(freeQuantity),
+        //             "allQuantity": parseInt(totalQty),
+        //             "singleDiscount": parseFloat(discount),
+        //             "purchasePrice": parseFloat(price),
+        //             "total": parseFloat(totalPrc),
+        //             "shipping": parseFloat(OrderTotalShipping),
+        //             "nouts": PurcheasNotes,
+        //             "totalQuantity": parseInt(PurcheasTotalQTY),
+        //             "totalDiscount": parseInt(PurcheasTotalDiscount),
+        //             "totalAll": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+        //             "dataEntry": UserName,
+        //             "dateTimeEntry": new Date(),
+        //             "currentState": true,
+        //         };
+
+        //         console.log("payLoad " + JSON.stringify(payLoad));
+
+        //         fetch(url, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify(payLoad)
+        //         })
+        //             .then(response => {
+        //                 if (!response.ok) {
+        //                     throw new Error('Network response was not ok');
+        //                 }
+        //                 return response.json();
+        //             })
+        //             .then(data => {
+        //                 console.log('Data received:', data);
+        //                 successfulRequests++; 
+                        
+        //                 if (successfulRequests === $('#TBLToAddPurcheas tr').length) {
+
+        //                     var accountingRest = {
+        //                         "idaccountingRestrictions": 0,
+        //                         "numberaccountingRestrictions": ,
+        //                         "accountingName": supplierNm,
+        //                         "bondType": ,
+        //                         "debtor": 0,
+        //                         "creditor": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+        //                         "statement": purStatment,
+        //                         "nouts": PurcheasNotes,
+        //                         "dataEntry": UserName,
+        //                         "dateTimeEntry": new Date(),
+        //                         "currentState": true,
+        //                     }
+        //                     var url2 = window.origin + '/api/AccountingRestriction';
+        //                     fetch(url2, {
+        //                         method: 'POST',
+        //                         headers: {
+        //                             'Content-Type': 'application/json'
+        //                         },
+        //                         body: JSON.stringify(accountingRest)
+        //                     })
+        //                         .then(response => {
+        //                             if (!response.ok) {
+        //                                 throw new Error('Network response was not ok');
+        //                             }
+        //                             return response.json();
+        //                         })
+        //                         .then(data => {
+        //                             console.log('Data received:', data);
+        //                             location.reload();
+        //                         })
+        //                         .catch(error => {
+        //                             console.error('There was a problem with the fetch operation:', error);
+        //                         });
+                                
+                            
+        //              ).then(response => {
+        //                             if (!response.ok) {
+        //                                 throw new Error('Network response was not ok');
+        //                             }
+        //                             return response.json();  // تحويل الاستجابة إلى JSON
+        //                         })
+        //                         .then(data => {
+        //                             console.log('Data received:', data);  // التعامل مع البيانات المستلمة
+        //                         })
+        //                         .catch(error => {
+        //                             console.error('There was a problem with the fetch operation:', error);
+        //                         });
+
+        //                     location.reload();
+        //                 }
+        //             })
+        //             .catch(error => {
+        //                 console.error('There was a problem with the fetch operation:', error);
+        //             });
+
+        //     });
+        // }
         function SavePurcheasInDB() {
             var productId = $('#productSelect').find("option:selected").val();
             var supplierId = $('#supplierSelect').find("option:selected").val();
+            var supplierNm = $('#supplierSelect').find("option:selected").text();
             var PayMethId = $('#PayMethId').find("option:selected").val();
             var PurcheasDt = $('#PurcheasDt').val();
             var PurcheasNu = $('#PurcheasNu').val();
@@ -842,7 +1035,6 @@
             var UserName = $('#UserName').text();
 
             ///////////////////////
-
             var PurcheasTotalPrice = $('#OrderTotalPrice').val();
             var PurcheasTotalQTY = $('#OrderTotalQTY').val();
             var PurcheasTotalDiscount = $('#OrderTotalDiscount').val();
@@ -857,6 +1049,8 @@
 
             var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
 
+            let successfulRequests = 0;
+
             $('#TBLToAddPurcheas tr').each(function (index, row) {
 
                 var productIId = $(row).find('.productIId').text();
@@ -868,9 +1062,6 @@
                 var totalQty = $(row).find('.totalQty').text();
                 var totalPrc = $(row).find('.totalPrc').text();
                 var idUnit = $(row).find('.idUnitt').find("option:selected").val();
-
-
-
 
                 var url = window.origin + '/api/PurcheasApi';
                 var payLoad = {
@@ -916,6 +1107,46 @@
                     })
                     .then(data => {
                         console.log('Data received:', data);
+                        successfulRequests++;
+
+                        if (successfulRequests === $('#TBLToAddPurcheas tr').length) {
+                            var accountingRest = {
+                                "idaccountingRestrictions": 0,
+                                "numberaccountingRestrictions": PurcheasNu, 
+                                "accountingName": supplierNm,
+                                "bondType": "سند شراء",
+                                "bondNumber": parseInt(PurcheasNu),
+                                "debtor": 0,
+                                "creditor": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+                                "statement": purStatment,
+                                "nouts": PurcheasNotes,
+                                "dataEntry": UserName,
+                                "dateTimeEntry": new Date(),
+                                "currentState": true,
+                            }
+
+                            var url2 = window.origin + '/api/AccountingRestriction';
+                            fetch(url2, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(accountingRest)
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Accounting data received:', data);
+                                    location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation for accounting:', error);
+                                });
+                        }
                     })
                     .catch(error => {
                         console.error('There was a problem with the fetch operation:', error);
@@ -989,7 +1220,128 @@
 
 
 
+        function ChangeQTY(amount, btn) {
+
+            var inputElement = btn.closest(".product-quantity").querySelector(".quntity-input");
+
+            if (inputElement) {
+                var currentValue = parseInt(inputElement.value); 
+                currentValue += amount; 
+                inputElement.value = currentValue;
+            } else {
+                console.error("عنصر الإدخال غير موجود");
+            }
+        }
+    </script>
+
+
+
+    <script>
+
+        function EditPurcheasData(idPurcheas) {
+            console.log("idPurcheas: " + idPurcheas);
+
+            const url = window.origin + `/api/PurcheasApi/${idPurcheas}`;
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    $('#supplierSelectForEdit').val(data.idSupplier);
+                    $('#supplierSelectForEdit').val(data.idSupplier);
+                    $('#supplierSelectForEdit').val(data.idSupplier);
+                    $('#supplierSelectForEdit').val(data.idSupplier);
+                    $('#supplierSelectForEdit').val(data.idSupplier);
+
+
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
 
 
     </script>
 }
+
+
+@*                 allQuantity
+:
+8
+currentState
+:
+true
+dataEntry
+:
+"nohadking@hotmail.com"
+dateTimeEntry
+:
+"2025-01-28T20:10:15.64"
+freeQuantity
+:
+0
+idPaymentMethod
+:
+4
+idProduct
+:
+1
+idPurchase
+:
+66
+idSupplier
+:
+3
+idUnit
+:
+1
+nouts
+:
+"ملااحظات"
+purchaseDate
+:
+"2025-01-26"
+purchaseNumber
+:
+2
+purchasePrice
+:
+101
+purchaseSubNumber
+:
+133
+quantity
+:
+8
+shipping
+:
+null
+singleDiscount
+:
+0
+statement
+:
+"البيان"
+total
+:
+90
+totalAll
+:
+101
+totalDiscount
+:
+0
+totalQuantity
+:
+10 *@
