@@ -15,6 +15,13 @@ namespace Task_management.Areas.Admin.APIsControllers
             this.iPurchase = iPurchase;
         }
 
+        [HttpGet("{idPurcheas}")]
+        public IActionResult GetById(int idPurcheas)
+        {
+            var purcheas = iPurchase.GetById(idPurcheas);
+            return Ok(purcheas);
+        }
+
 
         [HttpPost]
         public IActionResult AddPurcheas([FromBody] TBPurchase purchase)
