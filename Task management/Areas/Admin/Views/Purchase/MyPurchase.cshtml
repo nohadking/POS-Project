@@ -211,7 +211,7 @@
                                             <a class="me-2 p-2" href="javascript:void(0);">
                                                 <i data-feather="eye" class="action-eye"></i>
                                             </a>
-                                            <a onclick="EditPurcheasData(@item.IdPurchase)" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                            <a onclick="EditPurcheasData(@item.PurchaseNumber)" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
                                             <a class="confirm-text p-2" href="javascript:void(0);">
@@ -482,139 +482,161 @@
                     </div>
                     <div class="modal-body custom-modal-body">
                         <form action="purchase-list.html">
-                            <div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Supplier Name</label>
-                                            <div class="row">
-                                                <div class="col-lg-10 col-sm-10 col-10">
-                                                    <select class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))" id="supplierSelectForEdit">
-                                                        <option>اختر المورد</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
-                                                    <div class="add-icon tab">
-                                                        <a href="javascript:void(0);"><i data-feather="plus-circle" class="feather-plus-circles"></i></a>
-                                                    </div>
-                                                </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks add-product">
+                                        <label>@ResourceWeb.lbSupplierName</label>
+                                        <div class="row">
+                                            <div class="col-lg-10 col-sm-10 col-10">
+                                                <select id="supplierSelectEdit" class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))">
+                                                    <option>اختر المورد</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2 col-sm-2 col-2 ps-0">
+
+                                                <img id="supplierImageEdit" src="" alt="Supplier Image" class="img-fluid" style="max-width: 50px; display: none;" />
+
                                             </div>
                                         </div>
+
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Purchase Date </label>
-                                            <div class="input-groupicon">
-                                                <input id="DatePurcheasForEdit" type="date" placeholder="19 Jan 2023" class="datetimepicker">
-                                                <div class="addonset">
-                                                    <img src="~/AdminEn/assets/img/icons/calendars.svg" alt="img">
-                                                </div>
-                                            </div>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>@ResourceWeb.lbPurchaseDate</label>
+                                        <div class="input-groupicon calender-input">
+                                            <input id="PurcheasDtEdit" type="date" class="form-control" placeholder="Choose">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Product Name</label>
-                                            <select class="select">
-                                                <option>Nike Jordan</option>
-                                            </select>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>بيان الطلب</label>
+                                        <div class="input-groupicon calender-input">
+                                            <input id="purStatmentEdit" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Reference No.</label>
-                                            <input type="text" value="010203">
-                                        </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>@ResourceWeb.lbPaymentMethodAr</label>
+                                        <select id="PayMethIdEdit" class="form-select" asp-for="@Model.Purchase.IdPaymentMethod" asp-items="@(new SelectList(ViewBag.PaymentMethod, "IdPaymentMethod", "PaymentMethodAr"))">
+                                        </select>
                                     </div>
-                                    <div class="col-lg-12 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Product</label>
-                                            <div class="input-groupicon">
-                                                <input type="text"
-                                                       placeholder="Scan/Search Product by code and select">
-                                                <div class="addonset">
-                                                    <img src="~/AdminEn/assets/img/icons/scanners.svg" alt="img">
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>@ResourceWeb.LBPurchaseNumber</label>
+                                        <input id="PurcheasNuEdit" type="text" class="form-control" value="@ViewBag.nomberMax">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-blocks">
+                                        <label>@ResourceWeb.LBPurchaseSubNumber</label>
+                                        <input id="PurcheasSubNuEdit" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-blocks">
+                                        <label>المنتجات</label>
+
+                                        <select id="productSelectEdit" class="form-select" asp-for="@Model.Purchase.IdProduct">
+                                            <option>اختر منتج</option>
+                                            @{
+                                                var Cardss = (@ViewBag.ClassCard as List<TBViewClassCard>);
+                                            }
+                                            @if (Cardss != null && Cardss.Any())
+                                            {
+                                                foreach (var item in Cardss)
+                                                {
+                                                    <option value="@item.IdClassCard" data-additional="@item.Photo">
+                                                        @item.ItemName
+                                                    </option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option disabled>لا توجد منتجات متاحة</option>
+                                            }
+                                        </select>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="input-blocks">
+                                        <label>أخر سعر شراء</label>
+                                        <input type="text" id="lastPurchasePriceEdit" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+
+                                    <label>إضافة منتج </label>
+                                    <div class="add-icon tab">
+                                        <a onclick="AddProductToTBLEdit()" href="javascript:void(0);"><i data-feather="plus-circle" class="feather-plus-circles"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="modal-body-table">
+                                        <div class="table-responsive">
+                                            <table class="table  datanew">
+                                                <thead>
+                                                    <tr>
+                                                        <th>المنتج</th>
+                                                        <th>الكمية</th>
+                                                        <th>الوحدة</th>
+                                                        <th>الكمية المجانية</th>
+                                                        <th>السعر الافرادي($)</th>
+                                                        <th>الخصم($)</th>
+                                                        <th>الضريبة(%)</th>
+                                                        <th>إجمالي الكمية($)</th>
+                                                        <th>أجمالي السعر($)</th>
+                                                        <th>حذف</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="TBLToAddPurcheasEdit">
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="modal-body-table">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Product Name</th>
-                                                            <th>QTY</th>
-                                                            <th>Purchase Price($) </th>
-                                                            <th>Discount($) </th>
-                                                            <th>Tax %</th>
-                                                            <th>Tax Amount($)</th>
-                                                            <th class="text-end">Unit Cost($)</th>
-                                                            <th class="text-end">Total Cost ($) </th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="TBProductsForEdit">
-                                                       
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 float-md-right">
-                                        <div class="total-order">
-                                            <ul>
-                                                <li>
-                                                    <h4>Order Tax</h4>
-                                                    <h5>$ 0.00</h5>
-                                                </li>
-                                                <li>
-                                                    <h4>Discount</h4>
-                                                    <h5>$ 0.00</h5>
-                                                </li>
-                                                <li>
-                                                    <h4>Shipping</h4>
-                                                    <h5>$ 0.00</h5>
-                                                </li>
-                                                <li class="total">
-                                                    <h4>Grand Total</h4>
-                                                    <h5>$1500.00</h5>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-blocks">
                                             <label>Order Tax</label>
-                                            <input type="text" value="0">
+                                            <input id="OrderTotalTaxEdit" type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-blocks">
                                             <label>Discount</label>
-                                            <input type="text" value="0">
+                                            <input id="OrderTotalDiscountEdit" type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks">
+                                            <label>Total Quantity</label>
+                                            <input id="OrderTotalQTYEdit" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-blocks">
                                             <label>Shipping</label>
-                                            <input type="text" value="0">
+                                            <input id="OrderTotalShippingEdit" type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-blocks">
-                                            <label>Status</label>
-                                            <select class="select">
-                                                <option>Sent</option>
-                                                <option>Ordered</option>
-                                            </select>
+                                            <label>Order Total Price</label>
+                                            <input id="OrderTotalPriceEdit" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -622,16 +644,14 @@
 
                             <div class="col-lg-12">
                                 <div class="input-blocks summer-description-box">
-                                    <label>Description</label>
-                                    <div id="summernote2">
-                                        <p>These shoes are made with the highest quality materials. </p>
-                                    </div>
+                                    <label>Notes</label>
+                                    <input id="NotesForPurcheasEdit" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                    <button onclick="EditPurcheasInDB()" type="button" class="btn btn-submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -641,6 +661,15 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
 <!-- /Edit Purchase -->
 <!-- Import Purchase -->
 <div class="modal fade" id="view-notes">
@@ -864,8 +893,82 @@
                             <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
                             <td style="width: 100px;" class="totalQty"></td>
                             <td style="width: 100px;" class="totalPrc"></td>
+                                    <td><button onclick="deleteRow(this)">حذف</button></td>
                         </tr>
                     `;
+
+            tbl.append(row);
+        }
+
+
+        function AddProductToTBLEdit() {
+            var productName = $('#productSelectEdit').find("option:selected").text();
+            var productId = $('#productSelectEdit').find("option:selected").val();
+            var productImg = $('#productSelectEdit').find("option:selected").data("additional");
+
+            console.log("productId: " + productId);
+            console.log("productName: " + productName);
+            console.log("productImg: " + productImg);
+
+            var tbl = $('#TBLToAddPurcheasEdit');
+            var unitData = @Html.Raw(Json.Serialize(ViewBag.Unit));
+            let options = unitData.map(unit => `<option value="${unit.idUnit}">${unit.unit}</option>`).join('');
+
+            const row = `
+                                <tr>
+                                    <td ><img src="/Images/Home/${productImg}" alt="${productName}" style="width: 50px; height: 50px;" /> <span class="productName">${productName}</span><span hidden class="productIId">${productId}</span></td>
+                                <td>
+                                    <div class="product-quantity" style="margin-right:25px;">
+                                        <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                            +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                                            </svg>
+                                        </span>
+                                        <input type="text" class="quntity-input quaitity" value="0">
+                                        <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                <select style="width: 50px;" class="idUnitt form-control">
+                                    <option>اختر</option>
+                                            ${options}
+                                        </select>
+                                    </td>
+                                <td>
+                                    <div class="product-quantity">
+                                        <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                            +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                                            </svg>
+                                        </span>
+                                        <input type="text" class="quntity-input freeQuaitity" value="0">
+                                        <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </td>
+
+                                    <td><input style="width: 100px;" class="form-control price" type="number" /></td>
+                                    <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
+                                    <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
+                                    <td style="width: 100px;" class="totalQty"></td>
+                                    <td style="width: 100px;" class="totalPrc"></td>
+                                            <td><button onclick="deleteRow(this)">حذف</button></td>
+                                </tr>
+                            `;
 
             tbl.append(row);
         }
@@ -1090,8 +1193,6 @@
                     "currentState": true,
                 };
 
-                console.log("payLoad " + JSON.stringify(payLoad));
-
                 fetch(url, {
                     method: 'POST',
                     headers: {
@@ -1106,10 +1207,12 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('Data received:', data);
+                        console.log("successfulRequests: " + successfulRequests);
                         successfulRequests++;
+                        console.log("successfulRequests Afteer: " + successfulRequests);
+                        console.log("$('#TBLToAddPurcheas tr').length Afteer: " + $('#TBLToAddPurcheas tr').length);
 
-                        if (successfulRequests === $('#TBLToAddPurcheas tr').length) {
+                        if (successfulRequests === ($('#TBLToAddPurcheas tr').length) - 1 ) {
                             var accountingRest = {
                                 "idaccountingRestrictions": 0,
                                 "numberaccountingRestrictions": PurcheasNu, 
@@ -1125,7 +1228,7 @@
                                 "currentState": true,
                             }
 
-                            var url2 = window.origin + '/api/AccountingRestriction';
+                            var url2 = window.origin + '/api/AccountRestrection';
                             fetch(url2, {
                                 method: 'POST',
                                 headers: {
@@ -1220,6 +1323,45 @@
 
 
 
+        $(document).on('change', '#TBLToAddPurcheasEdit', function () {
+            // متغيرات لتخزين المجموعات
+            let totalTax = 0;
+            let totalDiscount = 0;
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            $('#TBLToAddPurcheasEdit tr').each(function () {
+                const row = $(this);
+
+                // الحصول على القيم من الأعمدة
+                const qty = parseFloat(row.find('.quaitity').val()) || 0;
+                const freeQty = parseFloat(row.find('.freeQuaitity').val()) || 0;
+                const price = parseFloat(row.find('.price').val()) || 0;
+                const discount = parseFloat(row.find('.discount').val()) || 0;
+                const tax = parseFloat(row.find('.tax').val()) || 0;
+
+                // حساب الكمية الإجمالية
+                const totalRowQty = qty + freeQty;
+
+                // حساب السعر الإجمالي للصف (قبل الخصم والضرائب)
+                const totalRowPrice = qty * price - discount + tax;
+
+                // تحديث المجموعات
+                totalQty += totalRowQty;
+                totalDiscount += discount;
+                totalTax += tax;
+                totalPrice += totalRowPrice;
+            });
+
+            // تحديث القيم في الحقول أو المتغيرات
+            $('#OrderTotalTaxEdit').val(totalTax.toFixed(2));
+            $('#OrderTotalDiscountEdit').val(totalDiscount.toFixed(2));
+            $('#OrderTotalQTYEdit').val(totalQty.toFixed(0));
+            $('#OrderTotalPriceEdit').val(totalPrice.toFixed(2));
+        });
+
+
+
         function ChangeQTY(amount, btn) {
 
             var inputElement = btn.closest(".product-quantity").querySelector(".quntity-input");
@@ -1238,16 +1380,27 @@
 
     <script>
 
-        function EditPurcheasData(idPurcheas) {
-            console.log("idPurcheas: " + idPurcheas);
+        function deleteRow(button) {
 
-            const url = window.origin + `/api/PurcheasApi/${idPurcheas}`;
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+
+        function EditPurcheasInDB() {
+
+            var bondNu = $('#PurcheasNuEdit').val();
+            var bond = "سند شراء";
+
+            var PurcheasNu = $('#PurcheasNuEdit').val();
+            let idsList = [];
+            const url = window.origin + `/api/PurcheasApi/GetByPurcheasNu/${PurcheasNu}`;
 
             fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
+                }
             })
                 .then(response => {
                     if (!response.ok) {
@@ -1257,11 +1410,374 @@
                 })
                 .then(data => {
 
-                    $('#supplierSelectForEdit').val(data.idSupplier);
-                    $('#supplierSelectForEdit').val(data.idSupplier);
-                    $('#supplierSelectForEdit').val(data.idSupplier);
-                    $('#supplierSelectForEdit').val(data.idSupplier);
-                    $('#supplierSelectForEdit').val(data.idSupplier);
+                    if (Array.isArray(data)) {
+                        data.forEach((el, index) => {
+                            var idText = el.idPurchase;
+                            var id = parseInt(idText);
+
+                            if (!isNaN(id)) {
+                                idsList.push(id);
+                            } else {
+                                console.warn('Invalid ID:', idText);
+                            }
+                        });
+                    } else {
+                        console.warn("data is not an array", data);
+                    }
+
+
+                    var deleteUrl = window.origin + '/api/PurcheasApi/DeletePurcheases';
+                    fetch(deleteUrl, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(idsList)
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+
+                            return response.json(); 
+                        })
+                        .then(data => {
+                            console.log('Received response:', data);
+
+
+                                var accountingUrl = window.origin + `/api/AccountRestrection/GetByBondNuAndBondType/${bondNu}/${bond}`;
+                                fetch(accountingUrl, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Network response was not ok');
+                                        }
+                                        return response.json(); 
+                                    })
+                                    .then(data => {
+
+                                        console.log("AccountRestrection: " + data);
+                                        // حذف الحساب المرتبط
+                                        var deleteAccountingUrl = window.origin + `/api/AccountRestrection/${data.idaccountingRestrictions}`;
+                                        fetch(deleteAccountingUrl, {
+                                            method: 'DELETE',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            }
+                                        })
+                                            .then(response => {
+                                                if (!response.ok) {
+                                                    throw new Error('Network response was not ok');
+                                                }
+                                                console.log('Accounting data deleted successfully');
+                                            }).then(data => {
+
+                                                 console.log("AccountRestrection: " + data);
+
+                                            })
+                                            .catch(error => {
+                                                console.error('Error deleting accounting data:', error);
+                                            });
+
+
+
+
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching accounting restriction:', error);
+                                    });
+
+                        })
+                        .catch(error => {
+                            console.error('Error deleting purchase:', error);
+                        });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching purchase:', error);
+                });
+
+
+            // إضافة بيانات جديدة
+            var productId = $('#productSelectEidt').find("option:selected").val();
+            var supplierId = $('#supplierSelectEidt').find("option:selected").val();
+            var supplierNm = $('#supplierSelectEidt').find("option:selected").text();
+            var PayMethId = $('#PurcheasNuEdit').find("option:selected").val();
+            var PurcheasDt = $('#PurcheasDtEidt').val();
+            var PurcheasNu = $('#PurcheasNuEidt').val();
+            var PurcheasSubNu = $('#PurcheasSubNuEidt').val();
+            var purStatment = $('#purStatmenEidtt').val();
+            var UserName = $('#UserName').text();
+            var dateNow = new Date();
+            var day = dateNow.getDate();
+            var month = dateNow.getMonth() + 1;
+            var year = dateNow.getFullYear();
+            var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+            // البيانات تحت الجدول
+            var PurcheasTotalPrice = $('#OrderTotalPriceEidt').val();
+            var PurcheasTotalQTY = $('#OrderTotalQTYEidt').val();
+            var PurcheasTotalDiscount = $('#OrderTotalDiscountEidt').val();
+            var PurcheasTotalTax = $('#OrderTotalTaxEidt').val();
+            var PurcheasNotes = $('#NotesForPurcheasEidt').val();
+            var OrderTotalShipping = $('#OrderTotalShippingEidt').val();
+
+            let successfulRequests = 0;
+
+            $('#TBLToAddPurcheasEidt tr').each(function (index, row) {
+                var productIId = $(row).find('.productIId').text();
+                var quantity = $(row).find('.quaitity').val();
+                var freeQuantity = $(row).find('.freeQuaitity').val();
+                var price = $(row).find('.price').val();
+                var discount = $(row).find('.discount').val();
+                var tax = $(row).find('.tax').val();
+                var totalQty = $(row).find('.totalQty').text();
+                var totalPrc = $(row).find('.totalPrc').text();
+                var idUnit = $(row).find('.idUnitt').find("option:selected").val();
+
+                var url = window.origin + '/api/PurcheasApi';
+                var payLoad = {
+                    "idPurchase": 0,
+                    'idSupplier': parseInt(supplierId),
+                    "idPaymentMethod": parseInt(PayMethId),
+                    "statement": purStatment,
+                    "purchaseDate": PurcheasDt,
+                    "purchaseNumber": parseInt(PurcheasNu),
+                    "purchaseSubNumber": parseInt(PurcheasSubNu),
+                    "idProduct": parseInt(productIId),
+                    "idUnit": parseInt(idUnit),
+                    "quantity": parseInt(quantity),
+                    "freeQuantity": parseInt(freeQuantity),
+                    "allQuantity": parseInt(totalQty),
+                    "singleDiscount": parseFloat(discount),
+                    "purchasePrice": parseFloat(price),
+                    "total": parseFloat(totalPrc),
+                    "shipping": parseFloat(OrderTotalShipping),
+                    "nouts": PurcheasNotes,
+                    "totalQuantity": parseInt(PurcheasTotalQTY),
+                    "totalDiscount": parseInt(PurcheasTotalDiscount),
+                    "totalAll": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+                    "dataEntry": UserName,
+                    "dateTimeEntry": new Date(),
+                    "currentState": true,
+                };
+
+                console.log("payLoad " + JSON.stringify(payLoad));
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payLoad)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Data received:', data);
+                        successfulRequests++;
+
+                        if (successfulRequests === ($('#TBLToAddPurcheas tr').length) - 1) {
+                            var accountingRest = {
+                                "idaccountingRestrictions": 0,
+                                "numberaccountingRestrictions": PurcheasNu,
+                                "accountingName": supplierNm,
+                                "bondType": "سند شراء",
+                                "bondNumber": parseInt(PurcheasNu),
+                                "debtor": 0,
+                                "creditor": parseFloat(PurcheasTotalPrice) - parseFloat(PurcheasTotalDiscount),
+                                "statement": purStatment,
+                                "nouts": PurcheasNotes,
+                                "dataEntry": UserName,
+                                "dateTimeEntry": new Date(),
+                                "currentState": true,
+                            };
+
+                            var url2 = window.origin + '/api/AccountRestrection';
+                            fetch(url2, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(accountingRest)
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Accounting data received:', data);
+                                    location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation for accounting:', error);
+                                });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            });
+        }
+
+
+
+        function EditPurcheasData(PurcheasNu) {
+            console.log("idPurcheas: " + PurcheasNu);
+
+            var selectedUnitId = 0;
+            var unitDataa = @Html.Raw(Json.Serialize(ViewBag.Unit));
+            let optionss = unitDataa.map(unit => `<option value="${unit.idUnit}" ${unit.idUnit === selectedUnitId ? 'selected' : ''} >${unit.unit}</option>`).join('');
+
+            const url = window.origin + `/api/PurcheasApi/GetByPurcheasNu/${PurcheasNu}`;
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(" 1 data" + JSON.stringify(data))
+
+                    $('#supplierSelectEdit').val(parseInt(data[0].idSupplier));
+                    $('#PayMethIdEdit').val(parseInt(data[0].idPaymentMethod));
+
+                    var purchaseDate = new Date(data[0].purchaseDate);
+
+                    if (!isNaN(purchaseDate.getTime())) {
+                        var year = purchaseDate.getFullYear();
+                        var month = ("0" + (purchaseDate.getMonth() + 1)).slice(-2);
+                        var day = ("0" + purchaseDate.getDate()).slice(-2);
+
+                        var formattedDate = `${year}-${month}-${day}`;
+
+                        $('#PurcheasDtEdit').val(formattedDate);
+                    } else {
+                        console.error("التاريخ غير صالح:", data[0].purchaseDate);
+                    }
+
+                    $('#purStatmentEdit').val(data[0].statement);
+                    $('#PurcheasNuEdit').val(data[0].purchaseNumber);
+                    $('#PurcheasSubNuEdit').val(data[0].purchaseSubNumber);
+                    /////////////////////////////////////////////
+
+                    let tbl = $('#TBLToAddPurcheasEdit');
+
+                    if (Array.isArray(data)) {
+                        data.forEach((purchase, index) => {
+                            console.log("purchase.idProduct  " + purchase.idProduct);
+                            const row = document.createElement('tr');
+                            const url1 = window.origin + `/api/ClassCardAPI/GetById/${purchase.idProduct}`;
+
+                            selectedUnitId = purchase.idUnit;
+
+
+                            fetch(url1, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                                .then(data => {
+                                    console.log(" 2 data" + JSON.stringify(data));
+
+                                    let name = data.itemName;
+                                    let img = data.photo;
+                                    let id = data.idClassCard;
+
+                                    row.innerHTML = `
+                                                            <td><img src="/Images/Home/${img}" alt="${name}" style="width: 50px; height: 50px;" /> <span class="productName">${name}</span><span hidden class="productIId">${id}</span></td>
+                                                    <td>
+                                                        <div class="product-quantity" style="margin-right:25px;">
+                                                            <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="text" class="quntity-input quaitityEdit" value="${purchase.quantity}">
+                                                            <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                       <select style="width: 50px;" class="idUnittForEdit form-control">
+                                                            ${optionss}
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="product-quantity">
+                                                            <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
+                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="text" class="quntity-input freeQuaitityEdit" value="${purchase.freeQuantity}">
+                                                            <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>${purchase.purchasePrice}</td>
+                                                    <td>${purchase.singleDiscount}</td>
+                                                    <td>${purchase.tax}</td>
+                                                    <td>${purchase.totalQuantity}</td>
+                                                    <td>${purchase.total}</td>
+                                                    <td><button onclick="deleteRow(this)">حذف</button></td>
+                                                `;
+
+
+                                    tbl.append(row);
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation:', error);
+                                });
+                        });
+                    } else {
+                        console.log("الـ data ليست مصفوفة من الكائنات أو تحتوي على عناصر غير كائنات");
+                    }
+
+
+
+                    /////////////////////////////////////////////
+                    $('#OrderTotalTaxEdit').val(data[0].idSupplier);
+                    $('#OrderTotalDiscountEdit').val(data[0].totalDiscount);
+                    $('#OrderTotalQTYEdit').val(data[0].allQuantity);
+                    $('#OrderTotalShippingEdit').val(data[0].shipping);
+                    $('#OrderTotalPriceEdit').val(data[0].totalAll);
+                    $('#NotesForPurcheasEdit').val(data[0].nouts);
+
 
 
                 })
@@ -1270,78 +1786,16 @@
                 });
         }
 
-
-
     </script>
 }
 
 
-@*                 allQuantity
-:
-8
-currentState
-:
-true
-dataEntry
-:
-"nohadking@hotmail.com"
-dateTimeEntry
-:
-"2025-01-28T20:10:15.64"
-freeQuantity
-:
-0
-idPaymentMethod
-:
-4
-idProduct
-:
-1
-idPurchase
-:
-66
-idSupplier
-:
-3
-idUnit
-:
-1
-nouts
-:
-"ملااحظات"
-purchaseDate
-:
-"2025-01-26"
-purchaseNumber
-:
-2
-purchasePrice
-:
-101
-purchaseSubNumber
-:
-133
-quantity
-:
-8
-shipping
-:
-null
-singleDiscount
-:
-0
-statement
-:
-"البيان"
-total
-:
-90
-totalAll
-:
-101
-totalDiscount
-:
-0
-totalQuantity
-:
-10 *@
+
+
+
+
+
+
+
+
+

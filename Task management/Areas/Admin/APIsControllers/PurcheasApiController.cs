@@ -9,16 +9,25 @@ namespace Task_management.Areas.Admin.APIsControllers
     {
         MasterDbcontext dbcontext;
         IIPurchase iPurchase;
-        public PurcheasApiController(MasterDbcontext dbcontext, IIPurchase iPurchase)
+        IIClassCard iClassCard;
+        public PurcheasApiController(MasterDbcontext dbcontext, IIPurchase iPurchase, IIClassCard iClassCard)
         {
             this.dbcontext = dbcontext;
             this.iPurchase = iPurchase;
+            this.iClassCard = iClassCard;
         }
 
-        [HttpGet("{idPurcheas}")]
-        public IActionResult GetById(int idPurcheas)
+        [HttpGet("/api/PurcheasApi/GetByPurcheasNu/{purchaseNumber}")]
+        public IActionResult GetByPurcheasNu(int purchaseNumber)
         {
-            var purcheas = iPurchase.GetById(idPurcheas);
+            var purcheas = iPurchase.GetByPurcheasNu(purchaseNumber);
+            return Ok(purcheas);
+        }
+
+        [HttpGet("/api/PurcheasApi/GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var purcheas = iClassCard.GetById(id);
             return Ok(purcheas);
         }
 
@@ -29,9 +38,20 @@ namespace Task_management.Areas.Admin.APIsControllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
             var result = iPurchase.saveData(purchase);
             return Ok(result);
+        }
+
+
+        [HttpDelete("DeletePurcheases")]
+        public IActionResult DeletePurcheases(List<int> idsList)
+        {
+            foreach(var id in idsList)
+            {
+                iPurchase.deleteData(id);
+            }
+
+            return Ok(new TBPurchase());
         }
     }
 }

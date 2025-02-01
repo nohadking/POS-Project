@@ -11,6 +11,7 @@ namespace Infarstuructre.BL
         List<TBAccountingRestriction> GetAll();
   
         TBAccountingRestriction GetById(int IdaccountingRestrictions);
+        TBAccountingRestriction GetByBondNuAndBondType(int bond, string type);
         bool saveData(TBAccountingRestriction savee);
         bool UpdateData(TBAccountingRestriction updatss);
         bool deleteData(int IdaccountingRestrictions);
@@ -81,6 +82,12 @@ namespace Infarstuructre.BL
         public List<TBAccountingRestriction> GetAllv(int IdaccountingRestrictions)
         {
             List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions.OrderByDescending(n => n.IdaccountingRestrictions == IdaccountingRestrictions).Where(a => a.IdaccountingRestrictions == IdaccountingRestrictions).Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public TBAccountingRestriction GetByBondNuAndBondType(int bond, string type)
+        {
+            TBAccountingRestriction MySlider = dbcontext.TBAccountingRestrictions.FirstOrDefault(a => a.BondType == type && a.BondNumber == bond);
             return MySlider;
         }
     }
