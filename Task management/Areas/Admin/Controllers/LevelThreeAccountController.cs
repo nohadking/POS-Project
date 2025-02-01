@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Task_management.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -26,9 +28,13 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListViewViewLevelThreeAccount = iLevelThreeAccount.GetAll();
             var numberinvose = vmodel.ListViewViewLevelThreeAccount = iLevelThreeAccount.GetAll();
             ViewBag.nomberMax = numberinvose.Any()
-        ? numberinvose.Max(c => c.NumberAccount) + 001
+        ? numberinvose.Max(c => c.NumberLevelThreeAccounts) + 001
         : 001;
             ViewBag.minAccount = vmodel.ListMainAccount = iMainAccount.GetAll();
+            ViewBag.LevelTwoAccount = vmodel.ListViewLevelTwoAccount = iLevelTwoAccount.GetAll();
+
+
+
             return View(vmodel);
         }
         public IActionResult AddLevelThreeAccount(int? IdLevelThreeAccount)
@@ -38,10 +44,11 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListViewViewLevelThreeAccount = iLevelThreeAccount.GetAll();
             var numberinvose = vmodel.ListViewViewLevelThreeAccount = iLevelThreeAccount.GetAll();
             ViewBag.nomberMax = numberinvose.Any()
-        ? numberinvose.Max(c => c.NumberAccount) + 1
+        ? numberinvose.Max(c => c.NumberLevelThreeAccounts) + 1
         : 001;
             vmodel.ListViewViewLevelThreeAccount = iLevelThreeAccount.GetAll();
             ViewBag.minAccount = vmodel.ListMainAccount = iMainAccount.GetAll();
+            ViewBag.LevelTwoAccount = vmodel.ListViewLevelTwoAccount = iLevelTwoAccount.GetAll();
             if (IdLevelThreeAccount != null)
             {
                 vmodel.LevelThreeAccount = iLevelThreeAccount.GetById(Convert.ToInt32(IdLevelThreeAccount));
@@ -60,6 +67,7 @@ namespace Task_management.Areas.Admin.Controllers
             {
                 slider.IdLevelThreeAccount = model.LevelThreeAccount.IdLevelThreeAccount;
                 slider.IdMainAccount = model.LevelThreeAccount.IdMainAccount;
+                slider.IdLevelTwoAccount = model.LevelThreeAccount.IdLevelTwoAccount;
                 slider.NumberAccount = model.LevelThreeAccount.NumberAccount;
                 slider.AccountName = model.LevelThreeAccount.AccountName;
                 slider.Active = model.LevelThreeAccount.Active;
@@ -133,12 +141,31 @@ namespace Task_management.Areas.Admin.Controllers
         public JsonResult GetAccountNumber(int mainAccountId)
         {
             // جلب رقم الحساب من قاعدة البيانات بناءً على الحساب الرئيسي المختار
-            var accountNumber = dbcontext.TBMainAccounts
+            var accountNumber = dbcontext.TBLevelTwoAccounts
                                        .Where(a => a.IdMainAccount == mainAccountId)
                                        .Select(a => a.NumberAccount) // رقم الحساب في الجدول
                                        .FirstOrDefault();
 
             return Json(accountNumber);
         }
+
+
+
+        [HttpGet]
+        public JsonResult GetLevelTwoAccounts(int mainAccountId)
+        {
+            var levelTwoAccounts = dbcontext.TBLevelTwoAccounts
+                .Where(a => a.IdMainAccount == mainAccountId)
+                .Select(a => new
+                {
+                    idLevelTwoAccount = a.IdLevelTwoAccount,
+                    accountName = a.AccountName
+                })
+                .ToList();
+
+            return Json(levelTwoAccounts);
+        }
     }
+
 }
+

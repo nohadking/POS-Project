@@ -376,6 +376,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل حسابات المستوى الثالث.
+        /// </summary>
+        internal static string LBAddLevelThreeAccount {
+            get {
+                return ResourceManager.GetString("LBAddLevelThreeAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إضافة وتعديل حسابات المستوى الثاني .
         /// </summary>
         internal static string LBAddLevelTwoAccount {
@@ -1965,6 +1974,15 @@ namespace Task_management.Resource {
         internal static string LBMYInformationCompanies {
             get {
                 return ResourceManager.GetString("LBMYInformationCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حسابات المستوى الثالث .
+        /// </summary>
+        internal static string LBMyLevelThreeAccount {
+            get {
+                return ResourceManager.GetString("LBMyLevelThreeAccount", resourceCulture);
             }
         }
         

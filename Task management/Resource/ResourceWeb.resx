@@ -1497,4 +1497,10 @@
   <data name="LBAddLevelTwoAccount" xml:space="preserve">
     <value>إضافة وتعديل حسابات المستوى الثاني </value>
   </data>
+  <data name="LBMyLevelThreeAccount" xml:space="preserve">
+    <value>حسابات المستوى الثالث </value>
+  </data>
+  <data name="LBAddLevelThreeAccount" xml:space="preserve">
+    <value>إضافة وتعديل حسابات المستوى الثالث</value>
+  </data>
 </root>
