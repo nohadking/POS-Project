@@ -137,6 +137,8 @@ builder.Services.AddScoped<IIHomeBackgroundimage, CLSTBHomeBackgroundimage>();
 builder.Services.AddScoped<IIHomeImageProdact, CLSTBHomeImageProdact>();
 builder.Services.AddScoped<IIOrderProductsFromSupplier, CLSTBOrderProductsFromSupplier>();
 builder.Services.AddScoped<IIMainAccount, CLSTBMainAccount>();
+builder.Services.AddScoped<IILevelTwoAccount, CLSTBLevelTwoAccount>();
+builder.Services.AddScoped<IIBLevelThreeAccount, CLSTBLevelThreeAccount>();
 
 
 // تفعيل الترخيص لـ QuestPDF

@@ -136,6 +136,31 @@ namespace Infarstuructre.Data
 
             //*********************************************************
 
+              //*********************************************************
+
+               
+            builder.Entity<TBViewLevelTwoAccount>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewLevelTwoAccount");
+            });
+
+
+            //*********************************************************
+
+
+                 //*********************************************************
+
+               
+            builder.Entity<TBViewLevelThreeAccount>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewLevelThreeAccount");
+            });
+
+
+            //*********************************************************
+
 
 
 
@@ -387,6 +412,28 @@ namespace Infarstuructre.Data
             builder.Entity<TBMainAccount>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBLevelTwoAccount>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBLevelTwoAccount>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+            builder.Entity<TBLevelTwoAccount>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");   
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBLevelThreeAccount>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBLevelThreeAccount>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+            builder.Entity<TBLevelThreeAccount>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -426,6 +473,10 @@ namespace Infarstuructre.Data
         public DbSet<TBOrderProductsFromSupplier> TBOrderProductsFromSuppliers { get; set; }
         public DbSet<TBViewOrderProductsFromSupplier> ViewOrderProductsFromSupplier { get; set; }
         public DbSet<TBMainAccount> TBMainAccounts { get; set; }
+        public DbSet<TBLevelTwoAccount> TBLevelTwoAccounts { get; set; }
+        public DbSet<TBViewLevelTwoAccount> ViewLevelTwoAccount { get; set; }
+        public DbSet<TBLevelThreeAccount> TBLevelThreeAccounts { get; set; }
+        public DbSet<TBViewLevelThreeAccount> ViewLevelThreeAccount { get; set; }
 
 
     }

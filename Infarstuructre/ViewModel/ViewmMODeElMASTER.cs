@@ -108,7 +108,13 @@ namespace Infarstuructre.ViewModel
 		public List<TBHomeImageProdact> ListHomeImageProdact { get; set; }
 		public TBHomeImageProdact HomeImageProdact { get; set; }
 		public List<TBViewOrderProductsFromSupplier> ListViewOrderProductsFromSupplier { get; set; }
-		public TBOrderProductsFromSupplier OrderProductsFromSupplier { get; set; }
+		public TBOrderProductsFromSupplier OrderProductsFromSupplier { get; set; }	
+		public List<TBMainAccount> ListMainAccount { get; set; }
+		public TBMainAccount MainAccount { get; set; }
+		public List<TBViewLevelTwoAccount> ListViewLevelTwoAccount { get; set; }
+		public TBLevelTwoAccount LevelTwoAccount { get; set; }
+		public List<TBViewLevelThreeAccount> ListViewViewLevelThreeAccount { get; set; }
+		public TBLevelThreeAccount LevelThreeAccount { get; set; }
 	}
  }
 

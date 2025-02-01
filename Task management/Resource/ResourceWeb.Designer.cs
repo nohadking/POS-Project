@@ -79,6 +79,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اسم الحساب.
+        /// </summary>
+        internal static string lbAccountName {
+            get {
+                return ResourceManager.GetString("lbAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حالة الفئة.
         /// </summary>
         internal static string LbActive {
@@ -363,6 +372,24 @@ namespace Task_management.Resource {
         internal static string LBAddHomeSliderContent {
             get {
                 return ResourceManager.GetString("LBAddHomeSliderContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل حسابات المستوى الثاني .
+        /// </summary>
+        internal static string LBAddLevelTwoAccount {
+            get {
+                return ResourceManager.GetString("LBAddLevelTwoAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل الحسابات الرئيسية .
+        /// </summary>
+        internal static string LBAddMainAccount {
+            get {
+                return ResourceManager.GetString("LBAddMainAccount", resourceCulture);
             }
         }
         
@@ -1942,6 +1969,24 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حسابات المستوى الثاني .
+        /// </summary>
+        internal static string LBMyLevelTwoAccount {
+            get {
+                return ResourceManager.GetString("LBMyLevelTwoAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الحسابات  الرئيسية.
+        /// </summary>
+        internal static string LBMyMainAccount {
+            get {
+                return ResourceManager.GetString("LBMyMainAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Merchants&apos; data.
         /// </summary>
         internal static string LBMyMerchant {
@@ -2343,6 +2388,15 @@ namespace Task_management.Resource {
         internal static string LbNoutsOrder {
             get {
                 return ResourceManager.GetString("LbNoutsOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الحساب.
+        /// </summary>
+        internal static string lbNumberAccount {
+            get {
+                return ResourceManager.GetString("lbNumberAccount", resourceCulture);
             }
         }
         
@@ -3553,6 +3607,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم إدخال اسم الحساب مسبقا يرجى التأكد وإعادة المحاولة لاحقا...!.
+        /// </summary>
+        internal static string VLAccountNameDoplceted {
+            get {
+                return ResourceManager.GetString("VLAccountNameDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pricing has already been added to the region. Please check and try again later...!.
         /// </summary>
         internal static string VLAreadoplceted {
@@ -3900,6 +3963,15 @@ namespace Task_management.Resource {
         internal static string VLMerchantNameDoplceted {
             get {
                 return ResourceManager.GetString("VLMerchantNameDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال رقم الحساب مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!.
+        /// </summary>
+        internal static string VLNumberAccountDoplceted {
+            get {
+                return ResourceManager.GetString("VLNumberAccountDoplceted", resourceCulture);
             }
         }
         

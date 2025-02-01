@@ -1473,4 +1473,28 @@
   <data name="LBAddEditHomeImageProdact" xml:space="preserve">
     <value>إضافة وتعديل الصور اسفل المنتجات </value>
   </data>
+  <data name="VLNumberAccountDoplceted" xml:space="preserve">
+    <value>تم إدخال رقم الحساب مسبقا يرجى التأكد وإعادة المحاولة لاحقا ...!</value>
+  </data>
+  <data name="VLAccountNameDoplceted" xml:space="preserve">
+    <value>تم إدخال اسم الحساب مسبقا يرجى التأكد وإعادة المحاولة لاحقا...!</value>
+  </data>
+  <data name="LBMyMainAccount" xml:space="preserve">
+    <value>الحسابات  الرئيسية</value>
+  </data>
+  <data name="lbNumberAccount" xml:space="preserve">
+    <value>رقم الحساب</value>
+  </data>
+  <data name="lbAccountName" xml:space="preserve">
+    <value>اسم الحساب</value>
+  </data>
+  <data name="LBAddMainAccount" xml:space="preserve">
+    <value>إضافة وتعديل الحسابات الرئيسية </value>
+  </data>
+  <data name="LBMyLevelTwoAccount" xml:space="preserve">
+    <value>حسابات المستوى الثاني </value>
+  </data>
+  <data name="LBAddLevelTwoAccount" xml:space="preserve">
+    <value>إضافة وتعديل حسابات المستوى الثاني </value>
+  </data>
 </root>
