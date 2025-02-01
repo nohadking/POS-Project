@@ -1,11 +1,14 @@
 ﻿
 
+using Domin.Entity;
+
 namespace Infarstuructre.BL
 {
 	public interface IIPurchase
 	{
 		List<TBViewPurchase> GetAll();
 		TBPurchase GetById(int IdPurchase);
+        List<TBPurchase> GetByPurcheasNu(int purchaseNu);
 		bool saveData(TBPurchase savee);
 		bool UpdateData(TBPurchase updatss);
 		bool deleteData(int IdPurchase);
@@ -94,5 +97,10 @@ namespace Infarstuructre.BL
 			return sslid;
 		}
 
-	}
+        public List<TBPurchase> GetByPurcheasNu(int purchaseNu)
+        {
+            List<TBPurchase> sslid = dbcontext.TBPurchases.Where(a => a.PurchaseNumber == purchaseNu).ToList();
+            return sslid;
+        }
+    }
 }
