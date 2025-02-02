@@ -33,7 +33,7 @@ namespace Task_management.Areas.Admin.APIsControllers
             return Ok(accountRe);
         }
 
-        [HttpDelete]
+        [HttpDelete("{accountId}")]
         public IActionResult DeleteAccountRe(int accountId)
         {
             var result = iAccountingRestriction.deleteData(accountId);
