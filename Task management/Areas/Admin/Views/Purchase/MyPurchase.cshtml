@@ -1451,17 +1451,11 @@
                                                         </div>
                                                     </td>
                                                             <td><input style="width: 100px;" value="${purchase.purchasePrice}" class="form-control priceEdit" type="number" /></td>
-                                                    <td><input style="width: 100px;" value="${purchase.singleDiscount}" class="form-control discount" type="number" /></td>
-                                                    <td><input style="width: 100px;" value="${purchase.tax}" class="form-control tax" type="number" /></td>
-                                                    <td style="width: 100px;" class="totalQty">${purchase.totalQuantity}</td>
-                                                    <td style="width: 100px;" class="totalPrc">${purchase.total}</td>
+                                                            <td><input style="width: 100px;" value="${purchase.singleDiscount}" class="form-control discountEdit" type="number" /></td>
+                                                            <td><input style="width: 100px;" value="${purchase.tax}" class="form-control taxEdit" type="number" /></td>
+                                                    <td style="width: 100px;" class="totalQtyEdit">${purchase.totalQuantity}</td>
+                                                            <td style="width: 100px;" class="totalPrcEdit">${purchase.total}</td>
                                                     <td><button onclick="deleteRow(this)">حذف</button></td>
-
-
-
-
-
-
                                                 `;
 
 
@@ -1601,7 +1595,8 @@
                                             var PurcheasDt = $('#PurcheasDtEdit').val();
                                             var PurcheasNu = $('#PurcheasNuEdit').val();
                                             var PurcheasSubNu = $('#PurcheasSubNuEdit').val();
-                                            var purStatment = $('#purStatmenEdit').val();
+                                            var purStatment = $('#purStatmentEdit').val();
+                                                                  
                                             var UserName = $('#UserName').text();
                                             var dateNow = new Date();
                                             var day = dateNow.getDate();
@@ -1626,10 +1621,10 @@
                                                 var quantity = $(row).find('.quaitityEdit').val();
                                                 var freeQuantity = $(row).find('.freeQuaitityEdit').val();
                                                 var price = $(row).find('.priceEdit').val();
-                                                var discount = $(row).find('.discount').val();
+                                                var discount = $(row).find('.discountEdit').val();
                                                 var tax = $(row).find('.tax').val();
-                                                var totalQty = $(row).find('.totalQty').text();
-                                                var totalPrc = $(row).find('.totalPrc').text();
+                                                var totalQty = $(row).find('.totalQtyEdit').text();
+                                                var totalPrc = $(row).find('.totalPrcEdit').text();
                                                 var idUnit = $(row).find('.idUnittForEdit').find("option:selected").val();
 
                                                 var url = window.origin + '/api/PurcheasApi';
@@ -1780,10 +1775,6 @@
 
         $(document).on('input', '.quaitityEdit, .freeQuaitityEdit, .priceEdit', function () {
 
-            console.log("quaitityEdit");
-            console.log("freeQuaitityEdit");
-            console.log("priceEdit");
-
             const row = $(this).closest('tr');
 
             // الحصول على القيم
@@ -1791,64 +1782,18 @@
             const freeQuantity = parseFloat(row.find('.freeQuaitityEdit').val()) || 0; // الكمية المجانية
             const price = parseFloat(row.find('.priceEdit').val()) || 0;            // السعر الفردي
 
-                                    row.innerHTML = `
-                                                            <td><img src="/Images/Home/${img}" alt="${name}" style="width: 50px; height: 50px;" /> <span class="productName">${name}</span><span hidden class="productIId">${id}</span></td>
-                                                    <td>
-                                                        <div class="product-quantity" style="margin-right:25px;">
-                                                            <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
-                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                            <input type="text" class="quntity-input quaitityEdit" value="${purchase.quantity}">
-                                                            <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                       <select style="width: 50px;" class="idUnittForEdit form-control">
-                                                            ${optionss}
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <div class="product-quantity">
-                                                            <span onclick="ChangeQTY(+1, this)" class="quantity-btn">
-                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                            <input type="text" class="quntity-input freeQuaitityEdit" value="${purchase.freeQuantity}">
-                                                            <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>${purchase.purchasePrice}</td>
-                                                    <td>${purchase.singleDiscount}</td>
-                                                    <td>${purchase.tax}</td>
-                                                    <td>${purchase.totalQuantity}</td>
-                                                    <td>${purchase.total}</td>
-                                                                    <td><a class="confirm-text p-2"  onclick="deleteRow(this)"> <i data-feather="trash-2" class="feather-trash-2"></i></a></td>
-                                                `;
 
+            const totalQuantity = quantity + freeQuantity;
             // حساب السعر الإجمالي
             const totalPrice = quantity * price;
 
             // وضع النتائج في الأعمدة المناسبة
-            row.find('.totalQty').text(totalQuantity.toFixed(0)); // عرض الكمية الإجمالية كعدد صحيح
-            row.find('.totalPrc').text(totalPrice.toFixed(2));    // عرض السعر الإجمالي مع منزلتين عشريتين
+            row.find('.totalQtyEdit').text(totalQuantity.toFixed(0)); // عرض الكمية الإجمالية كعدد صحيح
+            row.find('.totalPrcEdit').text(totalPrice.toFixed(2));    // عرض السعر الإجمالي مع منزلتين عشريتين
         });
+
+
+
 
         $(document).on('change', '#TBLToAddPurcheasEdit', function () {
             // متغيرات لتخزين المجموعات
@@ -1861,11 +1806,11 @@
                 const row = $(this);
 
                 // الحصول على القيم من الأعمدة
-                const qty = parseFloat(row.find('.quaitity').val()) || 0;
-                const freeQty = parseFloat(row.find('.freeQuaitity').val()) || 0;
-                const price = parseFloat(row.find('.price').val()) || 0;
-                const discount = parseFloat(row.find('.discount').val()) || 0;
-                const tax = parseFloat(row.find('.tax').val()) || 0;
+                const qty = parseFloat(row.find('.quaitityEdit').val()) || 0;
+                const freeQty = parseFloat(row.find('.freeQuaitityEdit').val()) || 0;
+                const price = parseFloat(row.find('.priceEdit').val()) || 0;
+                const discount = parseFloat(row.find('.discountEdit').val()) || 0;
+                const tax = parseFloat(row.find('.taxEdit').val()) || 0;
 
                 // حساب الكمية الإجمالية
                 const totalRowQty = qty + freeQty;
