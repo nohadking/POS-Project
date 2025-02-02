@@ -212,10 +212,34 @@
                             </div>
                             <div class="mb-3">
                                 <label asp-for="@Model.LevelForeAccount.IdMainAccount">الحساب الرئيسي</label>
-                                <select id="mainAccountSelect" class="form-select" asp-for="@Model.LevelForeAccount.IdMainAccount"
+
+
+@*                                 <select id="mainAccountSelect" class="form-select" asp-for="@Model.LevelForeAccount.IdMainAccount"
                                         asp-items="@(new SelectList(ViewBag.minAccount, "IdMainAccount", "AccountName"))">
                                     <option value="">اختر حساب</option>
+                                </select> *@
+
+                                <select id="mainAccountSelect" class="form-select" asp-for="@Model.LevelForeAccount.IdMainAccount">
+                                    <option>اختر حساب</option>
+                                    @{
+                                        var Accounts = (@ViewBag.minAccount as List<TBMainAccount>);
+                                    }
+                                    @if (Accounts != null && Accounts.Any())
+                                    {
+                                        foreach (var item in Accounts)
+                                        {
+                                            <option value="@item.IdMainAccount" data-account="@item.NumberAccount">
+                                                @item.AccountName
+                                            </option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option disabled>لا توجد حسابات متاحة</option>
+                                    }
                                 </select>
+
+
                                 <span asp-validation-for="@Model.LevelForeAccount.IdMainAccount" class="text-danger"></span>
                             </div>
 
@@ -353,9 +377,10 @@
                     type: 'GET',
                     data: { mainAccountId: mainAccountId },
                     success: function (data) {
+                        console.log(data);
                         $('#levelTwoAccountSelect').empty().append('<option value="">اختر حساب</option>');
                         $.each(data, function (index, item) {
-                            $('#levelTwoAccountSelect').append('<option value="' + item.idLevelTwoAccount + '" data-account="' + item.AccountNumber + '">' + item.accountName + '</option>');
+                            $('#levelTwoAccountSelect').append('<option value="' + item.idLevelTwoAccount + '" data-account="' + item.accountNumber + '">' + item.accountName + '</option>');
                         });
                         $('#levelTwoAccountSelect').prop('disabled', false);
                     },
@@ -381,9 +406,11 @@
                     type: 'GET',
                     data: { levelTwoAccountId: levelTwoAccountId },
                     success: function (data) {
+                        console.log(data);
                         $('#levelThreAccountSelect').empty().append('<option value="">اختر حساب</option>');
                         $.each(data, function (index, item) {
-                            $('#levelThreAccountSelect').append('<option value="' + item.idLevelThreeAccount + '" data-account="' + item.AccountNumber + '">' + item.accountName + '</option>');
+
+                            $('#levelThreAccountSelect').append('<option value="' + item.idLevelThreeAccount + '" data-account="' + item.accountNumber + '">' + item.accountName + '</option>');
                         });
                         $('#levelThreAccountSelect').prop('disabled', false);
                     },
