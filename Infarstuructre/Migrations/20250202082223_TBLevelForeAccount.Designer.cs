@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250202082223_TBLevelForeAccount")]
+    partial class TBLevelForeAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1851,66 +1854,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("ViewInvoseHeder", (string)null);
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewLevelForeAccount", b =>
-                {
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdLevelForeAccount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdLevelThreeAccount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdLevelTwoAccount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMainAccount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LevelForeAccountsName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LevelForeAccountsNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LevelThreeAccountsName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LevelThreeAccountsNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LevelTwoAccountsName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LevelTwoAccountsNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MineAccountsName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MineAccountsNumber")
-                        .HasColumnType("int");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewLevelForeAccount", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewLevelThreeAccount", b =>

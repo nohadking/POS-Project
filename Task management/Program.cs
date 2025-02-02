@@ -139,6 +139,7 @@ builder.Services.AddScoped<IIOrderProductsFromSupplier, CLSTBOrderProductsFromSu
 builder.Services.AddScoped<IIMainAccount, CLSTBMainAccount>();
 builder.Services.AddScoped<IILevelTwoAccount, CLSTBLevelTwoAccount>();
 builder.Services.AddScoped<IIBLevelThreeAccount, CLSTBLevelThreeAccount>();
+builder.Services.AddScoped<IILevelForeAccount, CLSTBLevelForeAccount>();
 
 
 // تفعيل الترخيص لـ QuestPDF

@@ -49,12 +49,6 @@ namespace Infarstuructre.ViewModel
 		public string Photo { get; set; }		
 		public string ProductNameEn { get; set; }		
 		public decimal price { get; set; }		
-
-
-
-
-
-
 		public List<IdentityRole> Roles { get; set; }
 		public List<VwUser> Users { get; set; }		
 		public List<TBEmailAlartSetting> ListEmailAlartSetting { get; set; }
@@ -115,6 +109,10 @@ namespace Infarstuructre.ViewModel
 		public TBLevelTwoAccount LevelTwoAccount { get; set; }
 		public List<TBViewLevelThreeAccount> ListViewViewLevelThreeAccount { get; set; }
 		public TBLevelThreeAccount LevelThreeAccount { get; set; }
+		public List<TBViewLevelForeAccount> ListViewLevelForeAccount { get; set; }
+		public TBLevelForeAccount LevelForeAccount { get; set; }
+
+
 	}
  }
 

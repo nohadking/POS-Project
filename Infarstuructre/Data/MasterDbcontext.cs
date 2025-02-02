@@ -159,6 +159,17 @@ namespace Infarstuructre.Data
             });
 
 
+            //*********************************************************      
+            //*********************************************************
+
+               
+            builder.Entity<TBViewLevelForeAccount>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewLevelForeAccount");
+            });
+
+
             //*********************************************************
 
 
@@ -434,6 +445,17 @@ namespace Infarstuructre.Data
             builder.Entity<TBLevelThreeAccount>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------   
+            //---------------------------------
+            builder.Entity<TBLevelForeAccount>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBLevelForeAccount>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+            builder.Entity<TBLevelForeAccount>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");   
             //--------------------------------- 
         }
         //***********************************
@@ -477,6 +499,8 @@ namespace Infarstuructre.Data
         public DbSet<TBViewLevelTwoAccount> ViewLevelTwoAccount { get; set; }
         public DbSet<TBLevelThreeAccount> TBLevelThreeAccounts { get; set; }
         public DbSet<TBViewLevelThreeAccount> ViewLevelThreeAccount { get; set; }
+        public DbSet<TBLevelForeAccount> TBLevelForeAccounts { get; set; }
+        public DbSet<TBViewLevelForeAccount> ViewLevelForeAccount { get; set; }
 
 
     }

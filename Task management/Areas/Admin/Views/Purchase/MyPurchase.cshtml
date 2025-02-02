@@ -933,7 +933,6 @@
                                         </span>
                                     </div>
                                 </td>
-
                                 <td>
                                 <select style="width: 50px;" class="idUnitt form-control">
                                     <option>اختر</option>
@@ -958,23 +957,17 @@
                                         </span>
                                     </div>
                                 </td>
-
                                     <td><input style="width: 100px;" class="form-control price" type="number" /></td>
                                     <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
                                     <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
                                     <td style="width: 100px;" class="totalQty"></td>
                                     <td style="width: 100px;" class="totalPrc"></td>
-                                                            <td><a class="confirm-text p-2" onclick="deleteRow(this)"><i data-feather="trash-2" class="feather-trash-2"></i></a></td>
+                                 <td><a class="confirm-text p-2" onclick="deleteRow(this)"><i data-feather="trash-2" class="feather-trash-2"></i></a></td>
                                 </tr>
                             `;
 
             tbl.append(row);
         }
-
-
-
-
-
 
         // function SavePurcheasInDB() {
         //     var productId = $('#productSelect').find("option:selected").val();
@@ -1014,10 +1007,6 @@
         //         var totalQty = $(row).find('.totalQty').text();
         //         var totalPrc = $(row).find('.totalPrc').text();
         //         var idUnit = $(row).find('.idUnitt').find("option:selected").val();
-
-
-
-
         //         var url = window.origin + '/api/PurcheasApi';
         //         var payLoad = {
         //             "idPurchase": 0,
@@ -1134,7 +1123,6 @@
             var PurcheasSubNu = $('#PurcheasSubNu').val();
             var purStatment = $('#purStatment').val();
             var UserName = $('#UserName').text();
-
             ///////////////////////
             var PurcheasTotalPrice = $('#OrderTotalPrice').val();
             var PurcheasTotalQTY = $('#OrderTotalQTY').val();
@@ -1142,18 +1130,13 @@
             var PurcheasTotalTax = $('#OrderTotalTax').val();
             var PurcheasNotes = $('#NotesForPurcheas').val();
             var OrderTotalShipping = $('#OrderTotalShipping').val();
-
             var dateNow = new Date();
             var day = dateNow.getDate();
             var month = dateNow.getMonth() + 1;
             var year = dateNow.getFullYear();
-
             var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-
             let successfulRequests = 0;
-
             $('#TBLToAddPurcheas tr').each(function (index, row) {
-
                 var productIId = $(row).find('.productIId').text();
                 var quantity = $(row).find('.quaitity').val();
                 var freeQuantity = $(row).find('.freeQuaitity').val();
@@ -1163,7 +1146,6 @@
                 var totalQty = $(row).find('.totalQty').text();
                 var totalPrc = $(row).find('.totalPrc').text();
                 var idUnit = $(row).find('.idUnitt').find("option:selected").val();
-
                 var url = window.origin + '/api/PurcheasApi';
                 var payLoad = {
                     "idPurchase": 0,
@@ -1190,7 +1172,6 @@
                     "dateTimeEntry": new Date(),
                     "currentState": true,
                 };
-
                 fetch(url, {
                     method: 'POST',
                     headers: {
@@ -1209,7 +1190,6 @@
                         successfulRequests++;
                         console.log("successfulRequests Afteer: " + successfulRequests);
                         console.log("$('#TBLToAddPurcheas tr').length Afteer: " + $('#TBLToAddPurcheas tr').length);
-
                         if (successfulRequests === ($('#TBLToAddPurcheas tr').length) - 1 ) {
                             var accountingRest = {
                                 "idaccountingRestrictions": 0,
@@ -1225,7 +1205,6 @@
                                 "dateTimeEntry": new Date(),
                                 "currentState": true,
                             }
-
                             var url2 = window.origin + '/api/AccountRestrection';
                             fetch(url2, {
                                 method: 'POST',
@@ -1252,66 +1231,47 @@
                     .catch(error => {
                         console.error('There was a problem with the fetch operation:', error);
                     });
-
             });
         }
-
-
-
-
         $(document).on('input', '.quaitity, .freeQuaitity, .price', function () {
             // تحديد الصف الحالي
             const row = $(this).closest('tr');
-
             // الحصول على القيم
             const quantity = parseFloat(row.find('.quaitity').val()) || 0;       // الكمية
             const freeQuantity = parseFloat(row.find('.freeQuaitity').val()) || 0; // الكمية المجانية
             const price = parseFloat(row.find('.price').val()) || 0;            // السعر الفردي
-
             // حساب الكمية الإجمالية
             const totalQuantity = quantity + freeQuantity;
-
             // حساب السعر الإجمالي
             const totalPrice = quantity * price;
-
             // وضع النتائج في الأعمدة المناسبة
             row.find('.totalQty').text(totalQuantity.toFixed(0)); // عرض الكمية الإجمالية كعدد صحيح
             row.find('.totalPrc').text(totalPrice.toFixed(2));    // عرض السعر الإجمالي مع منزلتين عشريتين
         });
-
-
-
-
         $(document).on('change', '#TBLToAddPurcheas', function () {
             // متغيرات لتخزين المجموعات
             let totalTax = 0;
             let totalDiscount = 0;
             let totalQty = 0;
             let totalPrice = 0;
-
             $('#TBLToAddPurcheas tr').each(function () {
                 const row = $(this);
-
                 // الحصول على القيم من الأعمدة
                 const qty = parseFloat(row.find('.quaitity').val()) || 0;
                 const freeQty = parseFloat(row.find('.freeQuaitity').val()) || 0;
                 const price = parseFloat(row.find('.price').val()) || 0;
                 const discount = parseFloat(row.find('.discount').val()) || 0;
                 const tax = parseFloat(row.find('.tax').val()) || 0;
-
                 // حساب الكمية الإجمالية
                 const totalRowQty = qty + freeQty;
-
                 // حساب السعر الإجمالي للصف (قبل الخصم والضرائب)
                 const totalRowPrice = qty * price - discount + tax;
-
                 // تحديث المجموعات
                 totalQty += totalRowQty;
                 totalDiscount += discount;
                 totalTax += tax;
                 totalPrice += totalRowPrice;
             });
-
             // تحديث القيم في الحقول أو المتغيرات
             $('#OrderTotalTax').val(totalTax.toFixed(2));
             $('#OrderTotalDiscount').val(totalDiscount.toFixed(2));
@@ -1319,51 +1279,38 @@
             $('#OrderTotalPrice').val(totalPrice.toFixed(2));
         });
 
-
-
         $(document).on('change', '#TBLToAddPurcheasEdit', function () {
             // متغيرات لتخزين المجموعات
             let totalTax = 0;
             let totalDiscount = 0;
             let totalQty = 0;
             let totalPrice = 0;
-
             $('#TBLToAddPurcheasEdit tr').each(function () {
                 const row = $(this);
-
                 // الحصول على القيم من الأعمدة
                 const qty = parseFloat(row.find('.quaitity').val()) || 0;
                 const freeQty = parseFloat(row.find('.freeQuaitity').val()) || 0;
                 const price = parseFloat(row.find('.price').val()) || 0;
                 const discount = parseFloat(row.find('.discount').val()) || 0;
                 const tax = parseFloat(row.find('.tax').val()) || 0;
-
                 // حساب الكمية الإجمالية
                 const totalRowQty = qty + freeQty;
-
                 // حساب السعر الإجمالي للصف (قبل الخصم والضرائب)
                 const totalRowPrice = qty * price - discount + tax;
-
                 // تحديث المجموعات
                 totalQty += totalRowQty;
                 totalDiscount += discount;
                 totalTax += tax;
                 totalPrice += totalRowPrice;
             });
-
             // تحديث القيم في الحقول أو المتغيرات
             $('#OrderTotalTaxEdit').val(totalTax.toFixed(2));
             $('#OrderTotalDiscountEdit').val(totalDiscount.toFixed(2));
             $('#OrderTotalQTYEdit').val(totalQty.toFixed(0));
             $('#OrderTotalPriceEdit').val(totalPrice.toFixed(2));
         });
-
-
-
         function ChangeQTY(amount, btn) {
-
             var inputElement = btn.closest(".product-quantity").querySelector(".quntity-input");
-
             if (inputElement) {
                 var currentValue = parseInt(inputElement.value); 
                 currentValue += amount; 
@@ -1373,11 +1320,7 @@
             }
         }
     </script>
-
-
-
     <script>
-
         function deleteRow(button) {
 
             var row = button.parentNode.parentNode;

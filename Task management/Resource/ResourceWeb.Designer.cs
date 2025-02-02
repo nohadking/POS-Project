@@ -1978,6 +1978,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حسابات المستوى الرابع .
+        /// </summary>
+        internal static string LBMyLevelForeAccount {
+            get {
+                return ResourceManager.GetString("LBMyLevelForeAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حسابات المستوى الثالث .
         /// </summary>
         internal static string LBMyLevelThreeAccount {
