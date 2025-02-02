@@ -279,9 +279,7 @@
 
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="input-blocks">
@@ -893,7 +891,7 @@
                             <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
                             <td style="width: 100px;" class="totalQty"></td>
                             <td style="width: 100px;" class="totalPrc"></td>
-                                    <td><button onclick="deleteRow(this)">حذف</button></td>
+                                                    <td><a class="confirm-text p-2" onclick="deleteRow(this)"><i data-feather="trash-2" class="feather-trash-2"></i></a></td>
                         </tr>
                     `;
 
@@ -966,7 +964,7 @@
                                     <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
                                     <td style="width: 100px;" class="totalQty"></td>
                                     <td style="width: 100px;" class="totalPrc"></td>
-                                            <td><button onclick="deleteRow(this)">حذف</button></td>
+                                                            <td><a class="confirm-text p-2" onclick="deleteRow(this)"><i data-feather="trash-2" class="feather-trash-2"></i></a></td>
                                 </tr>
                             `;
 
@@ -1754,7 +1752,7 @@
                                                     <td>${purchase.tax}</td>
                                                     <td>${purchase.totalQuantity}</td>
                                                     <td>${purchase.total}</td>
-                                                    <td><button onclick="deleteRow(this)">حذف</button></td>
+                                                                    <td><a class="confirm-text p-2"  onclick="deleteRow(this)"> <i data-feather="trash-2" class="feather-trash-2"></i></a></td>
                                                 `;
 
 
