@@ -371,7 +371,7 @@
 
     if (idLevelThreeAccount) {
         // إرسال القيمة إلى الكنترول عبر AJAX
-                fetch(`/Supplier/GetNumberAccount?idLevelThreeAccount=${idLevelThreeAccount}`)
+                fetch(`/Admin/Supplier/GetNumberAccount?idLevelThreeAccount=${idLevelThreeAccount}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
