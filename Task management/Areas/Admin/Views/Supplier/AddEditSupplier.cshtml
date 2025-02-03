@@ -37,17 +37,29 @@
                             <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
                             <div class="card-content">
                                 <div class="row small-spacing">
-                                    <div class="col-lg-6 col-xs-6">
+                                    <div class="col-lg-3 col-xs-6">
                                         <label class="form-label" asp-for="@Model.Supplier.SupplierName">@ResourceWeb.lbSupplierName</label>
                                         <input type="text" class="form-control" asp-for="@Model.Supplier.SupplierName">
                                         <span asp-validation-for="@Model.Supplier.SupplierName" class="text-danger"></span>
                                         <span style="color:red"> <strong>@TempData["Suppliers"]</strong></span>
                                     </div>
-                                    <div class="col-lg-6 col-xs-6">
+                                    <div class="col-lg-3 col-xs-6">
                                         <label asp-for="@Model.Supplier.IdPaymentMethod" for="exampleInputEmail1">أسلوب  التعامل </label>
                                         <select class="form-select" asp-for="@Model.Supplier.IdPaymentMethod" asp-items="@(new SelectList(ViewBag.paymentMethod, "IdPaymentMethod", "PaymentMethodAr"))">
                                         </select>
                                         <span asp-validation-for="@Model.Supplier.IdPaymentMethod" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-3 col-xs-6">
+                                        <label asp-for="@Model.Supplier.IdPaymentMethod" for="exampleInputEmail1">أسلوب  التعامل </label>
+                                        <label for="exampleInputEmail1">تابع لحساب</label>
+                                        <select class="form-select" asp-items="@(new SelectList(ViewBag.BLevelThreeAccount, "IdLevelThreeAccount", "NameLevelThreeAccounts"))" id="IdLevelThreeAccount">
+                                        </select>
+                                        <span asp-validation-for="@Model.Supplier.IdPaymentMethod" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-3 col-xs-6">
+                                        <label class="form-label" asp-for="Supplier.NumberAccount">@ResourceWeb.lbNumberAccount</label>
+                                        <input type="text" class="form-control" asp-for="Supplier.NumberAccount" id="Supplier_NumberAccount" readonly>
+                                        <span asp-validation-for="Supplier.NumberAccount" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -256,6 +268,26 @@
                 URL.revokeObjectURL(output.src); // free memory
             }
         };
+    </script>
+    <script>
+        document.getElementById("IdLevelThreeAccount").addEventListener("change", function () {
+            var idLevelThreeAccount = this.value; // القيمة التي تم اختيارها
+
+            if (idLevelThreeAccount) {
+                // إرسال القيمة إلى الكنترول عبر AJAX
+                fetch(`/Admin/Supplier/GetNumberAccount?idLevelThreeAccount=${idLevelThreeAccount}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // تحديث حقل NumberAccount بالقيمة الجديدة
+                            document.getElementById("Supplier_NumberAccount").value = data.numberAccount;
+                        } else {
+                            alert(data.message); // في حال فشل العملية
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
     </script>
 }
 

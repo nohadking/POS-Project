@@ -98,6 +98,22 @@ namespace Infarstuructre.BL
         {
             try
             {
+             
+                var expnsevcatrg = dbcontext.TBExpenseCategorys.FirstOrDefault(a => a.IdExpenseCategory == updatss.IdExpenseCategory);
+                var update = dbcontext.TBAccountingRestrictions.FirstOrDefault(a => a.AccountingName == expnsevcatrg.ExpenseCategory && a.BondNumber == updatss.BondNumber);
+
+                update.AccountingName = expnsevcatrg.ExpenseCategory;
+                update.BondType = "سند صرف";
+                update.BondNumber = updatss.BondNumber;
+                update.Debtor = updatss.Amount;
+                update.creditor = 0;
+                update.Statement = updatss.Statement;
+                update.Nouts = "سند صرف رقم :" + " " + updatss.BondNumber;
+                update.DataEntry = updatss.DataEntry;
+                update.DateTimeEntry = updatss.DateTimeEntry;
+                update.CurrentState = true;
+
+                dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 dbcontext.Entry(updatss).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 dbcontext.SaveChanges();
                 return true;
