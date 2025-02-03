@@ -1506,4 +1506,7 @@
   <data name="LBMyLevelForeAccount" xml:space="preserve">
     <value>حسابات المستوى الرابع </value>
   </data>
+  <data name="LBAddLevelForeAccount" xml:space="preserve">
+    <value>إضافة وتعديل  حسابات المستوى الرابع </value>
+  </data>
 </root>

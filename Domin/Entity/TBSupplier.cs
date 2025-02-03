@@ -12,6 +12,7 @@ namespace Domin.Entity
         [Key]
         public int IdSupplier { get; set; }
         public int IdPaymentMethod { get; set; }
+        public long NumberAccount { get; set; }
         public string Photo { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlSupplierName")]
         [MaxLength(300, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength300")]

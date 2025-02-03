@@ -376,6 +376,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل  حسابات المستوى الرابع .
+        /// </summary>
+        internal static string LBAddLevelForeAccount {
+            get {
+                return ResourceManager.GetString("LBAddLevelForeAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إضافة وتعديل حسابات المستوى الثالث.
         /// </summary>
         internal static string LBAddLevelThreeAccount {

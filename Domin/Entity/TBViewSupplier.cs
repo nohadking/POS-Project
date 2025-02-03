@@ -11,6 +11,7 @@ namespace Domin.Entity
     {
         public int IdSupplier { get; set; }
         public int IdPaymentMethod { get; set; }
+        public long NumberAccount { get; set; }
         public string PaymentMethodAr { get; set; }
         public string Photo { get; set; }
        

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task_management.Areas.Admin.Controllers
 {
@@ -10,12 +11,14 @@ namespace Task_management.Areas.Admin.Controllers
         IISupplier iSupplier;
         IICompanyInformation iCompanyInformation;
         IIPaymentMethod paymentMethod;
-        public SupplierController(MasterDbcontext dbcontext1,IISupplier iSupplier1,IICompanyInformation iCompanyInformation1,IIPaymentMethod iPaymentMethod1)
+        IIBLevelThreeAccount iBLevelThreeAccount;
+        public SupplierController(MasterDbcontext dbcontext1,IISupplier iSupplier1,IICompanyInformation iCompanyInformation1,IIPaymentMethod iPaymentMethod1,IIBLevelThreeAccount iBLevelThreeAccount1)
         {
             dbcontext=dbcontext1;
             iSupplier =iSupplier1;
             iCompanyInformation = iCompanyInformation1;
             paymentMethod=iPaymentMethod1;
+            iBLevelThreeAccount =iBLevelThreeAccount1; 
         }
         public IActionResult MYSupplier()
         {
@@ -23,11 +26,13 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListViewSupplier = iSupplier.GetAll();
             ViewBag.paymentMethod = paymentMethod.GetAll();
+            ViewBag.BLevelThreeAccount= iBLevelThreeAccount.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEditSupplier(int? IdSupplier)
         {
             ViewBag.paymentMethod = paymentMethod.GetAll();
+            ViewBag.BLevelThreeAccount = iBLevelThreeAccount.GetAll();
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListViewSupplier = iSupplier.GetAll();
@@ -72,6 +77,7 @@ namespace Task_management.Areas.Admin.Controllers
                 // نسخ القيم من النموذج إلى الكائن slider
                 slider.IdSupplier = model.Supplier.IdSupplier;
                 slider.IdPaymentMethod = model.Supplier.IdPaymentMethod;
+                slider.NumberAccount = model.Supplier.NumberAccount;
                 slider.Photo = model.Supplier.Photo;
                 slider.SupplierName = model.Supplier.SupplierName;
                 slider.Specialization = model.Supplier.Specialization;
@@ -192,5 +198,58 @@ namespace Task_management.Areas.Admin.Controllers
                 return RedirectToAction("MYSupplier");
             }
         }
+
+
+        [HttpGet]
+
+        public IActionResult GetNumberAccount(int idLevelThreeAccount)
+        {
+            // استرجاع حساب المستوى الثالث باستخدام idLevelThreeAccount
+            var levelThreeAccount = dbcontext.TBLevelThreeAccounts
+                .FirstOrDefault(x => x.IdLevelThreeAccount == idLevelThreeAccount);
+
+            if (levelThreeAccount != null)
+            {
+                // البحث عن الحسابات في المستوى الرابع
+                var levelFourAccounts = dbcontext.TBLevelForeAccounts
+                    .Where(x => x.IdLevelThreeAccount == levelThreeAccount.IdLevelThreeAccount)
+                    .OrderByDescending(x => x.AccountNumberlivl)
+                    .ToList();
+
+                string newAccountNumber;
+
+                if (levelFourAccounts.Any())
+                {
+                    // إذا وجدنا حسابات في المستوى الرابع، نأخذ أكبر رقم حساب ونضيف عليه 1
+                    long highestAccountNumber = levelFourAccounts.First().AccountNumberlivl;
+                    long newAccountNum = highestAccountNumber + 1;
+                    newAccountNumber = newAccountNum.ToString("D4");  // تنسيق الرقم ليكون 4 أرقام
+                }
+                else
+                {
+                    // إذا لم نجد حسابات في المستوى الرابع، نقوم بإضافة "0001" إلى رقم حساب المستوى الثالث
+                    newAccountNumber = levelThreeAccount.NumberAccount + "0001";
+                }
+
+                // إرسال رقم الحساب الجديد إلى النموذج (Model) لكي يظهر في الـ View
+                //ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+                //var supplier =  vmodel.supplier();
+                //{
+                //    NumberAccount = newAccountNumber
+                //};
+
+                // يمكنك تعديل الـ Model إذا كنت تستخدم `ViewModel`
+                return Json(new { success = true, numberAccount = newAccountNumber });
+            }
+
+            return Json(new { success = false, message = "حساب المستوى الثالث غير موجود." });
+        }
+
+
+
+
+
+
     }
 }
