@@ -145,8 +145,11 @@
                                     <td>@item.MineAccountsName</td>
                                     <td>@item.LevelTwoAccountsNumber</td>
                                     <td>@item.LevelTwoAccountsName</td>
-                                    <td>@item.LevelForeAccountsNumber</td>
-                                    <td>@item.LevelForeAccountsName</td>
+
+                                    <td>@item.LevelThreeAccountsNumber</td>
+                                    <td>@item.LevelThreeAccountsName</td>
+
+                               
                                     <td>@item.LevelForeAccountsNumber</td>
                                     <td>@item.LevelForeAccountsName</td>
                                     <td>@item.DateTimeEntry</td>
@@ -259,13 +262,22 @@
                                 <span asp-validation-for="@Model.LevelForeAccount.IdLevelThreeAccount" class="text-danger"></span>
                             </div>
 
+
+
+
+
+
                             <div class="mb-3">
-                                <label class="form-label" asp-for="@Model.LevelForeAccount.NumberAccount">@ResourceWeb.lbNumberAccount</label>
-                                <input type="text" id="numberAccount" class="form-control" asp-for="@Model.LevelForeAccount.NumberAccount"
-                                       value="@ViewBag.nomberMax">
-                                <span asp-validation-for="@Model.LevelForeAccount.NumberAccount" class="text-danger"></span>
-                                <span style="color:red"><strong>@TempData["NumberAccount"]</strong></span>
+                                <label class="form-label" asp-for="@Model.LevelForeAccount.AccountNumberlivl">@ResourceWeb.lbNumberAccount</label>
+                                <input type="text" class="form-control" id="numberAccount" asp-for="@Model.LevelForeAccount.AccountNumberlivl">
+                                <span asp-validation-for="@Model.LevelForeAccount.AccountNumberlivl" class="text-danger"></span>
+                                <span style="color:red"> <strong>@TempData["NumberAccount"]</strong></span>
                             </div>
+
+
+
+
+
 
                             <div class="mb-3">
                                 <label class="form-label" asp-for="@Model.LevelForeAccount.AccountName">@ResourceWeb.lbAccountName</label>
@@ -308,64 +320,6 @@
     <script>
         $("#url").val(window.location.href);
     </script>
-
-@*     <script>
-        // عند اختيار حساب رئيسي
-        $('#mainAccountSelect').change(function () {
-            var mainAccountId = $(this).val();
-            if (mainAccountId) {
-                // إرسال طلب للحصول على حسابات المستوى الثاني
-                $.ajax({
-                    url: '@Url.Action("GetLevelTwoAccounts", "LevelForeAccount")',
-                    type: 'GET',
-                    data: { mainAccountId: mainAccountId },
-                    success: function (data) {
-                        $('#levelTwoAccountSelect').empty().append('<option value="">اختر حساب</option>');
-                        $.each(data, function (index, item) {
-                            $('#levelTwoAccountSelect').append('<option value="' + item.idLevelTwoAccount + '">' + item.accountName + '</option>');
-                        });
-                        $('#levelTwoAccountSelect').prop('disabled', false);
-                    },
-                    error: function () {
-                        alert('فشل في جلب البيانات');
-                    }
-                });
-            } else {
-                $('#levelTwoAccountSelect').empty().append('<option value="">اختر حساب</option>');
-                $('#levelTwoAccountSelect').prop('disabled', true);
-                $('#levelThreAccountSelect').empty().append('<option value="">اختر حساب</option>');
-                $('#levelThreAccountSelect').prop('disabled', true);
-            }
-        });
-
-        // عند اختيار حساب المستوى الثاني
-        $('#levelTwoAccountSelect').change(function () {
-            var levelTwoAccountId = $(this).val();
-            if (levelTwoAccountId) {
-                // إرسال طلب للحصول على حسابات المستوى الثالث
-                $.ajax({
-                    url: '@Url.Action("GetLevelThreeAccounts", "LevelForeAccount")',
-                    type: 'GET',
-                    data: { levelTwoAccountId: levelTwoAccountId },
-                    success: function (data) {
-                        $('#levelThreAccountSelect').empty().append('<option value="">اختر حساب</option>');
-                        $.each(data, function (index, item) {
-                            $('#levelThreAccountSelect').append('<option value="' + item.idLevelThreeAccount + '">' + item.accountName + '</option>');
-                        });
-                        $('#levelThreAccountSelect').prop('disabled', false);
-                    },
-                    error: function () {
-                        alert('فشل في جلب البيانات');
-                    }
-                });
-            } else {
-                $('#levelThreAccountSelect').empty().append('<option value="">اختر حساب</option>');
-                $('#levelThreAccountSelect').prop('disabled', true);
-            }
-        });
-    </script> *@
-
-
     <script>
         // عند اختيار حساب رئيسي
         $('#mainAccountSelect').change(function () {
@@ -395,7 +349,6 @@
                 $('#levelThreAccountSelect').prop('disabled', true);
             }
         });
-
         // عند اختيار حساب المستوى الثاني
         $('#levelTwoAccountSelect').change(function () {
             var levelTwoAccountId = $(this).val();
@@ -423,7 +376,6 @@
                 $('#levelThreAccountSelect').prop('disabled', true);
             }
         });
-
         // عند اختيار حساب المستوى الثالث
         $('#levelThreAccountSelect').change(function () {
             var levelThreeAccountId = $(this).val();
@@ -436,16 +388,17 @@
                     success: function (data) {
                         // صيغة الحساب الجديد
                         var newAccountNumber = data.accountNumber;
-
                         // دمج الأرقام من الحسابات المختلفة مع الرقم الجديد للمستوى الرابع
                         var accountNumber =
-                            $('#mainAccountSelect').find(':selected').data('account') + // رقم الحساب الرئيسي
-                            $('#levelTwoAccountSelect').find(':selected').data('account') + // رقم الحساب من المستوى الثاني
-                            $('#levelThreAccountSelect').find(':selected').data('account') + // رقم الحساب من المستوى الثالث
+                            // $('#mainAccountSelect').find(':selected').data('account') + // رقم الحساب الرئيسي
+                            // $('#levelTwoAccountSelect').find(':selected').data('account') + // رقم الحساب من المستوى الثاني
+                            /*  $('#levelThreAccountSelect').find(':selected').data('account') + */ // رقم الحساب من المستوى الثالث
                             newAccountNumber; // الرقم الجديد من المستوى الرابع
-
                         // عرض الرقم النهائي في الحقل
                         $('input[name="LevelForeAccount.NumberAccount"]').val(accountNumber);
+                         $('#numberAccount').val(accountNumber);
+
+                        console.log(accountNumber)
                     },
                     error: function () {
                         alert('فشل في جلب الرقم الجديد');
@@ -453,13 +406,17 @@
                 });
             }
         });
-    </script>
+        $('form').submit(function () {
+            var value = $('#numberAccount').val();
+            console.log("القيمة قبل الإرسال:", value); // تحقق من القيمة قبل الإرسال
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'LevelForeAccount.NumberAccount',
+                value: value
+            }).appendTo(this);
+        });
 
-
-
-
- 
-      
+     </script>
 
 
 }

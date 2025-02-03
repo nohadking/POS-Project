@@ -18,7 +18,7 @@ namespace Domin.Entity
         public int IdMainAccount { get; set; }
         public int MineAccountsNumber { get; set; }
         public string MineAccountsName { get; set; }
-        public int LevelForeAccountsNumber { get; set; }
+        public long LevelForeAccountsNumber { get; set; }
         public string LevelForeAccountsName { get; set; }
         public string DataEntry { get; set; }
         public DateTime DateTimeEntry { get; set; }

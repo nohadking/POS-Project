@@ -14,7 +14,7 @@ namespace Domin.Entity
         public int IdLevelThreeAccount { get; set; }   
         public int IdLevelTwoAccount { get; set; }
         public int IdMainAccount { get; set; }
-        public int NumberAccount { get; set; }
+        public long AccountNumberlivl { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlAccountName")]
         [MaxLength(300, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength300")]
         [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
