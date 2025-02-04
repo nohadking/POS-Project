@@ -48,7 +48,13 @@ namespace Task_management.Areas.Admin.APIsControllers
         {
             foreach(var id in idsList)
             {
-                iPurchase.deleteData(id);
+                var purcheas = dbcontext.TBPurchases.Find(id);
+
+                if (purcheas == null)
+                    continue;
+
+                dbcontext.TBPurchases.Remove(purcheas);
+                dbcontext.SaveChanges();
             }
 
             return Ok(new TBPurchase());

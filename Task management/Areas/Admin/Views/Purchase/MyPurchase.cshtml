@@ -423,12 +423,12 @@
                             <div class="col-lg-12">
                                 <div class="input-blocks summer-description-box">
                                     <label>Notes</label>
-                                    <input id="NotesForPurcheas" type="text" class="form-control">
+                                    <input id="NotesForPurcheas" value="" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" onclick="ClearValues()" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
                                     <button onclick="SavePurcheasInDB()" type="button" class="btn btn-submit">Submit</button>
                                 </div>
                             </div>
@@ -643,12 +643,12 @@
                             <div class="col-lg-12">
                                 <div class="input-blocks summer-description-box">
                                     <label>Notes</label>
-                                    <input id="NotesForPurcheasEdit" type="text" class="form-control">
+                                    <input id="NotesForPurcheasEdit" value="" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" onclick="ClearValuesForEdit()" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
                                     <button onclick="EditPurcheasInDB()" type="button" class="btn btn-submit">Submit</button>
                                 </div>
                             </div>
@@ -1831,6 +1831,54 @@
             $('#OrderTotalQTYEdit').val(totalQty.toFixed(0));
             $('#OrderTotalPriceEdit').val(totalPrice.toFixed(2));
         });
+
+
+
+        function ClearValues(){
+            console.log("ClearValues");
+
+            $('#productSelect').prop('selectedIndex', 0);
+            $('#PayMethId').prop('selectedIndex', 0);
+            $('#supplierImage').hide();
+            $('#supplierImage').attr('src', '');
+            $('#supplierSelect').val(0);
+            $('#PurcheasDt').val(new Date);
+            $('#PurcheasNu').val(0);
+            $('#PurcheasSubNu').val('');
+            $('#purStatment').val('');
+            ///////////////////////
+            $('#OrderTotalPrice').val(0);
+            $('#OrderTotalQTY').val(0);
+            $('#OrderTotalDiscount').val(0);
+            $('#OrderTotalTax').val(0);
+            $('#NotesForPurcheas').val(0);
+            $('#OrderTotalShipping').val(0);
+            $('#lastPurchasePrice').val(0);
+            $('#TBLToAddPurcheas').empty();
+        }
+
+        function ClearValuesForEdit() {
+            console.log("ClearValuesForEdit");
+
+            $('#productSelectEdit').prop('selectedIndex', 0);
+            $('#PayMethIdEdit').prop('selectedIndex', 0);
+            $('#supplierImageEdit').hide();
+            $('#supplierImageEdit').attr('src', '');
+            $('#supplierSelectEdit').val(0);
+            $('#PurcheasDtEdit').val(new Date);
+            $('#PurcheasNuEdit').val(0);
+            $('#PurcheasSubNuEdit').val('');
+            $('#purStatmentEdit').val('');
+            ///////////////////////
+            $('#OrderTotalPriceEdit').val(0);
+            $('#OrderTotalQTYEdit').val(0);
+            $('#OrderTotalDiscountEdit').val(0);
+            $('#OrderTotalTaxEdit').val(0);
+            $('#NotesForPurcheasEdit').val(0);
+            $('#OrderTotalShippingEdit').val(0);
+            $('#lastPurchasePriceEdit').val(0);
+            $('#TBLToAddPurcheasEdit').empty();
+        }
 
     </script>
 }
