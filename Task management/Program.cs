@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +92,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 // تكوين ملفات تعريف الارتباط (Cookies)
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Admin/Accounts/Login";
@@ -99,7 +102,52 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
     options.SlidingExpiration = true;
+
+    // هنا نضيف OnValidatePrincipal لجعل المستخدم Offline عند انتهاء الجلسة
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnValidatePrincipal = async context =>
+        {
+            var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var dbContext = context.HttpContext.RequestServices.GetRequiredService<MasterDbcontext>();
+
+            var userId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    var lastLoginTime = context.Properties?.IssuedUtc;
+                    var sessionExpired = lastLoginTime.HasValue && DateTime.UtcNow > lastLoginTime.Value.Add(options.ExpireTimeSpan);
+
+                    if (sessionExpired)
+                    {
+                        // تحديث حالة المستخدم إلى Offline
+                        user.IsOnline = false;
+                        dbContext.Users.Update(user);
+                        await dbContext.SaveChangesAsync();
+
+                        // تسجيل خروج المستخدم
+                        context.RejectPrincipal();
+                        await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    }
+                }
+            }
+        }
+    };
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 // إضافة خدمات مخصصة (Scoped Services)
 builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
