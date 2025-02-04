@@ -6,6 +6,7 @@ using Infarstuructre.BL;
 using LamarModa.Api.Auth;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph.Models;
 using NuGet.Common;
 using static Domin.Entity.Helper;
 
@@ -442,6 +443,10 @@ namespace Task_management.Areas.Admin.Controllers
                 {
                     var roles = await _userManager.GetRolesAsync(user);
                     var token = _tokenService.GenerateToken(user, roles);
+                    user.IsOnline = true;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+
 
                     // Check if user has the role "Merchant"
                     if (roles.Contains("Merchant"))
@@ -505,7 +510,9 @@ namespace Task_management.Areas.Admin.Controllers
                 {
                     var roles = await _userManager.GetRolesAsync(user);
                     var token = _tokenService.GenerateToken(user, roles);
-
+                    user.IsOnline = true;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
                     // Check if user has the role "Merchant"
                     if (roles.Contains("Merchant"))
                     {
@@ -553,6 +560,11 @@ namespace Task_management.Areas.Admin.Controllers
         public async Task<IActionResult> Logout1()
         {
             await _signInManager.SignOutAsync();
+            var user = await _userManager.GetUserAsync(User);
+            user.IsOnline = false;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index", "Home", new { area = "" });
         }
         private void SessionMsg(string MsgType, string Title, string Msg)
