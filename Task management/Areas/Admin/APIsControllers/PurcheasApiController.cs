@@ -16,7 +16,6 @@ namespace Task_management.Areas.Admin.APIsControllers
             this.iPurchase = iPurchase;
             this.iClassCard = iClassCard;
         }
-
         [HttpGet("/api/PurcheasApi/GetByPurcheasNu/{purchaseNumber}")]
         public IActionResult GetByPurcheasNu(int purchaseNumber)
         {

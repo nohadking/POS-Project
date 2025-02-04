@@ -58,9 +58,14 @@ namespace Task_management.Areas.Admin.Controllers
 			var total = vmodel.ListViewInvose = iInvose.GetAll();
 			// حساب المجموع من القائمة أو قاعدة البيانات
 			var totalAmount = total.Sum(a => a.total);
-			ViewBag.TotalAmount = totalAmount;
-
-
+			if (totalAmount > 0)
+			{
+				ViewBag.TotalAmount = totalAmount;
+			}
+			else
+			{
+				ViewBag.TotalAmount = 0;
+			}
 			// حساب الأصناف الأكثر مبيعًا وعدد المبيعات
 			var topSellingItems = total
 				.GroupBy(item => item.IdProduct) // افترضنا أن هناك ProductId لكل منتج
@@ -76,21 +81,49 @@ namespace Task_management.Areas.Admin.Controllers
 				/*.Take(10)*/ // عرض الأصناف الخمسة الأكثر مبيعًا
 				.ToList();
 
-			ViewBag.TopSellingItems = topSellingItems;
+			if(topSellingItems!=null)
+			{
+                ViewBag.TopSellingItems = topSellingItems;
+            }
+			else
+			{
+                ViewBag.TopSellingItems = null;
+            }
+
+			
 			// إضافة الأصناف الأكثر مبيعًا إلى ViewBag
 
 			//إجمالي الكمية المباعة 
 			var Quantity = total.Sum(a => a.Quantity);
-			ViewBag.Quantity = Quantity;
+			if (Quantity>0)
+			{
+                ViewBag.Quantity = Quantity;
+            }
+			else
+			{
+                ViewBag.Quantity =0;
+            }
+            
 
 
 			var maxnomb = total.Max(a => a.InvoiceNumber);
-			ViewBag.max = maxnomb;
+			if (maxnomb > 0)
+			{
+                ViewBag.max = maxnomb;
+            }
+			else
+			{
+				ViewBag.max = 1;
+			}
+	
 
 
 			var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll();
 			var allPrchaase = TotalPrchaase.Sum(a => a.TotalAll);
-			ViewBag.totaallpurches = allPrchaase;
+			if (allPrchaase > 0) { ViewBag.totaallpurches = allPrchaase; }
+			else 
+			{ ViewBag.totaallpurches = 0; }
+		
 
 
 			var maxpurshess = TotalPrchaase.DefaultIfEmpty(new TBViewPurchase { PurchaseNumber = 0 }).Max(a => a.PurchaseNumber);
@@ -101,13 +134,18 @@ namespace Task_management.Areas.Admin.Controllers
 
 			var exching=vmodel.ListViewExpense= iExpense.GetAll();
 			var totalexchinh = exching.Sum(a => a.Amount);
-			ViewBag.totalExch = totalexchinh;
+			if (totalexchinh > 0)
+				{ ViewBag.totalExch = totalexchinh; }
+			else {  ViewBag.totalExch = 0; };
 
 			//جلب عدد الموردين 
 
 			var supler=vmodel.ListViewSupplier= iSupplier.GetAll();
 			var contSuplaer= supler.Count();
-			ViewBag.contsupler = contSuplaer;
+			if (contSuplaer > 0) {ViewBag.contsupler = contSuplaer; }
+			else { ViewBag.contsupler = 0; };		
+
+			
 
 			//جلب  عدد العملاء
 
@@ -115,17 +153,6 @@ namespace Task_management.Areas.Admin.Controllers
 			var totalcontcu= contcus.Count();
 			ViewBag.cont = totalcontcu;
 			var online= iUserService.GetActiveCustomers();
-
-
-
-
-
-
-
-
-
-
-
 			var onnn = online
 			.GroupBy(item => item.Id) // افترضنا أن هناك ProductId لكل منتج
 			.Select(group => new
@@ -142,18 +169,6 @@ namespace Task_management.Areas.Admin.Controllers
 			.ToList();
 
 			ViewBag.onlineuser = onnn;
-
-
-
-
-
-
-
-
-
-
-
-
 			return View(vmodel);
 
 
