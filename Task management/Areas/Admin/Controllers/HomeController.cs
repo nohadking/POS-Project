@@ -66,6 +66,7 @@ namespace Task_management.Areas.Admin.Controllers
 			{
 				ViewBag.TotalAmount = 0;
 			}
+
 			// حساب الأصناف الأكثر مبيعًا وعدد المبيعات
 			var topSellingItems = total
 				.GroupBy(item => item.IdProduct) // افترضنا أن هناك ProductId لكل منتج
@@ -103,22 +104,15 @@ namespace Task_management.Areas.Admin.Controllers
 			{
                 ViewBag.Quantity =0;
             }
-            
 
 
-			var maxnomb = total.Max(a => a.InvoiceNumber);
-			if (maxnomb > 0)
-			{
-                ViewBag.max = maxnomb;
-            }
-			else
-			{
-				ViewBag.max = 1;
-			}
-	
+
+            var maxnomb = total.DefaultIfEmpty(new TBViewInvose { InvoiceNumber = 0 }).Max(a => a.InvoiceNumber);
+            ViewBag.max = maxnomb > 0 ? maxnomb : 1;
 
 
-			var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll();
+
+            var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll();
 			var allPrchaase = TotalPrchaase.Sum(a => a.TotalAll);
 			if (allPrchaase > 0) { ViewBag.totaallpurches = allPrchaase; }
 			else 
