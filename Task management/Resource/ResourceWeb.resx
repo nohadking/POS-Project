@@ -1509,4 +1509,34 @@
   <data name="LBAddLevelForeAccount" xml:space="preserve">
     <value>إضافة وتعديل  حسابات المستوى الرابع </value>
   </data>
+  <data name="VLEmployeeFullnameDoplceted" xml:space="preserve">
+    <value>تم إدخال اسم الموظف مسبقا يرجى التأكد وإعادة المحاولة لاحقا ..!</value>
+  </data>
+  <data name="VLEmployeePhoneDoplceted" xml:space="preserve">
+    <value>تم إدخال رقم الهاتف مسبقا يرجى التأكد وإعادة المحاولة لا حقا ...!</value>
+  </data>
+  <data name="LBMYStaff" xml:space="preserve">
+    <value>الموظفين</value>
+  </data>
+  <data name="lbEmployeeFullname" xml:space="preserve">
+    <value>اسم الموظف</value>
+  </data>
+  <data name="lbEmployeePhone" xml:space="preserve">
+    <value>هاتف الموظف</value>
+  </data>
+  <data name="lbEmployeeEmail" xml:space="preserve">
+    <value>إميل الموظف </value>
+  </data>
+  <data name="lbAccountNumber" xml:space="preserve">
+    <value>رقم الحساب</value>
+  </data>
+  <data name="lbEmployeeAddress" xml:space="preserve">
+    <value>عنوان الموظف</value>
+  </data>
+  <data name="lbJobTitle" xml:space="preserve">
+    <value>المسمى الوظيفي</value>
+  </data>
+  <data name="LBAddEditStaff" xml:space="preserve">
+    <value>إضافة وتعديل الموظفين </value>
+  </data>
 </root>

@@ -138,17 +138,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
 // إضافة خدمات مخصصة (Scoped Services)
 builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
 builder.Services.AddScoped<ITokenService, TokenService>();

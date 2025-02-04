@@ -9,25 +9,31 @@ namespace Task_management.Areas.Admin.Controllers
         MasterDbcontext dbcontext;
         IICompanyInformation iCompanyInformation;
         IIStaff iStaff;
-        public StaffController(MasterDbcontext dbcontext1,IICompanyInformation iCompanyInformation1,IIStaff iStaff1)
+        IIBLevelThreeAccount iBLevelThreeAccount;
+        public StaffController(MasterDbcontext dbcontext1, IICompanyInformation iCompanyInformation1, IIStaff iStaff1, IIBLevelThreeAccount iBLevelThreeAccount1)
         {
             dbcontext = dbcontext1;
             iCompanyInformation = iCompanyInformation1;
             iStaff = iStaff1;
+            iBLevelThreeAccount = iBLevelThreeAccount1;
         }
-        public IActionResult MYCompanyInformation()
+        public IActionResult MYStaff()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCompanyInformation = iCompanyInformation.GetAll();
-            return View(vmodel);
+            vmodel.ListStaff = iStaff.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			ViewBag.BLevelThreeAccount = iBLevelThreeAccount.GetAll();
+			return View(vmodel);
         }
-        public IActionResult AddEditCompanyInformation(int? IdCompanyInformation)
+        public IActionResult AddEditStaff(int? IdStaff)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCompanyInformation = iCompanyInformation.GetAll();
-            if (IdCompanyInformation != null)
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			ViewBag.BLevelThreeAccount = iBLevelThreeAccount.GetAll();
+			vmodel.ListStaff = iStaff.GetAll();
+            if (IdStaff != null)
             {
-                vmodel.CompanyInformation = iCompanyInformation.GetById(Convert.ToInt32(IdCompanyInformation));
+                vmodel.Staff = iStaff.GetById(Convert.ToInt32(IdStaff));
                 return View(vmodel);
             }
             else
@@ -35,14 +41,14 @@ namespace Task_management.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
-        public IActionResult AddEditCompanyInformationImage(int? IdCompanyInformation)
+        public IActionResult AddEditStaffImage(int? IdStaff)
         {
-
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCompanyInformation = iCompanyInformation.GetAll();
-            if (IdCompanyInformation != null)
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            vmodel.ListStaff = iStaff.GetAll();
+            if (IdStaff != null)
             {
-                vmodel.CompanyInformation = iCompanyInformation.GetById(Convert.ToInt32(IdCompanyInformation));
+                vmodel.Staff = iStaff.GetById(Convert.ToInt32(IdStaff));
                 return View(vmodel);
             }
             else
@@ -52,42 +58,31 @@ namespace Task_management.Areas.Admin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBCompanyInformation slider, List<IFormFile> Files, string returnUrl)
+        public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBStaff slider, List<IFormFile> Files, string returnUrl)
         {
             try
             {
-                // تأكد من أن الخاصية CompanyInformation تحتوي على القيم
-                //if (model.CompanyInformation == null)
-                //{
-                //    TempData["ErrorSave"] = "بيانات الفئة غير صحيحة.";
-                //    return RedirectToAction("AddEditCompanyInformation");
-                //}
-
+                // تأكد من أن الخاصية Staff تحتوي على القيم
+                if (model.Staff == null)
+                {
+                    TempData["ErrorSave"] = "بيانات الفئة غير صحيحة.";
+                    return RedirectToAction("AddEditStaff");
+                }
                 // نسخ القيم من النموذج إلى الكائن slider
-                slider.IdCompanyInformation = model.CompanyInformation.IdCompanyInformation;
-                slider.Photo = model.CompanyInformation.Photo;
-                slider.NameCompanyAr = model.CompanyInformation.NameCompanyAr;
-                slider.NameCompanyEn = model.CompanyInformation.NameCompanyEn;
-                slider.Mobile = model.CompanyInformation.Mobile;
-                slider.NameOner = model.CompanyInformation.NameOner;
-                slider.PhoneOner = model.CompanyInformation.PhoneOner;
-                slider.EmailOner = model.CompanyInformation.EmailOner;
-                slider.EmailCompany = model.CompanyInformation.EmailCompany;
-                slider.ShortDescriptionAr = model.CompanyInformation.ShortDescriptionAr;
-                slider.ShortDescriptionEn = model.CompanyInformation.ShortDescriptionEn;
-                slider.DescriptionEn = model.CompanyInformation.DescriptionEn;
-                slider.DescriptionAr = model.CompanyInformation.DescriptionAr;
-                slider.AddressAr = model.CompanyInformation.AddressAr;
-                slider.AddressEn = model.CompanyInformation.AddressEn;
-                slider.FaceBoock = model.CompanyInformation.FaceBoock;
-                slider.Instagram = model.CompanyInformation.Instagram;
-                slider.YouTube = model.CompanyInformation.YouTube;
-                slider.Mabs = model.CompanyInformation.Mabs;
-                slider.DateTimeEntry = model.CompanyInformation.DateTimeEntry;
-                slider.DataEntry = model.CompanyInformation.DataEntry;
-                slider.CurrentState = model.CompanyInformation.CurrentState;
+                slider.IdStaff = model.Staff.IdStaff;
+                slider.EmployeeFullname = model.Staff.EmployeeFullname;
+                slider.EmployeePhone = model.Staff.EmployeePhone;
+                slider.EmployeeEmail = model.Staff.EmployeeEmail;
+                slider.AccountNumber = model.Staff.AccountNumber;
+                slider.JobTitle = model.Staff.JobTitle;
+                slider.EmployeeAddress = model.Staff.EmployeeAddress;
+                slider.DateTimeEntry = model.Staff.DateTimeEntry;
+                slider.DataEntry = model.Staff.DataEntry;
+                slider.CurrentState = model.Staff.CurrentState;
+                slider.Active = model.Staff.Active;
+                slider.Photo = model.Staff.Photo;
                 var file = HttpContext.Request.Form.Files;
-                if (slider.IdCompanyInformation == 0 || slider.IdCompanyInformation == null)
+                if (slider.IdStaff == 0 || slider.IdStaff == null)
                 {
                     if (file.Count() > 0)
                     {
@@ -104,31 +99,31 @@ namespace Task_management.Areas.Admin.Controllers
                     }
 
                     // تحقق من تكرار اسم الفئة
-                    if (dbcontext.TBCompanyInformations.Where(a => a.NameCompanyEn == slider.NameCompanyEn).ToList().Count > 0)
+                    if (dbcontext.TBStaffs.Where(a => a.EmployeeFullname == slider.EmployeeFullname).ToList().Count > 0)
                     {
-                        TempData["NameCompanyEn"] = ResourceWeb.VLCompanyInformationsEnDoplceted;
-                        return RedirectToAction("MYCompanyInformation");
+                        TempData["EmployeeFullname"] = ResourceWeb.VLEmployeeFullnameDoplceted;
+                        return RedirectToAction("MYStaff");
                     }
 
-                    if (dbcontext.TBCompanyInformations.Where(a => a.NameCompanyEn == slider.NameCompanyEn).ToList().Count > 0)
+                    if (dbcontext.TBStaffs.Where(a => a.EmployeePhone == slider.EmployeePhone).ToList().Count > 0)
                     {
-                        TempData["NameCompanyAr"] = ResourceWeb.VLCompanyInformationsArDoplceted;
-                        return RedirectToAction("MYCompanyInformation");
+                        TempData["EmployeePhone"] = ResourceWeb.VLEmployeePhoneDoplceted;
+                        return RedirectToAction("MYStaff");
                     }
 
                     // حفظ البيانات
-                    var reqwest = iCompanyInformation.saveData(slider);
+                    var reqwest = iStaff.saveData(slider);
                     if (reqwest)
                     {
                         TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-                        return RedirectToAction("MYCompanyInformation");
+                        return RedirectToAction("MYStaff");
                     }
                     else
                     {
                         var PhotoNAme = slider.Photo;
-                        var delet = iCompanyInformation.DELETPHOTOWethError(PhotoNAme);
+                        var delet = iStaff.DELETPHOTOWethError(PhotoNAme);
                         TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                        return RedirectToAction("AddEditCompanyInformation");
+                        return RedirectToAction("AddEditStaff");
                     }
                 }
                 else
@@ -136,17 +131,17 @@ namespace Task_management.Areas.Admin.Controllers
                     // تحديث البيانات
                     if (file.Count() == 0)
                     {
-                        slider.Photo = model.CompanyInformation.Photo;
-                        var reqestUpdate2 = iCompanyInformation.UpdateData(slider);
+                        slider.Photo = model.Staff.Photo;
+                        var reqestUpdate2 = iStaff.UpdateData(slider);
                         if (reqestUpdate2)
                         {
                             TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-                            return RedirectToAction("MYCompanyInformation");
+                            return RedirectToAction("MYStaff");
                         }
                         else
                         {
                             TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-                            return RedirectToAction("AddEditCompanyInformation", model);
+                            return RedirectToAction("AddEditStaff", model);
                         }
                     }
                     else
@@ -158,19 +153,19 @@ namespace Task_management.Areas.Admin.Controllers
                         fileStream.Close();
 
                         // حذف الصورة القديمة إذا لزم الأمر
-                        var reqweistDeletPoto = iCompanyInformation.DELETPHOTO(slider.IdCompanyInformation);
-                        var reqestUpdate2 = iCompanyInformation.UpdateData(slider);
+                        var reqweistDeletPoto = iStaff.DELETPHOTO(slider.IdStaff);
+                        var reqestUpdate2 = iStaff.UpdateData(slider);
                         if (reqestUpdate2)
                         {
                             TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-                            return RedirectToAction("MYCompanyInformation");
+                            return RedirectToAction("MYStaff");
                         }
                         else
                         {
                             var PhotoNAme = slider.Photo;
-                            var delet = iCompanyInformation.DELETPHOTOWethError(PhotoNAme);
+                            var delet = iStaff.DELETPHOTOWethError(PhotoNAme);
                             TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-                            return RedirectToAction("MYCompanyInformation");
+                            return RedirectToAction("MYStaff");
                         }
                     }
                 }
@@ -178,23 +173,72 @@ namespace Task_management.Areas.Admin.Controllers
             catch (Exception)
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                return RedirectToAction("AddEditCompanyInformation", model);
+                return RedirectToAction("AddEditStaff", model);
             }
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteData(int IdCompanyInformation)
+        public IActionResult DeleteData(int IdStaff)
         {
-            var reqwistDelete = iCompanyInformation.deleteData(IdCompanyInformation);
+            var reqwistDelete = iStaff.deleteData(IdStaff);
             if (reqwistDelete == true)
             {
                 TempData["Saved successfully"] = ResourceWeb.VLdELETESuccessfully;
-                return RedirectToAction("MYCompanyInformation");
+                return RedirectToAction("MYStaff");
             }
             else
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorDeleteData;
-                return RedirectToAction("MYCompanyInformation");
+                return RedirectToAction("MYStaff");
             }
         }
+
+        [HttpGet]
+
+        public IActionResult GetNumberAccount(int idLevelThreeAccount)
+        {
+            // استرجاع حساب المستوى الثالث باستخدام idLevelThreeAccount
+            var levelThreeAccount = dbcontext.TBLevelThreeAccounts
+                .FirstOrDefault(x => x.IdLevelThreeAccount == idLevelThreeAccount);
+
+            if (levelThreeAccount != null)
+            {
+                // البحث عن الحسابات في المستوى الرابع
+                var levelFourAccounts = dbcontext.TBLevelForeAccounts
+                    .Where(x => x.IdLevelThreeAccount == levelThreeAccount.IdLevelThreeAccount)
+                    .OrderByDescending(x => x.AccountNumberlivl)
+                    .ToList();
+
+                string newAccountNumber;
+
+                if (levelFourAccounts.Any())
+                {
+                    // إذا وجدنا حسابات في المستوى الرابع، نأخذ أكبر رقم حساب ونضيف عليه 1
+                    long highestAccountNumber = levelFourAccounts.First().AccountNumberlivl;
+                    long newAccountNum = highestAccountNumber + 1;
+                    newAccountNumber = newAccountNum.ToString("D4");  // تنسيق الرقم ليكون 4 أرقام
+                }
+                else
+                {
+                    // إذا لم نجد حسابات في المستوى الرابع، نقوم بإضافة "0001" إلى رقم حساب المستوى الثالث
+                    newAccountNumber = levelThreeAccount.NumberAccount + "0001";
+                }
+
+                // إرسال رقم الحساب الجديد إلى النموذج (Model) لكي يظهر في الـ View
+                //ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+                //var supplier =  vmodel.supplier();
+                //{
+                //    NumberAccount = newAccountNumber
+                //};
+
+                // يمكنك تعديل الـ Model إذا كنت تستخدم `ViewModel`
+                return Json(new { success = true, numberAccount = newAccountNumber });
+            }
+
+            return Json(new { success = false, message = "حساب المستوى الثالث غير موجود." });
+        }
+
+
+
     }
 }

@@ -88,6 +88,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رقم الحساب.
+        /// </summary>
+        internal static string lbAccountNumber {
+            get {
+                return ResourceManager.GetString("lbAccountNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حالة الفئة.
         /// </summary>
         internal static string LbActive {
@@ -300,6 +309,15 @@ namespace Task_management.Resource {
         internal static string LBAddEditRequestsTask {
             get {
                 return ResourceManager.GetString("LBAddEditRequestsTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل الموظفين .
+        /// </summary>
+        internal static string LBAddEditStaff {
+            get {
+                return ResourceManager.GetString("LBAddEditStaff", resourceCulture);
             }
         }
         
@@ -1249,6 +1267,42 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عنوان الموظف.
+        /// </summary>
+        internal static string lbEmployeeAddress {
+            get {
+                return ResourceManager.GetString("lbEmployeeAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إميل الموظف .
+        /// </summary>
+        internal static string lbEmployeeEmail {
+            get {
+                return ResourceManager.GetString("lbEmployeeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الموظف.
+        /// </summary>
+        internal static string lbEmployeeFullname {
+            get {
+                return ResourceManager.GetString("lbEmployeeFullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هاتف الموظف.
+        /// </summary>
+        internal static string lbEmployeePhone {
+            get {
+                return ResourceManager.GetString("lbEmployeePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endt Date.
         /// </summary>
         internal static string LbEndtDate {
@@ -1578,6 +1632,15 @@ namespace Task_management.Resource {
         internal static string lbItemName {
             get {
                 return ResourceManager.GetString("lbItemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المسمى الوظيفي.
+        /// </summary>
+        internal static string lbJobTitle {
+            get {
+                return ResourceManager.GetString("lbJobTitle", resourceCulture);
             }
         }
         
@@ -2145,6 +2208,15 @@ namespace Task_management.Resource {
         internal static string LBMyShippingPrice {
             get {
                 return ResourceManager.GetString("LBMyShippingPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الموظفين.
+        /// </summary>
+        internal static string LBMYStaff {
+            get {
+                return ResourceManager.GetString("LBMYStaff", resourceCulture);
             }
         }
         
@@ -3882,6 +3954,24 @@ namespace Task_management.Resource {
         internal static string VLEmailOreUserOrPaswo {
             get {
                 return ResourceManager.GetString("VLEmailOreUserOrPaswo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال اسم الموظف مسبقا يرجى التأكد وإعادة المحاولة لاحقا ..!.
+        /// </summary>
+        internal static string VLEmployeeFullnameDoplceted {
+            get {
+                return ResourceManager.GetString("VLEmployeeFullnameDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم إدخال رقم الهاتف مسبقا يرجى التأكد وإعادة المحاولة لا حقا ...!.
+        /// </summary>
+        internal static string VLEmployeePhoneDoplceted {
+            get {
+                return ResourceManager.GetString("VLEmployeePhoneDoplceted", resourceCulture);
             }
         }
         
