@@ -9,21 +9,26 @@ namespace Task_management.Areas.Admin.Controllers
         MasterDbcontext dbcontext;
         IIAccountingRestriction iAccountingRestriction;
         IICompanyInformation iCompanyInformation;
-        public AccountingRestrictionController(MasterDbcontext dbcontext1,IIAccountingRestriction iAccountingRestriction1,IICompanyInformation iCompanyInformation1)
+        IILevelForeAccount iLevelForeAccount;
+        public AccountingRestrictionController(MasterDbcontext dbcontext1,IIAccountingRestriction iAccountingRestriction1,IICompanyInformation iCompanyInformation1,IILevelForeAccount iLevelForeAccount1)
         {
             dbcontext=dbcontext1;
             iAccountingRestriction =iAccountingRestriction1;
             iCompanyInformation = iCompanyInformation1;
+            iLevelForeAccount = iLevelForeAccount1;
         }
         public IActionResult MyAccountingRestriction()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
+            ViewBag.LevelForeAccount = iLevelForeAccount.GetAll();
             var numberinvose = vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
             ViewBag.nomberMax = numberinvose.Any()
         ? numberinvose.Max(c => c.NumberaccountingRestrictions) + 1
         : 1;
+
+           
             return View(vmodel);
         }
         public IActionResult AddAccountingRestriction(int? IdaccountingRestrictions)
@@ -31,6 +36,7 @@ namespace Task_management.Areas.Admin.Controllers
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
+            ViewBag.LevelForeAccount = iLevelForeAccount.GetAll();
             if (IdaccountingRestrictions != null)
             {
                 vmodel.AccountingRestriction = iAccountingRestriction.GetById(Convert.ToInt32(IdaccountingRestrictions));

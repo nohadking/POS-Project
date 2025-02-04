@@ -612,4 +612,22 @@
   <data name="VlAccountName" xml:space="preserve">
     <value>يرجى إدراج اسم الحساب الرئيسي لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlEmployeeFullname" xml:space="preserve">
+    <value>يرجى أدراج اسم الموظف كاملا لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmployeePhone" xml:space="preserve">
+    <value>يرجى إدراج رقم الهاتف الخاص بالموظف لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlEmployeeEmail" xml:space="preserve">
+    <value>يرجى إدراج البريد الاكتروني الخاص بالموظف لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlAccountNumber" xml:space="preserve">
+    <value>يرجى ادراج رقم الحساب  الخاص بالموظف  لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlJobTitle" xml:space="preserve">
+    <value>يرجى إدراج المسمى الوظيفي الخاص بالموظف لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmployeeAddress" xml:space="preserve">
+    <value>يرجى إدراج عنوان  الخاص بالموظف لتتم العملية بنجاح ...!</value>
+  </data>
 </root>

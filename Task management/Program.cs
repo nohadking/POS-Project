@@ -140,6 +140,7 @@ builder.Services.AddScoped<IIMainAccount, CLSTBMainAccount>();
 builder.Services.AddScoped<IILevelTwoAccount, CLSTBLevelTwoAccount>();
 builder.Services.AddScoped<IIBLevelThreeAccount, CLSTBLevelThreeAccount>();
 builder.Services.AddScoped<IILevelForeAccount, CLSTBLevelForeAccount>();
+builder.Services.AddScoped<IIStaff, CLSTBStaff>();
 
 
 // تفعيل الترخيص لـ QuestPDF

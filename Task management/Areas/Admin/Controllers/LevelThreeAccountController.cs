@@ -150,6 +150,24 @@ namespace Task_management.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public JsonResult GetNextAccountNumber(int levelTwoAccountId)
+        {
+            // البحث عن أكبر رقم حساب تابع للحساب المستوى الثاني
+            var maxAccount = dbcontext.TBLevelThreeAccounts
+                                      .Where(a => a.IdLevelTwoAccount == levelTwoAccountId)
+                                      .OrderByDescending(a => a.NumberAccount)
+                                      .FirstOrDefault();
+
+            if (maxAccount != null)
+            {
+                return Json(new { maxAccountNumber = maxAccount.NumberAccount });
+            }
+            else
+            {
+                return Json(new { maxAccountNumber = "" });
+            }
+        }
 
         [HttpGet]
         public JsonResult GetLevelTwoAccounts(int mainAccountId)

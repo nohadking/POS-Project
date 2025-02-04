@@ -213,7 +213,7 @@
                                 <label asp-for="@Model.LevelTwoAccount.IdMainAccount">الحساب الرئيسي</label>
                                 <select id="mainAccountSelect" class="form-select" asp-for="@Model.LevelTwoAccount.IdMainAccount"
                                         asp-items="@(new SelectList(ViewBag.minAccount, "IdMainAccount", "AccountName"))">
-                                        <option value="">اختر حساب</option>
+                                    <option value="">اختر حساب</option>
                                 </select>
                                 <span asp-validation-for="@Model.LevelTwoAccount.IdMainAccount" class="text-danger"></span>
                             </div>
@@ -225,6 +225,7 @@
                                 <span asp-validation-for="@Model.LevelTwoAccount.NumberAccount" class="text-danger"></span>
                                 <span style="color:red"><strong>@TempData["NumberAccount"]</strong></span>
                             </div>
+
                             <div class="mb-3">
                                 <label class="form-label" asp-for="@Model.LevelTwoAccount.AccountName">@ResourceWeb.lbAccountName</label>
                                 <input type="text" class="form-control" asp-for="@Model.LevelTwoAccount.AccountName">
@@ -273,28 +274,40 @@
   
     <script>
         $(document).ready(function () {
-            $("#mainAccountSelect").change(function () {
-                var selectedAccountId = $(this).val(); // الحصول على الـ ID الخاص بالحساب المختار
-                var additionalNumber = "00"; // الرقم الثابت
-                var maxNumber = "@ViewBag.nomberMax"; // تأكد أنها نص
-                maxNumber = parseInt(maxNumber) || 0;
+            // عند تغيير اختيار الحساب الرئيسي
+            $('#mainAccountSelect').change(function () {
+                var mainAccountId = $(this).val();
 
-                if (selectedAccountId) {
+                if (mainAccountId) {
+                    // إرسال طلب Ajax لجلب أكبر رقم حساب تابع لهذا الحساب الرئيسي
                     $.ajax({
-                        url: '/Admin/LevelTwoAccount/GetAccountNumber', // استبدل "YourController" باسم الكنترولر الفعلي
+                        url: '@Url.Action("GetNextLevelTwoAccountNumber", "LevelTwoAccount")', // رابط الأكشن في السيرفر
                         type: 'GET',
-                        data: { mainAccountId: selectedAccountId },
+                        data: { mainAccountId: mainAccountId },
                         success: function (response) {
-                            if (response) {
-                                $("#numberAccount").val(response + additionalNumber + maxNumber);
+                            var newAccountNumber;
+
+                            if (response && response.maxAccountNumber) {
+                                // إذا وجدنا حسابات تابعة، نضيف 1 على الرقم الأكبر
+                                var maxAccountNumber = response.maxAccountNumber;
+                                var newAccountNum = parseInt(maxAccountNumber) + 1;
+                                newAccountNumber = newAccountNum.toString().padStart(3, '0');
                             } else {
-                                $("#numberAccount").val(""); // تفريغ الحقل إذا لم يتم العثور على رقم الحساب
+                                // إذا لم تكن هناك حسابات تابعة، نضيف "001"
+                                newAccountNumber = '001';
                             }
+
+                            // تعيين الرقم الجديد في حقل رقم الحساب
+                            $('#numberAccount').val(newAccountNumber);
+                        },
+                        error: function () {
+                            alert('حدث خطأ في جلب البيانات');
                         }
                     });
                 }
             });
         });
+
     </script>
 }
 

@@ -358,6 +358,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى ادراج رقم الحساب  الخاص بالموظف  لتتم العملية بنجاح ....!.
+        /// </summary>
+        internal static string VlAccountNumber {
+            get {
+                return ResourceManager.GetString("VlAccountNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدراج منشأ المهمة لتتم العملية بنجاح ...!.
         /// </summary>
         internal static string VlAddedBy {
@@ -682,6 +691,42 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج عنوان  الخاص بالموظف لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlEmployeeAddress {
+            get {
+                return ResourceManager.GetString("VlEmployeeAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج البريد الاكتروني الخاص بالموظف لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlEmployeeEmail {
+            get {
+                return ResourceManager.GetString("VlEmployeeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج اسم الموظف كاملا لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlEmployeeFullname {
+            get {
+                return ResourceManager.GetString("VlEmployeeFullname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج رقم الهاتف الخاص بالموظف لتتم العملية بنجاح ....!.
+        /// </summary>
+        internal static string VlEmployeePhone {
+            get {
+                return ResourceManager.GetString("VlEmployeePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى إدراج فئة المصروفات لتتم العملية بنجاح ...!.
         /// </summary>
         internal static string VlExpenseCategory {
@@ -759,6 +804,15 @@ namespace Domin.Resource {
         internal static string VlItemName {
             get {
                 return ResourceManager.GetString("VlItemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج المسمى الوظيفي الخاص بالموظف لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlJobTitle {
+            get {
+                return ResourceManager.GetString("VlJobTitle", resourceCulture);
             }
         }
         

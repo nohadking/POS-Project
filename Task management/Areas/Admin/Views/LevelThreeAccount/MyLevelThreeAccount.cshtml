@@ -290,29 +290,29 @@
 
 
     <script>
-        $(document).ready(function () {
-            $("#mainAccountSelect").change(function () {
-                var selectedAccountId = $(this).val(); // الحصول على الـ ID الخاص بالحساب المختار
-                var additionalNumber = "00"; // الرقم الثابت
-                var maxNumber = "@ViewBag.nomberMax"; // تأكد أنها نص
-                maxNumber = parseInt(maxNumber) || 0;
+        // $(document).ready(function () {
+        //     $("#mainAccountSelect").change(function () {
+        //         var selectedAccountId = $(this).val(); // الحصول على الـ ID الخاص بالحساب المختار
+        //         var additionalNumber = "00"; // الرقم الثابت
+        //         var maxNumber = "@ViewBag.nomberMax"; // تأكد أنها نص
+        //         maxNumber = parseInt(maxNumber) || 0;
 
-                if (selectedAccountId) {
-                    $.ajax({
-                        url: '/Admin/LevelThreeAccount/GetAccountNumber', // استبدل "YourController" باسم الكنترولر الفعلي
-                        type: 'GET',
-                        data: { mainAccountId: selectedAccountId },
-                        success: function (response) {
-                            if (response) {
-                                $("#numberAccount").val(response + additionalNumber + maxNumber);
-                            } else {
-                                $("#numberAccount").val(""); // تفريغ الحقل إذا لم يتم العثور على رقم الحساب
-                            }
-                        }
-                    });
-                }
-            });
-        });
+        //         if (selectedAccountId) {
+        //             $.ajax({
+        //                 url: '/Admin/LevelThreeAccount/GetAccountNumber', // استبدل "YourController" باسم الكنترولر الفعلي
+        //                 type: 'GET',
+        //                 data: { mainAccountId: selectedAccountId },
+        //                 success: function (response) {
+        //                     if (response) {
+        //                         $("#numberAccount").val(response + additionalNumber + maxNumber);
+        //                     } else {
+        //                         $("#numberAccount").val(""); // تفريغ الحقل إذا لم يتم العثور على رقم الحساب
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
 
 
 
@@ -339,6 +339,44 @@
                     }
                 });
             });
+
+
+
+
+        $(document).ready(function () {
+            // عندما يتغير اختيار حساب المستوى الثاني
+            $('#levelTwoAccountSelect').change(function () {
+                var levelTwoAccountId = $(this).val();
+
+                if (levelTwoAccountId) {
+                    // إرسال طلب Ajax لجلب رقم الحساب الأعلى في جدول المستوى الثالث
+                    $.ajax({
+                        url: '@Url.Action("GetNextAccountNumber", "LevelThreeAccount")', // رابط السيرفر الذي سيقوم بإرجاع الرقم التالي
+                        type: 'GET',
+                        data: { levelTwoAccountId: levelTwoAccountId },
+                        success: function (response) {
+                            var newAccountNumber;
+
+                            if (response && response.maxAccountNumber) {
+                                // إذا وجدنا رقم حساب تابع، نضيف 1 عليه
+                                var maxAccountNumber = response.maxAccountNumber;
+                                var newAccountNum = parseInt(maxAccountNumber) + 1;
+                                newAccountNumber = newAccountNum.toString().padStart(3, '0');
+                            } else {
+                                // إذا لم يكن هناك حسابات تابعة، نضيف "001"
+                                newAccountNumber = '001';
+                            }
+
+                            // تعيين الرقم الجديد في حقل رقم الحساب
+                            $('#numberAccount').val(newAccountNumber);
+                        },
+                        error: function () {
+                            alert('حدث خطأ في جلب البيانات');
+                        }
+                    });
+                }
+            });
+        });
     </script>
 
 
