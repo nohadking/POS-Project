@@ -474,7 +474,7 @@
                         <div class="page-title">
                             <h4>Edit Purchase</h4>
                         </div>
-                        <button onclick="ClearValues()" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <button onclick="ClearValuesForEdit()" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -1849,6 +1849,7 @@
             $('#lastPurchasePrice').val(0);
             $('#TBLToAddPurcheas').empty();
         }
+
 
         function ClearValuesForEdit() {
             console.log("ClearValuesForEdit");
