@@ -12,6 +12,7 @@ namespace Domin.Entity
         [Key]
         public int IdExpense { get; set; }
         public int IdExpenseCategory { get; set; }
+        public int IdLevelForeAccount { get; set; }
         public int BondNumber { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlStatement")]
         [MaxLength(500, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength500")]

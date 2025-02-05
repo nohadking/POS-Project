@@ -10,11 +10,13 @@ namespace Task_management.Areas.Admin.Controllers
         IIExpense iExpense;
         IICompanyInformation iCompanyInformation;
         IIExpenseCategory iExpenseCategory;
-        public ExpenseController(IIExpense iExpense1,IICompanyInformation  iCompanyInformation1,IIExpenseCategory iExpenseCategory1)
+        IILevelForeAccount iLevelForeAccount ;
+        public ExpenseController(IIExpense iExpense1,IICompanyInformation  iCompanyInformation1,IIExpenseCategory iExpenseCategory1,IILevelForeAccount iLevelForeAccount1)
         {
             iExpense=iExpense1;
             iCompanyInformation=iCompanyInformation1;
             iExpenseCategory =iExpenseCategory1;
+            iLevelForeAccount =iLevelForeAccount1;
 
         }
         public IActionResult MyExpense()
@@ -23,6 +25,12 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListViewExpense = iExpense.GetAll();
           ViewBag.ExpenseCategory= vmodel.ListExpenseCategory = iExpenseCategory.GetAll();
+          ViewBag.LevelForeAccount = vmodel.ListViewLevelForeAccount = iLevelForeAccount.GetAll();
+
+
+
+
+
             var numberinvose = vmodel.ListViewExpense = iExpense.GetAll();
             ViewBag.nomberMax = numberinvose.Any()
         ? numberinvose.Max(c => c.BondNumber) + 1
@@ -60,6 +68,7 @@ namespace Task_management.Areas.Admin.Controllers
             {
                 slider.IdExpense = model.Expense.IdExpense;
                 slider.IdExpenseCategory = model.Expense.IdExpenseCategory;
+                slider.IdLevelForeAccount = model.Expense.IdLevelForeAccount;
                 slider.BondNumber = model.Expense.BondNumber;
                 slider.Statement = model.Expense.Statement;
                 slider.Amount = model.Expense.Amount;
@@ -67,8 +76,7 @@ namespace Task_management.Areas.Admin.Controllers
                 slider.DataEntry = model.Expense.DataEntry;
                 slider.CurrentState = model.Expense.CurrentState;           
                 if (slider.IdExpense == 0 || slider.IdExpense == null)
-                {
-                           
+                {                     
                     var reqwest = iExpense.saveData(slider);
                     if (reqwest == true)
                     {

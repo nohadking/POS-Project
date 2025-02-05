@@ -116,6 +116,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>@ResourceWeb.lbAccountName</th>
                                 <th>@ResourceWeb.lbExpenseCategory</th>
                                 <th>@ResourceWeb.lbBondNumber</th>
                                 <th>@ResourceWeb.LbAmount</th>
@@ -137,6 +138,7 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
+                                    <td>@item.AccountName</td>
                                     <td>@item.ExpenseCategory</td>
                                     <td>@item.BondNumber</td>
                                     <td>@item.Amount</td>
@@ -202,14 +204,22 @@
                                 <span asp-validation-for="@Model.Expense.BondNumber" class="text-danger"></span>
                             </div>
 
-                            <div class="mb-3">
+                                
+                                <div class="mb-3">
+                                    <label asp-for="@Model.Expense.IdExpenseCategory" for="exampleInputEmail1">تابع لحساب</label>
+                                <select class="form-select" asp-for="@Model.Expense.IdLevelForeAccount" asp-items="@(new SelectList(ViewBag.LevelForeAccount, "IdLevelForeAccount", "LevelForeAccountsName"))">
+                                    </select>
+                                <span asp-validation-for="@Model.Expense.IdLevelForeAccount" class="text-danger"></span>
+                                </div>
+                            
+
                                 <div class="mb-3">
                                     <label asp-for="@Model.Expense.IdExpenseCategory" for="exampleInputEmail1">فئة المصاريف</label>
                                     <select class="form-select" asp-for="@Model.Expense.IdExpenseCategory" asp-items="@(new SelectList(ViewBag.ExpenseCategory, "IdExpenseCategory", "ExpenseCategory"))">
                                     </select>
                                     <span asp-validation-for="@Model.Expense.IdExpenseCategory" class="text-danger"></span>
                                 </div>
-                            </div>
+                           
                        
                             <div class="mb-3">
                                 <label class="form-label" asp-for="@Model.Expense.Amount">@ResourceWeb.LbAmount</label>

@@ -11,6 +11,8 @@ namespace Domin.Entity
     {
         public int IdExpense { get; set; }
         public int IdExpenseCategory { get; set; }
+        public int IdLevelForeAccount { get; set; }
+        public string AccountName { get; set; }
         public string ExpenseCategory { get; set; }
         public int BondNumber { get; set; }
         public string Statement { get; set; }

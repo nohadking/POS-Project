@@ -69,8 +69,11 @@ namespace Infarstuructre.BL
                ? dbcontext.TBAccountingRestrictions.Max(c => c.NumberaccountingRestrictions) + 1
                : 1;
                 var expnsevcatrg = dbcontext.TBExpenseCategorys.FirstOrDefault(a => a.IdExpenseCategory == savee.IdExpenseCategory);
+                var LavelFore = dbcontext.TBLevelForeAccounts.FirstOrDefault(a => a.IdLevelForeAccount == savee.IdLevelForeAccount);
+
+
                 saveaccount.NumberaccountingRestrictions = max;
-                saveaccount.AccountingName = expnsevcatrg.ExpenseCategory;
+                saveaccount.AccountingName = LavelFore.AccountName;
                 saveaccount.BondType = "سند صرف";
                 saveaccount.BondNumber = savee.BondNumber;
                 saveaccount.Debtor = savee.Amount;
@@ -100,9 +103,10 @@ namespace Infarstuructre.BL
             {
              
                 var expnsevcatrg = dbcontext.TBExpenseCategorys.FirstOrDefault(a => a.IdExpenseCategory == updatss.IdExpenseCategory);
+                var LavelFore = dbcontext.TBLevelForeAccounts.FirstOrDefault(a => a.IdLevelForeAccount == updatss.IdLevelForeAccount);
                 var update = dbcontext.TBAccountingRestrictions.FirstOrDefault(a => a.AccountingName == expnsevcatrg.ExpenseCategory && a.BondNumber == updatss.BondNumber);
 
-                update.AccountingName = expnsevcatrg.ExpenseCategory;
+                update.AccountingName = LavelFore.AccountName;
                 update.BondType = "سند صرف";
                 update.BondNumber = updatss.BondNumber;
                 update.Debtor = updatss.Amount;
