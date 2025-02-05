@@ -27,7 +27,7 @@ namespace Task_management.Areas.Admin.Controllers
           ViewBag.ExpenseCategory= vmodel.ListExpenseCategory = iExpenseCategory.GetAll();
           ViewBag.LevelForeAccount = vmodel.ListViewLevelForeAccount = iLevelForeAccount.GetAll();
 
-
+            ViewBag.Expense = vmodel.ListViewExpense = iExpense.GetAll().GroupBy(i => i.AccountName).Select(g => g.First()).ToList();
 
 
 
@@ -43,6 +43,8 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListViewExpense = iExpense.GetAll();
             var numberinvose = vmodel.ListViewExpense = iExpense.GetAll();
+            ViewBag.Expense = vmodel.ListViewExpense = iExpense.GetAll().GroupBy(i => i.AccountName).Select(g => g.First()).ToList();
+
             ViewBag.nomberMax = numberinvose.Any()
 
         ? numberinvose.Max(c => c.BondNumber) + 1
