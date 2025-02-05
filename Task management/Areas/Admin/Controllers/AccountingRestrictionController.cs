@@ -23,6 +23,14 @@ namespace Task_management.Areas.Admin.Controllers
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
             ViewBag.LevelForeAccount = iLevelForeAccount.GetAll();
+            ViewBag.AccountingRestriction = vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll().GroupBy(i => i.AccountingName).Select(g => g.First()).ToList();
+
+
+
+
+
+
+
             var numberinvose = vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
             ViewBag.nomberMax = numberinvose.Any()
         ? numberinvose.Max(c => c.NumberaccountingRestrictions) + 1
