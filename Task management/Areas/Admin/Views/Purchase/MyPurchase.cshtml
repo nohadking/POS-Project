@@ -474,7 +474,7 @@
                         <div class="page-title">
                             <h4>Edit Purchase</h4>
                         </div>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <button onclick="ClearValues()" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -904,13 +904,10 @@
             var productId = $('#productSelectEdit').find("option:selected").val();
             var productImg = $('#productSelectEdit').find("option:selected").data("additional");
 
-            console.log("productId: " + productId);
-            console.log("productName: " + productName);
-            console.log("productImg: " + productImg);
-
             var tbl = $('#TBLToAddPurcheasEdit');
             var unitData = @Html.Raw(Json.Serialize(ViewBag.Unit));
             let options = unitData.map(unit => `<option value="${unit.idUnit}">${unit.unit}</option>`).join('');
+
 
             const row = `
                                 <tr>
@@ -924,7 +921,7 @@
                                                 <line x1="8" y1="12" x2="16" y2="12"></line>
                                             </svg>
                                         </span>
-                                        <input type="text" class="quntity-input quaitity" value="0">
+                                                <input type="text" class="quntity-input quaitityEdit" value="0">
                                         <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
                                                 <circle cx="12" cy="12" r="10"></circle>
@@ -934,7 +931,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                <select style="width: 50px;" class="idUnitt form-control">
+                                        <select style="width: 50px;" class="idUnittForEdit form-control">
                                     <option>اختر</option>
                                             ${options}
                                         </select>
@@ -948,7 +945,7 @@
                                                 <line x1="8" y1="12" x2="16" y2="12"></line>
                                             </svg>
                                         </span>
-                                        <input type="text" class="quntity-input freeQuaitity" value="0">
+                                                <input type="text" class="quntity-input freeQuaitityEdit" value="0">
                                         <span onclick="ChangeQTY(-1, this)" class="quantity-btn">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
                                                 <circle cx="12" cy="12" r="10"></circle>
@@ -957,16 +954,17 @@
                                         </span>
                                     </div>
                                 </td>
-                                    <td><input style="width: 100px;" class="form-control price" type="number" /></td>
-                                    <td><input style="width: 100px;" class="form-control discount" type="number" /></td>
-                                    <td><input style="width: 100px;" class="form-control tax" type="number" /></td>
-                                    <td style="width: 100px;" class="totalQty"></td>
-                                    <td style="width: 100px;" class="totalPrc"></td>
+                                            <td><input style="width: 100px;" class="form-control priceEdit" type="number" /></td>
+                                            <td><input style="width: 100px;" class="form-control discountEdit" type="number" /></td>
+                                            <td><input style="width: 100px;" class="form-control taxEdit" type="number" /></td>
+                                            <td style="width: 100px;" class="totalQtyEdit"></td>
+                                            <td style="width: 100px;" class="totalPrcEdit"></td>
                                  <td><a class="confirm-text p-2" onclick="deleteRow(this)"><i data-feather="trash-2" class="feather-trash-2"></i></a></td>
                                 </tr>
                             `;
 
-            tbl.append(row);
+            tbl.append(row).trigger('change');
+
         }
 
         // function SavePurcheasInDB() {
@@ -1332,16 +1330,11 @@
         }
 
 
+
+        // عند الضغط على زر التعديل
     
         function EditPurcheasData(PurcheasNu) {
-            console.log("idPurcheas: " + PurcheasNu);
-
-            var selectedUnitId = 0;
-            var unitDataa = @Html.Raw(Json.Serialize(ViewBag.Unit));
-            let optionss = unitDataa.map(unit => `<option value="${unit.idUnit}" ${unit.idUnit === selectedUnitId ? 'selected' : ''} >${unit.unit}</option>`).join('');
-
             const url = window.origin + `/api/PurcheasApi/GetByPurcheasNu/${PurcheasNu}`;
-
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -1381,14 +1374,19 @@
 
                     let tbl = $('#TBLToAddPurcheasEdit');
 
+                    var selectedUnitId = 0;
+                    var unitDataa = @Html.Raw(Json.Serialize(ViewBag.Unit));
                     if (Array.isArray(data)) {
                         data.forEach((purchase, index) => {
-                            console.log("purchase.idProduct  " + purchase.idProduct);
                             const row = document.createElement('tr');
                             const url1 = window.origin + `/api/ClassCardAPI/GetById/${purchase.idProduct}`;
-
+                            selectedUnitId = 0;
+                            console.log("selectedUnitId before" + selectedUnitId);
                             selectedUnitId = purchase.idUnit;
+                            console.log("selectedUnitId after" + selectedUnitId);
 
+
+                            let optionss = unitDataa.map(unit => `<option value="${unit.idUnit}" ${unit.idUnit == selectedUnitId ? 'selected' : ''} >${unit.unit}</option>`).join('');
 
                             fetch(url1, {
                                 headers: {
@@ -1408,36 +1406,36 @@
                                     let id = data.idClassCard;
 
                                     row.innerHTML = `
-                                                            <td><img src="/Images/Home/${img}" alt="${name}" style="width: 50px; height: 50px;" /> <span class="productName">${name}</span><span hidden class="productIId">${id}</span></td>
-                                                    <td>
-                                                        <div class="product-quantity quantityEDED" style="margin-right:25px;">
-                                                                    <span onclick="ChangeQTYEdit(+1, this)" class="quantity-btn">
-                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                            <input type="text" class="quntity-input quaitityEdit" value="${purchase.quantity}">
-                                                                    <span onclick="ChangeQTYEdit(-1, this)" class="quantity-btn">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </td>
+                                               <td><img src="/Images/Home/${img}" alt="${name}" style="width: 50px; height: 50px;" /> <span class="productName">${name}</span><span hidden class="productIId">${id}</span></td>
+                                               <td>
+                                                <div class="product-quantity quantityEDED" style="margin-right:25px;">
+                                                            <span onclick="ChangeQTYEdit(+1, this)" class="quantity-btn">
+                                                        +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text" class="quntity-input quaitityEdit" value="${purchase.quantity}">
+                                                            <span onclick="ChangeQTYEdit(-1, this)" class="quantity-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle feather-search">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                             </td>
                                                     <td>
                                                        <select style="width: 50px;" class="idUnittForEdit form-control">
                                                             ${optionss}
                                                         </select>
                                                     </td>
                                                     <td>
-                                                                <div class="product-quantity quantityEDED">
-                                                            <span onclick="ChangeQTYEdit(+1, this)" class="quantity-btn">
-                                                                +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                     <div class="product-quantity quantityEDED">
+                                                     <span onclick="ChangeQTYEdit(+1, this)" class="quantity-btn">
+                                                       +<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle plus-circle">
+                                                       <circle cx="12" cy="12" r="10"></circle>
+                                                       <line x1="12" y1="8" x2="12" y2="16"></line>
                                                                     <line x1="8" y1="12" x2="16" y2="12"></line>
                                                                 </svg>
                                                             </span>
@@ -1453,12 +1451,12 @@
                                                             <td><input style="width: 100px;" value="${purchase.purchasePrice}" class="form-control priceEdit" type="number" /></td>
                                                             <td><input style="width: 100px;" value="${purchase.singleDiscount}" class="form-control discountEdit" type="number" /></td>
                                                             <td><input style="width: 100px;" value="${purchase.tax}" class="form-control taxEdit" type="number" /></td>
-                                                    <td style="width: 100px;" class="totalQtyEdit">${purchase.totalQuantity}</td>
+                                                            <td style="width: 100px;" class="totalQtyEdit">${purchase.allQuantity}</td>
                                                             <td style="width: 100px;" class="totalPrcEdit">${purchase.total}</td>
                                                     <td><button onclick="deleteRow(this)">حذف</button></td>
                                                 `;
 
-
+                                                                        
                                     tbl.append(row);
                                 })
                                 .catch(error => {
@@ -1469,12 +1467,10 @@
                         console.log("الـ data ليست مصفوفة من الكائنات أو تحتوي على عناصر غير كائنات");
                     }
 
-
-
                     /////////////////////////////////////////////
                     $('#OrderTotalTaxEdit').val(data[0].idSupplier);
                     $('#OrderTotalDiscountEdit').val(data[0].totalDiscount);
-                    $('#OrderTotalQTYEdit').val(data[0].allQuantity);
+                    $('#OrderTotalQTYEdit').val(data[0].totalQuantity);
                     $('#OrderTotalShippingEdit').val(data[0].shipping);
                     $('#OrderTotalPriceEdit').val(data[0].totalAll);
                     $('#NotesForPurcheasEdit').val(data[0].nouts);
@@ -1491,8 +1487,6 @@
 
 
             function EditPurcheasInDB() {
-
-
 
             var bondNu = $('#PurcheasNuEdit').val();
             var bond = "سند شراء";
@@ -1585,8 +1579,6 @@
                                                  console.log("AccountRestrection: " + data);
                                                  console.log("start add : " );
 
-
-
                                             // إضافة بيانات جديدة
                                             var productId = $('#productSelectEdit').find("option:selected").val();
                                             var supplierId = $('#supplierSelectEdit').find("option:selected").val();
@@ -1613,8 +1605,6 @@
                                             var OrderTotalShipping = $('#OrderTotalShippingEdit').val();
 
                                             let successfulRequests = 0;
-
-
 
                                             $('#TBLToAddPurcheasEdit tr').each(function (index, row) {
                                                 var productIId = $(row).find('.productIId').text();
@@ -1656,7 +1646,7 @@
 
 
 
-                                                console.log("payLoad " + JSON.stringify(payLoad));
+                                                console.log("payLoad pur for new add " + JSON.stringify(payLoad));
 
                                                 fetch(url, {
                                                     method: 'POST',
@@ -1675,6 +1665,9 @@
                                                         console.log('payLoad data added:');
                                                         console.log('Data received:', data);
                                                         successfulRequests++;
+
+                                                        console.log("successful Requests: " + successfulRequests);
+                                                        console.log("TBLToAddPurcheasEdit length: " + ($('#TBLToAddPurcheasEdit tr').length) - 1);
 
                                                         if (successfulRequests === ($('#TBLToAddPurcheasEdit tr').length) - 1) {
                                                             var accountingRest = {
