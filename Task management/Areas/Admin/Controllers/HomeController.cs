@@ -23,8 +23,9 @@ namespace Task_management.Areas.Admin.Controllers
 		IIExpense iExpense;
 		IISupplier iSupplier;
 		IIUserService iUserService;
+		IIStaff iStaff;
 
-		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIPurchase iPurchase1,IIExpense iExpense1,IISupplier iSupplier1, RoleManager<IdentityRole> roleManager, IIUserService iUserService1)
+		public HomeController(UserManager<ApplicationUser> userManager,  MasterDbcontext dbcontext1,  IIUserInformation iUserInformation1, IICompanyInformation iCompanyInformation1,IIInvose iInvose1,IIPurchase iPurchase1,IIExpense iExpense1,IISupplier iSupplier1, RoleManager<IdentityRole> roleManager, IIUserService iUserService1,IIStaff iStaff1)
 		{
 			_userManager = userManager;
 			iUserInformation = iUserInformation1;
@@ -35,6 +36,7 @@ namespace Task_management.Areas.Admin.Controllers
 			iSupplier= iSupplier1;
 			_roleManager = roleManager;
 			iUserService = iUserService1;
+			iStaff = iStaff1;
 		}
 
 		public async Task<IActionResult> Index(string userId)
@@ -163,6 +165,18 @@ namespace Task_management.Areas.Admin.Controllers
 			.ToList();
 
 			ViewBag.onlineuser = onnn;
+			ViewBag.Profit = totalAmount - allPrchaase - totalexchinh;
+
+
+
+
+
+
+			//عدد الموظفين 
+			var staf =  vmodel.ListStaff = iStaff.GetAll();
+			var contstaff= supler.Count();
+			if (contstaff > 0) { ViewBag.contstaff = contstaff; }
+			else { ViewBag.contstaff = 0; };
 			return View(vmodel);
 
 

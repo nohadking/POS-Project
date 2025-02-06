@@ -104,7 +104,7 @@ namespace Task_management.Controllers
 
             return View(vmodel);
         }
-        public IActionResult IndexAr()
+        public IActionResult IndexAr(int? categoryId)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewPhotoHomeSliderContent = iPhotoHomeSliderContent.GetAll();
@@ -113,34 +113,50 @@ namespace Task_management.Controllers
             vmodel.ListAboutSectionStartHomeContent = iAboutSectionStartHomeContent.GetAll().Take(1).ToList();
             vmodel.ListCategoryServic = iCategoryServic.GetAll();
             vmodel.ListBrandProduct = iBrandProduct.GetAll();
-            vmodel.ListViewProduct = iProduct.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
             // جلب كل  المبيعا 
             var total = vmodel.ListViewInvose = iInvose.GetAll();
-			var totalAmount = total.Sum(a => a.total);
-			ViewBag.TotalAmount = totalAmount;
-			//كود جلب الاكثر مبيعا 
-			var topSellingItems = total
-				.GroupBy(item => item.IdProduct)
-				.Select(group => new
-				{
-					ProductId = group.Key,
-					ProductName = group.FirstOrDefault().ProductNameAr,
+            var totalAmount = total.Sum(a => a.total);
+            ViewBag.TotalAmount = totalAmount;
+            //كود جلب الاكثر مبيعا 
+            var topSellingItems = total
+                .GroupBy(item => item.IdProduct)
+                .Select(group => new
+                {
+                    ProductId = group.Key,
+                    ProductName = group.FirstOrDefault().ProductNameAr,
                     ProductNameEn = group.FirstOrDefault().ProductNameEn,
                     TotalSales = group.Sum(item => item.total),
-					SalesCount = group.Sum(item => item.Quantity),
-					ProductImage = group.FirstOrDefault().Photo,
-					Price = group.FirstOrDefault().price
+                    SalesCount = group.Sum(item => item.Quantity),
+                    ProductImage = group.FirstOrDefault().Photo,
+                    Price = group.FirstOrDefault().price
 
-				})
-				.OrderByDescending(item => item.SalesCount)
-				//.Take(10)
-				.ToList();
+                })
+                .OrderByDescending(item => item.SalesCount)
+                //.Take(10)
+                .ToList();
 
-			ViewBag.TopSellingItems = topSellingItems;
-
+            ViewBag.TopSellingItems = topSellingItems;
             vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
             vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
             ViewBag.Category = vmodel.ListCategory = iCategory.GetAll();
+            vmodel.ListViewProduct = iProduct.GetAll();
+            if (categoryId.HasValue)
+            {
+                // جلب المنتجات بناءً على الـ categoryId
+                var getprod = vmodel.ListViewProduct = iProduct.GetAllv(categoryId.Value);
+
+                // إرسال البيانات إلى ViewBag
+                ViewBag.Products = getprod;
+            }
+            else
+            {
+                // جلب كافة المنتجات في حال لم يتم تحديد فئة
+                var getprod = vmodel.ListViewProduct = iProduct.GetAll();
+
+                // إرسال البيانات إلى ViewBag
+                ViewBag.Products = getprod;
+            }
             vmodel.ListViewSupplier = iSupplier.GetAll();
             vmodel.ListHomeImageProdact = iHomeImageProdact.GetAll().Take(1).ToList();
             return View(vmodel);
