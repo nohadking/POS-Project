@@ -14,6 +14,13 @@ namespace Infarstuructre.BL
 		bool deleteData(int IdPurchase);
 		List<TBViewPurchase> GetAllv(int IdPurchase);
 		TBViewPurchase GetByIdview(int IdPurchase);
+        List<TBViewPurchase> GetAByDetectedDate(DateTime date);
+        List<TBViewPurchase> GetABySuplierAndPeriod(string suplierNm, DateTime sdate, DateTime edate);
+        List<TBViewPurchase> GetAByPruductAndPeriod(string productName, DateTime sdate, DateTime edate);
+        List<TBViewPurchase> GetByPeriod(DateTime sdate, DateTime edate);
+        List<TBViewPurchase> GetByProduct(string productName);
+        List<TBViewPurchase> GetBySuplier(string suplierNm);
+        List<TBViewPurchase> GetByPurcheasNm(int purNm);
 	}
 	public class CLSTBPurchase: IIPurchase
 	{
@@ -101,6 +108,61 @@ namespace Infarstuructre.BL
         {
             List<TBPurchase> sslid = dbcontext.TBPurchases.Where(a => a.PurchaseNumber == purchaseNu).ToList();
             return sslid;
+        }
+
+        public List<TBViewPurchase> GetAByDetectedDate(DateTime date)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+				.Where(a => a.DateTimeEntry.Date == date.Date).Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewPurchase> GetABySuplierAndPeriod(string suplierNm, DateTime sdate, DateTime edate)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+                .Where(a => a.SupplierName == suplierNm && a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+				.Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewPurchase> GetAByPruductAndPeriod(string productName, DateTime sdate, DateTime edate)
+		{
+			List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+				.Where(a => a.ItemName == productName && a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+				.Where(a => a.CurrentState == true).ToList();
+			return MySlider;
+		}
+
+        public List<TBViewPurchase> GetByPeriod(DateTime sdate, DateTime edate)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+                .Where(a => a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewPurchase> GetByProduct(string productName)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+                .Where(a => a.ItemName == productName)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewPurchase> GetBySuplier(string suplierNm)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+                .Where(a => a.SupplierName == suplierNm)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewPurchase> GetByPurcheasNm(int purNm)
+        {
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+                .Where(a => a.PurchaseNumber == purNm)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
         }
     }
 }

@@ -23,7 +23,7 @@
             </div>
             <ul class="table-top-head">
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf">
+                    <a data-bs-toggle="tooltip" onclick="CreatePdf()" data-bs-placement="top" title="Pdf">
                         <img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img">
                     </a>
                 </li>
@@ -80,10 +80,11 @@
                         </a>
                     </div>
                     <div class="form-sort">
-                     
 
-                        <select class="form-select" asp-for="@Model.Purchase.PurchaseNumber" asp-items="@(new SelectList(ViewBag.Purchase, "IdPurchase", "PurchaseDate"))">
-                            <option>اختر تاريخ محدد  </option>
+                        <label for="flatpickr-date" class="form-label">اختر تاريخ</label>
+
+                        <select id="SelectDetectedDateForPrint" class="form-select" asp-for="@Model.Purchase.PurchaseNumber" asp-items="@(new SelectList(ViewBag.Purchase, "IdPurchase", "PurchaseDate"))">
+                            <option></option>
                         </select>
                     </div>
                 </div>
@@ -93,17 +94,19 @@
                         <div class="row">
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="input-blocks">
-                            
-                                 <select class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))">
-                                                    <option>اختر المورد</option>
+                                    <label for="flatpickr-date" class="form-label">اختر مورد</label>
+
+                                 <select id="SelectSuplierForPrint" class="form-select" asp-for="@Model.Purchase.IdSupplier" asp-items="@(new SelectList(ViewBag.Supplier, "IdSupplier", "SupplierName"))">
+                                        <option></option>
                                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="input-blocks">
-                               
-                                    <select  class="form-select" asp-for="@Model.Purchase.IdProduct">
-                                        <option>اختر منتج</option>
+                                    <label for="flatpickr-date" class="form-label">اختر صنف</label>
+
+                                    <select id="SelectProductForPrint" class="form-select" asp-for="@Model.Purchase.IdProduct">
+                                        <option></option>
                                         @{
                                             var Cards = (@ViewBag.ClassCard as List<TBViewClassCard>);
                                         }
@@ -125,32 +128,29 @@
                             </div>
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="input-blocks">
-                                
-                                    <select class="form-select" asp-for="@Model.Purchase.PurchaseNumber" asp-items="@(new SelectList(ViewBag.Purchase, "IdPurchase", "PurchaseNumber"))" >
-                                        <option>إختر رقم السند </option>
+                                    <label for="flatpickr-date" class="form-label">اختر رقم السند</label>
+
+                                    <select id="SelectPurchaseNumberForPrint" class="form-select" asp-for="@Model.Purchase.PurchaseNumber" asp-items="@(new SelectList(ViewBag.Purchase, "IdPurchase", "PurchaseNumber"))">
+                                        <option></option>
                                     </select>
                                 </div>
                             </div>
                       
                         </div>
-
-
-
-
                         <div class="row">
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="input-blocks">
                                     
                                     <label for="flatpickr-date" class="form-label">من تاريخ</label>
-                                    <input type="date" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
+                                    <input id="SelectStartDTForPrint" type="date" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="input-blocks">
-                                
+                                    
                                     <label for="flatpickr-date" class="form-label">إلى تاريخ</label>
-                                    <input type="date" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
+                                    <input id="SelectEndDTForPrint" type="date" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
                                 </div>
                             </div>
                         
@@ -159,7 +159,7 @@
                 </div>
                 <!-- /Filter -->
                 <div class="table-responsive product-list">
-                    <table class="table  datanew list">
+                    <table id="TblForPrintTBL" class="table  datanew list">
                         <thead>
                             <tr>
                                 <th class="no-sort">
@@ -184,7 +184,7 @@
                                 <th class="no-sort">@ResourceWeb.LbOpration</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="TBLToPrint">
                             @foreach (var item in Model.ListViewPurchase)
                             {
                                 <tr>
@@ -595,7 +595,7 @@
                                 <div class="col-lg-12">
                                     <div class="modal-body-table">
                                         <div class="table-responsive">
-                                            <table class="table  datanew">
+                                            <table id="TblForResultTBL" class="table  datanew">
                                                 <thead>
                                                     <tr>
                                                         <th>المنتج</th>
@@ -1884,7 +1884,592 @@
             $('#TBLToAddPurcheasEdit').empty();
         }
 
+        function CreatePdf() {
+
+            const suplierName = $('#SelectSuplierForPrint').find('option:selected').text();
+            const productName = $('#SelectProductForPrint').find('option:selected').text();
+            const purNum = $('#SelectPurchaseNumberForPrint').find('option:selected').text();
+            const oneDate = $('#SelectDetectedDateForPrint').find('option:selected').text();
+            const startDateString = $('#SelectStartDTForPrint').val();
+            const endDateString = $('#SelectEndDTForPrint').val();
+
+            console.log("suplierName: " + suplierName);
+            console.log("productName: " + productName);
+            console.log("purNum: " + purNum);
+            console.log("oneDate: " + oneDate);
+            console.log("startDateString: " + startDateString);
+            console.log("endDateString: " + endDateString);
+            console.log("----------");
+
+            var url = `/Admin/Purchase/GeneratePurchasePdf?suplierName=${encodeURIComponent(suplierName)}&productName=${encodeURIComponent(productName)}&purNum=${encodeURIComponent(purNum)}&oneDate=${encodeURIComponent(oneDate)}&startDate=${encodeURIComponent(startDateString)}&endDate=${encodeURIComponent(endDateString)}`;
+
+            window.location.href = url;
+        }
+
     </script>
+
+
+
+    <script>
+
+        $('#SelectEndDTForPrint').on('change', function () {
+
+            var end = $('#SelectEndDTForPrint').val();
+            var start = $('#SelectStartDTForPrint').val();
+            var sup = $('#SelectSuplierForPrint').find('option:selected').text();
+            var item = $('#SelectProductForPrint').find('option:selected').text();
+
+            console.log('SelectEndDTForPrint: ', end);
+            console.log('SelectStartDTForPrint: ', start);
+            console.log('SelectSuplierForPrint: ', sup);
+            console.log('SelectProductForPrint: ', item);
+
+            const endDate = $(this).val();
+            const startDate = $("#SelectStartDTForPrint").val();
+            const originalUrl = window.origin;
+
+            const formattedDateStart = new Date(startDate).toISOString();
+            const formattedDateEnd = new Date(endDate).toISOString();
+
+            if ($('#SelectSuplierForPrint').find('option:selected').text() != null && $('#SelectSuplierForPrint').find('option:selected').text() != ""){
+                var suplier = $('#SelectSuplierForPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/PurcheasApi/GetBySupAndPeriodDate/${suplier}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                            <tr>
+                                                                                 <td>
+                                         <label class="checkboxs">
+                                             <input type="checkbox">
+                                             <span class="checkmarks"></span>
+                                         </label>
+                                     </td>
+                                                <td>${item.supplierName}</td>
+                                                <td>${item.purchaseDate}</td>
+                                                <td>${item.paymentMethodAr}</td>
+                                                <td>${item.purchaseNumber}</td>
+                                                <td>${item.purchaseSubNumber}</td>
+                                                <td>${item.totalQuantity}</td>
+                                                <td>$${item.totalDiscount}</td>
+                                                <td>$${item.shipping}</td>
+                                                <td>${item.totalAll}</td>
+
+                                                <td>${item.dateTimeEntry}</td>
+                                                <td>${item.dataEntry}</td>
+                                                <td>${item.currentState}</td>
+                                                <td class="action-table-data">
+                                                    <div class="edit-delete-action">
+                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                            <i data-feather="eye" class="action-eye"></i>
+                                                        </a>
+                                                        <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                        </a>
+                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                        </a>
+                                                    </div>
+                                              </td>
+                                            </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else if ($('#SelectProductForPrint').find('option:selected').text() != null && $('#SelectProductForPrint').find('option:selected').text() != "") {
+
+                var item = $('#SelectProductForPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/PurcheasApi/GetByItemAndPeriodDate/${item}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                            <tr>
+                                                                                 <td>
+                                         <label class="checkboxs">
+                                             <input type="checkbox">
+                                             <span class="checkmarks"></span>
+                                         </label>
+                                     </td>
+                                                <td>${item.supplierName}</td>
+                                                <td>${item.purchaseDate}</td>
+                                                <td>${item.paymentMethodAr}</td>
+                                                <td>${item.purchaseNumber}</td>
+                                                <td>${item.purchaseSubNumber}</td>
+                                                <td>${item.totalQuantity}</td>
+                                                <td>$${item.totalDiscount}</td>
+                                                <td>$${item.shipping}</td>
+                                                <td>${item.totalAll}</td>
+                                                <td>${item.dateTimeEntry}</td>
+                                                <td>${item.dataEntry}</td>
+                                                <td>${item.currentState}</td>
+                                                        <td class="action-table-data">
+                                                            <div class="edit-delete-action">
+                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                </a>
+                                                                <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                </a>
+                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                </a>
+                                                            </div>
+                                                      </td>                                            </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else {
+                fetch(`${originalUrl}/api/PurcheasApi/GetByPeriodDate/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                                                            <tr>
+                                                                                         <td>
+                                                 <label class="checkboxs">
+                                                     <input type="checkbox">
+                                                     <span class="checkmarks"></span>
+                                                 </label>
+                                             </td>
+                                                        <td>${item.supplierName}</td>
+                                                        <td>${item.purchaseDate}</td>
+                                                        <td>${item.paymentMethodAr}</td>
+                                                        <td>${item.purchaseNumber}</td>
+                                                        <td>${item.purchaseSubNumber}</td>
+                                                        <td>${item.totalQuantity}</td>
+                                                        <td>$${item.totalDiscount}</td>
+                                                        <td>$${item.shipping}</td>
+                                                        <td>${item.totalAll}</td>
+                                                        <td>${item.dateTimeEntry}</td>
+                                                        <td>${item.dataEntry}</td>
+                                                        <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                        <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>                                            </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+        });
+
+
+
+        $('#SelectDetectedDateForPrint').on('change', function () {
+
+            const date = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            const Dt = new Date(date).toISOString();
+
+            fetch(`${originalUrl}/api/PurcheasApi/GetByDate/${Dt}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                                                    <tr>
+                                                                                                 <td>
+                                                         <label class="checkboxs">
+                                                             <input type="checkbox">
+                                                             <span class="checkmarks"></span>
+                                                         </label>
+                                                     </td>
+                                                                <td>${item.supplierName}</td>
+                                                                <td>${item.purchaseDate}</td>
+                                                                <td>${item.paymentMethodAr}</td>
+                                                                <td>${item.purchaseNumber}</td>
+                                                                <td>${item.purchaseSubNumber}</td>
+                                                                <td>${item.totalQuantity}</td>
+                                                                <td>$${item.totalDiscount}</td>
+                                                                <td>$${item.shipping}</td>
+                                                                <td>${item.totalAll}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                        <td class="action-table-data">
+                                                                            <div class="edit-delete-action">
+                                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                                </a>
+                                                                                <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                                </a>
+                                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                      </td>                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+
+        });
+
+
+        // رقم السند
+
+        $('#SelectPurchaseNumberForPrint').on('change', function () {
+
+
+            const pueNm = parceInt($(this).find('option:selected').text());
+
+            const originalUrl = window.origin;
+
+            fetch(`${originalUrl}/api/PurcheasApi/GetBySup/${pueNm}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                                                    <tr>
+                                                                                                 <td>
+                                                         <label class="checkboxs">
+                                                             <input type="checkbox">
+                                                             <span class="checkmarks"></span>
+                                                         </label>
+                                                     </td>
+                                                                <td>${item.supplierName}</td>
+                                                                <td>${item.purchaseDate}</td>
+                                                                <td>${item.paymentMethodAr}</td>
+                                                                <td>${item.purchaseNumber}</td>
+                                                                <td>${item.purchaseSubNumber}</td>
+                                                                <td>${item.totalQuantity}</td>
+                                                                <td>$${item.totalDiscount}</td>
+                                                                <td>$${item.shipping}</td>
+                                                                <td>${item.totalAll}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                        <td class="action-table-data">
+                                                                            <div class="edit-delete-action">
+                                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                                </a>
+                                                                                <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                                </a>
+                                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                      </td>                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+            });
+
+
+
+
+            // لمورد
+
+
+        $('#SelectSuplierForPrint').on('change', function () {
+
+
+            const sup = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+                fetch(`${originalUrl}/api/PurcheasApi/GetBySup/${sup}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                                                    <tr>
+                                                                                                 <td>
+                                                         <label class="checkboxs">
+                                                             <input type="checkbox">
+                                                             <span class="checkmarks"></span>
+                                                         </label>
+                                                     </td>
+                                                                <td>${item.supplierName}</td>
+                                                                <td>${item.purchaseDate}</td>
+                                                                <td>${item.paymentMethodAr}</td>
+                                                                <td>${item.purchaseNumber}</td>
+                                                                <td>${item.purchaseSubNumber}</td>
+                                                                <td>${item.totalQuantity}</td>
+                                                                <td>$${item.totalDiscount}</td>
+                                                                <td>$${item.shipping}</td>
+                                                                <td>${item.totalAll}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                        <td class="action-table-data">
+                                                                            <div class="edit-delete-action">
+                                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                                </a>
+                                                                                <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                                </a>
+                                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                      </td>                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+            });
+
+
+
+        // لصنف
+            $('#SelectProductForPrint').on('change', function () {
+
+            const product = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+                fetch(`${originalUrl}/api/PurcheasApi/GetByItem/${product}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                                                    <tr>
+                                                                                                 <td>
+                                                         <label class="checkboxs">
+                                                             <input type="checkbox">
+                                                             <span class="checkmarks"></span>
+                                                         </label>
+                                                     </td>
+                                                                <td>${item.supplierName}</td>
+                                                                <td>${item.purchaseDate}</td>
+                                                                <td>${item.paymentMethodAr}</td>
+                                                                <td>${item.purchaseNumber}</td>
+                                                                <td>${item.purchaseSubNumber}</td>
+                                                                <td>${item.totalQuantity}</td>
+                                                                <td>$${item.totalDiscount}</td>
+                                                                <td>$${item.shipping}</td>
+                                                                <td>${item.totalAll}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                        <td class="action-table-data">
+                                                                            <div class="edit-delete-action">
+                                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                                </a>
+                                                                                <a onclick="EditPurcheasData(${item.PurchaseNumber})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                                </a>
+                                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                      </td>                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+        });
+
+
+
+    </script>
+
 }
 
 
