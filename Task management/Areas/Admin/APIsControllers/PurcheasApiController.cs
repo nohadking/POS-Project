@@ -58,5 +58,62 @@ namespace Task_management.Areas.Admin.APIsControllers
 
             return Ok(new TBPurchase());
         }
+
+        [HttpGet("/api/PurcheasApi/GetByDate/{Sdate}")]
+        public IActionResult GetByPurcheasNm(int nm)
+        {
+            var purcheases = iPurchase.GetByPurcheasNm(nm);
+            return Ok(purcheases);
+        }
+
+
+        [HttpGet("/api/PurcheasApi/GetByDate/{Sdate}")]
+        public IActionResult GetByDate(string Sdate)
+        {
+            var date = Convert.ToDateTime(Sdate);
+            var purcheases = iPurchase.GetAByDetectedDate(date);
+            return Ok(purcheases);
+        }
+        
+        [HttpGet("/api/PurcheasApi/GetByPeriodDate/{sdate}/{edate}")]
+        public IActionResult GetByPeriodDate(string sdate, string edate)
+        {
+            var start = Convert.ToDateTime(sdate);
+            var end = Convert.ToDateTime(edate);
+            var purcheases = iPurchase.GetByPeriod(start, end);
+            return Ok(purcheases);
+        }
+
+        [HttpGet("/api/PurcheasApi/GetBySupAndPeriodDate/{sup}/{sdate}/{edate}")]
+        public IActionResult GetBySupAndPeriodDate(string sup, string sdate, string edate)
+        {
+            var start = Convert.ToDateTime(sdate);
+            var end = Convert.ToDateTime(edate);
+            var purcheases = iPurchase.GetABySuplierAndPeriod(sup, start, end);
+            return Ok(purcheases);
+        }
+
+        [HttpGet("/api/PurcheasApi/GetByItemAndPeriodDate/{item}/{sdate}/{edate}")]
+        public IActionResult GetByItemAndPeriodDate(string item, string sdate, string edate)
+        {
+            var start = Convert.ToDateTime(sdate);
+            var end = Convert.ToDateTime(edate);
+            var purcheases = iPurchase.GetAByPruductAndPeriod(item, start, end);
+            return Ok(purcheases);
+        }
+
+        [HttpGet("/api/PurcheasApi/GetByItem/{item}")]
+        public IActionResult GetByItem(string item)
+        {
+            var purcheases = iPurchase.GetByProduct(item);
+            return Ok(purcheases);
+        }
+
+        [HttpGet("/api/PurcheasApi/GetBySup/{sup}")]
+        public IActionResult GetBySup(string sup)
+        {
+            var purcheases = iPurchase.GetBySuplier(sup);
+            return Ok(purcheases);
+        }
     }
 }
