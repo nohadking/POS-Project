@@ -17,7 +17,7 @@
             </div>
             <ul class="table-top-head">
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
+                    <a onclick="CreatePdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
                 </li>
                 <li>
                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
@@ -52,9 +52,9 @@
                         </a>
                     </div>
                     <div class="form-sort">
-
-                        <select class="form-select" asp-for="@Model.Expense.DateTimeEntry" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "DateTimeEntry"))">
-                            <option value="">اختر تاريخ</option>
+                        <label>اختر تاريخ</label>
+                        <select id="SelectDetectedDtFprPrint" class="form-select" asp-for="@Model.Expense.DateTimeEntry" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "DateTimeEntry"))">
+                            <option></option>
                         </select>
                     </div>
                 </div>
@@ -64,9 +64,9 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-                               
-                                    <select class="form-select" asp-for="@Model.LevelForeAccount.AccountName" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "AccountName"))">
-                                        <option value="">اختر حساب</option>
+                                    <label>اختر حساب</label>
+                                    <select id="SelectExpenseFprPrint" class="form-select" asp-for="@Model.LevelForeAccount.AccountName" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "AccountName"))">
+                                        <option ></option>
                                     </select>
                                 </div>
                             </div>
@@ -75,26 +75,26 @@
                                 <div class="input-blocks">
 
                                     <div class="input-blocks">
-
-                                        <select class="form-select" asp-for="@Model.ExpenseCategory.ExpenseCategory" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "ExpenseCategory"))">
-                                            <option value="">اختر فئة الحساب</option>
+                                        <label>اختر فئة حساب</label>
+                                        <select id="SelectExpenseCategoryFprPrint" class="form-select" asp-for="@Model.ExpenseCategory.ExpenseCategory" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "ExpenseCategory"))">
+                                            <option ></option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-
+                                    <label>من تاريخ</label>
                                     <div class="input-groupicon">
-                                        <input type="text" class="datetimepicker" placeholder="من تاريخ">
+                                        <input id="startDtForPrint" type="date" class="form-control" placeholder="من تاريخ">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-
+                                    <label>الى تاريخ</label>
                                     <div class="input-groupicon">
-                                        <input type="text" class="datetimepicker" placeholder="الى تاريخ">
+                                        <input id="endDtForPrint" type="date" class="form-control" placeholder="الى تاريخ">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                 </div>
                 <!-- /Filter -->
                 <div class="table-responsive">
-                    <table class="table  datanew">
+                    <table id="TblForResultTBL" class="table  datanew">
                         <thead>
                             <tr>
                                 <th class="no-sort">
@@ -129,7 +129,7 @@
                                 <th class="no-sort">@ResourceWeb.LbOpration</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="TBLForResult">
                             @foreach (var item in Model.ListViewExpense)
                             {
                                 <tr>
@@ -255,19 +255,486 @@
 <!-- /Add Expense -->
 <!-- Edit Expense -->
 
-
-
-
-
-
-
-
-
 @section Scripts {
-
 
     <script>
         $("#url").val(window.location.href);
+
+
+        function CreatePdf() {
+
+            const expense = $('#SelectExpenseFprPrint').find('option:selected').text();
+            const cate = $('#SelectExpenseCategoryFprPrint').find('option:selected').text();
+            const oneDate = $('#SelectDetectedDtFprPrint').find('option:selected').text();
+            const startDate = $('#startDtForPrint').val();
+            const endDate = $('#endDtForPrint').val();
+
+            console.log("expense: " + expense);
+            console.log("cate: " + cate);
+            console.log("oneDate: " + oneDate);
+            console.log("startDateString: " + startDate);
+            console.log("endDateString: " + endDate);
+
+            var url = `/Admin/Expense/GenerateExpensePdf?expense=${encodeURIComponent(expense)}&cate=${encodeURIComponent(cate)}&oneDate=${encodeURIComponent(oneDate)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+
+            window.location.href = url;
+        }
+
+
+        $('#endDtForPrint').on('change', function () {
+
+            var end = $('#endDtForPrint').val();
+            var start = $('#startDtForPrint').val();
+            var exp = $('#SelectExpenseFprPrint').find('option:selected').text();
+            var cate = $('#SelectExpenseCategoryFprPrint').find('option:selected').text();
+
+            console.log('SelectEndDTForPrint: ', end);
+            console.log('SelectStartDTForPrint: ', start);
+            console.log('SelectExpenseFprPrint: ', exp);
+            console.log('SelectExpenseCategoryFprPrint: ', cate);
+
+            const endDate = $(this).val();
+            const startDate = $("#startDtForPrint").val();
+
+            const originalUrl = window.origin;
+
+            const formattedDateStart = new Date(startDate).toISOString();
+            const formattedDateEnd = new Date(endDate).toISOString();
+
+            if ($('#SelectExpenseFprPrint').find('option:selected').text() != null && $('#SelectExpenseFprPrint').find('option:selected').text() != "") {
+                var exp = $('#SelectExpenseFprPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/ExpensesApi/GetByExpenseAndPeriodDate/${exp}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLForResult');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                        <tr>
+                                                            <td>
+                                                                <label class="checkboxs">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmarks"></span>
+                                                                </label>
+                                                            </td>
+                                                                    <td>${item.accountName}</td>
+                                                                    <td>${item.expenseCategory}</td>
+                                                                    <td>${item.bondNumber}</td>
+                                                                    <td>${item.amount}</td>
+                                                                    <td>$${item.statement}</td>
+                                                                    <td>${item.dateTimeEntry}</td>
+                                                                    <td>${item.dataEntry}</td>
+                                                                    <td>${item.currentState}</td>
+                                                            <td class="action-table-data">
+                                                                <div class="edit-delete-action">
+                                                                    <a class="me-2 p-2" href="javascript:void(0);">
+                                                                        <i data-feather="eye" class="action-eye"></i>
+                                                                    </a>
+                                                                                    <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                        <i data-feather="edit" class="feather-edit"></i>
+                                                                    </a>
+                                                                    <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                        <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else if ($('#SelectExpenseCategoryFprPrint').find('option:selected').text() != null && $('#SelectExpenseCategoryFprPrint').find('option:selected').text() != "") {
+
+                var cate = $('#SelectExpenseCategoryFprPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/ExpensesApi/GetByCategoryAndPeriodDate/${cate}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                                <tr>
+                                                                    <td>
+                                                                        <label class="checkboxs">
+                                                                            <input type="checkbox">
+                                                                            <span class="checkmarks"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                            <td>${item.accountName}</td>
+                                                                            <td>${item.expenseCategory}</td>
+                                                                            <td>${item.bondNumber}</td>
+                                                                            <td>${item.amount}</td>
+                                                                            <td>$${item.statement}</td>
+                                                                            <td>${item.dateTimeEntry}</td>
+                                                                            <td>${item.dataEntry}</td>
+                                                                            <td>${item.currentState}</td>
+                                                                    <td class="action-table-data">
+                                                                        <div class="edit-delete-action">
+                                                                            <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                <i data-feather="eye" class="action-eye"></i>
+                                                                            </a>
+                                                                                            <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                <i data-feather="edit" class="feather-edit"></i>
+                                                                            </a>
+                                                                            <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else {
+                fetch(`${originalUrl}/api/ExpensesApi/GetByPeriodDate/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                                <tr>
+                                                                    <td>
+                                                                        <label class="checkboxs">
+                                                                            <input type="checkbox">
+                                                                            <span class="checkmarks"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                            <td>${item.accountName}</td>
+                                                                            <td>${item.expenseCategory}</td>
+                                                                            <td>${item.bondNumber}</td>
+                                                                            <td>${item.amount}</td>
+                                                                            <td>$${item.statement}</td>
+                                                                            <td>${item.dateTimeEntry}</td>
+                                                                            <td>${item.dataEntry}</td>
+                                                                            <td>${item.currentState}</td>
+                                                                    <td class="action-table-data">
+                                                                        <div class="edit-delete-action">
+                                                                            <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                <i data-feather="eye" class="action-eye"></i>
+                                                                            </a>
+                                                                                            <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                <i data-feather="edit" class="feather-edit"></i>
+                                                                            </a>
+                                                                            <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+        });
+
+
+    // تاريخ محدد
+            $('#SelectDetectedDtFprPrint').on('change', function () {
+
+            const date = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            const Dt = new Date(date).toISOString();
+
+                fetch(`${originalUrl}/api/ExpensesApi/GetByDetectedDt/${Dt}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                            const row = `
+                                                                    <tr>
+                                                                        <td>
+                                                                            <label class="checkboxs">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                            </label>
+                                                                        </td>
+                                                                                <td>${item.accountName}</td>
+                                                                                <td>${item.expenseCategory}</td>
+                                                                                <td>${item.bondNumber}</td>
+                                                                                <td>${item.amount}</td>
+                                                                                <td>$${item.statement}</td>
+                                                                                <td>${item.dateTimeEntry}</td>
+                                                                                <td>${item.dataEntry}</td>
+                                                                                <td>${item.currentState}</td>
+                                                                        <td class="action-table-data">
+                                                                            <div class="edit-delete-action">
+                                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                                </a>
+                                                                                                <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                                </a>
+                                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+
+        });
+
+
+         // لمصروف
+    </script>
+
+    <script>
+        $('#SelectExpenseFprPrint').on('change', function () {
+            console.log("SelectExpenseFprPrint change");
+
+            const exp = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            fetch(`${originalUrl}/api/ExpensesApi/GetByExpense/${exp}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <label class="checkboxs">
+                                                                                        <input type="checkbox">
+                                                                                        <span class="checkmarks"></span>
+                                                                                    </label>
+                                                                                </td>
+                                                                                        <td>${item.accountName}</td>
+                                                                                        <td>${item.expenseCategory}</td>
+                                                                                        <td>${item.bondNumber}</td>
+                                                                                        <td>${item.amount}</td>
+                                                                                        <td>$${item.statement}</td>
+                                                                                        <td>${item.dateTimeEntry}</td>
+                                                                                        <td>${item.dataEntry}</td>
+                                                                                        <td>${item.currentState}</td>
+                                                                                <td class="action-table-data">
+                                                                                    <div class="edit-delete-action">
+                                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                                        </a>
+                                                                                                        <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                                        </a>
+                                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+        });
+
+
+
+        // لفئة
+        $('#SelectExpenseCategoryFprPrint').on('change', function () {
+            console.log("SelectExpenseCategoryFprPrint change");
+            const cate = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            fetch(`${originalUrl}/api/ExpensesApi/GetByCategory/${cate}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <label class="checkboxs">
+                                                                                        <input type="checkbox">
+                                                                                        <span class="checkmarks"></span>
+                                                                                    </label>
+                                                                                </td>
+                                                                                        <td>${item.accountName}</td>
+                                                                                        <td>${item.expenseCategory}</td>
+                                                                                        <td>${item.bondNumber}</td>
+                                                                                        <td>${item.amount}</td>
+                                                                                        <td>$${item.statement}</td>
+                                                                                        <td>${item.dateTimeEntry}</td>
+                                                                                        <td>${item.dataEntry}</td>
+                                                                                        <td>${item.currentState}</td>
+                                                                                <td class="action-table-data">
+                                                                                    <div class="edit-delete-action">
+                                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                                        </a>
+                                                                                                        <a onclick="EditPurcheasData(${item.idExpense})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                                        </a>
+                                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+        });
     </script>
 
 
