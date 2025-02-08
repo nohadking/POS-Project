@@ -331,13 +331,15 @@ namespace Task_management.Areas.Admin.Controllers
                         {
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.ConstantColumn(100); // وقت وتاريخ الإدخال
-                                columns.ConstantColumn(100); // مدخل البيانات
-                                columns.ConstantColumn(50);  // الإجمالي
-                                columns.ConstantColumn(50);  // السعر
-                                columns.ConstantColumn(50);  // الكمية
-                                columns.RelativeColumn(100); // اسم المنتج
-                                columns.ConstantColumn(40);  // رقم الفاتورة
+                                columns.ConstantColumn(30); 
+                                columns.ConstantColumn(100); 
+                                columns.ConstantColumn(40); 
+                                columns.ConstantColumn(40);  
+                                columns.ConstantColumn(50); 
+                                columns.RelativeColumn(35); 
+                                columns.ConstantColumn(40);  
+                                columns.ConstantColumn(40); 
+                                columns.ConstantColumn(40); 
                             });
 
                             table.Header(header =>
@@ -348,7 +350,7 @@ namespace Task_management.Areas.Admin.Controllers
                                 header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("الدائن").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("السند").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("تاريخ ادخال البيانات").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
                             });
@@ -366,7 +368,7 @@ namespace Task_management.Areas.Admin.Controllers
 
                                 table.Cell().Border(1).AlignCenter().Text(acc.NumberaccountingRestrictions);
                                 table.Cell().Border(1).AlignCenter().Text(acc.AccountingName);
-                                table.Cell().Border(1).AlignCenter().Text(acc.BondNumber);
+                                table.Cell().Border(1).AlignCenter().Text(acc.BondType);
                                 table.Cell().Border(1).AlignCenter().Text(acc.BondNumber);
                                 table.Cell().Border(1).AlignCenter().Text(acc.Debtor);
                                 table.Cell().Border(1).AlignCenter().Text(acc.creditor);
