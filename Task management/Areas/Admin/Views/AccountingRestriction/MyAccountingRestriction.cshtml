@@ -14,7 +14,7 @@
             </div>
             <ul class="table-top-head">
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
+                    <a onclick="CreatePdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="~/AdminEn/assets/img/icons/pdf.svg" alt="img"></a>
                 </li>
                 <li>
                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
@@ -49,9 +49,9 @@
                         </a>
                     </div>
                     <div class="form-sort">
-                  
-                        <select class="form-select" asp-for="@Model.AccountingRestriction.DateTimeEntry" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "DateTimeEntry"))">
-                            <option>اختر تاريخ محدد  </option>
+                        <label>ختر تاريخ محدد  </label>
+                        <select id="SelectDetectedDtForPrint" class="form-select" asp-for="@Model.AccountingRestriction.DateTimeEntry" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "DateTimeEntry"))">
+                            <option></option>
                         </select>
                     </div>
                 </div>
@@ -61,33 +61,36 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-                                   
-                                    <select class="form-select" asp-for="@Model.AccountingRestriction.AccountingName" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "AccountingName"))">
-                                        <option>الحساب  </option>
+                                    <label>حساب المورد</label>
+                                    <select id="SelectSupAccForPrint" class="form-select" asp-for="@Model.AccountingRestriction.AccountingName" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "AccountingName"))">
+                                        <option></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-                                    <i data-feather="calendar" class="info-img"></i>
+                                    <label>من تاريخ</label>
+
                                     <div class="input-groupicon">
-                                        <input type="text" class="datetimepicker" placeholder="من تاريخ">
+                                        <input id="startDtForPrint" type="date" class="form-control" placeholder="من تاريخ">
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
-                                    <i data-feather="calendar" class="info-img"></i>
+                                    <label>الى تاريخ</label>
+
                                     <div class="input-groupicon">
-                                        <input type="text" class="datetimepicker" placeholder="إلى تاريخ ">
+                                        <input id="endDtForPrint" type="date" class="form-control" placeholder="إلى تاريخ ">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="input-blocks">
                                   @*   <i data-feather="stop-circle" class="info-img"></i> *@
-                                    <select class="form-select" asp-for="@Model.AccountingRestriction.BondType" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "BondType"))">
-                                        <option>الحساب  </option>
+                                    <label>نوع السند</label>
+                                    <select id="SelectTypePurForPrint" class="form-select" asp-for="@Model.AccountingRestriction.BondType" asp-items="@(new SelectList(ViewBag.AccountingRestriction, "IdaccountingRestrictions", "BondType"))">
+                                        <option></option>
                                     </select>
                                 </div>
                             </div>
@@ -105,7 +108,7 @@
                 </div>
                 <!-- /Filter -->
                 <div class="table-responsive">
-                    <table class="table  datanew">
+                    <table id="TblForPrintTBL" class="table  datanew">
                         <thead>
                             <tr>
                                 <th class="no-sort">
@@ -128,7 +131,7 @@
                                 <th class="no-sort">@ResourceWeb.LbOpration</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="TBLToPrint">
                             @foreach (var item in Model.ListAccountingRestriction)
                             {
                                 <tr>
@@ -262,6 +265,502 @@
 
     <script>
         $("#url").val(window.location.href);
+
+
+        function CreatePdf() {
+
+                      
+            const suplier = $('#SelectSupAccForPrint').find('option:selected').text();
+            const type = $('#SelectTypePurForPrint').find('option:selected').text();
+            const oneDate = $('#SelectDetectedDtForPrint').find('option:selected').text();
+            const startDateString = $('#startDtForPrint').val();
+            const endDateString = $('#endDtForPrint').val();
+
+            console.log("suplier: " + suplier);
+            console.log("type: " + type);
+            console.log("oneDate: " + oneDate);
+            console.log("startDateString: " + startDateString);
+            console.log("endDateString: " + endDateString);
+
+            var url = `/Admin/AccountingRestriction/GenerateAccountPdf?suplier=${encodeURIComponent(suplier)}&type=${encodeURIComponent(type)}&oneDate=${encodeURIComponent(oneDate)}&startDate=${encodeURIComponent(startDateString)}&endDate=${encodeURIComponent(endDateString)}`;
+
+            window.location.href = url;
+        }
+    </script>
+
+
+    <script>
+
+        $('#endDtForPrint').on('change', function () {
+
+            var end = $('#endDtForPrint').val();
+            var start = $('#startDtForPrint').val();
+            var sup = $('#SelectSuplierForPrint').find('option:selected').text();
+            var type = $('#SelectTypePurForPrint').find('option:selected').text();
+
+            console.log('SelectEndDTForPrint: ', end);
+            console.log('SelectStartDTForPrint: ', start);
+            console.log('SelectSuplierForPrint: ', sup);
+            console.log('SelectTypePurForPrint: ', type);
+
+            const endDate = $(this).val();
+            const startDate = $("#startDtForPrint").val();
+
+            const originalUrl = window.origin;
+
+            const formattedDateStart = new Date(startDate).toISOString();
+            const formattedDateEnd = new Date(endDate).toISOString();
+
+            if ($('#SelectSuplierForPrint').find('option:selected').text() != null && $('#SelectSuplierForPrint').find('option:selected').text() != "") {
+                var suplier = $('#SelectSuplierForPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/AccountRestrection/GetBySupAndPeriodDate/${suplier}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                    <tr>
+                                                        <td>
+                                                         <label class="checkboxs">
+                                                             <input type="checkbox">
+                                                             <span class="checkmarks"></span>
+                                                         </label>
+                                                        </td>
+                                                        <td>${item.numberaccountingRestrictions}</td>
+                                                        <td>${item.accountingName}</td>
+                                                        <td>${item.bondType}</td>
+                                                        <td>${item.bondNumber}</td>
+                                                        <td>${item.debtor}</td>
+                                                        <td>${item.creditor}</td>
+                                                        <td>$${item.statement}</td>
+                                                        <td>$${item.nouts}</td>
+                                                        <td>${item.dateTimeEntry}</td>
+                                                        <td>${item.dataEntry}</td>
+                                                        <td>${item.currentState}</td>
+                                                        <td class="action-table-data">
+                                                            <div class="edit-delete-action">
+                                                                <a class="me-2 p-2" href="javascript:void(0);">
+                                                                    <i data-feather="eye" class="action-eye"></i>
+                                                                </a>
+                                                                        <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                                </a>
+                                                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                </a>
+                                                            </div>
+                                                      </td>
+                                                    </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else if ($('#SelectTypePurForPrint').find('option:selected').text() != null && $('#SelectTypePurForPrint').find('option:selected').text() != "") {
+
+                var type = $('#SelectTypePurForPrint').find('option:selected').text();
+
+                fetch(`${originalUrl}/api/AccountRestrection/GetByTypeAndPeriodDate/${type}/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                            <tr>
+                                                                <td>
+                                                                 <label class="checkboxs">
+                                                                     <input type="checkbox">
+                                                                     <span class="checkmarks"></span>
+                                                                 </label>
+                                                                </td>
+                                                                <td>${item.numberaccountingRestrictions}</td>
+                                                                <td>${item.accountingName}</td>
+                                                                <td>${item.bondType}</td>
+                                                                <td>${item.bondNumber}</td>
+                                                                <td>${item.debtor}</td>
+                                                                <td>${item.creditor}</td>
+                                                                <td>$${item.statement}</td>
+                                                                <td>$${item.nouts}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                                <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>
+                                                            </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+            else {
+                fetch(`${originalUrl}/api/AccountRestrection/GetByPeriodDate/${formattedDateStart}/${formattedDateEnd}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('حدث خطأ في جلب البيانات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("data: " + JSON.stringify(data, null, 2));
+
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
+                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        }
+
+                        const tbody = $('#TBLToAddPurcheasEdit');
+                        tbody.empty();
+
+                        data.forEach(item => {
+                            const row = `
+                                                            <tr>
+                                                                <td>
+                                                                 <label class="checkboxs">
+                                                                     <input type="checkbox">
+                                                                     <span class="checkmarks"></span>
+                                                                 </label>
+                                                                </td>
+                                                                <td>${item.numberaccountingRestrictions}</td>
+                                                                <td>${item.accountingName}</td>
+                                                                <td>${item.bondType}</td>
+                                                                <td>${item.bondNumber}</td>
+                                                                <td>${item.debtor}</td>
+                                                                <td>${item.creditor}</td>
+                                                                <td>$${item.statement}</td>
+                                                                <td>$${item.nouts}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                                <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>
+                                                            </tr>`;
+                            tbody.append(row);
+                        });
+
+
+                        $('#TblForResultTBL').DataTable({
+                            paging: true,
+                            searching: false,
+                            ordering: false,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`خطأ: ${error.message}`);
+                    });
+            }
+        });
+
+
+        // تاريخ محدد
+        $('#SelectDetectedDtForPrint').on('change', function () {
+
+            const date = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            const Dt = new Date(date).toISOString();
+
+            fetch(`${originalUrl}/api/AccountRestrection/GetByDetectedDt/${Dt}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                            <tr>
+                                                                <td>
+                                                                 <label class="checkboxs">
+                                                                     <input type="checkbox">
+                                                                     <span class="checkmarks"></span>
+                                                                 </label>
+                                                                </td>
+                                                                <td>${item.numberaccountingRestrictions}</td>
+                                                                <td>${item.accountingName}</td>
+                                                                <td>${item.bondType}</td>
+                                                                <td>${item.bondNumber}</td>
+                                                                <td>${item.debtor}</td>
+                                                                <td>${item.creditor}</td>
+                                                                <td>$${item.statement}</td>
+                                                                <td>$${item.nouts}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                                <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>
+                                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+
+        });
+
+
+        // لمورد
+        $('#SelectSupAccForPrint').on('change', function () {
+
+
+            const sup = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            fetch(`${originalUrl}/api/AccountRestrection/GetBySup/${sup}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                            <tr>
+                                                                <td>
+                                                                 <label class="checkboxs">
+                                                                     <input type="checkbox">
+                                                                     <span class="checkmarks"></span>
+                                                                 </label>
+                                                                </td>
+                                                                <td>${item.numberaccountingRestrictions}</td>
+                                                                <td>${item.accountingName}</td>
+                                                                <td>${item.bondType}</td>
+                                                                <td>${item.bondNumber}</td>
+                                                                <td>${item.debtor}</td>
+                                                                <td>${item.creditor}</td>
+                                                                <td>$${item.statement}</td>
+                                                                <td>$${item.nouts}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                                <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>
+                                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+        });
+
+
+
+        // للسند
+        $('#SelectTypePurForPrint').on('change', function () {
+
+            const type = $(this).find('option:selected').text();
+
+            const originalUrl = window.origin;
+
+            fetch(`${originalUrl}/api/AccountRestrection/GetByType/${type}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('حدث خطأ في جلب البيانات');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: " + JSON.stringify(data, null, 2));
+
+                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
+                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    }
+
+                    const tbody = $('#TBLToPrint');
+                    tbody.empty();
+
+                    data.forEach(item => {
+                        const row = `
+                                                            <tr>
+                                                                <td>
+                                                                 <label class="checkboxs">
+                                                                     <input type="checkbox">
+                                                                     <span class="checkmarks"></span>
+                                                                 </label>
+                                                                </td>
+                                                                <td>${item.numberaccountingRestrictions}</td>
+                                                                <td>${item.accountingName}</td>
+                                                                <td>${item.bondType}</td>
+                                                                <td>${item.bondNumber}</td>
+                                                                <td>${item.debtor}</td>
+                                                                <td>${item.creditor}</td>
+                                                                <td>$${item.statement}</td>
+                                                                <td>$${item.nouts}</td>
+                                                                <td>${item.dateTimeEntry}</td>
+                                                                <td>${item.dataEntry}</td>
+                                                                <td>${item.currentState}</td>
+                                                                <td class="action-table-data">
+                                                                    <div class="edit-delete-action">
+                                                                        <a class="me-2 p-2" href="javascript:void(0);">
+                                                                            <i data-feather="eye" class="action-eye"></i>
+                                                                        </a>
+                                                                                <a onclick="EditPurcheasData(${item.idaccountingRestrictions})" class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
+                                                                            <i data-feather="edit" class="feather-edit"></i>
+                                                                        </a>
+                                                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                              </td>
+                                                            </tr>`;
+                        tbody.append(row);
+                    });
+
+
+                    $('#TblForPrintTBL').DataTable({
+                        paging: true,
+                        searching: false,
+                        ordering: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`خطأ: ${error.message}`);
+                });
+        });
+
     </script>
 
 

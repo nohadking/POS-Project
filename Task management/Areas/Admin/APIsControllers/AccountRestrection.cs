@@ -39,5 +39,78 @@ namespace Task_management.Areas.Admin.APIsControllers
             var result = iAccountingRestriction.deleteData(accountId);
             return Ok(result);
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var accounts = iAccountingRestriction.GetAll();
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetBySupAndPeriodDate/{sup}/{start}/{end}")]
+        public IActionResult GetBySupAndPeriodDate(string sup, string start, string end)
+        {
+            var startDt = Convert.ToDateTime(start);
+            var endDt = Convert.ToDateTime(end);
+            var accounts = iAccountingRestriction.GetBySupAndPeriodDate(sup, startDt, endDt);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetByPeriodDate/{start}/{end}")]
+        public IActionResult GetByPeriodDate(string start, string end)
+        {
+            var startDt = Convert.ToDateTime(start);
+            var endDt = Convert.ToDateTime(end);
+            var accounts = iAccountingRestriction.GetByPeriodDate(startDt, endDt);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetBySupAndDetectedDt/{sup}/{date}")]
+        public IActionResult GetBySupAndDetectedDt(string sup, string date)
+        {
+            var dt = Convert.ToDateTime(date);
+            var accounts = iAccountingRestriction.GetBySupAndDetectedDt(sup, dt);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetByTypeAndPeriodDate/{type}/{start}/{end}")]
+        public IActionResult GetByTypeAndPeriodDate(string type, string start, string end)
+        {
+            var startDt = Convert.ToDateTime(start);
+            var endDt = Convert.ToDateTime(end);
+            var accounts = iAccountingRestriction.GetByTypeAndPeriodDate(type, startDt, endDt);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetByTypeAndDetectedDt/{type}/{date}")]
+        public IActionResult GetByTypeAndDetectedDt(string type, string date)
+        {
+            var dt = Convert.ToDateTime(date);
+            var accounts = iAccountingRestriction.GetByTypeAndDetectedDt(type, dt);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetByDetectedDt/{date}")]
+        public IActionResult GetByDetectedDt(string date)
+        {
+            var dt = Convert.ToDateTime(date);
+            var accounts = iAccountingRestriction.GetByDetectedDt(dt);
+            return Ok(accounts);
+        }
+
+
+        [HttpGet("/api/AccountRestrection/GetBySup/{sup}")]
+        public IActionResult GetBySup(string sup)
+        {
+            var accounts = iAccountingRestriction.GetBySup(sup);
+            return Ok(accounts);
+        }
+
+        [HttpGet("/api/AccountRestrection/GetByType/{type}")]
+        public IActionResult GetByType(string type)
+        {
+            var accounts = iAccountingRestriction.GetByType(type);
+            return Ok(accounts);
+        }
     }
 }
