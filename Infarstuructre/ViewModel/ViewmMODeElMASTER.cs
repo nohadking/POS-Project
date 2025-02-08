@@ -110,7 +110,9 @@ namespace Infarstuructre.ViewModel
         public List<TBViewLevelForeAccount> ListViewLevelForeAccount { get; set; }
         public TBLevelForeAccount LevelForeAccount { get; set; }  
         public List<TBStaff> ListStaff { get; set; }
-        public TBStaff Staff { get; set; }
+        public TBStaff Staff { get; set; } 
+        public List<TBAboutSectionStartShopContent> ListAboutSectionStartShopContent { get; set; }
+        public TBAboutSectionStartShopContent AboutSectionStartShopContent { get; set; }
 
 
     }

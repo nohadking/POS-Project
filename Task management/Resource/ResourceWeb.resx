@@ -1539,4 +1539,10 @@
   <data name="LBAddEditStaff" xml:space="preserve">
     <value>إضافة وتعديل الموظفين </value>
   </data>
+  <data name="LBMYAboutSectionStartShopContent" xml:space="preserve">
+    <value>نبذة المتجر</value>
+  </data>
+  <data name="LBAddEditAboutSectionStartShopContent" xml:space="preserve">
+    <value>إضافة وتعديل  النبذة في المتجر </value>
+  </data>
 </root>

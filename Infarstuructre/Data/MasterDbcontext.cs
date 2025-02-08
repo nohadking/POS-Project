@@ -467,6 +467,15 @@ namespace Infarstuructre.Data
             builder.Entity<TBStaff>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");   
+            //---------------------------------    
+            //---------------------------------
+            builder.Entity<TBAboutSectionStartShopContent>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBAboutSectionStartShopContent>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+       
             //--------------------------------- 
         }
         //***********************************
@@ -513,6 +522,7 @@ namespace Infarstuructre.Data
         public DbSet<TBLevelForeAccount> TBLevelForeAccounts { get; set; }
         public DbSet<TBViewLevelForeAccount> ViewLevelForeAccount { get; set; }
         public DbSet<TBStaff> TBStaffs { get; set; }
+        public DbSet<TBAboutSectionStartShopContent> TBAboutSectionStartShopContents { get; set; }
 
 
     }

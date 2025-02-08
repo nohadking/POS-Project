@@ -241,6 +241,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل  النبذة في المتجر .
+        /// </summary>
+        internal static string LBAddEditAboutSectionStartShopContent {
+            get {
+                return ResourceManager.GetString("LBAddEditAboutSectionStartShopContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إضافة وتعديل فئات الخدمات .
         /// </summary>
         internal static string LBAddEditCategoryServic {
@@ -1794,6 +1803,15 @@ namespace Task_management.Resource {
         internal static string LBMyAboutSectionStartHomeContent {
             get {
                 return ResourceManager.GetString("LBMyAboutSectionStartHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نبذة المتجر.
+        /// </summary>
+        internal static string LBMYAboutSectionStartShopContent {
+            get {
+                return ResourceManager.GetString("LBMYAboutSectionStartShopContent", resourceCulture);
             }
         }
         

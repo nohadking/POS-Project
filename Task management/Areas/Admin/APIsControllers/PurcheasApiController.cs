@@ -22,15 +22,12 @@ namespace Task_management.Areas.Admin.APIsControllers
             var purcheas = iPurchase.GetByPurcheasNu(purchaseNumber);
             return Ok(purcheas);
         }
-
         [HttpGet("/api/PurcheasApi/GetById/{id}")]
         public IActionResult GetById(int id)
         {
             var purcheas = iClassCard.GetById(id);
             return Ok(purcheas);
         }
-
-
         [HttpPost]
         public IActionResult AddPurcheas([FromBody] TBPurchase purchase)
         {
@@ -40,8 +37,6 @@ namespace Task_management.Areas.Admin.APIsControllers
             var result = iPurchase.saveData(purchase);
             return Ok(result);
         }
-
-
         [HttpDelete("DeletePurcheases")]
         public IActionResult DeletePurcheases(List<int> idsList)
         {
@@ -58,7 +53,6 @@ namespace Task_management.Areas.Admin.APIsControllers
 
             return Ok(new TBPurchase());
         }
-
         [HttpGet("/api/PurcheasApi/GetByDate/{Sdate}")]
         public IActionResult GetByPurcheasNm(int nm)
         {
