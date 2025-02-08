@@ -204,7 +204,7 @@
                             <div class="mb-3">
                                 <label class="form-label" asp-for="@Model.AccountingRestriction.AccountingName">@ResourceWeb.lbAccountingName</label>
                                 <select id="mainAccountSelect" class="form-select" asp-for="@Model.AccountingRestriction.AccountingName"
-                                        asp-items="@(new SelectList(ViewBag.LevelForeAccount, "IdLevelForeAccount", "LevelForeAccountsName"))">
+                                        asp-items="@(new SelectList(ViewBag.LevelForeAccount, "LevelForeAccountsName", "LevelForeAccountsName"))">
                                     <option value="">اختر حساب</option>
                                 </select>
                                 <span asp-validation-for="@Model.AccountingRestriction.AccountingName" class="text-danger"></span>                            

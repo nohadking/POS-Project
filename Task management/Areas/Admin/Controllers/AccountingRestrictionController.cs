@@ -614,18 +614,25 @@ namespace Task_management.Areas.Admin.Controllers
                             {
                                 columns.RelativeColumn(); // العمود الأول: مجموع المدين
                                 columns.RelativeColumn(); // العمود الثاني: مجموع الدائن
+                                columns.RelativeColumn(); // العمود الثاني: مجموع الدائن
                             });
 
                             // المسميات في السطر الأول
                             table.Header(header =>
                             {
-                                header.Cell().AlignCenter().Text("مجموع المدين").FontSize(12).Bold();
+                             
+                               
+                                header.Cell().AlignCenter().Text("الرصيد").FontSize(12).Bold();
                                 header.Cell().AlignCenter().Text("مجموع الدائن").FontSize(12).Bold();
+                                header.Cell().AlignCenter().Text("مجموع المدين").FontSize(12).Bold();
                             });
 
                             // القيم في السطر الثاني
-                            table.Cell().Border(1).AlignCenter().Text($"{totalDebtor:N2}").FontSize(12);  // عرض المجموع مع تنسيق الأرقام
-                            table.Cell().Border(1).AlignCenter().Text($"{totalCreditor:N2}").FontSize(12); // عرض المجموع مع تنسيق الأرقام
+                            table.Cell().Border(1).AlignCenter().Text($"{totalDebtor- totalCreditor:N3}").FontSize(12); // عرض المجموع مع تنسيق الأرقام
+                            table.Cell().Border(1).AlignCenter().Text($"{totalCreditor:N3}").FontSize(12); // عرض المجموع مع تنسيق الأرقام
+                            table.Cell().Border(1).AlignCenter().Text($"{totalDebtor:N3}").FontSize(12);  // عرض المجموع مع تنسيق الأرقام
+
+
                         });
 
                         // إضافة تاريخ الطباعة أسفل التقرير

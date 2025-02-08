@@ -45,7 +45,7 @@
                                     <div class="col-lg-6 col-xs-6">
                                         <label for="exampleInputEmail1">@ResourceWeb.lbAccountingName</label>
                                         <select id="mainAccountSelect" class="form-select" asp-for="@Model.AccountingRestriction.AccountingName"
-                                                asp-items="@(new SelectList(ViewBag.LevelForeAccount, "IdLevelForeAccount", "LevelForeAccountsName"))">
+                                                asp-items="@(new SelectList(ViewBag.LevelForeAccount, "LevelForeAccountsName", "LevelForeAccountsName"))">
                                             <option value="">اختر حساب</option>
                                         </select>
                                         <span asp-validation-for="@Model.AccountingRestriction.AccountingName" class="text-danger"></span>
