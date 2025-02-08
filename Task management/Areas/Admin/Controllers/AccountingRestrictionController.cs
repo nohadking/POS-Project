@@ -190,6 +190,238 @@ namespace Task_management.Areas.Admin.Controllers
         }
 
 
+        //public IActionResult CreatePDF(string? suplier, string? type, string? oneDate, string startDate, string endDate)
+        //{
+        //    ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+        //    var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
+        //    var accounts = new List<TBAccountingRestriction>();
+
+        //    var pdfDocument = Document.Create(container =>
+        //    {
+
+        //        // **حساب الإجماليات**
+        //        if (suplier == null && type == null && oneDate == null && startDate == null && endDate == null)
+        //        {
+        //            accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetAll();
+        //        }
+        //        else
+        //        {
+        //            if (oneDate != null)
+        //            {
+        //                // حسب تاريخ محدد
+        //                DateTime dt = Convert.ToDateTime(oneDate);
+        //                accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetByDetectedDt(dt);
+        //            }
+
+        //            else if (startDate != null && endDate != null)
+        //            {
+        //                if (suplier != null)
+        //                {
+        //                    // حسب اسم مورد بين تاريخين  
+        //                    DateTime startDt = Convert.ToDateTime(startDate);
+        //                    DateTime endD = Convert.ToDateTime(endDate);
+        //                    accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetBySupAndPeriodDate(suplier, startDt, endD);
+        //                }
+
+        //                else if (type != null)
+        //                {
+        //                    // حسب نوع السند بين تاريخين  
+        //                    DateTime startDt = Convert.ToDateTime(startDate);
+        //                    DateTime endD = Convert.ToDateTime(endDate);
+        //                    accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetByTypeAndPeriodDate(type, startDt, endD);
+        //                }
+
+        //                else
+        //                {
+        //                    // حسب من تاريخ لتاريخ  
+        //                    DateTime startDt = Convert.ToDateTime(startDate);
+        //                    DateTime endD = Convert.ToDateTime(endDate);
+        //                    accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetByPeriodDate(startDt, endD);
+        //                }
+        //            }
+        //            else if (suplier != null)
+        //            {
+        //                // كشف حساب  
+        //                accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetBySup(suplier);
+
+        //            }
+
+        //            else if (type != null)
+        //            {
+        //                // حسب نوع السند  
+        //                accounts = vmodel.ListAccountingRestriction = iAccountingRestriction.GetByType(type);
+
+        //            }
+        //        }
+        //        // زبط هدول معلم 
+
+        //        //var totalQuantity = accounts.Sum(p => p.Quantity);
+        //        //var totalAmount = accounts.Sum(p => p.TotalAll);
+
+        //        container.Page(page =>
+        //        {
+        //            page.Size(PageSizes.A4.Landscape());
+        //            page.Margin(2, Unit.Centimetre);
+        //            page.DefaultTextStyle(x => x.FontSize(12));
+
+        //            page.Header()
+        //                    .Column(header =>
+        //                    {
+        //                        header.Item().AlignRight().PaddingBottom(20).Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(5).Bold();
+        //                        if (suplier == null && type == null && oneDate == null && startDate == null && endDate == null)
+        //                        {
+        //                            header.Item().Border(1).AlignCenter().Text($"تقرير الحركات العام ").FontSize(20).Bold();
+        //                        }
+        //                        else
+        //                        {
+        //                            if (oneDate != null)
+        //                            {
+        //                                // حسب تاريخ محدد
+        //                                header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لتاريخ {oneDate} ").FontSize(20).Bold();
+        //                            }
+
+        //                            else if (startDate != null && endDate != null)
+        //                            {
+        //                                if (suplier != null)
+        //                                {
+        //                                    // حسب اسم مورد بين تاريخين  
+        //                                    header.Item().Border(1).AlignCenter().Text($"كشف حساب  {suplier} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+        //                                }
+
+        //                                else if (type != null)
+        //                                {
+        //                                    // حسب نوع السند بين تاريخين  
+        //                                    header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لنوع السند  {type} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+
+        //                                }
+
+        //                                else
+        //                                {
+        //                                    // حسب من تاريخ لتاريخ  
+        //                                    header.Item().Border(1).AlignCenter().Text($"تقرير الحركات بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+        //                                }
+        //                            }
+        //                            else if (suplier != null)
+        //                            {
+        //                                // حسب اسم مورد  
+        //                                header.Item().Border(1).AlignCenter().Text($"كشف حساب  {suplier} ").FontSize(20).Bold();
+
+        //                            }
+
+        //                            else if (type != null)
+        //                            {
+        //                                // حسب نوع السند  
+        //                                header.Item().Border(1).AlignCenter().Text($"تقرير الحركات حسب نوع السند: {type} ").FontSize(20).Bold();
+
+        //                            }
+        //                        }
+
+        //                        if (compny != null)
+        //                        {
+        //                            header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
+        //                            header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
+        //                            header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
+        //                        }
+        //                    });
+
+        //            page.Content().Column(content =>
+        //            {
+        //                content.Item().AlignCenter().Text($"تقرير الحركات").FontSize(16).Bold();
+        //                content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
+        //                content.Item().Table(table =>
+        //                {
+        //                    table.ColumnsDefinition(columns =>
+        //                    {
+        //                        columns.ConstantColumn(100); 
+        //                        columns.ConstantColumn(100); 
+        //                        columns.ConstantColumn(100); 
+        //                        columns.ConstantColumn(50);  
+        //                        columns.ConstantColumn(50); 
+        //                        columns.RelativeColumn(50); 
+        //                        columns.ConstantColumn(100);  
+        //                        columns.ConstantColumn(100); 
+        //                        columns.ConstantColumn(100); 
+        //                    });
+
+        //                    table.Header(header =>
+        //                    {
+
+
+
+
+
+
+
+
+        //                        header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("تاريخ ادخال البيانات").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("الدائن").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("نوع السند").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
+        //                        header.Cell().Border(1).AlignCenter().Text("رقم القيد ").Bold();
+        //                    });
+
+        //                    foreach (var acc in accounts)
+        //                    {
+        //                        string cachname = string.Empty;
+        //                        if (acc.DataEntry != null)
+        //                        {
+        //                            cachname = dbcontext.VwUsers
+        //                                                 .Where(a => a.Email == acc.DataEntry)
+        //                                                 .Select(a => a.Name)
+        //                                                 .FirstOrDefault();
+        //                        }
+
+        //                        table.Cell().Border(1).AlignCenter().Text(cachname);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.Statement);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.creditor);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.Debtor);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.BondNumber);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.BondType);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.AccountingName);
+        //                        table.Cell().Border(1).AlignCenter().Text(acc.NumberaccountingRestrictions);
+        //                    }
+        //                });
+
+        //                content.Item().PaddingTop(10);
+
+
+        //                // **إضافة الفوتر في نهاية التقرير**
+        //                content.Item().PaddingTop(20).Table(table =>
+        //                {
+        //                    // تعريف الأعمدة
+        //                    table.ColumnsDefinition(columns =>
+        //                    {
+        //                        columns.RelativeColumn(); // العمود الأول: مجموع الكمية
+        //                        columns.RelativeColumn(); // العمود الثاني: المجموع العام
+        //                    });
+
+        //                    // المسميات في السطر الأول
+        //                    table.Header(header =>
+        //                    {
+        //                        header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
+        //                        header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
+        //                    });
+
+        //                    // القيم في السطر الثاني
+        //                    //table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
+        //                    //table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
+        //                });
+
+        //                // إضافة تاريخ الطباعة أسفل التقرير
+
+        //            });
+
+
+        //        });
+        //    });
+        //    var pdfData = pdfDocument.GeneratePdf();
+        //    return File(pdfData, "application/pdf", "Report.pdf");
+        //}
         public IActionResult CreatePDF(string? suplier, string? type, string? oneDate, string startDate, string endDate)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
@@ -253,106 +485,100 @@ namespace Task_management.Areas.Admin.Controllers
 
                     }
                 }
-                // زبط هدول معلم 
 
-                //var totalQuantity = accounts.Sum(p => p.Quantity);
-                //var totalAmount = accounts.Sum(p => p.TotalAll);
+                // حساب مجموع المدين والدائن
+                var totalDebtor = accounts.Sum(p => p.Debtor);
+                var totalCreditor = accounts.Sum(p => p.creditor);
 
                 container.Page(page =>
                 {
-                    page.Size(PageSizes.A4);
+                    page.Size(PageSizes.A4.Landscape());
                     page.Margin(2, Unit.Centimetre);
                     page.DefaultTextStyle(x => x.FontSize(12));
 
                     page.Header()
-                            .Column(header =>
-                            {
-                                if (suplier == null && type == null && oneDate == null && startDate == null && endDate == null)
-                                {
-                                    header.Item().Border(1).AlignCenter().Text($"تقرير الحركات العام ").FontSize(20).Bold();
-                                }
-                                else
-                                {
-                                    if (oneDate != null)
-                                    {
-                                        // حسب تاريخ محدد
-                                        header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لتاريخ {oneDate} ").FontSize(20).Bold();
-                                    }
+                          .Column(header =>
+                          {
+                              header.Item().AlignRight().PaddingBottom(20).Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(5).Bold();
+                              if (suplier == null && type == null && oneDate == null && startDate == null && endDate == null)
+                              {
+                                  header.Item().Border(1).AlignCenter().Text($"تقرير الحركات العام ").FontSize(20).Bold();
+                              }
+                              else
+                              {
+                                  if (oneDate != null)
+                                  {
+                                      // حسب تاريخ محدد
+                                      header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لتاريخ {oneDate} ").FontSize(20).Bold();
+                                  }
+                                  else if (startDate != null && endDate != null)
+                                  {
+                                      if (suplier != null)
+                                      {
+                                          // حسب اسم مورد بين تاريخين  
+                                          header.Item().Border(1).AlignCenter().Text($"كشف حساب  {suplier} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+                                      }
+                                      else if (type != null)
+                                      {
+                                          // حسب نوع السند بين تاريخين  
+                                          header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لنوع السند  {type} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+                                      }
+                                      else
+                                      {
+                                          // حسب من تاريخ لتاريخ  
+                                          header.Item().Border(1).AlignCenter().Text($"تقرير الحركات بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+                                      }
+                                  }
+                                  else if (suplier != null)
+                                  {
+                                      // حسب اسم مورد  
+                                      header.Item().Border(1).AlignCenter().Text($"كشف حساب  {suplier} ").FontSize(20).Bold();
+                                  }
+                                  else if (type != null)
+                                  {
+                                      // حسب نوع السند  
+                                      header.Item().Border(1).AlignCenter().Text($"تقرير الحركات حسب نوع السند: {type} ").FontSize(20).Bold();
+                                  }
+                              }
 
-                                    else if (startDate != null && endDate != null)
-                                    {
-                                        if (suplier != null)
-                                        {
-                                            // حسب اسم مورد بين تاريخين  
-                                            header.Item().Border(1).AlignCenter().Text($"كشف حساب للمورد {suplier} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
-                                        }
-
-                                        else if (type != null)
-                                        {
-                                            // حسب نوع السند بين تاريخين  
-                                            header.Item().Border(1).AlignCenter().Text($"تقرير الحركات لنوع السند  {type} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
-
-                                        }
-
-                                        else
-                                        {
-                                            // حسب من تاريخ لتاريخ  
-                                            header.Item().Border(1).AlignCenter().Text($"تقرير الحركات بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
-                                        }
-                                    }
-                                    else if (suplier != null)
-                                    {
-                                        // حسب اسم مورد  
-                                        header.Item().Border(1).AlignCenter().Text($"كشف حساب المورد {suplier} ").FontSize(20).Bold();
-
-                                    }
-
-                                    else if (type != null)
-                                    {
-                                        // حسب نوع السند  
-                                        header.Item().Border(1).AlignCenter().Text($"تقرير الحركات حسب نوع السند: {type} ").FontSize(20).Bold();
-
-                                    }
-                                }
-
-                                if (compny != null)
-                                {
-                                    header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                    header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                    header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                                }
-                            });
+                              if (compny != null)
+                              {
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
+                              }
+                          });
 
                     page.Content().Column(content =>
                     {
-                        content.Item().AlignCenter().Text($"تقرير الفواتير").FontSize(16).Bold();
+                        content.Item().AlignCenter().Text($"تقرير الحركات").FontSize(16).Bold();
                         content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
                         content.Item().Table(table =>
                         {
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.ConstantColumn(30); 
-                                columns.ConstantColumn(100); 
-                                columns.ConstantColumn(40); 
-                                columns.ConstantColumn(40);  
-                                columns.ConstantColumn(50); 
-                                columns.RelativeColumn(35); 
-                                columns.ConstantColumn(40);  
-                                columns.ConstantColumn(40); 
-                                columns.ConstantColumn(40); 
+                                columns.ConstantColumn(100);
+                                columns.ConstantColumn(100);
+                                columns.ConstantColumn(100);
+                                columns.ConstantColumn(50);
+                                columns.ConstantColumn(50);
+                                columns.RelativeColumn(50);
+                                columns.ConstantColumn(100);
+                                columns.ConstantColumn(100);
+                                columns.ConstantColumn(100);
                             });
 
                             table.Header(header =>
                             {
-                                header.Cell().Border(1).AlignCenter().Text("رقم حساب المورد").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("اسم المورد").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("نوع السند").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("الدائن").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("تاريخ ادخال البيانات").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("تاريخ ادخال البيانات").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("الدائن").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("نوع السند").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("رقم القيد ").Bold();
                             });
 
                             foreach (var acc in accounts)
@@ -361,25 +587,24 @@ namespace Task_management.Areas.Admin.Controllers
                                 if (acc.DataEntry != null)
                                 {
                                     cachname = dbcontext.VwUsers
-                                                         .Where(a => a.Email == acc.DataEntry)
-                                                         .Select(a => a.Name)
-                                                         .FirstOrDefault();
+                                                        .Where(a => a.Email == acc.DataEntry)
+                                                        .Select(a => a.Name)
+                                                        .FirstOrDefault();
                                 }
 
-                                table.Cell().Border(1).AlignCenter().Text(acc.NumberaccountingRestrictions);
-                                table.Cell().Border(1).AlignCenter().Text(acc.AccountingName);
-                                table.Cell().Border(1).AlignCenter().Text(acc.BondType);
-                                table.Cell().Border(1).AlignCenter().Text(acc.BondNumber);
-                                table.Cell().Border(1).AlignCenter().Text(acc.Debtor);
-                                table.Cell().Border(1).AlignCenter().Text(acc.creditor);
-                                table.Cell().Border(1).AlignCenter().Text(acc.Statement);
+                                table.Cell().Border(1).AlignCenter().Text(cachname);
                                 table.Cell().Border(1).AlignCenter().Text(acc.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-                                table.Cell().Border(1).AlignCenter().Text(acc.DataEntry);
+                                table.Cell().Border(1).AlignCenter().Text(acc.Statement);
+                                table.Cell().Border(1).AlignCenter().Text(acc.creditor.ToString("N2"));
+                                table.Cell().Border(1).AlignCenter().Text(acc.Debtor.ToString("N2"));
+                                table.Cell().Border(1).AlignCenter().Text(acc.BondNumber);
+                                table.Cell().Border(1).AlignCenter().Text(acc.BondType);
+                                table.Cell().Border(1).AlignCenter().Text(acc.AccountingName);
+                                table.Cell().Border(1).AlignCenter().Text(acc.NumberaccountingRestrictions);
                             }
                         });
 
                         content.Item().PaddingTop(10);
-
 
                         // **إضافة الفوتر في نهاية التقرير**
                         content.Item().PaddingTop(20).Table(table =>
@@ -387,31 +612,31 @@ namespace Task_management.Areas.Admin.Controllers
                             // تعريف الأعمدة
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.RelativeColumn(); // العمود الأول: مجموع الكمية
-                                columns.RelativeColumn(); // العمود الثاني: المجموع العام
+                                columns.RelativeColumn(); // العمود الأول: مجموع المدين
+                                columns.RelativeColumn(); // العمود الثاني: مجموع الدائن
                             });
 
                             // المسميات في السطر الأول
                             table.Header(header =>
                             {
-                                header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
-                                header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
+                                header.Cell().AlignCenter().Text("مجموع المدين").FontSize(12).Bold();
+                                header.Cell().AlignCenter().Text("مجموع الدائن").FontSize(12).Bold();
                             });
 
                             // القيم في السطر الثاني
-                            //table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
-                            //table.Cell().Border(1).AlignCenter().Text($"${totalAmount}").FontSize(12);
+                            table.Cell().Border(1).AlignCenter().Text($"{totalDebtor:N2}").FontSize(12);  // عرض المجموع مع تنسيق الأرقام
+                            table.Cell().Border(1).AlignCenter().Text($"{totalCreditor:N2}").FontSize(12); // عرض المجموع مع تنسيق الأرقام
                         });
 
                         // إضافة تاريخ الطباعة أسفل التقرير
-                        content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
                     });
-
 
                 });
             });
+
             var pdfData = pdfDocument.GeneratePdf();
             return File(pdfData, "application/pdf", "Report.pdf");
         }
+
     }
 }

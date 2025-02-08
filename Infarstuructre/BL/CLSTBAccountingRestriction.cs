@@ -36,7 +36,7 @@ namespace Infarstuructre.BL
         }
         public List<TBAccountingRestriction> GetAll()
         {
-            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions.OrderByDescending(n => n.IdaccountingRestrictions).Where(a => a.CurrentState == true).ToList();
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions.Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
     
