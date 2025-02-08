@@ -16,6 +16,13 @@ namespace Infarstuructre.BL
         bool deleteData(int IdExpense);
         List<TBViewExpense> GetAllv(int IdExpense);
         TBViewExpense GetByIdview(int IdExpense);
+
+        List<TBViewExpense> GetByExpenseAndPeriodDate(string expense, DateTime start, DateTime end);
+        List<TBViewExpense> GetByPeriodDate(DateTime start, DateTime end);
+        List<TBViewExpense> GetByCategoryAndPeriodDate(string category, DateTime start, DateTime end);
+        List<TBViewExpense> GetByDetectedDt(DateTime date);
+        List<TBViewExpense> GetByExpense(string expense);
+        List<TBViewExpense> GetByCategory(string category);
     }
     public class CLSTBExpense: IIExpense
     {
@@ -153,6 +160,56 @@ namespace Infarstuructre.BL
         {
             TBViewExpense sslid = dbcontext.ViewExpense.FirstOrDefault(a => a.IdExpense == IdExpense);
             return sslid;
+        }
+
+        public List<TBViewExpense> GetByExpenseAndPeriodDate(string expense, DateTime start, DateTime end)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.AccountName == expense).
+                Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewExpense> GetByPeriodDate(DateTime start, DateTime end)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewExpense> GetByCategoryAndPeriodDate(string category, DateTime start, DateTime end)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.ExpenseCategory == category).
+                Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewExpense> GetByDetectedDt(DateTime date)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.DateTimeEntry.Date == date.Date)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewExpense> GetByExpense(string expense)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.AccountName == expense)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
+        public List<TBViewExpense> GetByCategory(string category)
+        {
+            List<TBViewExpense> MySlider = dbcontext.ViewExpense
+                .Where(a => a.ExpenseCategory == category)
+                .Where(a => a.CurrentState == true).ToList();
+            return MySlider; ;
         }
     }
 }
