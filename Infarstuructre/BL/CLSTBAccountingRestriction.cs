@@ -16,6 +16,16 @@ namespace Infarstuructre.BL
         bool UpdateData(TBAccountingRestriction updatss);
         bool deleteData(int IdaccountingRestrictions);
         List<TBAccountingRestriction> GetAllv(int IdaccountingRestrictions);
+
+        List<TBAccountingRestriction> GetBySupAndPeriodDate(string sup, DateTime start, DateTime end);
+        List<TBAccountingRestriction> GetByPeriodDate(DateTime start, DateTime end);
+        List<TBAccountingRestriction> GetBySupAndDetectedDt(string sup, DateTime date);
+        List<TBAccountingRestriction> GetByTypeAndPeriodDate(string type, DateTime start, DateTime end);
+        List<TBAccountingRestriction> GetByTypeAndDetectedDt(string type, DateTime date);
+        List<TBAccountingRestriction> GetByDetectedDt(DateTime date);
+        List<TBAccountingRestriction> GetBySup(string sup);
+        List<TBAccountingRestriction> GetByType(string type);
+
     }
     public class CLSTBAccountingRestriction: IIAccountingRestriction
     {
@@ -88,6 +98,62 @@ namespace Infarstuructre.BL
         public TBAccountingRestriction GetByBondNuAndBondType(int bond, string type)
         {
             TBAccountingRestriction MySlider = dbcontext.TBAccountingRestrictions.FirstOrDefault(a => a.BondType == type && a.BondNumber == bond);
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetBySupAndPeriodDate(string sup, DateTime start, DateTime end)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.AccountingName == sup).Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetByPeriodDate(DateTime start, DateTime end)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetBySupAndDetectedDt(string sup, DateTime date)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.AccountingName == sup).Where(a => a.DateTimeEntry.Date == date.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetByTypeAndPeriodDate(string type, DateTime start, DateTime end)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.BondType == type).Where(a => a.DateTimeEntry.Date >= start.Date && a.DateTimeEntry.Date <= end.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetByTypeAndDetectedDt(string type, DateTime date)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.BondType == type).Where(a => a.DateTimeEntry.Date == date.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetByDetectedDt(DateTime date)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.DateTimeEntry.Date == date.Date).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetBySup(string sup)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.AccountingName == sup).ToList();
+            return MySlider;
+        }
+
+        public List<TBAccountingRestriction> GetByType(string type)
+        {
+            List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions
+                .Where(a => a.BondType == type).ToList();
             return MySlider;
         }
     }
