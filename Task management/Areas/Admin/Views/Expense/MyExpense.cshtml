@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-sort">
                         <label>اختر تاريخ</label>
-                        <select id="SelectDetectedDtFprPrint" class="form-select" asp-for="@Model.Expense.DateTimeEntry" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "DateTimeEntry"))">
+                        <select id="SelectDetectedDtFprPrint" class="form-select" asp-for="@Model.Expense.DateTimeEntry" asp-items="@(new SelectList(ViewBag.Expense, "IdExpense", "DateBond"))">
                             <option></option>
                         </select>
                     </div>
@@ -108,7 +108,7 @@
                 </div>
                 <!-- /Filter -->
                 <div class="table-responsive">
-                    <table id="TblForResultTBL" class="table  datanew">
+                    <table id="TblForResultTBL12" class="table  datanew">
                         <thead>
                             <tr>
                                 <th class="no-sort">
@@ -130,7 +130,7 @@
                                 <th class="no-sort">@ResourceWeb.LbOpration</th>
                             </tr>
                         </thead>
-                        <tbody id="TBLForResult">
+                        <tbody id="TBLToPrint12">
                             @foreach (var item in Model.ListViewExpense)
                             {
                                 <tr>
@@ -320,12 +320,13 @@
                     .then(data => {
                         console.log("data: " + JSON.stringify(data, null, 2));
 
-                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
-                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                            $('#TblForResultTBL12').DataTable().clear().destroy();
                         }
 
-                        const tbody = $('#TBLForResult');
+                        const tbody = $('#TBLToPrint12');
                         tbody.empty();
+                        console.log("TblForResultTBL12 e");
 
                         data.forEach(item => {
                             const row = `
@@ -339,11 +340,16 @@
                                                                     <td>${item.accountName}</td>
                                                                     <td>${item.expenseCategory}</td>
                                                                     <td>${item.bondNumber}</td>
+                                                                           <td>${item.dateBond}</td>
                                                                     <td>${item.amount}</td>
                                                                     <td>$${item.statement}</td>
                                                                     <td>${item.dateTimeEntry}</td>
                                                                     <td>${item.dataEntry}</td>
                                                                     <td>${item.currentState}</td>
+                                                                                                                                                                                                <td>
+
+                                        ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                                    </td>
                                                             <td class="action-table-data">
                                                                 <div class="edit-delete-action">
                                                                     <a class="me-2 p-2" href="javascript:void(0);">
@@ -362,7 +368,7 @@
                         });
 
 
-                        $('#TblForResultTBL').DataTable({
+                        $('#TblForResultTBL12').DataTable({
                             paging: true,
                             searching: false,
                             ordering: false,
@@ -389,13 +395,13 @@
                     .then(data => {
                         console.log("data: " + JSON.stringify(data, null, 2));
 
-                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
-                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                            $('#TblForResultTBL12').DataTable().clear().destroy();
                         }
 
-                        const tbody = $('#TBLToAddPurcheasEdit');
+                        const tbody = $('#TBLToPrint12');
                         tbody.empty();
-
+                        console.log("TblForResultTBL12 e");
                         data.forEach(item => {
                             const row = `
                                                                 <tr>
@@ -408,11 +414,17 @@
                                                                             <td>${item.accountName}</td>
                                                                             <td>${item.expenseCategory}</td>
                                                                             <td>${item.bondNumber}</td>
+                                                                <td>${item.dateBond}</td>
+
                                                                             <td>${item.amount}</td>
                                                                             <td>$${item.statement}</td>
                                                                             <td>${item.dateTimeEntry}</td>
                                                                             <td>${item.dataEntry}</td>
                                                                             <td>${item.currentState}</td>
+                                                                                                                                                                                                        <td>
+
+                                        ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                                    </td>
                                                                     <td class="action-table-data">
                                                                         <div class="edit-delete-action">
                                                                             <a class="me-2 p-2" href="javascript:void(0);">
@@ -431,7 +443,7 @@
                         });
 
 
-                        $('#TblForResultTBL').DataTable({
+                        $('#TblForResultTBL12').DataTable({
                             paging: true,
                             searching: false,
                             ordering: false,
@@ -455,12 +467,13 @@
                     .then(data => {
                         console.log("data: " + JSON.stringify(data, null, 2));
 
-                        if ($.fn.DataTable.isDataTable('#TblForResultTBL')) {
-                            $('#TblForResultTBL').DataTable().clear().destroy();
+                        if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                            $('#TblForResultTBL12').DataTable().clear().destroy();
                         }
 
-                        const tbody = $('#TBLToAddPurcheasEdit');
+                        const tbody = $('#TBLToPrint12');
                         tbody.empty();
+                        console.log("TblForResultTBL12 e");
 
                         data.forEach(item => {
                             const row = `
@@ -474,11 +487,16 @@
                                                                             <td>${item.accountName}</td>
                                                                             <td>${item.expenseCategory}</td>
                                                                             <td>${item.bondNumber}</td>
+                                                                                    <td>${item.dateBond}</td>
                                                                             <td>${item.amount}</td>
                                                                             <td>$${item.statement}</td>
                                                                             <td>${item.dateTimeEntry}</td>
                                                                             <td>${item.dataEntry}</td>
                                                                             <td>${item.currentState}</td>
+                                                                                                                                                                                                        <td>
+
+                                        ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                                    </td>
                                                                     <td class="action-table-data">
                                                                         <div class="edit-delete-action">
                                                                             <a class="me-2 p-2" href="javascript:void(0);">
@@ -497,7 +515,7 @@
                         });
 
 
-                        $('#TblForResultTBL').DataTable({
+                        $('#TblForResultTBL12').DataTable({
                             paging: true,
                             searching: false,
                             ordering: false,
@@ -532,12 +550,13 @@
                 .then(data => {
                     console.log("data: " + JSON.stringify(data, null, 2));
 
-                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
-                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                        $('#TblForResultTBL12').DataTable().clear().destroy();
                     }
 
-                    const tbody = $('#TBLToPrint');
+                    const tbody = $('#TBLToPrint12');
                     tbody.empty();
+                    console.log("TblForResultTBL12 e");
 
                     data.forEach(item => {
                             const row = `
@@ -551,11 +570,18 @@
                                                                                 <td>${item.accountName}</td>
                                                                                 <td>${item.expenseCategory}</td>
                                                                                 <td>${item.bondNumber}</td>
+                                                                                          <td>${item.dateBond}</td>
+
                                                                                 <td>${item.amount}</td>
                                                                                 <td>$${item.statement}</td>
                                                                                 <td>${item.dateTimeEntry}</td>
                                                                                 <td>${item.dataEntry}</td>
                                                                                 <td>${item.currentState}</td>
+                                                                                <td>${item.currentState}</td>
+                                                                                                                                                                                                            <td>
+
+                                        ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                                    </td>
                                                                         <td class="action-table-data">
                                                                             <div class="edit-delete-action">
                                                                                 <a class="me-2 p-2" href="javascript:void(0);">
@@ -574,7 +600,7 @@
                     });
 
 
-                    $('#TblForPrintTBL').DataTable({
+                    $('#TblForResultTBL12').DataTable({
                         paging: true,
                         searching: false,
                         ordering: false,
@@ -611,12 +637,13 @@
                 .then(data => {
                     console.log("data: " + JSON.stringify(data, null, 2));
 
-                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
-                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                        $('#TblForResultTBL12').DataTable().clear().destroy();
                     }
 
-                    const tbody = $('#TBLToPrint');
+                    const tbody = $('#TBLToPrint12');
                     tbody.empty();
+                    console.log("TblForResultTBL12 e");
 
                     data.forEach(item => {
                         const row = `
@@ -630,11 +657,17 @@
                                                                                         <td>${item.accountName}</td>
                                                                                         <td>${item.expenseCategory}</td>
                                                                                         <td>${item.bondNumber}</td>
+                                                                                     <td>${item.dateBond}</td>
+
                                                                                         <td>${item.amount}</td>
                                                                                         <td>$${item.statement}</td>
                                                                                         <td>${item.dateTimeEntry}</td>
                                                                                         <td>${item.dataEntry}</td>
                                                                                         <td>${item.currentState}</td>
+                                                                                                                                                                                                                    <td>
+
+                                        ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                                    </td>
                                                                                 <td class="action-table-data">
                                                                                     <div class="edit-delete-action">
                                                                                         <a class="me-2 p-2" href="javascript:void(0);">
@@ -653,7 +686,7 @@
                     });
 
 
-                    $('#TblForPrintTBL').DataTable({
+                    $('#TblForResultTBL12').DataTable({
                         paging: true,
                         searching: false,
                         ordering: false,
@@ -686,14 +719,17 @@
                 .then(data => {
                     console.log("data: " + JSON.stringify(data, null, 2));
 
-                    if ($.fn.DataTable.isDataTable('#TblForPrintTBL')) {
-                        $('#TblForPrintTBL').DataTable().clear().destroy();
+                    if ($.fn.DataTable.isDataTable('#TblForResultTBL12')) {
+                        $('#TblForResultTBL12').DataTable().clear().destroy();
                     }
 
-                    const tbody = $('#TBLToPrint');
+                    const tbody = $('#TBLToPrint12');
                     tbody.empty();
+                    console.log("TblForResultTBL12 e");
 
                     data.forEach(item => {
+                        console.log("TblForResultTBL12 re");
+
                         const row = `
                                                                             <tr>
                                                                                 <td>
@@ -705,11 +741,17 @@
                                                                                         <td>${item.accountName}</td>
                                                                                         <td>${item.expenseCategory}</td>
                                                                                         <td>${item.bondNumber}</td>
+                                                                                                    <td>${item.dateBond}</td>
+
                                                                                         <td>${item.amount}</td>
                                                                                         <td>$${item.statement}</td>
                                                                                         <td>${item.dateTimeEntry}</td>
                                                                                         <td>${item.dataEntry}</td>
                                                                                         <td>${item.currentState}</td>
+                                                                                                                    <td>
+
+                                ${item.currentState ? '<span class="badge badge-linesuccess">Active</span>' : '<span class="badge badge-linedanger">DeActive</span>'}
+                            </td>
                                                                                 <td class="action-table-data">
                                                                                     <div class="edit-delete-action">
                                                                                         <a class="me-2 p-2" href="javascript:void(0);">
@@ -728,7 +770,7 @@
                     });
 
 
-                    $('#TblForPrintTBL').DataTable({
+                    $('#TblForResultTBL12').DataTable({
                         paging: true,
                         searching: false,
                         ordering: false,
@@ -741,6 +783,7 @@
                     console.error(`خطأ: ${error.message}`);
                 });
         });
+
     </script>
 
 

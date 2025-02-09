@@ -166,7 +166,7 @@ namespace Infarstuructre.BL
         {
             List<TBViewExpense> MySlider = dbcontext.ViewExpense
                 .Where(a => a.AccountName == expense).
-                Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond >= DateOnly.FromDateTime(end))
+                Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond <= DateOnly.FromDateTime(end))
                 .Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
@@ -174,7 +174,7 @@ namespace Infarstuructre.BL
         public List<TBViewExpense> GetByPeriodDate(DateTime start, DateTime end)
         {
             List<TBViewExpense> MySlider = dbcontext.ViewExpense
-                .Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond >= DateOnly.FromDateTime(end))
+                .Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond <= DateOnly.FromDateTime(end))
                 .Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
@@ -183,7 +183,7 @@ namespace Infarstuructre.BL
         {
             List<TBViewExpense> MySlider = dbcontext.ViewExpense
                 .Where(a => a.ExpenseCategory == category).
-                Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond >= DateOnly.FromDateTime(end))
+                Where(a => a.DateBond >= DateOnly.FromDateTime(start) && a.DateBond <= DateOnly.FromDateTime(end))
                 .Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
