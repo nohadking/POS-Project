@@ -113,14 +113,14 @@ namespace Infarstuructre.BL
         public List<TBViewPurchase> GetAByDetectedDate(DateTime date)
         {
             List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
-				.Where(a => a.DateTimeEntry.Date == date.Date).Where(a => a.CurrentState == true).ToList();
+				.Where(a => a.PurchaseDate == DateOnly.FromDateTime(date)).Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
 
         public List<TBViewPurchase> GetABySuplierAndPeriod(string suplierNm, DateTime sdate, DateTime edate)
         {
             List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
-                .Where(a => a.SupplierName == suplierNm && a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+                .Where(a => a.SupplierName == suplierNm && a.PurchaseDate >= DateOnly.FromDateTime(sdate) && a.PurchaseDate <= DateOnly.FromDateTime(edate))
 				.Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
@@ -128,7 +128,7 @@ namespace Infarstuructre.BL
         public List<TBViewPurchase> GetAByPruductAndPeriod(string productName, DateTime sdate, DateTime edate)
 		{
 			List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
-				.Where(a => a.ItemName == productName && a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+				.Where(a => a.ItemName == productName && a.PurchaseDate >= DateOnly.FromDateTime(sdate) && a.PurchaseDate <= DateOnly.FromDateTime(edate))
 				.Where(a => a.CurrentState == true).ToList();
 			return MySlider;
 		}
@@ -136,7 +136,7 @@ namespace Infarstuructre.BL
         public List<TBViewPurchase> GetByPeriod(DateTime sdate, DateTime edate)
         {
             List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
-                .Where(a => a.DateTimeEntry.Date >= sdate.Date && a.DateTimeEntry.Date <= edate.Date)
+                .Where(a => a.PurchaseDate >= DateOnly.FromDateTime(sdate) && a.PurchaseDate <= DateOnly.FromDateTime(edate))
                 .Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
