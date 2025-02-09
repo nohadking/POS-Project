@@ -114,7 +114,7 @@ namespace Task_management.Areas.Admin.Controllers
 
 
 
-            var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll();
+            var TotalPrchaase=vmodel.ListViewPurchase= iPurchase.GetAll().GroupBy(i => i.PurchaseNumber).Select(g => g.First()).ToList();
 			var allPrchaase = TotalPrchaase.Sum(a => a.TotalAll);
 			if (allPrchaase > 0) { ViewBag.totaallpurches = allPrchaase; }
 			else 
@@ -165,7 +165,7 @@ namespace Task_management.Areas.Admin.Controllers
 			.ToList();
 
 			ViewBag.onlineuser = onnn;
-			ViewBag.Profit = totalAmount - allPrchaase - totalexchinh;
+			ViewBag.Profit = totalAmount  - totalexchinh;
 
 
 
