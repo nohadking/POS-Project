@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using System.IO;
+using System.Threading.Tasks;
+
 
 namespace Task_management.Areas.Admin.Controllers
 {
@@ -271,64 +277,64 @@ namespace Task_management.Areas.Admin.Controllers
 
 
 					page.Header()
-											  .Column(header =>
-											  {
-												  header.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-												  if (expense == null && category == null && oneDate == null && startDate == null && endDate == null)
-												  {
-													  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف العام ").FontSize(20).Bold();
-												  }
-												  else
-												  {
-													  if (oneDate != null)
-													  {
-														  // حسب تاريخ محدد
-														  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لتاريخ {oneDate} ").FontSize(20).Bold();
-													  }
+					.Column(header =>
+					{
+						header.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
+						if (expense == null && category == null && oneDate == null && startDate == null && endDate == null)
+						{
+							header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف العام ").FontSize(20).Bold();
+						}
+						else
+						{
+							if (oneDate != null)
+							{
+								// حسب تاريخ محدد
+								header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لتاريخ {oneDate} ").FontSize(20).Bold();
+							}
 
-													  else if (startDate != null && endDate != null)
-													  {
-														  if (expense != null)
-														  {
-															  // حسب اسم مورد بين تاريخين  
-															  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لـ {expense} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
-														  }
+							else if (startDate != null && endDate != null)
+							{
+								if (expense != null)
+								{
+									// حسب اسم مورد بين تاريخين  
+									header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لـ {expense} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+								}
 
-														  else if (category != null)
-														  {
-															  // حسب نوع السند بين تاريخين  
-															  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لفئة  {category} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+								else if (category != null)
+								{
+									// حسب نوع السند بين تاريخين  
+									header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لفئة  {category} بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
 
-														  }
+								}
 
-														  else
-														  {
-															  // حسب من تاريخ لتاريخ  
-															  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
-														  }
-													  }
-													  else if (expense != null)
-													  {
-														  // حسب اسم مورد  
-														  header.Item().Border(1).AlignCenter().Text($"تقرير مصاريف {expense} ").FontSize(20).Bold();
+								else
+								{
+									// حسب من تاريخ لتاريخ  
+									header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف بين تاريخ {startDate} وتاريخ {endDate} ").FontSize(20).Bold();
+								}
+							}
+							else if (expense != null)
+							{
+								// حسب اسم مورد  
+								header.Item().Border(1).AlignCenter().Text($"تقرير مصاريف {expense} ").FontSize(20).Bold();
 
-													  }
+							}
 
-													  else if (category != null)
-													  {
-														  // حسب نوع السند  
-														  header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لفئة: {category} ").FontSize(20).Bold();
+							else if (category != null)
+							{
+								// حسب نوع السند  
+								header.Item().Border(1).AlignCenter().Text($"تقرير المصاريف لفئة: {category} ").FontSize(20).Bold();
 
-													  }
-												  }
+							}
+						}
 
-												  if (compny != null)
-												  {
-													  header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-													  header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-													  header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-												  }
-											  });
+						if (compny != null)
+						{
+							header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
+							header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
+							header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
+						}
+					});
 					decimal totalAmount = expenses.Sum(e => e.Amount);
 
 					page.Content().Column(content =>
@@ -358,11 +364,6 @@ namespace Task_management.Areas.Admin.Controllers
 								header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
 								header.Cell().Border(1).AlignCenter().Text("فئة الحساب").Bold();
 								header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
-
-
-
-
-
 
 							});
 
@@ -438,161 +439,263 @@ namespace Task_management.Areas.Admin.Controllers
 			var pdfData = pdfDocument.GeneratePdf();
 			return File(pdfData, "application/pdf", "Report.pdf");
 		}
-		//public IActionResult CreatePDF(string? expense, string? category, string? oneDate, string startDate, string endDate)
-		//{
-		//	ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-		//	var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
-		//	var expenses = new List<TBViewExpense>();
+        //public IActionResult CreatePDF(string? expense, string? category, string? oneDate, string startDate, string endDate)
+        //{
+        //	ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+        //	var compny = dbcontext.TBCompanyInformations.FirstOrDefault();
+        //	var expenses = new List<TBViewExpense>();
 
-		//	var pdfDocument = Document.Create(container =>
-		//	{
-		//		// **استرجاع البيانات بناءً على الفلاتر المحددة**
-		//		if (expense == null && category == null && oneDate == null && startDate == null && endDate == null)
-		//		{
-		//			expenses = vmodel.ListViewExpense = iExpense.GetAll();
-		//		}
-		//		else
-		//		{
-		//			if (oneDate != null)
-		//			{
-		//				DateTime dt = Convert.ToDateTime(oneDate);
-		//				expenses = vmodel.ListViewExpense = iExpense.GetByDetectedDt(dt);
-		//			}
-		//			else if (startDate != null && endDate != null)
-		//			{
-		//				DateTime startDt = Convert.ToDateTime(startDate);
-		//				DateTime endD = Convert.ToDateTime(endDate);
+        //	var pdfDocument = Document.Create(container =>
+        //	{
+        //		// **استرجاع البيانات بناءً على الفلاتر المحددة**
+        //		if (expense == null && category == null && oneDate == null && startDate == null && endDate == null)
+        //		{
+        //			expenses = vmodel.ListViewExpense = iExpense.GetAll();
+        //		}
+        //		else
+        //		{
+        //			if (oneDate != null)
+        //			{
+        //				DateTime dt = Convert.ToDateTime(oneDate);
+        //				expenses = vmodel.ListViewExpense = iExpense.GetByDetectedDt(dt);
+        //			}
+        //			else if (startDate != null && endDate != null)
+        //			{
+        //				DateTime startDt = Convert.ToDateTime(startDate);
+        //				DateTime endD = Convert.ToDateTime(endDate);
 
-		//				if (expense != null)
-		//				{
-		//					expenses = vmodel.ListViewExpense = iExpense.GetByExpenseAndPeriodDate(expense, startDt, endD);
-		//				}
-		//				else if (category != null)
-		//				{
-		//					expenses = vmodel.ListViewExpense = iExpense.GetByCategoryAndPeriodDate(category, startDt, endD);
-		//				}
-		//				else
-		//				{
-		//					expenses = vmodel.ListViewExpense = iExpense.GetByPeriodDate(startDt, endD);
-		//				}
-		//			}
-		//			else if (expense != null)
-		//			{
-		//				expenses = vmodel.ListViewExpense = iExpense.GetByExpense(expense);
-		//			}
-		//			else if (category != null)
-		//			{
-		//				expenses = vmodel.ListViewExpense = iExpense.GetByCategory(category);
-		//			}
-		//		}
+        //				if (expense != null)
+        //				{
+        //					expenses = vmodel.ListViewExpense = iExpense.GetByExpenseAndPeriodDate(expense, startDt, endD);
+        //				}
+        //				else if (category != null)
+        //				{
+        //					expenses = vmodel.ListViewExpense = iExpense.GetByCategoryAndPeriodDate(category, startDt, endD);
+        //				}
+        //				else
+        //				{
+        //					expenses = vmodel.ListViewExpense = iExpense.GetByPeriodDate(startDt, endD);
+        //				}
+        //			}
+        //			else if (expense != null)
+        //			{
+        //				expenses = vmodel.ListViewExpense = iExpense.GetByExpense(expense);
+        //			}
+        //			else if (category != null)
+        //			{
+        //				expenses = vmodel.ListViewExpense = iExpense.GetByCategory(category);
+        //			}
+        //		}
 
-		//		// **حساب مجموع المبالغ**
-		//		decimal totalAmount = expenses.Sum(e => e.Amount);
+        //		// **حساب مجموع المبالغ**
+        //		decimal totalAmount = expenses.Sum(e => e.Amount);
 
-		//		container.Page(page =>
-		//		{
-		//			page.Size(PageSizes.A4);
-		//			page.Margin(1, Unit.Centimetre); // تقليل الهامش لتوسيع الجدول
-		//			page.DefaultTextStyle(x => x.FontSize(12));
+        //		container.Page(page =>
+        //		{
+        //			page.Size(PageSizes.A4);
+        //			page.Margin(1, Unit.Centimetre); // تقليل الهامش لتوسيع الجدول
+        //			page.DefaultTextStyle(x => x.FontSize(12));
 
-		//			// **ترويسة التقرير**
-		//			page.Header().Column(header =>
-		//			{
-		//				string reportTitle = "تقرير المصاريف العام";
+        //			// **ترويسة التقرير**
+        //			page.Header().Column(header =>
+        //			{
+        //				string reportTitle = "تقرير المصاريف العام";
 
-		//				if (oneDate != null)
-		//				{
-		//					reportTitle = $"تقرير المصاريف لتاريخ {oneDate}";
-		//				}
-		//				else if (startDate != null && endDate != null)
-		//				{
-		//					reportTitle = expense != null
-		//						? $"تقرير المصاريف لـ {expense} بين {startDate} و {endDate}"
-		//						: category != null
-		//							? $"تقرير المصاريف لفئة {category} بين {startDate} و {endDate}"
-		//							: $"تقرير المصاريف بين {startDate} و {endDate}";
-		//				}
-		//				else if (expense != null)
-		//				{
-		//					reportTitle = $"تقرير مصاريف {expense}";
-		//				}
-		//				else if (category != null)
-		//				{
-		//					reportTitle = $"تقرير المصاريف لفئة: {category}";
-		//				}
+        //				if (oneDate != null)
+        //				{
+        //					reportTitle = $"تقرير المصاريف لتاريخ {oneDate}";
+        //				}
+        //				else if (startDate != null && endDate != null)
+        //				{
+        //					reportTitle = expense != null
+        //						? $"تقرير المصاريف لـ {expense} بين {startDate} و {endDate}"
+        //						: category != null
+        //							? $"تقرير المصاريف لفئة {category} بين {startDate} و {endDate}"
+        //							: $"تقرير المصاريف بين {startDate} و {endDate}";
+        //				}
+        //				else if (expense != null)
+        //				{
+        //					reportTitle = $"تقرير مصاريف {expense}";
+        //				}
+        //				else if (category != null)
+        //				{
+        //					reportTitle = $"تقرير المصاريف لفئة: {category}";
+        //				}
 
-		//				header.Item().AlignCenter().Text(reportTitle).FontSize(20).Bold();
+        //				header.Item().AlignCenter().Text(reportTitle).FontSize(20).Bold();
 
-		//				if (compny != null)
-		//				{
-		//					header.Item().AlignCenter().Text(compny.NameCompanyAr).FontSize(14);
-		//					header.Item().AlignCenter().Text(compny.AddressAr).FontSize(12);
-		//					header.Item().AlignCenter().Text(compny.Mobile).FontSize(12);
-		//				}
-		//			});
+        //				if (compny != null)
+        //				{
+        //					header.Item().AlignCenter().Text(compny.NameCompanyAr).FontSize(14);
+        //					header.Item().AlignCenter().Text(compny.AddressAr).FontSize(12);
+        //					header.Item().AlignCenter().Text(compny.Mobile).FontSize(12);
+        //				}
+        //			});
 
-		//			// **محتوى التقرير**
-		//			page.Content().Column(content =>
-		//			{
-		//				content.Item().AlignCenter().Text("تقرير المصاريف").FontSize(16).Bold();
-		//				content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
+        //			// **محتوى التقرير**
+        //			page.Content().Column(content =>
+        //			{
+        //				content.Item().AlignCenter().Text("تقرير المصاريف").FontSize(16).Bold();
+        //				content.Item().AlignCenter().Text("----------------------------------------------").FontSize(12).Bold();
 
-		//				// **الجدول**
-		//				content.Item().Table(table =>
-		//				{
-		//					table.ColumnsDefinition(columns =>
-		//					{
-		//						columns.RelativeColumn(); // مدخل البيانات
-		//						columns.RelativeColumn(); // تاريخ الادخال
-		//						columns.RelativeColumn(); // البيان
-		//						columns.RelativeColumn(); // المبلغ
-		//						columns.RelativeColumn(); // رقم السند
-		//						columns.RelativeColumn(); // فئة الحساب
-		//						columns.RelativeColumn(); // اسم الحساب
-		//					});
+        //				// **الجدول**
+        //				content.Item().Table(table =>
+        //				{
+        //					table.ColumnsDefinition(columns =>
+        //					{
+        //						columns.RelativeColumn(); // مدخل البيانات
+        //						columns.RelativeColumn(); // تاريخ الادخال
+        //						columns.RelativeColumn(); // البيان
+        //						columns.RelativeColumn(); // المبلغ
+        //						columns.RelativeColumn(); // رقم السند
+        //						columns.RelativeColumn(); // فئة الحساب
+        //						columns.RelativeColumn(); // اسم الحساب
+        //					});
 
-		//					// **رأس الجدول**
-		//					table.Header(header =>
-		//					{
-		//						header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("تاريخ الإدخال").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("المبلغ").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("فئة الحساب").Bold();
-		//						header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
-		//					});
+        //					// **رأس الجدول**
+        //					table.Header(header =>
+        //					{
+        //						header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("تاريخ الإدخال").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("المبلغ").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("فئة الحساب").Bold();
+        //						header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
+        //					});
 
-		//					// **صفوف البيانات**
-		//					foreach (var ex in expenses)
-		//					{
-		//						string dataEntryName = dbcontext.VwUsers
-		//							.Where(a => a.Email == ex.DataEntry)
-		//							.Select(a => a.Name)
-		//							.FirstOrDefault() ?? string.Empty;
+        //					// **صفوف البيانات**
+        //					foreach (var ex in expenses)
+        //					{
+        //						string dataEntryName = dbcontext.VwUsers
+        //							.Where(a => a.Email == ex.DataEntry)
+        //							.Select(a => a.Name)
+        //							.FirstOrDefault() ?? string.Empty;
 
-		//						table.Cell().Border(1).AlignCenter().Text(dataEntryName);
-		//						table.Cell().Border(1).AlignCenter().Text(ex.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
-		//						table.Cell().Border(1).AlignCenter().Text(ex.Statement);
-		//						table.Cell().Border(1).AlignCenter().Text($"{ex.Amount:C}"); // تنسيق المبلغ كعملة
-		//						table.Cell().Border(1).AlignCenter().Text(ex.BondNumber);
-		//						table.Cell().Border(1).AlignCenter().Text(ex.ExpenseCategory);
-		//						table.Cell().Border(1).AlignCenter().Text(ex.AccountName);
-		//					}
-		//				});
+        //						table.Cell().Border(1).AlignCenter().Text(dataEntryName);
+        //						table.Cell().Border(1).AlignCenter().Text(ex.DateTimeEntry.ToString("yyyy-MM-dd HH:mm:ss"));
+        //						table.Cell().Border(1).AlignCenter().Text(ex.Statement);
+        //						table.Cell().Border(1).AlignCenter().Text($"{ex.Amount:C}"); // تنسيق المبلغ كعملة
+        //						table.Cell().Border(1).AlignCenter().Text(ex.BondNumber);
+        //						table.Cell().Border(1).AlignCenter().Text(ex.ExpenseCategory);
+        //						table.Cell().Border(1).AlignCenter().Text(ex.AccountName);
+        //					}
+        //				});
 
-		//				// **إجمالي المبلغ**
-		//				content.Item().PaddingTop(10).AlignRight().Text($"إجمالي المبلغ: {totalAmount:C}").FontSize(14).Bold();
+        //				// **إجمالي المبلغ**
+        //				content.Item().PaddingTop(10).AlignRight().Text($"إجمالي المبلغ: {totalAmount:C}").FontSize(14).Bold();
 
-		//				// **إضافة تاريخ الطباعة**
-		//				content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
-		//			});
-		//		});
-		//	});
+        //				// **إضافة تاريخ الطباعة**
+        //				content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
+        //			});
+        //		});
+        //	});
 
-		//	var pdfData = pdfDocument.GeneratePdf();
-		//	return File(pdfData, "application/pdf", "Report.pdf");
-		//}
+        //	var pdfData = pdfDocument.GeneratePdf();
+        //	return File(pdfData, "application/pdf", "Report.pdf");
+        //}
 
-	}
+
+
+        public async Task<IActionResult> CreateDirectPdf(int num)
+        {
+			var expense = dbcontext.ViewExpense.Where(a => a.BondNumber == num).FirstOrDefault();
+			if (expense != null)
+			{
+                var pdfDocument = Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A5.Landscape());
+                        page.Margin(10);
+                        page.DefaultTextStyle(x => x.FontSize(12));
+
+                        page.Content().Column(column =>
+                        {
+                            // الصف الأول: التاريخ والمرجع
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(2).Text($"التاريخ:{expense.DateBond.ToString("yyyy/MM/dd")}").Bold();
+                                row.RelativeItem(1).AlignRight().Text("ح.أ").Bold();
+                                row.RelativeItem(1).Width(50).Border(1);
+                                row.RelativeItem(1).AlignRight().Text("دينار").Bold();
+                                row.RelativeItem(1).Width(50).Border(1);
+                            });
+
+                            // العنوان
+                            column.Item().AlignCenter().Text("سند صرف").FontSize(18).Bold();
+                            column.Item().AlignCenter().Text("PAYMENT VOUCHER").FontSize(10).Bold().Italic();
+                            column.Item().Height(5);
+
+                            // بيانات الدفع
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(1).Text($"إدفعوا إلى السيد : {expense.AccountName}").Bold();
+                                row.RelativeItem(3).BorderBottom(1);
+                            });
+
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(1).Text($"مبلغ وقدره : {expense.Amount}").Bold();
+                                row.RelativeItem(3).BorderBottom(1);
+                            });
+
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(1).Text($"وذلك عن :{expense.Statement}").Bold();
+                                row.RelativeItem(3).BorderBottom(1);
+                            });
+
+                            column.Item().Height(10);
+
+                            // تفاصيل الدفع عبر البنك
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(1).Text("Bank : ").Bold();
+                                row.RelativeItem(2).BorderBottom(1);
+                                row.RelativeItem(1).Text("نقداً ").Bold();
+                                row.RelativeItem(1).Box().Border(1).Width(12).Height(12);
+
+                                row.RelativeItem(1).Text("حوالة بنكية ").Bold();
+                                row.RelativeItem(1).Box().Border(1).Width(12).Height(12);
+
+                                row.RelativeItem(1).Text("ذمم ").Bold();
+                                row.RelativeItem(1).Box().Border(1).Width(12).Height(12);
+                            });
+
+                            column.Item().Height(15);
+
+                            // التوقيعات
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem(1).Column(subColumn =>
+                                {
+                                    subColumn.Item().BorderTop(1).Width(100);
+                                    subColumn.Item().AlignCenter().Text("المدير Manager").Bold();
+                                });
+
+                                row.RelativeItem(1).Column(subColumn =>
+                                {
+                                    subColumn.Item().BorderTop(1).Width(100);
+                                    subColumn.Item().AlignCenter().Text("المحاسب Accountant").Bold();
+                                });
+
+                                row.RelativeItem(1).Column(subColumn =>
+                                {
+                                    subColumn.Item().BorderTop(1).Width(100);
+                                    subColumn.Item().AlignCenter().Text("المستلم Receive by").Bold();
+                                });
+                            });
+                        });
+                    });
+                });
+
+                return File(pdfDocument.GeneratePdf(), "application/pdf", "Expense_Report.pdf");
+            }
+			return RedirectToAction("MyExpense");
+        }
+
+
+
+    }
 }

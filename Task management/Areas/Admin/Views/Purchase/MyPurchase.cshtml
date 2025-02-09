@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
+                    <a onclick="printDirectPdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="print">
                         <img src="~/AdminEn/assets/img/icons/printer.svg" alt="img">
                     </a>
                 </li>
@@ -2469,6 +2469,17 @@
 
 
 
+    </script>
+
+    <script>
+        function printDirectPdf() {
+
+            var searchInput = $('.form-control.form-control-sm').val();
+
+            console.log(searchInput);
+            var url = `/Admin/Purchase/CreateDirectPdf?num=${encodeURIComponent(searchInput)}`;
+            window.location.href = url;
+        }
     </script>
 
 }

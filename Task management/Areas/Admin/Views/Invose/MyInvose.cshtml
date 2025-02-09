@@ -31,7 +31,7 @@
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="~/AdminEn/assets/img/icons/excel.svg" alt="img"></a>
                     </li>
                     <li>
-                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
+                        <a onclick="printDirectPdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
                     </li>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
@@ -435,6 +435,17 @@
             });
     });
 
+</script>
+
+<script>
+    function printDirectPdf(){
+
+        var searchInput = $('.form-control.form-control-sm').val();
+
+        console.log(searchInput);
+        var url = `/Admin/Invose/CreateDirectPdf?num=${encodeURIComponent(searchInput)}`;
+        window.location.href = url;
+    }
 </script>
 
 

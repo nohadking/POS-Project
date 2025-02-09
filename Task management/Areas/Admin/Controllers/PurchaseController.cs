@@ -3,6 +3,8 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Drawing.Printing;
+using System.Drawing;
 
 namespace Task_management.Areas.Admin.Controllers
 {
@@ -493,5 +495,127 @@ namespace Task_management.Areas.Admin.Controllers
             var pdfData = pdfDocument.GeneratePdf();
             return File(pdfData, "application/pdf", "Report.pdf");
         }
+
+
+        public async Task<IActionResult> CreateDirectPdf(int num)
+        {
+            if (num == null)
+            {
+                return RedirectToAction("MyPurchase");
+            }
+
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListViewPurchase = iPurchase.GetByPurcheasNm(num);
+
+            if (vmodel.ListViewPurchase == null || !vmodel.ListViewPurchase.Any())
+            {
+                return RedirectToAction("MyPurchase");
+            }
+
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
+            var company = vmodel.ListCompanyInformation.FirstOrDefault();
+            string companyName = company?.NameCompanyAr ?? "";
+            string companyAddress = company?.AddressAr ?? "";
+            string companyPhone = company?.Phone ?? "";
+            string companyTaxInfo = "VAT No: 123456789";
+
+            decimal totalAmount = 0;
+            int totalQuantity = 0;
+
+            // إنشاء مستند PDF
+            var pdfDocument = Document.Create(container =>
+            {
+                var products = vmodel.ListViewPurchase;
+
+                totalQuantity = products.Sum(p => p.Quantity);
+                totalAmount = products.Sum(p => p.TotalAll);
+
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, Unit.Centimetre);
+                    page.DefaultTextStyle(x => x.FontSize(12));
+
+                    // رأس الصفحة (Header)
+                    page.Header()
+                        .Column(header =>
+                        {
+                            header.Item().AlignCenter().Text("سند الشراء").FontSize(20).Bold();
+                            header.Item().AlignCenter().Text(companyName).FontSize(14);
+                            header.Item().AlignCenter().Text(companyAddress).FontSize(12);
+                            header.Item().AlignCenter().Text(companyPhone).FontSize(12);
+                        });
+
+                    // محتوى الفاتورة (Content)
+                    page.Content().Column(content =>
+                    {
+                        content.Item().AlignCenter().Text($"رقم السند: {num}").FontSize(16).Bold();
+
+                        // إضافة تفاصيل العميل
+
+                        content.Item().PaddingTop(10).Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(100); // المورد
+                                columns.ConstantColumn(100); // اسم الصنف
+                                columns.ConstantColumn(50);  // الكمية
+                                columns.ConstantColumn(50);  // السعر الافرادي
+                                columns.ConstantColumn(50);  // الأجمالي
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Border(1).AlignCenter().Text("المورد").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("اسم الصنف").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("الكمية").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("السعر الافرادي").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("الأجمالي").Bold();
+                            });
+
+                            foreach (var product in products)
+                            {
+                                table.Cell().Border(1).AlignCenter().Text(product.SupplierName);
+                                table.Cell().Border(1).AlignCenter().Text(product.ItemName.ToString());
+                                table.Cell().Border(1).AlignCenter().Text($"{product.Quantity:F3}");
+                                table.Cell().Border(1).AlignCenter().Text($"{product.PurchasePrice:F3}");
+                                table.Cell().Border(1).AlignCenter().Text($"{product.Total:F3}");
+                            }
+                        });
+
+                        content.Item().PaddingTop(10);
+
+                        // **إضافة الفوتر في نهاية التقرير**
+                        content.Item().PaddingTop(20).Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn(); // العمود الأول: مجموع الكمية
+                                columns.RelativeColumn(); // العمود الثاني: المجموع العام
+                            });
+
+                            // المسميات في السطر الأول
+                            table.Header(header =>
+                            {
+                                header.Cell().AlignCenter().Text("مجموع الكمية").FontSize(12).Bold();
+                                header.Cell().AlignCenter().Text("المجموع العام").FontSize(12).Bold();
+                            });
+
+                            // القيم في السطر الثاني
+                            table.Cell().Border(1).AlignCenter().Text($"{totalQuantity}").FontSize(12);
+                            table.Cell().Border(1).AlignCenter().Text($"{totalAmount:C}").FontSize(12);
+                        });
+
+                        // إضافة تاريخ الطباعة أسفل التقرير
+                        content.Item().PaddingTop(10).AlignRight().Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(10).Bold();
+                    });
+                });
+            });
+
+            var pdfData = pdfDocument.GeneratePdf();
+            return File(pdfData, "application/pdf", "Purchase_Receipt_Report.pdf");
+        }
+
     }
 }

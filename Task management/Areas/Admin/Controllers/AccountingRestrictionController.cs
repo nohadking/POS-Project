@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Drawing.Printing;
 
 namespace Task_management.Areas.Admin.Controllers
 {
@@ -644,6 +645,110 @@ namespace Task_management.Areas.Admin.Controllers
             var pdfData = pdfDocument.GeneratePdf();
             return File(pdfData, "application/pdf", "Report.pdf");
         }
+
+
+        //public async Task<IActionResult> CreateDirectPdf(int num)
+        //{
+        //    if (num == null)
+        //    {
+        //        return RedirectToAction("MyInvose");
+        //    }
+
+        //    var invoice = dbcontext.ViewInvose.FirstOrDefault(i => i.InvoiceNumber == num);
+
+        //    // جلب بيانات الفاتورة
+        //    ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+        //    vmodel.ListViewInvose = iInvose.GetByInvoiceNumber(Convert.ToInt32(num));
+
+        //    if (vmodel.ListViewInvose == null || !vmodel.ListViewInvose.Any())
+        //    {
+        //        return RedirectToAction("MyInvose");
+        //    }
+
+        //    vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
+        //    string companyName = vmodel.ListCompanyInformation[0].NameCompanyAr;
+        //    string companyAddress = vmodel.ListCompanyInformation[0].AddressAr;
+        //    string companyPhone = vmodel.ListCompanyInformation[0].Phone;
+        //    string companyTaxInfo = "VAT No: 123456789";
+        //    decimal totalAmount = 0;
+        //    // إعداد مستند الطباعة
+        //    //PrintDocument pd = new PrintDocument
+        //    //{
+        //    //    PrinterSettings = { PrinterName = "Microsoft Print to PDF" }
+        //    //};
+        //    //PrintDocument pd = new PrintDocument
+        //    //{
+        //    //    PrinterSettings = { PrinterName = null } // استخدام الطابعة الافتراضية
+        //    //};
+
+        //    // إعداد مستند الطباعة
+        //    PrintDocument pd = new PrintDocument
+        //    {
+        //        PrinterSettings = { PrinterName = new PrinterSettings().PrinterName } // تعيين الطابعة الافتراضية
+        //    };
+        //    // تعيين حجم الورق الحراري (عرض 8 سم - 80 مم)
+        //    pd.DefaultPageSettings.PaperSize = new PaperSize("Custom", 320, 1180); // 80mm x 118mm تقريبا كحجم ورقة حرارية
+        //    pd.PrintPage += (sender, e) =>
+        //    {
+        //        Font headerFont = new Font("Arial", 10, FontStyle.Bold);
+        //        Font bodyFont = new Font("Arial", 8);
+        //        Font totalFont = new Font("Arial", 8, FontStyle.Bold);
+        //        int yPosition = 10; // الموضع الأولي للطباعة
+        //        int leftMargin = 10; // الهامش الأيسر
+        //        // إضافة هيدر الفاتورة بمعلومات الشركة
+        //        e.Graphics.DrawString(companyName, headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        e.Graphics.DrawString(companyAddress, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+        //        e.Graphics.DrawString(companyPhone, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+        //        e.Graphics.DrawString(companyTaxInfo, bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
+        //        // إضافة عنوان الفاتورة
+        //        e.Graphics.DrawString("Invoice Receipt", headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        e.Graphics.DrawString($"Invoice No: {num}", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+        //        e.Graphics.DrawString($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        // طباعة تفاصيل المنتجات كجدول
+        //        e.Graphics.DrawString("Product Details:", headerFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+        //        // رأس الجدول
+        //        e.Graphics.DrawString("الصنف", bodyFont, Brushes.Black, leftMargin, yPosition);
+        //        e.Graphics.DrawString("الكمية", bodyFont, Brushes.Black, leftMargin + 65, yPosition); // المسافة بين الأعمدة
+        //        e.Graphics.DrawString("السعر", bodyFont, Brushes.Black, leftMargin + 90, yPosition);
+        //        e.Graphics.DrawString("الأجمالي", bodyFont, Brushes.Black, leftMargin + 140, yPosition);
+        //        yPosition += 15;
+
+        //        e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+
+        //        foreach (var product in vmodel.ListViewInvose)
+        //        {
+        //            // طباعة تفاصيل كل منتج
+        //            e.Graphics.DrawString(product.ProductNameAr, bodyFont, Brushes.Black, leftMargin, yPosition);
+        //            e.Graphics.DrawString(product.Quantity.ToString(), bodyFont, Brushes.Black, leftMargin + 65, yPosition);
+        //            e.Graphics.DrawString($"{product.price:F3}", bodyFont, Brushes.Black, leftMargin + 90, yPosition);
+        //            e.Graphics.DrawString($"{product.total:F3}", bodyFont, Brushes.Black, leftMargin + 140, yPosition);
+
+        //            yPosition += 15;
+
+        //            totalAmount += product.total; // حساب المجموع الإجمالي
+        //        }
+        //        e.Graphics.DrawString("----------------------------------------------------", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 15;
+
+        //        // طباعة المجاميع
+        //        //e.Graphics.DrawString($"Total Amount: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        //e.Graphics.DrawString($"VAT (15%): {totalAmount * 0.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        //e.Graphics.DrawString($"Grand Total: {totalAmount * 1.15M:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
+
+        //        e.Graphics.DrawString($"Total Amount: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        //e.Graphics.DrawString($"VAT (15%): {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //        e.Graphics.DrawString($"Grand Total: {totalAmount:C}", totalFont, Brushes.Black, leftMargin, yPosition); yPosition += 30;
+
+        //        // إضافة رسالة شكر
+        //        e.Graphics.DrawString("Thank you for shopping with us!", bodyFont, Brushes.Black, leftMargin, yPosition); yPosition += 20;
+        //    };
+
+        //    // تنفيذ عملية الطباعة
+        //    await Task.Run(() => pd.Print());
+        //    // إعادة التوجيه إلى صفحة MyPOS بعد الطباعة
+        //    return RedirectToAction("MyPOS");
+        //}
 
     }
 }
