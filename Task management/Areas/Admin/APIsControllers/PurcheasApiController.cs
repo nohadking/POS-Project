@@ -53,7 +53,9 @@ namespace Task_management.Areas.Admin.APIsControllers
 
             return Ok(new TBPurchase());
         }
-        [HttpGet("/api/PurcheasApi/GetByDate/{Sdate}")]
+
+
+        [HttpGet("/api/PurcheasApi/GetByPurcheasNm/{nm}")]
         public IActionResult GetByPurcheasNm(int nm)
         {
             var purcheases = iPurchase.GetByPurcheasNm(nm);
