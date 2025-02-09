@@ -1096,6 +1096,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاريخ السند.
+        /// </summary>
+        internal static string lbDateBond {
+            get {
+                return ResourceManager.GetString("lbDateBond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تاريخ الفاتورة.
         /// </summary>
         internal static string LbDateInvos {

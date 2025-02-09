@@ -120,6 +120,7 @@
                                 <th>@ResourceWeb.lbAccountName</th>
                                 <th>@ResourceWeb.lbExpenseCategory</th>
                                 <th>@ResourceWeb.lbBondNumber</th>
+                                <th>@ResourceWeb.lbDateBond</th>
                                 <th>@ResourceWeb.LbAmount</th>
                                 <th>@ResourceWeb.lbStatement</th>
                                 <th>@ResourceWeb.LbDateTimeEntry</th>
@@ -143,6 +144,7 @@
                                     <td>@item.AccountName</td>
                                     <td>@item.ExpenseCategory</td>
                                     <td>@item.BondNumber</td>
+                                    <td>@item.DateBond</td>
                                     <td>@item.Amount</td>
                                     <td>@item.Statement</td>       
                                     <td>@item.DateTimeEntry</td>
@@ -205,7 +207,11 @@
                                 <input type="text" class="form-control" value="@ViewBag.nomberMax" asp-for="@Model.Expense.BondNumber" readonly>
                                 <span asp-validation-for="@Model.Expense.BondNumber" class="text-danger"></span>
                             </div>
-
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="@Model.Expense.DateBond">@ResourceWeb.lbDateBond</label>
+                                <input type="date" class="form-control" asp-for="@Model.Expense.DateBond" placeholder="@ResourceWeb.lbDateBond">
+                                <span asp-validation-for="@Model.Expense.DateBond" class="text-danger"></span>
+                            </div>
                                 
                                 <div class="mb-3">
                                     <label asp-for="@Model.Expense.IdExpenseCategory" for="exampleInputEmail1">تابع لحساب</label>

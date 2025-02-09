@@ -15,7 +15,8 @@ namespace Domin.Entity
         public string AccountName { get; set; }
         public string ExpenseCategory { get; set; }
         public int BondNumber { get; set; }
-        public string Statement { get; set; }
+		public DateOnly DateBond { get; set; }
+		public string Statement { get; set; }
         public string DataEntry { get; set; }
         public DateTime DateTimeEntry { get; set; }
         public bool CurrentState { get; set; }

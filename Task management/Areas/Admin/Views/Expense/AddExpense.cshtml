@@ -46,6 +46,11 @@
 
                                     </div>
                                     <div class="col-lg-6 col-xs-6">
+                                        <label for="exampleInputEmail1">@ResourceWeb.lbDateBond</label>
+                                        <input type="date" asp-for="@Model.Expense.DateBond" placeholder="@ResourceWeb.lbDateBond" class="form-control" readonly>
+                                        <span asp-validation-for="@Model.Expense.DateBond" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-6">
                                         <label asp-for="@Model.Expense.IdExpenseCategory" for="exampleInputEmail1">تابع لحساب</label>
                                         <select class="form-select" asp-for="@Model.Expense.IdLevelForeAccount" asp-items="@(new SelectList(ViewBag.LevelForeAccount, "IdLevelForeAccount", "LevelForeAccountsName"))">
                                         </select>

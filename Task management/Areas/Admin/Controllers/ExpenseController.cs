@@ -48,7 +48,6 @@ namespace Task_management.Areas.Admin.Controllers
 			vmodel.ListViewExpense = iExpense.GetAll();
 			ViewBag.ExpenseCategory = vmodel.ListExpenseCategory = iExpenseCategory.GetAll();
 			ViewBag.LevelForeAccount = vmodel.ListViewLevelForeAccount = iLevelForeAccount.GetAll();
-
 			ViewBag.Expense = vmodel.ListViewExpense = iExpense.GetAll().GroupBy(i => i.AccountName).Select(g => g.First()).ToList();
 			vmodel.ListViewExpense = iExpense.GetAll();
 			ViewBag.ExpenseCategory = vmodel.ListExpenseCategory = iExpenseCategory.GetAll();
@@ -73,6 +72,7 @@ namespace Task_management.Areas.Admin.Controllers
 				slider.IdExpenseCategory = model.Expense.IdExpenseCategory;
 				slider.IdLevelForeAccount = model.Expense.IdLevelForeAccount;
 				slider.BondNumber = model.Expense.BondNumber;
+				slider.DateBond = model.Expense.DateBond;
 				slider.Statement = model.Expense.Statement;
 				slider.Amount = model.Expense.Amount;
 				slider.DateTimeEntry = model.Expense.DateTimeEntry;

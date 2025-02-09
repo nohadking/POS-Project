@@ -1545,4 +1545,7 @@
   <data name="LBAddEditAboutSectionStartShopContent" xml:space="preserve">
     <value>إضافة وتعديل  النبذة في المتجر </value>
   </data>
+  <data name="lbDateBond" xml:space="preserve">
+    <value>تاريخ السند</value>
+  </data>
 </root>
