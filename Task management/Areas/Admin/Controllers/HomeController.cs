@@ -37,6 +37,7 @@ namespace Task_management.Areas.Admin.Controllers
 			_roleManager = roleManager;
 			iUserService = iUserService1;
 			iStaff = iStaff1;
+			dbcontext = dbcontext1;
 		}
 
 		public async Task<IActionResult> Index(string userId)
@@ -54,7 +55,13 @@ namespace Task_management.Areas.Admin.Controllers
 
 			ViewBag.UserRole = role.FirstOrDefault();
 
-
+			var totalDebt = dbcontext.TBAccountingRestrictions
+				.Where(a => dbcontext.TBLevelForeAccounts
+					.Any(l4 => l4.AccountName == a.AccountingName &&
+							   dbcontext.TBLevelThreeAccounts
+								   .Any(l3 => l3.IdLevelThreeAccount == l4.IdLevelThreeAccount && l3.AccountName.Contains("الذمم الدائنة"))))
+				.Sum(a => a.Debtor - a.creditor);
+			TempData["totalDebtor"] = totalDebt;
 
 			// جلب البيانات من الـ View أو من المصدر المطلوب
 			var total = vmodel.ListViewInvose = iInvose.GetAll();
