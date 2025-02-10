@@ -60,11 +60,9 @@ namespace Task_management.Controllers
             ViewBag.CurrentPage = page;
 
             return View(vmodel);
-        }
-
-
+        }    
         public IActionResult MyShopAr(int page = 1, List<string> selectedCategories = null)
-		{
+        {
             int pageSize = 12;
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
@@ -95,5 +93,8 @@ namespace Task_management.Controllers
 
             return View(vmodel);
         }
+
+
+
 	}
 }

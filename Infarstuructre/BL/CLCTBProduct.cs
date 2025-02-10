@@ -79,7 +79,8 @@ namespace Infarstuructre.BL
 			List<TBViewProduct> MySlider = dbcontext.ViewProduct.OrderByDescending(n => n.IdCategory == IdCategory).Where(a => a.IdCategory == IdCategory).Where(a => a.CurrentState == true).ToList();
 			return MySlider;
 		}
-		public bool DELETPHOTO(int IdProduct)
+ 
+        public bool DELETPHOTO(int IdProduct)
 		{
 			try
 			{
