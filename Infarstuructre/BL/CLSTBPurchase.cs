@@ -159,7 +159,7 @@ namespace Infarstuructre.BL
 
         public List<TBViewPurchase> GetByPurcheasNm(int purNm)
         {
-            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase.OrderByDescending(n => n.IdPurchase)
+            List<TBViewPurchase> MySlider = dbcontext.ViewPurchase
                 .Where(a => a.PurchaseNumber == purNm)
                 .Where(a => a.CurrentState == true).ToList();
             return MySlider;
