@@ -61,7 +61,7 @@ namespace Task_management.Controllers
 
             return View(vmodel);
         }    
-        public IActionResult MyShopAr(int page = 1, List<string> selectedCategories = null)
+        public IActionResult MyShopAr(int page = 1, List<string> selectedCategoriess = null)
         {
             int pageSize = 12;
 
@@ -75,9 +75,9 @@ namespace Task_management.Controllers
 
             // تصفية المنتجات بناءً على الفئة إذا تم اختيارها
             var products = iProduct.GetAll();
-            if (selectedCategories != null && selectedCategories.Any())
+            if (selectedCategoriess != null && selectedCategoriess.Any())
             {
-                products = products.Where(p => selectedCategories.Contains(p.CategoryNameAr)).ToList();
+                products = products.Where(p => selectedCategoriess.Contains(p.CategoryNameAr.Trim())).ToList();
             }
 
             // استخدام Pagination للمنتجات
