@@ -72,6 +72,7 @@ namespace Task_management.Controllers
                     SalesCount = group.Sum(item => item.Quantity), 
                     ProductImage = group.FirstOrDefault().Photo, 
                     Price = group.FirstOrDefault().price 
+                    
                                                                
                 })
                 .OrderByDescending(item => item.SalesCount) 

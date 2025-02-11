@@ -501,6 +501,13 @@ namespace Task_management.Areas.Admin.Controllers
                           .Column(header =>
                           {
                               header.Item().AlignRight().PaddingBottom(20).Text($"تاريخ الطباعة: {DateTime.Now:yyyy-MM-dd HH:mm}").FontSize(5).Bold();
+                              if (compny != null)
+                              {
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
+                                  header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
+                              }
+                             
                               if (suplier == null && type == null && oneDate == null && startDate == null && endDate == null)
                               {
                                   header.Item().Border(1).AlignCenter().Text($"تقرير الحركات العام ").FontSize(20).Bold();
@@ -542,12 +549,7 @@ namespace Task_management.Areas.Admin.Controllers
                                   }
                               }
 
-                              if (compny != null)
-                              {
-                                  header.Item().Border(1).AlignCenter().Text($" {compny.NameCompanyAr}").FontSize(14);
-                                  header.Item().Border(1).AlignCenter().Text($" {compny.AddressAr}").FontSize(12);
-                                  header.Item().Border(1).AlignCenter().Text($" {compny.Mobile}").FontSize(12);
-                              }
+                           
                           });
 
                     page.Content().Column(content =>
@@ -558,15 +560,15 @@ namespace Task_management.Areas.Admin.Controllers
                         {
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.ConstantColumn(100);
-                                columns.ConstantColumn(100);
-                                columns.ConstantColumn(100);
-                                columns.ConstantColumn(50);
-                                columns.ConstantColumn(50);
-                                columns.RelativeColumn(50);
-                                columns.ConstantColumn(100);
-                                columns.ConstantColumn(100);
-                                columns.ConstantColumn(100);
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
                             });
 
                             table.Header(header =>

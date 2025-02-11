@@ -179,6 +179,7 @@ builder.Services.AddScoped<IIBLevelThreeAccount, CLSTBLevelThreeAccount>();
 builder.Services.AddScoped<IILevelForeAccount, CLSTBLevelForeAccount>();
 builder.Services.AddScoped<IIStaff, CLSTBStaff>();
 builder.Services.AddScoped<IIAboutSectionStartShopContent,CLSTBAboutSectionStartShopContent>();
+builder.Services.AddScoped<IIPhotoShopLiftSaide, CLSTBPhotoShopLiftSaide>();
 
 
 // تفعيل الترخيص لـ QuestPDF

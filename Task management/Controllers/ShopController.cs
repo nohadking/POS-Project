@@ -14,8 +14,9 @@ namespace Task_management.Controllers
 		IIAboutSectionStartShopContent iAboutSectionStartShopContent;
         IICategory iCategory;
 		IIProduct iProduct;
+        IIPhotoShopLiftSaide iPhotoShopLiftSaide;
 
-        public ShopController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1,IICompanyInformation iCompanyInformation1,IIHomeBackgroundimage iHomeBackgroundimage1, IIAboutSectionStartShopContent iAboutSectionStartShopContent1,IICategory iCategory1,IIProduct iProduct1)
+        public ShopController(ILogger<HomeController> logger, IIPhotoHomeSliderContent iPhotoHomeSliderContent1, IIHomeSliderContent iHomeSliderContent1,IICompanyInformation iCompanyInformation1,IIHomeBackgroundimage iHomeBackgroundimage1, IIAboutSectionStartShopContent iAboutSectionStartShopContent1,IICategory iCategory1,IIProduct iProduct1,IIPhotoShopLiftSaide iPhotoShopLiftSaide1)
         {
 			_logger = logger;
 			iPhotoHomeSliderContent = iPhotoHomeSliderContent1;
@@ -25,6 +26,7 @@ namespace Task_management.Controllers
 			iAboutSectionStartShopContent = iAboutSectionStartShopContent1;
 			iCategory = iCategory1;
             iProduct = iProduct1;
+            iPhotoShopLiftSaide = iPhotoShopLiftSaide1;
 
 
 
@@ -58,6 +60,8 @@ namespace Task_management.Controllers
             var totalProducts = products.Count();
             ViewBag.TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
             ViewBag.CurrentPage = page;
+            vmodel.ListPhotoShopLiftSaide = iPhotoShopLiftSaide.GetAll().Take(1).ToList();
+
 
             return View(vmodel);
         }    
@@ -90,6 +94,8 @@ namespace Task_management.Controllers
             var totalProducts = products.Count();
             ViewBag.TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
             ViewBag.CurrentPage = page;
+            vmodel.ListPhotoShopLiftSaide = iPhotoShopLiftSaide.GetAll().Take(1).ToList();
+
 
             return View(vmodel);
         }

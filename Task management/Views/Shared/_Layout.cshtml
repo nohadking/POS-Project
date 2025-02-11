@@ -1243,13 +1243,13 @@
                                                         <li><a asp-area="" asp-controller="Home" asp-action="Index">english</a> </li>
                                                         <li><a asp-area="" asp-controller="Home" asp-action="IndexAr">Arabic</a> </li>
                                                     </ul>
-                                                    <h6>currency</h6>
+                                                  @*   <h6>currency</h6>
                                                     <ul class="list-inline">
                                                         <li><a href="#">euro</a> </li>
                                                         <li><a href="#">rupees</a> </li>
                                                         <li><a href="#">pound</a> </li>
                                                         <li><a href="#">doller</a> </li>
-                                                    </ul>
+                                                    </ul> *@
                                                 </div>
                                             </li>
                                             <li class="onhover-div mobile-cart">
@@ -1282,7 +1282,7 @@
   @foreach (var item1 in Model.ListHomeBackgroundimage)
     {
         <!-- footer section start -->
-        <footer class="sticky-footer  blur-up lazyload" @* style="background-image:  url(@string.Format("/Images/Home/{0}",item1.Photo));" *@>
+        <footer class="sticky-footer  blur-up lazyload" @* style="background-image:  url(@string.Format("/Images/Home/{0}",item1.Photo));" *@ style="margin-top:100px">
             <section class="section-b-space darken-layout">
                 <div class="container">
                     <div class="row footer-theme partition-f">
@@ -2647,7 +2647,7 @@
 
     <!-- Theme js-->
     <script src="~/Web/assets/js/script.js"></script>
-
+<script src="~/Web/assets/js/parallax-effect.js"></script>
 
     <script>
         $(window).on('load', function () {

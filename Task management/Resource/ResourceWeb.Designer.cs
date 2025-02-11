@@ -313,6 +313,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل الصورة الجانبية .
+        /// </summary>
+        internal static string LBAddEditPhotoShopLiftSaide {
+            get {
+                return ResourceManager.GetString("LBAddEditPhotoShopLiftSaide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add and edit task requests.
         /// </summary>
         internal static string LBAddEditRequestsTask {
@@ -2172,6 +2181,15 @@ namespace Task_management.Resource {
         internal static string LBMYPhotoHomeSliderContent {
             get {
                 return ResourceManager.GetString("LBMYPhotoHomeSliderContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الصورة الجانبية.
+        /// </summary>
+        internal static string LBMYPhotoShopLiftSaide {
+            get {
+                return ResourceManager.GetString("LBMYPhotoShopLiftSaide", resourceCulture);
             }
         }
         
