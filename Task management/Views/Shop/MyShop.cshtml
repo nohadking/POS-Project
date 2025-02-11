@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                     <div class="product-wrapper-grid">
-                                        <div class="row margin-res">
+                                        <div id="margin-res" class="row margin-res">
                                             @foreach (var item in Model.ListViewProduct)
                                             {
                                                 <div class="col-xl-3 col-6 col-grid-box">
@@ -1141,21 +1141,66 @@
         }
     </script>
     <script>
-        $(document).ready(function () {
-            // عند تغيير الـ checkbox
-            $('.category-filter').change(function () {
-                var selectedCategories = [];
 
-                // جلب الفئات المختارة
-                $('.category-filter:checked').each(function () {
-                    selectedCategories.push($(this).val());
-                });
+        $('.category-filter').change(function () {
+            console.log("category-filter");
+            var selectedCategories = [];
 
-                // إرسال الطلب إلى الـ Controller
-                var url = '@Url.Action("MyShop", "Shop")';
-                var page = 1;  // العودة للصفحة الأولى
-                window.location.href = url + '?page=' + page + '&selectedCategories=' + selectedCategories.join(',');
+            $('.category-filter:checked').each(function () {
+                selectedCategories.push($(this).val());
             });
+
+            var url = `${window.origin}/PublicProductsAPI/GetProductsByCategoyyName`;
+
+            fetch(url, {
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json"  
+                },
+                body: JSON.stringify(selectedCategories)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Products:", JSON.stringify(data));
+
+                    const container = document.getElementById("margin-res");
+                    container.innerHTML = "";
+
+                    data.forEach(item => {
+                        const productHtml = `
+                        <div class="col-xl-3 col-6 col-grid-box">
+                            <div class="product-box">
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="#"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px"></a>
+                                    </div>
+                                    <div class="back">
+                                        <a href="#"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-detail">
+                                    <a href="product-page(no-sidebar).html">
+                                        <h6>${item.productNameEn}</h6>
+                                    </a>
+                                    <p>${item.descriptionEn}</p>
+                                    <h4>$${item.price}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        container.innerHTML += productHtml;
+                    });
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
         });
+
+
     </script>
 }
