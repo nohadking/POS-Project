@@ -144,24 +144,16 @@
 				</div>
 			</div>
 		</div>
-
-
-
 		<!-- Button trigger modal -->
 		<div class="row">
 			<div class="col-xl-7 col-sm-12 col-12 d-flex">
 				<div class="card flex-fill">
 					<div class="card-header d-flex justify-content-between align-items-center">
-						<h5 class="card-title mb-0">الذمم</h5>
-						
+						<h5 class="card-title mb-0">الذمم</h5>				
 					</div>
-
-
 					<div style="overflow-x: auto; width: 100%;">
 						<canvas id="myChart" style="min-width: 1200px; height: 300px;"></canvas>
 					</div>
-
-
 				</div>
 			</div>
 			<div class="col-xl-5 col-sm-12 col-12 d-flex">
@@ -280,9 +272,7 @@
 		$(document).ready(function () {
 			var labels = @Html.Raw(Json.Serialize(ViewBag.Labels));
 			var data = @Html.Raw(Json.Serialize(ViewBag.Data));
-
 			var ctx = document.getElementById('myChart').getContext('2d');
-
 			var chartData = {
 				labels: labels,
 				datasets: [{
@@ -293,8 +283,6 @@
 					borderWidth: 2
 				}]
 			};
-
-
 			var myChart = new Chart(ctx, {
 				type: 'bar',
 				data: chartData,
