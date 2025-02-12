@@ -96,10 +96,10 @@
                                                     <div class="product-box">
                                                         <div class="img-wrapper">
                                                             <div class="front">
-                                                                <a href="#"><img src="@string.Format("/Images/Home/{0}", item.Photo)" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px"></a>
+                                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct"><img src="@string.Format("/Images/Home/{0}", item.Photo)" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px"></a>
                                                             </div>
                                                             <div class="back">
-                                                                <a href="#"><img src="@string.Format("/Images/Home/{0}", item.Photo)" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct"><img src="@string.Format("/Images/Home/{0}", item.Photo)" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap">
                                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
@@ -119,16 +119,12 @@
                                                         <div class="product-detail">
                                                             <div>
                                                                 <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                                <a href="product-page(no-sidebar).html">
+                                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                                     <h6>@item.ProductNameEn</h6>
                                                                 </a>
                                                                 <p>@item.DescriptionEn</p>
                                                                 <h4>$@item.price</h4>
-                                                                <ul class="color-variant">
-                                                                    <li class="bg-light0"></li>
-                                                                    <li class="bg-light1"></li>
-                                                                    <li class="bg-light2"></li>
-                                                                </ul>
+                                                          
                                                             </div>
                                                         </div>
                                                     </div>
@@ -278,7 +274,7 @@
                                 @foreach (var item in Model.ListViewProduct.Take(4))
                                 {
                                     <div class="media">
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <img class="img-fluid blur-up lazyload"
                                                  src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                         </a>
@@ -290,7 +286,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <h6>@item.ProductNameEn</h6>
                                             </a>
                                             <h4>
@@ -308,7 +304,7 @@
                                     @foreach (var item in Model.ListViewProduct.Skip(4). Take(4))
                                     {
                                         <div class="media">
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <img class="img-fluid blur-up lazyload"
                                                      src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                             </a>
@@ -320,7 +316,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <h6>@item.ProductNameEn</h6>
                                                 </a>
                                                 <h4>
@@ -337,7 +333,7 @@
                                     @foreach (var item in Model.ListViewProduct.Skip(8).Take(4))
                                     {
                                         <div class="media">
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <img class="img-fluid blur-up lazyload"
                                                      src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                             </a>
@@ -349,7 +345,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <h6>@item.ProductNameEn</h6>
                                                 </a>
                                                 <h4>
@@ -366,7 +362,7 @@
                                     @foreach (var item in Model.ListViewProduct.Skip(12).Take(4))
                                     {
                                         <div class="media">
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <img class="img-fluid blur-up lazyload"
                                                      src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                             </a>
@@ -378,7 +374,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <h6>@item.ProductNameEn</h6>
                                                 </a>
                                                 <h4>
@@ -395,7 +391,7 @@
                                     @foreach (var item in Model.ListViewProduct.Skip(16).Take(4))
                                     {
                                         <div class="media">
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <img class="img-fluid blur-up lazyload"
                                                      src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                             </a>
@@ -407,7 +403,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <h6>@item.ProductNameEn</h6>
                                                 </a>
                                                 <h4>
@@ -423,7 +419,7 @@
                                     @foreach (var item in Model.ListViewProduct.Skip(20).Take(4))
                                     {
                                         <div class="media">
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <img class="img-fluid blur-up lazyload"
                                                      src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                             </a>
@@ -435,7 +431,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <h6>@item.ProductNameEn</h6>
                                                 </a>
                                                 <h4>
@@ -1140,7 +1136,7 @@
             document.getElementById("search-overlay").style.display = "none";
         }
     </script>
-    <script>
+   @*  <script>
 
         $('.category-filter').change(function () {
             console.log("category-filter");
@@ -1177,14 +1173,14 @@
                             <div class="product-box">
                                 <div class="img-wrapper">
                                     <div class="front">
-                                        <a href="#"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px"></a>
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@@item.IdProduct"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px"></a>
                                     </div>
                                     <div class="back">
-                                        <a href="#"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@@item.IdProduct"><img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="product-detail">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@@item.IdProduct">
                                         <h6>${item.productNameEn}</h6>
                                     </a>
                                     <p>${item.descriptionEn}</p>
@@ -1202,5 +1198,82 @@
         });
 
 
-    </script>
+    </script> *@
+  <script>
+    $(document).ready(function () {
+        $('.category-filter').change(function () {
+            console.log("category-filter changed");
+            var selectedCategories = [];
+
+            $('.category-filter:checked').each(function () {
+                selectedCategories.push($(this).val());
+            });
+
+            if (selectedCategories.length === 0) {
+                console.warn("No categories selected.");
+                return; // لا ترسل الطلب إذا لم يتم تحديد أي فئة
+            }
+
+            var url = `${window.origin}/PublicProductsAPI/GetProductsByCategoyyName`;
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(selectedCategories)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Products:", JSON.stringify(data));
+
+                    const container = document.getElementById("margin-res");
+                    container.innerHTML = "";
+
+                    data.forEach(item => {
+                        // ✅ التصحيح هنا بوضع النص بين علامات الاقتباس `
+                        const productUrl = `/Product_page/MYProduct?ProductId=${encodeURIComponent(item.IdProduct)}`;
+
+                        const productHtml = `
+                            <div class="col-xl-3 col-6 col-grid-box">
+                                <div class="product-box">
+                                    <div class="img-wrapper">
+                                        <div class="front">
+                                            <a href="${productUrl}">
+                                                <img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt="" style="height:150px;width:150px">
+                                            </a>
+                                        </div>
+                                        <div class="back">
+                                            <a href="${productUrl}">
+                                                <img src="/Images/Home/${item.photo}" class="img-fluid blur-up lazyload bg-img" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-detail">
+                                        <a href="${productUrl}">
+                                            <h6>${item.productNameEn}</h6>
+                                        </a>
+                                        <p>${item.descriptionEn}</p>
+                                        <h4>$${item.price}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        container.innerHTML += productHtml;
+                    });
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+        });
+    });
+</script>
+
+
 }

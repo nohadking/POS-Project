@@ -1,5 +1,7 @@
 ﻿
 
+using static QuestPDF.Helpers.Colors;
+
 namespace Task_management.Controllers
 {
     public class Product_pageController : Controller
@@ -9,35 +11,53 @@ namespace Task_management.Controllers
         IICategory iCategory;
         IIProduct iProduct;
         IIHomeBackgroundimage iHomeBackgroundimage;
-        public Product_pageController(ILogger<HomeController> logger, IICompanyInformation iCompanyInformation1, IICategory iCategory1, IIProduct iProduct1,IIHomeBackgroundimage iHomeBackgroundimage1)
+        IIInvose iInvose;
+        IIBestSellingProductsHomeContent iBestSellingProductsHomeContent;
+        public Product_pageController(ILogger<HomeController> logger, IICompanyInformation iCompanyInformation1, IICategory iCategory1, IIProduct iProduct1,IIHomeBackgroundimage iHomeBackgroundimage1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1)
         {
             _logger = logger;
             iCompanyInformation = iCompanyInformation1;
             iCategory = iCategory1;
             iProduct = iProduct1;   
             iHomeBackgroundimage = iHomeBackgroundimage1;
-
+            iInvose = iInvose1;
+            iBestSellingProductsHomeContent = iBestSellingProductsHomeContent1;
         }
         public IActionResult MYProduct(int ProductId)
         {
+         
 
-            //https://localhost:7102/Product_page/MYProduct
-     
+
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-           
-     
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll();
-   
-      
             vmodel.ListCategory = iCategory.GetAll();
             vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
             vmodel.Productsng = iProduct.GetByIdview(ProductId);
+            vmodel.ListViewProduct = iProduct.GetAll();
+            vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+
+            var total = vmodel.ListViewInvose = iInvose.GetAll();
+            //كود جلب الاكثر مبيعا 
+            var topSellingItems = total
+                .GroupBy(item => item.IdProduct)
+                .Select(group => new
+                {
+                    ProductId = group.Key,
+                    ProductName = group.FirstOrDefault().ProductNameAr,
+                    ProductNameEn = group.FirstOrDefault().ProductNameEn,
+                    TotalSales = group.Sum(item => item.total),
+                    SalesCount = group.Sum(item => item.Quantity),
+                    ProductImage = group.FirstOrDefault().Photo,
+                    Price = group.FirstOrDefault().price
 
 
+                })
+                .OrderByDescending(item => item.SalesCount)
+                //.Take(10)
+                .ToList();
 
-
-
+            ViewBag.TopSellingItems = topSellingItems;
 
 
 
@@ -47,24 +67,38 @@ namespace Task_management.Controllers
         public IActionResult MYProductAr(int ProductId)
         {
 
-            //https://localhost:7102/Product_page/MYProduct
-     
+            //كود جلب الاكثر مبيعا 
+         
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();          
             vmodel.ListCompanyInformation = iCompanyInformation.GetAll();
-   
-      
             vmodel.ListCategory = iCategory.GetAll();
             vmodel.ListHomeBackgroundimage = iHomeBackgroundimage.GetAll().Take(1).ToList();
             vmodel.Productsng = iProduct.GetByIdview(ProductId);
+            vmodel.ListViewProduct = iProduct.GetAll();
+            vmodel.ListBestSellingProductsHomeContent = iBestSellingProductsHomeContent.GetAll().Take(1).ToList();
+
+            var total = vmodel.ListViewInvose = iInvose.GetAll();
+            //كود جلب الاكثر مبيعا 
+            var topSellingItems = total
+                .GroupBy(item => item.IdProduct)
+                .Select(group => new
+                {
+                    ProductId = group.Key,
+                    ProductName = group.FirstOrDefault().ProductNameAr,
+                    ProductNameEn = group.FirstOrDefault().ProductNameEn,
+                    TotalSales = group.Sum(item => item.total),
+                    SalesCount = group.Sum(item => item.Quantity),
+                    ProductImage = group.FirstOrDefault().Photo,
+                    Price = group.FirstOrDefault().price
 
 
+                })
+                .OrderByDescending(item => item.SalesCount)
+                //.Take(10)
+                .ToList();
 
-
-
-
-
-
+            ViewBag.TopSellingItems = topSellingItems;
             return View(vmodel);
         }
     }
