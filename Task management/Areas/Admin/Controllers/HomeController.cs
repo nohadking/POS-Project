@@ -63,6 +63,36 @@ namespace Task_management.Areas.Admin.Controllers
 				.Sum(a => a.Debtor - a.creditor);
 			TempData["totalDebtor"] = totalDebt;
 
+			///////////////////////////////////////////////////////////////////////////////////
+			var l3 = dbcontext.TBLevelThreeAccounts.Select(l => l.AccountName).ToList();
+
+			var accountBalances = new List<AccountBalance>();
+
+			foreach (var accountName in l3)
+			{
+				var totalDebtt = dbcontext.TBAccountingRestrictions
+					.Where(a => dbcontext.TBLevelForeAccounts
+						.Any(l4 => l4.AccountName == a.AccountingName &&
+								   dbcontext.TBLevelThreeAccounts
+									   .Any(l3 => l3.IdLevelThreeAccount == l4.IdLevelThreeAccount &&
+												  l3.AccountName == accountName))) 
+					.Sum(a => a.Debtor - a.creditor); 
+
+				accountBalances.Add(new AccountBalance
+				{
+					AccountName = accountName, 
+					Debt = totalDebtt
+				});
+			}
+
+			ViewBag.AccountBalances = accountBalances;
+
+			var labels = accountBalances.Select(a => a.AccountName).ToList();
+			var data = accountBalances.Select(a => a.Debt).ToList();
+			ViewBag.Labels = labels;
+			ViewBag.Data = data;
+
+
 			// جلب البيانات من الـ View أو من المصدر المطلوب
 			var total = vmodel.ListViewInvose = iInvose.GetAll();
 			// حساب المجموع من القائمة أو قاعدة البيانات
@@ -196,4 +226,9 @@ namespace Task_management.Areas.Admin.Controllers
             return View();
         }
     }
+}
+public class AccountBalance
+{
+	public string AccountName { get; set; }
+	public decimal Debt { get; set; }
 }
