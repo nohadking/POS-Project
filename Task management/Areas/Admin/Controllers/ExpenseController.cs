@@ -9,6 +9,7 @@ using QuestPDF.Infrastructure;
 using System.IO;
 using System.Threading.Tasks;
 using Tafqeet;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Task_management.Areas.Admin.Controllers
@@ -22,13 +23,15 @@ namespace Task_management.Areas.Admin.Controllers
 		IIExpenseCategory iExpenseCategory;
 		IILevelForeAccount iLevelForeAccount;
 		MasterDbcontext dbcontext;
-		public ExpenseController(IIExpense iExpense1, IICompanyInformation iCompanyInformation1, IIExpenseCategory iExpenseCategory1, IILevelForeAccount iLevelForeAccount1, MasterDbcontext dbcontext)
+		IIAccountingRestriction iAccountingRestriction;
+		public ExpenseController(IIExpense iExpense1, IICompanyInformation iCompanyInformation1, IIExpenseCategory iExpenseCategory1, IILevelForeAccount iLevelForeAccount1, MasterDbcontext dbcontext, IIAccountingRestriction iAccountingRestriction)
 		{
 			iExpense = iExpense1;
 			iCompanyInformation = iCompanyInformation1;
 			iExpenseCategory = iExpenseCategory1;
 			iLevelForeAccount = iLevelForeAccount1;
 			this.dbcontext = dbcontext;
+			this.iAccountingRestriction = iAccountingRestriction;
 		}
 		public IActionResult MyExpense()
 		{
@@ -90,6 +93,24 @@ namespace Task_management.Areas.Admin.Controllers
 					var reqwest = iExpense.saveData(slider);
 					if (reqwest == true)
 					{
+						//var acc = new TBAccountingRestriction
+						//{
+						//	NumberaccountingRestrictions = 0,
+						//	AccountingName = "i",
+						//	BondType = "g",
+						//	BondNumber = 9,
+						//	Debtor = 0,
+						//	creditor = 0,
+						//	Statement = "",
+						//	Nouts = "",
+						//	DataEntry = model.Expense.DataEntry,
+						//	DateTimeEntry = model.Expense.DateTimeEntry,
+						//	CurrentState = true,
+						//};
+
+						//dbcontext.TBAccountingRestrictions.Add(acc);
+						//dbcontext.SaveChanges();
+
 						TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
 						return RedirectToAction("MyExpense");
 					}
@@ -104,6 +125,30 @@ namespace Task_management.Areas.Admin.Controllers
 					var reqestUpdate = iExpense.UpdateData(slider);
 					if (reqestUpdate == true)
 					{
+						//var oldAcc = iAccountingRestriction.GetByBondNuAndBondType(model.Expense.BondNumber, "سند شراء");
+						//if (oldAcc != null)
+						//{
+						//	dbcontext.TBAccountingRestrictions.Remove(oldAcc);
+
+						//	var acc = new TBAccountingRestriction
+						//	{
+						//		NumberaccountingRestrictions = 0,
+						//		AccountingName = "i",
+						//		BondType = "g",
+						//		BondNumber = 9,
+						//		Debtor = 0,
+						//		creditor = 0,
+						//		Statement = "",
+						//		Nouts = "",
+						//		DataEntry = model.Expense.DataEntry,
+						//		DateTimeEntry = model.Expense.DateTimeEntry,
+						//		CurrentState = true,
+						//	};
+
+						//	dbcontext.TBAccountingRestrictions.Add(acc);
+						//	dbcontext.SaveChanges();
+						//}
+
 						TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
 						return RedirectToAction("MyExpense");
 					}
