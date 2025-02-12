@@ -8,13 +8,15 @@ namespace Task_management.Areas.Admin.APIsControllers
     public class AccountRestrectionController : ControllerBase
     {
         IIAccountingRestriction iAccountingRestriction;
-        public AccountRestrectionController(IIAccountingRestriction iAccountingRestriction = null)
-        {
-            this.iAccountingRestriction = iAccountingRestriction;
-        }
+        MasterDbcontext dbcontext;
+		public AccountRestrectionController(IIAccountingRestriction iAccountingRestriction = null, MasterDbcontext dbcontext = null)
+		{
+			this.iAccountingRestriction = iAccountingRestriction;
+			this.dbcontext = dbcontext;
+		}
 
 
-        [HttpPost]
+		[HttpPost]
         public IActionResult AddAccountRe([FromBody] TBAccountingRestriction model)
         {
             var result = iAccountingRestriction.saveData(model);
@@ -36,7 +38,12 @@ namespace Task_management.Areas.Admin.APIsControllers
         [HttpDelete("{accountId}")]
         public IActionResult DeleteAccountRe(int accountId)
         {
-            var result = iAccountingRestriction.deleteData(accountId);
+            var acc = dbcontext.TBAccountingRestrictions.Find(accountId);
+
+            if (acc == null)
+                return NoContent();
+
+			var result = dbcontext.TBAccountingRestrictions.Remove(acc);
             return Ok(result);
         }
 
