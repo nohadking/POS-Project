@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -89,6 +90,41 @@ namespace Infarstuructre.BL
             }
 
         }
+        public bool DeleteDatacus(int idAccountingRestrictions, string nameBound)
+        {
+            try
+            {
+                var catr = GetById(idAccountingRestrictions);
+                if (catr == null)
+                {
+                    // السجل غير موجود
+                    return false;
+                }
+
+                // تعطيل السجل الحالي
+                catr.CurrentState = false;
+                dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                // البحث عن السجل المطلوب حذفه
+                var dele = dbcontext.TBAccountingRestrictions
+                            .FirstOrDefault(a => a.BondNumber == idAccountingRestrictions && a.BondType == nameBound);
+
+                if (dele != null)
+                {
+                    dbcontext.TBAccountingRestrictions.Remove(dele);
+                }
+
+                dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ لتسهيل عملية التصحيح
+                Console.WriteLine($"Error in DeleteDatacus: {ex.Message}");
+                return false;
+            }
+        }
+
         public List<TBAccountingRestriction> GetAllv(int IdaccountingRestrictions)
         {
             List<TBAccountingRestriction> MySlider = dbcontext.TBAccountingRestrictions.OrderByDescending(n => n.IdaccountingRestrictions == IdaccountingRestrictions).Where(a => a.IdaccountingRestrictions == IdaccountingRestrictions).Where(a => a.CurrentState == true).ToList();

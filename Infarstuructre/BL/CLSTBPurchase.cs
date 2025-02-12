@@ -82,8 +82,8 @@ namespace Infarstuructre.BL
 			{
 				var catr = GetById(IdPurchase);
 				catr.CurrentState = false;
-				//TbSubCateegoory dele = dbcontex.TbSubCateegoorys.Where(a => a.IdBrand == IdBrand).FirstOrDefault();
-				//dbcontex.TbSubCateegoorys.Remove(dele);
+				TBPurchase dele = dbcontext.TBPurchases.Where(a => a.PurchaseNumber == IdPurchase).FirstOrDefault();
+				dbcontext.TBPurchases.Remove(dele);
 				dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 				dbcontext.SaveChanges();
 				return true;
