@@ -57,6 +57,12 @@ namespace Infarstuructre.ViewModel
         public TBCategory Category { get; set; }
         public List<TBViewProduct> ListViewProduct { get; set; }
         public TBProduct Product { get; set; }
+        public TBViewProduct Productsng { get; set; }
+
+
+
+
+
         public List<TBCustomerCategorie> ListCustomerCategorie { get; set; }
         public TBCustomerCategorie CustomerCategorie { get; set; }
         public List<TBViewInvoseHeder> ListViewInvoseHede { get; set; }
@@ -112,7 +118,9 @@ namespace Infarstuructre.ViewModel
         public List<TBStaff> ListStaff { get; set; }
         public TBStaff Staff { get; set; } 
         public List<TBAboutSectionStartShopContent> ListAboutSectionStartShopContent { get; set; }
-        public TBAboutSectionStartShopContent AboutSectionStartShopContent { get; set; }
+        public TBAboutSectionStartShopContent AboutSectionStartShopContent { get; set; }    
+        public List<TBPhotoShopLiftSaide> ListPhotoShopLiftSaide { get; set; }
+        public TBPhotoShopLiftSaide PhotoShopLiftSaide { get; set; }
 
 
     }

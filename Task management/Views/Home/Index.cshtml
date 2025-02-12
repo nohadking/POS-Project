@@ -327,7 +327,7 @@
                             <div class="img-wrapper">
                                 <div class="ribbon"><span>new</span></div>
                                 <div class="front">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.ProductId">
                                         <img alt=""
                                              src="@Url.Content("~/Images/Home/" + item.ProductImage)"
                                              class="img-fluid blur-up lazyload bg-img">
@@ -363,7 +363,7 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <a href="product-page(no-sidebar).html">
+                                <a asp-area ="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.ProductId">
                                     <h6>@item.ProductNameEn</h6>
                                 </a>
                                 <h4>$@item.Price</h4>
@@ -424,7 +424,7 @@
                             <div class="img-wrapper">
                                 <div class="ribbon"><span>new</span></div>
                                 <div class="front">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img alt="Product Image" src="@Url.Content("~/Images/Home/" + item.Photo)" class="img-fluid blur-up lazyload bg-img" />
                                     </a>
                                 </div>
@@ -450,7 +450,7 @@
                                         <i class="fa fa-star"></i>
                                     }
                                 </div>
-                                <a href="product-page(no-sidebar).html">
+                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                     <h6>@item.ProductNameEn</h6>
                                 </a>
                                 <h4>$@item.price</h4>
@@ -482,7 +482,7 @@
                             @foreach (var item in Model.ListViewProduct.Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -494,7 +494,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -515,7 +515,7 @@
                             @foreach (var item in Model.ListViewProduct.Skip(4).Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -527,7 +527,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -543,7 +543,7 @@
                             @foreach (var item in Model.ListViewProduct.Skip(8).Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -555,7 +555,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -571,7 +571,7 @@
                             @foreach (var item in Model.ListViewProduct.Skip(12).Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -583,7 +583,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -599,7 +599,7 @@
                             @foreach (var item in Model.ListViewProduct.Skip(16).Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -611,7 +611,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -627,7 +627,7 @@
                             @foreach (var item in Model.ListViewProduct.Skip(20).Take(4))
                             {
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html">
+                                    <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                         <img class="img-fluid blur-up lazyload"
                                              src="@Url.Content("~/Images/Home/" + item.Photo)" alt="" style="width:100px;height:100px">
                                     </a>
@@ -639,7 +639,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <a href="product-page(no-sidebar).html">
+                                        <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                             <h6>@item.ProductNameEn</h6>
                                         </a>
                                         <h4>
@@ -675,7 +675,7 @@
                                         <div class="img-wrapper">
                                             <div class="ribbon"><span>new</span></div>
                                             <div class="front">
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <img alt=""
                                                          src="@Url.Content("~/Images/Home/" + item.Photo)"
                                                          class="img-fluid blur-up lazyload bg-img">
@@ -711,7 +711,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <h6>@item.ProductNameEn</h6>
                                             </a>
                                             <h4>$@item.price</h4>
@@ -737,7 +737,7 @@
                                         <div class="img-wrapper">
                                             <div class="ribbon"><span>new</span></div>
                                             <div class="front">
-                                                <a href="product-page(no-sidebar).html">
+                                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                     <img alt=""
                                                          src="@Url.Content("~/Images/Home/" + item.Photo)"
                                                          class="img-fluid blur-up lazyload bg-img">
@@ -773,7 +773,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <a href="product-page(no-sidebar).html">
+                                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.IdProduct">
                                                 <h6>@item.ProductNameEn</h6>
                                             </a>
                                             <h4>$@item.price</h4>
@@ -893,7 +893,7 @@
                         <div class="img-wrapper">
                             <div class="ribbon"><span>new</span></div>
                             <div class="front">
-                                <a href="product-page(no-sidebar).html">
+                                <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.ProductId">
                                     <img alt="Product Image" src="~/Images/Home/${product.photo}" class="img-fluid blur-up lazyload bg-img" />
                                 </a>
                             </div>
@@ -920,7 +920,7 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <a href="product-page(no-sidebar).html">
+                            <a asp-area="" asp-controller="Product_page" asp-action="MYProduct" asp-route-ProductId="@item.ProductId">
                                 <h6>${product.productNameEn}</h6>
                             </a>
                             <h4>$${product.price}</h4>
