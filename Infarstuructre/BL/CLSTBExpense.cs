@@ -112,7 +112,6 @@ namespace Infarstuructre.BL
                 var expnsevcatrg = dbcontext.TBExpenseCategorys.FirstOrDefault(a => a.IdExpenseCategory == updatss.IdExpenseCategory);
                 var LavelFore = dbcontext.TBLevelForeAccounts.FirstOrDefault(a => a.IdLevelForeAccount == updatss.IdLevelForeAccount);
                 var update = dbcontext.TBAccountingRestrictions.FirstOrDefault(a => a.AccountingName == expnsevcatrg.ExpenseCategory && a.BondNumber == updatss.BondNumber);
-
                 update.AccountingName = LavelFore.AccountName;
                 update.BondType = "سند صرف";
                 update.BondNumber = updatss.BondNumber;
@@ -123,7 +122,6 @@ namespace Infarstuructre.BL
                 update.DataEntry = updatss.DataEntry;
                 update.DateTimeEntry = updatss.DateTimeEntry;
                 update.CurrentState = true;
-
                 dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 dbcontext.Entry(updatss).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 dbcontext.SaveChanges();

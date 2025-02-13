@@ -576,8 +576,9 @@ namespace Task_management.Areas.Admin.Controllers
                                 header.Cell().Border(1).AlignCenter().Text("مدخل البيانات").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("تاريخ ادخال البيانات").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("البيان").Bold();
-                                header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
+                              
                                 header.Cell().Border(1).AlignCenter().Text("الدائن").Bold();
+                                header.Cell().Border(1).AlignCenter().Text("المدين").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("رقم السند").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("نوع السند").Bold();
                                 header.Cell().Border(1).AlignCenter().Text("اسم الحساب").Bold();
