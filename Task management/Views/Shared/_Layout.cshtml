@@ -2601,6 +2601,7 @@
                 $('#exampleModal').modal('show');
             }, 2500);
         });
+
         function openSearch() {
             document.getElementById("search-overlay").style.display = "block";
         }
@@ -2608,94 +2609,111 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+
         $('footer').footerReveal();
-
     </script>
-    <script>
 
-       function AddToCart(idProduct){
+    <script>
+        function AddToCart(idProduct) {
             console.log("product Id: " + idProduct);
-            var url = window.origin + `/api/PublicProductsAPI/${idProduct}`
+            var url = window.origin + `/api/PublicProductsAPI/${idProduct}`;
+
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json(); 
+                    return response.json();
                 })
                 .then(data => {
-                    console.log(data); 
-                    var productImg = data.photo;
-                    var productNm = data.productNameEn;
-                    var productPrice = data.price;
+                    console.log(data);
+                    var product = {
+                        id: data.idProduct,
+                        name: data.productNameEn,
+                        price: data.price,
+                        photo: data.photo,
+                        quantity: 1
+                    };
 
-                    var productId = data.idProduct;
+                    var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-                    var cart = $('#cart_products');
-
-                    var existProduct = cart.find(`.product-id-${productId}`);
-
-                    if (existProduct.length > 0) {
-                        var qty = existProduct.find('.qty');
-                        var currentQty = parseInt(qty.text()) || 0; 
-                        qty.text(currentQty + 1);
+                    var existingProduct = cart.find(p => p.id === product.id);
+                    if (existingProduct) {
+                        existingProduct.quantity++;
                     } else {
-
-                        li = `
-                           <li class="product-id-${productId}">
-                                <div class="media">
-                                        <span hidden class="idPro">${productId}</span>
-                                    <img alt="" class="mr-3" src="/Images/Home/${productImg}">
-                                   <div class="media-body">
-                                     <h4>${productNm}</h4>
-                                        <h4>
-                                            <span><span class="qty">1</span> x $ <span class="pricePro">${productPrice}</span></span>
-                                        </h4>
-
-                                    </div>
-                                </div>
-                                <div class="close-circle">
-                                    <a>
-                                        <i class="ti-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                         </li>
-                    `;
-                        cart.append(li);
-
+                        cart.push(product);
                     }
 
-                    cart.trigger('change');
+                    localStorage.setItem('cart', JSON.stringify(cart));
 
+                    updateCartUI();
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
                 });
-            openCart()
-       }
+
+            openCart();
+        }
+        function updateCartUI() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartContainer = $('#cart_products');
+            cartContainer.empty();
+
+            cart.forEach(product => {
+                var li = `
+                        <li class="product-id-${product.id}">
+                            <div class="media">
+                                <span hidden class="idPro">${product.id}</span>
+                                <img alt="" class="mr-3" src="/Images/Home/${product.photo}">
+                                <div class="media-body">
+                                    <h4>${product.name}</h4>
+                                    <h4>
+                                        <span><span class="qty">${product.quantity}</span> x $ <span class="pricePro">${product.price}</span></span>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="close-circle">
+                                <a onclick="removeFromCart(${product.id})">
+                                    <i class="ti-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </li>
+                    `;
+                cartContainer.append(li);
+            });
+
+            calculateTotal();
+        }
 
         function calculateTotal() {
             var total = 0;
-            $('#cart_products li').each(function () {
-                var price = parseFloat($(this).find('.pricePro').text()) || 0;
-                var qty = parseInt($(this).find('.qty').text()) || 0;
-                total += price * qty;
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            cart.forEach(product => {
+                total += product.price * product.quantity;
             });
 
             $('#subtotalForCart').text(total.toFixed(2));
         }
 
+        function removeFromCart(id) {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(product => product.id !== id);
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            updateCartUI();
+        }
+
+        $(document).ready(function () {
+            updateCartUI();
+        });
+
         $('#cart_products').on('change', function () {
             calculateTotal();
         });
-
-
-
-        
-
-
-
     </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
