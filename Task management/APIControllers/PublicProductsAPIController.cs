@@ -26,5 +26,12 @@ namespace Task_management.APIControllers
             }
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+            var product = dbcontext.TBProducts.Find(id);
+            return Ok(product);
+        }
     }
 }

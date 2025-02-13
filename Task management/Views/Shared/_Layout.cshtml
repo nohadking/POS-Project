@@ -1432,68 +1432,14 @@
                 </div>
             </div>
             <div class="cart_media">
-                <ul class="cart_product">
-                    <li>
-                        <div class="media">
-                            <a href="#">
-                                <img alt="" class="mr-3" src="~/Web/assets/images/tools/pro/1.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    <h4>item name</h4>
-                                </a>
-                                <h4>
-                                    <span>1 x $ 299.00</span>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="close-circle">
-                            <a href="#">
-                                <i class="ti-trash" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="media">
-                            <a href="#">
-                                <img alt="" class="mr-3" src="~/Web/assets/images/tools/pro/2.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    <h4>item name</h4>
-                                </a>
-                                <h4>
-                                    <span>1 x $ 299.00</span>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="close-circle">
-                            <a href="#">
-                                <i class="ti-trash" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="media">
-                            <a href="#"><img alt="" class="mr-3" src="~/Web/assets/images/tools/pro/3.jpg"></a>
-                            <div class="media-body">
-                                <a href="#">
-                                    <h4>item name</h4>
-                                </a>
-                                <h4><span>1 x $ 299.00</span></h4>
-                            </div>
-                        </div>
-                        <div class="close-circle">
-                            <a href="#">
-                                <i class="ti-trash" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </li>
+                <ul id="cart_products" class="cart_product">
+      
+                    
                 </ul>
                 <ul class="cart_total">
                     <li>
                         <div class="total">
-                            <h5>subtotal : <span>$299.00</span></h5>
+                            <h5>subtotal : <span id="subtotalForCart"></span></h5>
                         </div>
                     </li>
                     <li>
@@ -1602,7 +1548,7 @@
                                     </div>
                                 </div>
                                 <div class="product-buttons">
-                                    <a href="#" class="btn btn-solid">add to cart</a>
+                                    <a  class="btn btn-solid">add to cart</a>
                                     <a href="#" class="btn btn-solid">view detail</a>
                                 </div>
                             </div>
@@ -2663,6 +2609,91 @@
             document.getElementById("search-overlay").style.display = "none";
         }
         $('footer').footerReveal();
+
+    </script>
+    <script>
+
+       function AddToCart(idProduct){
+            console.log("product Id: " + idProduct);
+            var url = window.origin + `/api/PublicProductsAPI/${idProduct}`
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    console.log(data); 
+                    var productImg = data.photo;
+                    var productNm = data.productNameEn;
+                    var productPrice = data.price;
+
+                    var productId = data.idProduct;
+
+                    var cart = $('#cart_products');
+
+                    var existProduct = cart.find(`.product-id-${productId}`);
+
+                    if (existProduct.length > 0) {
+                        var qty = existProduct.find('.qty');
+                        var currentQty = parseInt(qty.text()) || 0; 
+                        qty.text(currentQty + 1);
+                    } else {
+
+                        li = `
+                           <li class="product-id-${productId}">
+                                <div class="media">
+                                        <span hidden class="idPro">${productId}</span>
+                                    <img alt="" class="mr-3" src="/Images/Home/${productImg}">
+                                   <div class="media-body">
+                                     <h4>${productNm}</h4>
+                                        <h4>
+                                            <span><span class="qty">1</span> x $ <span class="pricePro">${productPrice}</span></span>
+                                        </h4>
+
+                                    </div>
+                                </div>
+                                <div class="close-circle">
+                                    <a>
+                                        <i class="ti-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                         </li>
+                    `;
+                        cart.append(li);
+
+                    }
+
+                    cart.trigger('change');
+
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+            openCart()
+       }
+
+        function calculateTotal() {
+            var total = 0;
+            $('#cart_products li').each(function () {
+                var price = parseFloat($(this).find('.pricePro').text()) || 0;
+                var qty = parseInt($(this).find('.qty').text()) || 0;
+                total += price * qty;
+            });
+
+            $('#subtotalForCart').text(total.toFixed(2));
+        }
+
+        $('#cart_products').on('change', function () {
+            calculateTotal();
+        });
+
+
+
+        
+
+
 
     </script>
     @await RenderSectionAsync("Scripts", required: false)
