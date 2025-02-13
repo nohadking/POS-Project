@@ -42,142 +42,17 @@
                                 <th scope="col">total</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><img src="~/Web/assets/images/pro3/1.jpg" alt=""></a>
-                                </td>
-                                <td>
-                                    <a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col-xs-3">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="text" name="quantity" class="form-control input-number"
-                                                           value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">$63.00</h2>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">
-                                                <a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>$63.00</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                   value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">$4539.00</h2>
-                                </td>
-                            </tr>
+                    <tbody id="CartBody">
+                           
                         </tbody>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><img src="~/Web/assets/images/pro3/1.jpg" alt=""></a>
-                                </td>
-                                <td>
-                                    <a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col-xs-3">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="number" name="quantity"
-                                                           class="form-control input-number" value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">$63.00</h2>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">
-                                                <a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>$63.00</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                   value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">$4539.00</h2>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><img src="~/Web/assets/images/pro3/1.jpg" alt=""></a>
-                                </td>
-                                <td>
-                                    <a href="#">cotton shirt</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col-xs-3">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="number" name="quantity"
-                                                           class="form-control input-number" value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">$63.00</h2>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">
-                                                <a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2>$63.00</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                   value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">$4539.00</h2>
-                                </td>
-                            </tr>
-                        </tbody>
+
                     </table>
                     <table class="table cart-table table-responsive-md">
                         <tfoot>
                             <tr>
                                 <td>total price :</td>
                                 <td>
-                                    <h2>$6935.00</h2>
+                                <h2 id="totalPrc"></h2>
                                 </td>
                             </tr>
                         </tfoot>
@@ -192,6 +67,7 @@
     </section>
     <!--section end-->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         function openSearch() {
@@ -201,6 +77,64 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+
+
+         $(document).ready(function () {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var CartBody = $('#CartBody');
+        var totalPrc = 0;
+            console.log(cart);
+
+            cart.forEach(product => {
+            totalPrc += product.quantity * product.price;
+                var tr = `
+                            <tr>
+                                <td>
+                                    <a href="#"><img src="/Images/Home/${product.photo}" alt=""></a>
+                                </td>
+                                <td>
+                                    <a href="#">${product.name}</a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="number" name="quantity" class="form-control input-number"
+                                                           value="${product.quantity}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">$${product.price.toFixed(2)}</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">
+                                                <a href="#" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h2 class="td-color">$${(product.price).toFixed(2)}</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="form-control input-number"
+                                                   value="${product.quantity}">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                                <td>
+                                    <h2 class="td-color">$${(product.quantity * product.price).toFixed(2)}</h2>
+                                </td>
+                            </tr>
+                        `;
+                CartBody.append(tr);
+            var totalToShow = `$${totalPrc}`
+            $('#totalPrc').text(totalToShow);
+            });
+        });
     </script>
 
 
