@@ -101,7 +101,7 @@
                                                                 <a href="#"><img src="@string.Format("/Images/Home/{0}", item.Photo)" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap">
-                                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                                                <button onclick="AddToCartAr(@item.IdProduct)" title="Add to cart">
                                                                     <i class="ti-shopping-cart"></i>
                                                                 </button>
                                                                 <a href="javascript:void(0)" title="Add to Wishlist">
