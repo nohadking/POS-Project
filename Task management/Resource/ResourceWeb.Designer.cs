@@ -304,6 +304,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل صور المنتجات .
+        /// </summary>
+        internal static string LBAddEditPhotoAddProdact {
+            get {
+                return ResourceManager.GetString("LBAddEditPhotoAddProdact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اضافة وتعديل  الصور في الهدر .
         /// </summary>
         internal static string LBAddEditPhotoHomeSliderContent {
@@ -2172,6 +2181,15 @@ namespace Task_management.Resource {
         internal static string LBMyPaymentMethod {
             get {
                 return ResourceManager.GetString("LBMyPaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صور المنتجات.
+        /// </summary>
+        internal static string LBMYPhotoAddProdact {
+            get {
+                return ResourceManager.GetString("LBMYPhotoAddProdact", resourceCulture);
             }
         }
         

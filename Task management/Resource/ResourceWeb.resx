@@ -1554,4 +1554,10 @@
   <data name="LBAddEditPhotoShopLiftSaide" xml:space="preserve">
     <value>إضافة وتعديل الصورة الجانبية </value>
   </data>
+  <data name="LBMYPhotoAddProdact" xml:space="preserve">
+    <value>صور المنتجات</value>
+  </data>
+  <data name="LBAddEditPhotoAddProdact" xml:space="preserve">
+    <value>إضافة وتعديل صور المنتجات </value>
+  </data>
 </root>

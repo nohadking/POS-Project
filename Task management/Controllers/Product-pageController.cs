@@ -13,7 +13,8 @@ namespace Task_management.Controllers
         IIHomeBackgroundimage iHomeBackgroundimage;
         IIInvose iInvose;
         IIBestSellingProductsHomeContent iBestSellingProductsHomeContent;
-        public Product_pageController(ILogger<HomeController> logger, IICompanyInformation iCompanyInformation1, IICategory iCategory1, IIProduct iProduct1,IIHomeBackgroundimage iHomeBackgroundimage1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1)
+        IIPhotoAddProdact iPhotoAddProdact;
+        public Product_pageController(ILogger<HomeController> logger, IICompanyInformation iCompanyInformation1, IICategory iCategory1, IIProduct iProduct1,IIHomeBackgroundimage iHomeBackgroundimage1,IIInvose iInvose1,IIBestSellingProductsHomeContent iBestSellingProductsHomeContent1,IIPhotoAddProdact iPhotoAddProdact1)
         {
             _logger = logger;
             iCompanyInformation = iCompanyInformation1;
@@ -22,6 +23,7 @@ namespace Task_management.Controllers
             iHomeBackgroundimage = iHomeBackgroundimage1;
             iInvose = iInvose1;
             iBestSellingProductsHomeContent = iBestSellingProductsHomeContent1;
+            iPhotoAddProdact = iPhotoAddProdact1;
         }
         public IActionResult MYProduct(int ProductId)
         {
@@ -59,6 +61,7 @@ namespace Task_management.Controllers
 
             ViewBag.TopSellingItems = topSellingItems;
 
+            vmodel.ListViewPhotoAddProdact = iPhotoAddProdact.GetAllv(ProductId);
 
 
 
@@ -99,6 +102,7 @@ namespace Task_management.Controllers
                 .ToList();
 
             ViewBag.TopSellingItems = topSellingItems;
+            vmodel.ListViewPhotoAddProdact = iPhotoAddProdact.GetAllv(ProductId);
             return View(vmodel);
         }
     }

@@ -121,6 +121,8 @@ namespace Infarstuructre.ViewModel
         public TBAboutSectionStartShopContent AboutSectionStartShopContent { get; set; }    
         public List<TBPhotoShopLiftSaide> ListPhotoShopLiftSaide { get; set; }
         public TBPhotoShopLiftSaide PhotoShopLiftSaide { get; set; }
+        public List<TBViewPhotoAddProdact> ListViewPhotoAddProdact { get; set; }
+        public TBPhotoAddProdact PhotoAddProdact { get; set; }
 
 
     }

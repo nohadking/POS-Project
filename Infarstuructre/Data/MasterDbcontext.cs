@@ -170,16 +170,18 @@ namespace Infarstuructre.Data
             });
 
 
+            //*********************************************************      
             //*********************************************************
 
+               
+            builder.Entity<TBViewPhotoAddProdact>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewPhotoAddProdact");
+            });
 
 
-
-
-
-
-
-
+            //*********************************************************
             //---------------------------------
             builder.Entity<TBEmailAlartSetting>()
            .Property(b => b.DateTimeEntry)
@@ -190,9 +192,7 @@ namespace Infarstuructre.Data
             builder.Entity<TBEmailAlartSetting>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------   
-
             //---------------------------------
             builder.Entity<TBCategory>()
            .Property(b => b.DateTimeEntry)
@@ -203,7 +203,6 @@ namespace Infarstuructre.Data
             builder.Entity<TBCategory>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------   
             //---------------------------------
             builder.Entity<TBProduct>()
@@ -485,6 +484,15 @@ namespace Infarstuructre.Data
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");  
        
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBPhotoAddProdact>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBPhotoAddProdact>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");  
+       
             //--------------------------------- 
         }
         //***********************************
@@ -533,6 +541,8 @@ namespace Infarstuructre.Data
         public DbSet<TBStaff> TBStaffs { get; set; }
         public DbSet<TBAboutSectionStartShopContent> TBAboutSectionStartShopContents { get; set; }
         public DbSet<TBPhotoShopLiftSaide> TBPhotoShopLiftSaides { get; set; }
+        public DbSet<TBPhotoAddProdact> TBPhotoAddProdacts { get; set; }
+        public DbSet<TBViewPhotoAddProdact> ViewPhotoAddProdact { get; set; }
 
 
     }

@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250213082437_TBPhotoAddProdact")]
+    partial class TBPhotoAddProdact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2273,41 +2276,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("ViewOrderProductsFromSupplier", (string)null);
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewPhotoAddProdact", b =>
-                {
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdPhotoAddProdact")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductNameAr")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductNameEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewPhotoAddProdact", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewPhotoHomeSliderContent", b =>
