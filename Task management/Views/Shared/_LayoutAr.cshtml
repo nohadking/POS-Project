@@ -2529,9 +2529,13 @@
                 })
                 .then(data => {
                     console.log(data);
-                    var productImg = data.photo;
-                    var productNm = data.productNameEn;
-                    var productPrice = data.price;
+                    var product = {
+                        id: data.idProduct,
+                        name: data.productNameEn,
+                        price: data.price,
+                        photo: data.photo,
+                        quantity: 1
+                    };
 
                     var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -2550,25 +2554,33 @@
                     console.error('There was a problem with the fetch operation:', error);
                 });
 
-                        li = `
-                                   <li class="product-id-${productId}">
-                                        <div class="media">
-                                                <span hidden class="idPro">${productId}</span>
-                                            <img alt="" class="mr-3" src="/Images/Home/${productImg}">
-                                           <div class="media-body">
-                                             <h4>${productNm}</h4>
-                                                <h4>
-                                                    <span><span class="qty">1</span> x $ <span class="pricePro">${productPrice}</span></span>
-                                                </h4>
+            openCart();
+        }
 
-                                            </div>
+        function updateCartUI() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartContainer = $('#cart_products');
+            cartContainer.empty();
+
+            cart.forEach(product => {
+                var li = `
+                                <li class="product-id-${product.id}">
+                                    <div class="media">
+                                        <span hidden class="idPro">${product.id}</span>
+                                                <img alt="" class="mr-3" src="/Images/Home/${product.photo}"style="height:75px;width:75px">
+                                        <div class="media-body">
+                                            <h4>${product.name}</h4>
+                                            <h4>
+                                                <span><span class="qty">${product.quantity}</span> x $ <span class="pricePro">${product.price}</span></span>
+                                            </h4>
                                         </div>
-                                        <div class="close-circle">
-                                            <a>
-                                                <i class="ti-trash" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-                                 </li>
+                                    </div>
+                                    <div class="close-circle">
+                                        <a onclick="removeFromCart(${product.id})">
+                                            <i class="ti-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </li>
                             `;
                 cartContainer.append(li);
             });

@@ -66,6 +66,7 @@
 </section>
 <!--section end-->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     function openSearch() {
@@ -77,6 +78,7 @@
     }
 
     $(document).ready(function () {
+        console.log("dfbd");
         var cart = JSON.parse(localStorage.getItem('cart')) || [];
         var CartBody = $('#CartBody');
         var totalPrc = 0;
