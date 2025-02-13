@@ -253,7 +253,7 @@
     <value>Please include descreption for the process to complete successfully...!</value>
   </data>
   <data name="VlDescription" xml:space="preserve">
-    <value>Enter The Description</value>
+    <value>يرجى إدراج الوصف لتتم العملية بنجاح</value>
   </data>
   <data name="VlDescriptionAr" xml:space="preserve">
     <value>يرجى أدراج الوصف باللغة العربية لتتم العملية بنجاح ...!</value>
@@ -262,7 +262,7 @@
     <value>Please include a description of the link between the customer and the pricing. The process is completed successfully...!</value>
   </data>
   <data name="VlDescriptionEn" xml:space="preserve">
-    <value>يرجى كتابة اسم المنتج باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+    <value>يرجى كتابة وصف الشركة باللغة الانكليزية لتتم العملية بنجاح </value>
   </data>
   <data name="VlDescriptionOrder" xml:space="preserve">
     <value>Please include the order description for the process to complete successfully</value>
@@ -271,7 +271,7 @@
     <value>Please include the nickname for the process to complete successfully..!</value>
   </data>
   <data name="VlEmailCompany" xml:space="preserve">
-    <value>Please include the company's email so that the process is completed successfully...!</value>
+    <value>يرجى إدراج إميل الشركة لتتم العملية بنجاح ....!</value>
   </data>
   <data name="VlFAQ" xml:space="preserve">
     <value>please include FAQ to complete successfully...!</value>
@@ -418,7 +418,7 @@
     <value>يرجى أدراج العنوان باللغة العربية لتتم العملية بنجاح ...!</value>
   </data>
   <data name="VlAddressEn" xml:space="preserve">
-    <value>Please enter the address in English for the process to be completed successfully...!</value>
+    <value>يرجى إدراج العنوان باللغة الانكليزية لتتم العملية بنجاح ...1</value>
   </data>
   <data name="VlRating" xml:space="preserve">
     <value>يرجى أدراج تقيم الشركة لتتم العملية بنجاح ..!</value>
@@ -458,5 +458,176 @@
   </data>
   <data name="Vlprice" xml:space="preserve">
     <value>يرجى أدراج السعر الخاص بالمنتج لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlPaymentMethodAr" xml:space="preserve">
+    <value>يرجى أدراج طريقة الدفع باللغة العربية لتتم العملية بنجاح...!</value>
+  </data>
+  <data name="VlPaymentMethodEn" xml:space="preserve">
+    <value>يرجى أدراج طريقة الدفع باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlQuantity" xml:space="preserve">
+    <value>يرجى أدخال الكمية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VLTitleOneEnDoplceted" xml:space="preserve">
+    <value>تم الأدخال باللغة الانكليزية  مسبقا يرجى التأكد وإعادة المحاولة لاحقا ....!</value>
+  </data>
+  <data name="VlTitleOneAr" xml:space="preserve">
+    <value>يرجى أدراج العناون الاول  باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleOneEn" xml:space="preserve">
+    <value>يرجى أدراج العنوان  الاول  باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="TitleTwoAr" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني  باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="TitleTwoEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الثاني باللغة الانكليزية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="TitleButtonAr" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="TitleButtonEn" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlUrlButtonAr" xml:space="preserve">
+    <value>يرجى أدراج رابط التوجيه باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlUrlButtonEn" xml:space="preserve">
+    <value>يرجى إدراج رابط التوجيه باللغة الانكليزية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleTwoAr" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleTwoEn" xml:space="preserve">
+    <value>يرجى أدراج العنوان الثاني باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleButtonAr" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleButtonEn" xml:space="preserve">
+    <value>يرجى أدراج عنوان الزر باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameCompanyAr" xml:space="preserve">
+    <value>يرجى ادراج اسم الشركة باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameCompanyEn" xml:space="preserve">
+    <value>يرجى إدراج اسم الشركة باللغة الأنكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlMobile" xml:space="preserve">
+    <value>يرجى أدراج رقم الهاتف  لتمم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlNameOner" xml:space="preserve">
+    <value>يرجى إدراج اسم المدير التنفيذي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlPhoneOner" xml:space="preserve">
+    <value>يرجى أدراج هاتف المدير التنفيذي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmailOner" xml:space="preserve">
+    <value>يرجى أدراج البريد الاكتروني الخاص بالمدير التنفيذي لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlShortDescriptionAr" xml:space="preserve">
+    <value>يرجى إدراج الوصف القصير باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlShortDescriptionEn" xml:space="preserve">
+    <value>يرجى إدراج الوصف القصير باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlFaceBoock" xml:space="preserve">
+    <value>يرجى إدراج رابط الفيس بوك لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlInstagram" xml:space="preserve">
+    <value>يرجى إدراج رابط الانستجرام لتتم العملية بنجاح </value>
+  </data>
+  <data name="VlYouTube" xml:space="preserve">
+    <value>يرجى إدراج رابط اليو تيوب لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlMabs" xml:space="preserve">
+    <value>يرجى إدراج رابط العنوان على خارئط جوجل لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlExpenseCategory" xml:space="preserve">
+    <value>يرجى إدراج فئة المصروفات لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlStatement" xml:space="preserve">
+    <value>يرجى إدخال بيان سند الصرف لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlSupplierName" xml:space="preserve">
+    <value>يرجى اسم المورد لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlSpecialization" xml:space="preserve">
+    <value>يرجى إدراج اختصاص المورد لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlDebtlimit" xml:space="preserve">
+    <value>يرجى أدراج سقف المديونية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlGracePeriod" xml:space="preserve">
+    <value>يرجى إدراج فترة السماح لتتم العملية بنجاح .....!</value>
+  </data>
+  <data name="Vlwebsite" xml:space="preserve">
+    <value>يرجى أدراج موقع الشركة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlUnit" xml:space="preserve">
+    <value>يرجى إدراج الوحدة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlItemName" xml:space="preserve">
+    <value>يرجى أدراج اسم المادة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlCodeItem" xml:space="preserve">
+    <value>يرجى أدراج رمز المادة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="StatementPurchase" xml:space="preserve">
+    <value>يرجى إدخال البيان الخاص بسند الشراء لتتم العملية بنجاح...!</value>
+  </data>
+  <data name="VlPurchaseDate" xml:space="preserve">
+    <value>يرجى إدخال  تاريخ سند الشراء لتتم العملية بنجاح ..!</value>
+  </data>
+  <data name="VlPurchasePrice" xml:space="preserve">
+    <value>يرجى إدراج سعر الشراء لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTotal" xml:space="preserve">
+    <value>يرجى إدراج الاجمالي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlStatementPurchase" xml:space="preserve">
+    <value>يرجى أدراج البيان لتتم العملية بنجاح </value>
+  </data>
+  <data name="LBAddAccountingRestriction" xml:space="preserve">
+    <value>إضافة وتعديل القيود المحاسبية </value>
+  </data>
+  <data name="VlTitleThreAr" xml:space="preserve">
+    <value>يرجى إدخال  العنوان الثالث باللغة العربية لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlTitleThreEn" xml:space="preserve">
+    <value>يرجى إدخال العنوان الثالث باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleForAr" xml:space="preserve">
+    <value>يرجى إدراج العنوان الرابع باللغة العربية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlTitleForEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الرابع باللغة الانكليزية لتتم العملية بنجاح ..!</value>
+  </data>
+  <data name="VlTitlefiveAr" xml:space="preserve">
+    <value>يرجى ادراج العنوان الخامس  باللغة العربية لتتم العملية  بنجاح ...!</value>
+  </data>
+  <data name="VlTitlefiveEn" xml:space="preserve">
+    <value>يرجى إدراج العنوان الخامس باللغة الانكليزية لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlAccountName" xml:space="preserve">
+    <value>يرجى إدراج اسم الحساب الرئيسي لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmployeeFullname" xml:space="preserve">
+    <value>يرجى أدراج اسم الموظف كاملا لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmployeePhone" xml:space="preserve">
+    <value>يرجى إدراج رقم الهاتف الخاص بالموظف لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlEmployeeEmail" xml:space="preserve">
+    <value>يرجى إدراج البريد الاكتروني الخاص بالموظف لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlAccountNumber" xml:space="preserve">
+    <value>يرجى ادراج رقم الحساب  الخاص بالموظف  لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlJobTitle" xml:space="preserve">
+    <value>يرجى إدراج المسمى الوظيفي الخاص بالموظف لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlEmployeeAddress" xml:space="preserve">
+    <value>يرجى إدراج عنوان  الخاص بالموظف لتتم العملية بنجاح ...!</value>
   </data>
 </root>

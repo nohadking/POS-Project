@@ -8,22 +8,27 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IICategory iCategory;
-        public CategoryController(MasterDbcontext dbcontext1,IICategory iCategory1)
+		IICompanyInformation iCompanyInformation;
+		public CategoryController(MasterDbcontext dbcontext1,IICategory iCategory1, IICompanyInformation iCompanyInformation1)
         {
             dbcontext=dbcontext1;
             iCategory=iCategory1;
-        }
+			iCompanyInformation = iCompanyInformation1;
+		}
 
         public IActionResult MYCategory()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCategory = iCategory.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
         public IActionResult AddEditCategory(int? IdCategory)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCategory = iCategory.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListCategory = iCategory.GetAll();
+
             if (IdCategory != null)
             {
                 vmodel.Category = iCategory.GetById(Convert.ToInt32(IdCategory));
@@ -38,7 +43,8 @@ namespace Task_management.Areas.Admin.Controllers
         {
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListCategory = iCategory.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListCategory = iCategory.GetAll();
             if (IdCategory != null)
             {
                 vmodel.Category = iCategory.GetById(Convert.ToInt32(IdCategory));
@@ -49,132 +55,7 @@ namespace Task_management.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
-        //[HttpPost]
-        //[AutoValidateAntiforgeryToken]
-        //public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBCategory slider, List<IFormFile> Files, string returnUrl)
-        //{
-        //    try
-        //    {
-        //        slider.IdCategory = model.Category.IdCategory;
-        //        slider.Photo = model.Category.Photo;
-        //        slider.CategoryNameAr = model.Category.CategoryNameAr;
-        //        slider.CategoryNameEn = model.Category.CategoryNameEn;         
-        //        slider.DateTimeEntry = model.Category.DateTimeEntry;
-        //        slider.DataEntry = model.Category.DataEntry;
-        //        slider.CurrentState = model.Category.CurrentState;
-        //        slider.Active = model.Category.Active;
-
-        //        var file = HttpContext.Request.Form.Files;
-        //        if (slider.IdCategory == 0 || slider.IdCategory == null)
-        //        {
-        //            if (file.Count() > 0)
-        //            {
-        //                string Photo = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
-        //                var fileStream = new FileStream(Path.Combine(@"wwwroot/Images/Home", Photo), FileMode.Create);
-        //                file[0].CopyTo(fileStream);
-        //                slider.Photo = Photo;
-        //                fileStream.Close();
-        //            }
-        //            else
-        //            {
-        //                TempData["Message"] = ResourceWeb.VLimageuplode;
-        //                return Redirect(returnUrl);
-        //            }
-
-        //            if (dbcontext.TBCategorys.Where(a => a.CategoryNameEn == slider.CategoryNameEn).ToList().Count > 0)
-        //            {
-        //                TempData["CategorysEn"] = ResourceWeb.VLCategorysEnDoplceted;
-        //                return RedirectToAction("MYCategory");
-        //            }
-
-        //            if (dbcontext.TBCategorys.Where(a => a.CategoryNameAr == slider.CategoryNameAr).ToList().Count > 0)
-        //            {
-        //                TempData["CategorysAr"] = ResourceWeb.VLCategorysArDoplceted;
-        //                return RedirectToAction("MYCategory");
-        //            }
-
-        //            var reqwest = iCategory.saveData(slider);
-        //            if (reqwest == true)
-        //            {
-        //                TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-        //                return RedirectToAction("MYCategory");
-        //            }
-        //            else
-        //            {
-        //                var PhotoNAme = slider.Photo;
-        //                var delet = iCategory.DELETPHOTOWethError(PhotoNAme);
-        //                TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-        //                return RedirectToAction("AddEditCategory");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            //var reqweistDeletPoto = iCategory.DELETPHOTO(slider.IdCategory);
-
-        //            if (file.Count() == 0)
-
-        //            {
-        //                slider.Photo = model.Category.Photo;
-        //                //TempData["Message"] = ResourceWeb.VLimageuplode;
-        //                var reqestUpdate2 = iCategory.UpdateData(slider);
-        //                if (reqestUpdate2 == true)
-        //                {
-        //                    TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-        //                    return RedirectToAction("MYCategory");
-        //                }
-        //                else
-        //                {
-
-        //                    var PhotoNAme = slider.Photo;
-        //                    //var delet = iCategory.DELETPHOTOWethError(PhotoNAme);
-        //                    TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-        //                    return RedirectToAction("AddEditCategory", model);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                string Photo = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
-        //                var fileStream = new FileStream(Path.Combine(@"wwwroot/Images/Home", Photo), FileMode.Create);
-        //                file[0].CopyTo(fileStream);
-        //                slider.Photo = Photo;
-        //                fileStream.Close();
-        //                var reqweistDeletPoto = iCategory.DELETPHOTO(slider.IdCategory);
-        //                var reqestUpdate2 = iCategory.UpdateData(slider);
-        //                if (reqestUpdate2 == true)
-        //                {
-        //                    TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-        //                    return RedirectToAction("MYCategory");
-        //                }
-        //                else
-        //                {
-        //                    var PhotoNAme = slider.Photo;
-        //                    var delet = iCategory.DELETPHOTOWethError(PhotoNAme);
-        //                    TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-        //                    return RedirectToAction("MYCategory");
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        var file = HttpContext.Request.Form.Files;
-        //        if (file.Count() == 0)
-
-        //        {
-        //            //var PhotoNAme = slider.Photo;
-        //            //var delet = iCategory.DELETPHOTOWethError(PhotoNAme);
-        //            TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-        //            return RedirectToAction("AddEditCategory", model);
-        //        }
-        //        else
-        //        {
-        //            var PhotoNAme = slider.Photo;
-        //            var delet = iCategory.DELETPHOTOWethError(PhotoNAme);
-        //            TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-        //            return RedirectToAction("AddEditCategory", model);
-        //        }
-        //    }
-        //}
+      
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBCategory slider, List<IFormFile> Files, string returnUrl)

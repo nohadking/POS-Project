@@ -56,46 +56,9 @@
 	<link rel="stylesheet" href="~/AdminEn/assets/css/style.css">
 
 
-
+	@await RenderSectionAsync("style", required: false)
 
 	@* //***************** *@
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-	
-
-
-
-
-
-	
-
-
 
 </head>
 
@@ -110,20 +73,23 @@
 		<div class="header">
 
 			<!-- Logo -->
+			   @foreach (var item in Model.ListCompanyInformation)
+                                    {
 			<div class="header-left active">
-				<a href="index.html" class="logo logo-normal">
-					<img src="~/AdminEn/assets/img/logo.png" alt="">
+				<a asp-area="Admin" asp-controller="Home"asp-action="Index" class="logo logo-normal">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt=""style="height:75px;width:75px">
 				</a>
-				<a href="index.html" class="logo logo-white">
-					<img src="~/AdminEn/assets/img/logo-white.png" alt="">
+				<a asp-area="Admin" asp-controller="Home"asp-action="Index" class="logo logo-white">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="" style="height:75px;width:75px">
 				</a>
-				<a href="index.html" class="logo-small">
-					<img src="~/AdminEn/assets/img/logo-small.png" alt="">
+				<a asp-area="Admin" asp-controller="Home"asp-action="Index" class="logo-small">
+						<img src="@string.Format("/Images/Home/{0}", item.Photo)" alt="" style="height:75px;width:75px">
 				</a>
 				<a id="toggle_btn" href="javascript:void(0);">
 					<i data-feather="chevrons-left" class="feather-16"></i>
 				</a>
 			</div>
+									}
 			<!-- /Logo -->
 
 			<a id="mobile_btn" class="mobile_btn" href="#sidebar">
@@ -158,6 +124,7 @@
 									</h6>
 									<ul class="search-tags">
 										<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct">المنتجات</a></li>
+										<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard">@ResourceWeb.LBMYClassCard</a></li>
 										<li><a href="javascript:void(0);">Sales</a></li>
 										<li><a href="javascript:void(0);">Applications</a></li>
 									</ul>
@@ -366,11 +333,11 @@
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
 						<span class="user-info">
 							<span class="user-letter">
-								<img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="" class="img-fluid">
+								<img src="@Helper.PathImageuser@user.ImageUser" alt="" class="img-fluid">
 							</span>
 							<span class="user-detail">
-								<span class="user-name">John Smilga</span>
-								<span class="user-role">Super Admin</span>
+								<span class="user-name">@user.Name</span>
+								<span class="user-role">@userRole</span>
 							</span>
 						</span>
 					</a>
@@ -378,12 +345,12 @@
 						<div class="profilename">
 							<div class="profileset">
 								<span class="user-img">
-									<img src="~/AdminEn/assets/img/profiles/avator1.jpg" alt="">
+									<img src="@Helper.PathImageuser@user.ImageUser" alt="">
 									<span class="status online"></span>
 								</span>
 								<div class="profilesets">
-									<h6>John Smilga</h6>
-									<h5>Super Admin</h5>
+									<h6>@user.Name</h6>
+									<h5>@userRole</h5>
 								</div>
 							</div>
 							<hr class="m-0">
@@ -420,7 +387,7 @@
 								<li class="submenu">
 									<a href="javascript:void(0);" class="subdrop active"><i data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
 									<ul>
-										<li><a href="index.html" class="active">Admin Dashboard</a></li>
+										<li><a asp-area="Admin" asp-controller="Home"asp-action="Index" class="active">Admin Dashboard</a></li>
 										<li><a href="sales-dashboard.html">Sales Dashboard</a></li>
 									</ul>
 								</li>
@@ -451,36 +418,37 @@
 							<h6 class="submenu-hdr">المخازن والمستودعات </h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><i data-feather="box"></i><span>المنتجات </span></a></li>
-								<li><a href="add-product.html"><i data-feather="plus-square"></i><span>Create Product</span></a></li>
-								<li><a href="expired-products.html"><i data-feather="codesandbox"></i><span>Expired Products</span></a></li>
-								<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a></li>
+								<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
+							
+				@* 				<li><a href="expired-products.html"><i data-feather="codesandbox"></i><span>Expired Products</span></a></li>
+								<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a></li> *@
 
 								<li><a asp-area="Admin" asp-controller="Category"asp-action="MYCategory"><i data-feather="codepen"></i><span>الفئات</span></a></li>
 
-								<li><a href="sub-categories.html"><i data-feather="speaker"></i><span>Sub Category</span></a></li>
+						@* 		<li><a href="sub-categories.html"><i data-feather="speaker"></i><span>Sub Category</span></a></li>
 								<li><a href="brand-list.html"><i data-feather="tag"></i><span>Brands</span></a></li>
 								<li><a href="units.html"><i data-feather="speaker"></i><span>Units</span></a></li>
 								<li><a href="varriant-attributes.html"><i data-feather="layers"></i><span>Variant Attributes</span></a></li>
 								<li><a href="warranty.html"><i data-feather="bookmark"></i><span>Warranties</span></a></li>
 								<li><a href="barcode.html"><i data-feather="align-justify"></i><span>Print Barcode</span></a></li>
-								<li><a href="qrcode.html"><i data-feather="maximize"></i><span>Print QR Code</span></a></li>
+								<li><a href="qrcode.html"><i data-feather="maximize"></i><span>Print QR Code</span></a></li> *@
 							</ul>
 						</li>
-						<li class="submenu-open">
+						@* <li class="submenu-open">
 							<h6 class="submenu-hdr">Stock</h6>
 							<ul>
 								<li><a href="manage-stocks.html"><i data-feather="package"></i><span>Manage Stock</span></a></li>
 								<li><a href="stock-adjustment.html"><i data-feather="clipboard"></i><span>Stock Adjustment</span></a></li>
 								<li><a href="stock-transfer.html"><i data-feather="truck"></i><span>Stock Transfer</span></a></li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Sales</h6>
 							<ul>
-								<li><a href="sales-list.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li>
-								<li><a href="invoice-report.html"><i data-feather="file-text"></i><span>Invoices</span></a></li>
-								<li><a href="sales-returns.html"><i data-feather="copy"></i><span>Sales Return</span></a></li>
-								<li><a href="quotation-list.html"><i data-feather="save"></i><span>Quotation</span></a></li>
+								@* <li><a href="sales-list.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li> *@
+								<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
+							@* 	<li><a href="sales-returns.html"><i data-feather="copy"></i><span>Sales Return</span></a></li>
+								<li><a href="quotation-list.html"><i data-feather="save"></i><span>Quotation</span></a></li> *@
 								<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><i data-feather="hard-drive"></i><span>POS</span></a></li>
 							</ul>
 						</li>
@@ -491,21 +459,34 @@
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">Purchases</h6>
+							<h6 class="submenu-hdr">المشتريات </h6>
 							<ul>
-								<li><a href="purchase-list.html"><i data-feather="shopping-bag"></i><span>Purchases</span></a></li>
+								<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 								<li><a href="purchase-order-report.html"><i data-feather="file-minus"></i><span>Purchase Order</span></a></li>
 								<li><a href="purchase-returns.html"><i data-feather="refresh-cw"></i><span>Purchase Return</span></a></li>
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">Finance & Accounts</h6>
+							<h6 class="submenu-hdr">المحاسبة</h6>
 							<ul>
 								<li class="submenu">
-									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>Expenses</span><span class="menu-arrow"></span></a>
+									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>المصاريف</span><span class="menu-arrow"></span></a>
 									<ul>
-										<li><a href="expense-list.html">Expenses</a></li>
-										<li><a href="expense-category.html">Expense Category</a></li>
+										<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+										<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
+									</ul>
+									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>الحركات </span><span class="menu-arrow"></span></a>
+									<ul>
+										<li><a asp-area="Admin" asp-controller="AccountingRestriction" asp-action="MyAccountingRestriction">@ResourceWeb.LBMyAccountingRestriction</a></li>
+									
+									</ul>
+									<a href="javascript:void(0);"><i data-feather="file-text"></i><span>الحسابات </span><span class="menu-arrow"></span></a>
+									<ul>
+										<li><a asp-area="Admin" asp-controller="MainAccount" asp-action="MyMainAccount">@ResourceWeb.LBMyMainAccount</a></li>
+										<li><a asp-area="Admin" asp-controller="LevelTwoAccount" asp-action="MyLevelTwoAccount">@ResourceWeb.LBMyLevelTwoAccount</a></li>
+										<li><a asp-area="Admin" asp-controller="LevelThreeAccount" asp-action="MyLevelThreeAccount">@ResourceWeb.LBMyLevelThreeAccount</a></li>
+										<li><a asp-area="Admin" asp-controller="LevelForeAccount" asp-action="MyLevelForeAccount">@ResourceWeb.LBMyLevelForeAccount</a></li>
+									
 									</ul>
 								</li>
 							</ul>
@@ -514,12 +495,8 @@
 							<h6 class="submenu-hdr">الاشخاص</h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="CustomerCategorie" asp-action="MyCustomerCategorie"><i data-feather="user"></i><span>@ResourceWeb.LBMyCustomerCategorie</span></a></li>
-								<li><a href="customers.html"><i data-feather="user"></i><span>Customers</span></a></li>
-								<li><a href="suppliers.html"><i data-feather="users"></i><span>Suppliers</span></a></li>
-								<li><a href="store-list.html"><i data-feather="home"></i><span>Stores</span></a></li>
-								<li>
-									<a href="warehouse.html"><i data-feather="archive"></i><span>Warehouses</span></a>
-								</li>
+								<li><a asp-area="Admin" asp-controller="Supplier" asp-action="MYSupplier"><i data-feather="user"></i><span>@ResourceWeb.LBMYSupplier</span></a></li>
+								<li><a asp-area="Admin" asp-controller="Staff" asp-action="MYStaff"><i data-feather="user"></i><span>@ResourceWeb.LBMYStaff</span></a></li>						
 							</ul>
 						</li>
 						<li class="submenu-open">
@@ -572,14 +549,14 @@
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">User Management</h6>
+							<h6 class="submenu-hdr">المستخدمين </h6>
 							<ul>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 								<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><i data-feather="shield"></i><span>الصلاحيات</span></a></li>
-								<li><a href="delete-account.html"><i data-feather="lock"></i><span>Delete Account Request</span></a></li>
+								
 							</ul>
 						</li>
-						<li class="submenu-open">
+						@* <li class="submenu-open">
 							<h6 class="submenu-hdr">Pages</h6>
 							<ul>
 								<li><a href="profile.html"><i data-feather="user"></i><span>Profile</span></a></li>
@@ -661,30 +638,38 @@
 									<a href="under-maintenance.html"><i data-feather="alert-triangle"></i><span>Under Maintenance</span> </a>
 								</li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Settings</h6>
 							<ul>
 								<li class="submenu">
-									<a href="javascript:void(0);"><i data-feather="settings"></i><span>General Settings</span><span class="menu-arrow"></span></a>
+									<a href="javascript:void(0);"><i data-feather="settings"></i><span>الاعدادات العامة </span><span class="menu-arrow"></span></a>
 									<ul>
-										<li><a href="general-settings.html">Profile</a></li>
-										<li><a href="security-settings.html">Security</a></li>
+										<li><a asp-area="Admin" asp-controller="CompanyInformation" asp-action="MYCompanyInformation">@ResourceWeb.LBMYCompanyInformation</a></li>
+
+										<li><a asp-area="Admin" asp-controller="CategoryServic" asp-action="MYCategoryServic">@ResourceWeb.LBMYCategoryServic</a></li>
 										<li><a href="notification.html">Notifications</a></li>
 										<li><a href="connected-apps.html">Connected Apps</a></li>
 									</ul>
 								</li>
 								<li class="submenu">
-									<a href="javascript:void(0);"><i data-feather="globe"></i><span>Website Settings</span><span class="menu-arrow"></span></a>
+									<a href="javascript:void(0);"><i data-feather="globe"></i><span>إعدادات الموقع</span><span class="menu-arrow"></span></a>
 									<ul>
-										<li><a href="system-settings.html">System Settings</a></li>
-										<li><a href="company-settings.html">Company Settings </a></li>
-										<li><a href="localization-settings.html">Localization</a></li>
-										<li><a href="prefixes.html">Prefixes</a></li>
-										<li><a href="preference.html">Preference</a></li>
-										<li><a href="appearance.html">Appearance</a></li>
+										<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
+										<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+										<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
+										<li><a asp-area="Admin" asp-controller="BestSellingProductsHomeContent" asp-action="MyBestSellingProductsHomeContent">@ResourceWeb.LBMyBestSellingProductsHomeContent</a></li>
+										<li><a asp-area="Admin" asp-controller="HomeBackgroundimage" asp-action="MYHomeBackgroundimage">@ResourceWeb.LBMYHomeBackgroundimage</a></li>
+										<li><a asp-area="Admin" asp-controller="HomeImageProdact" asp-action="MYHomeImageProdact">@ResourceWeb.LBMYHomeImageProdact</a></li>
 										<li><a href="social-authentication.html">Social Authentication</a></li>
 										<li><a href="language-settings.html">Language</a></li>
+									</ul>
+
+									<a href="javascript:void(0);"><i data-feather="globe"></i><span>صفحة المتجر</span><span class="menu-arrow"></span></a>
+									<ul>
+										<li><a asp-area="Admin" asp-controller="AboutSectionStartShopContent" asp-action="MYAboutSectionStartShopContent">@ResourceWeb.LBMYAboutSectionStartShopContent</a></li>
+										<li><a asp-area="Admin" asp-controller="PhotoShopLiftSaide" asp-action="MYPhotoShopLiftSaide">@ResourceWeb.LBMYPhotoShopLiftSaide</a></li>
+						
 									</ul>
 								</li>
 								<li class="submenu">
@@ -714,10 +699,13 @@
 								<li class="submenu">
 									<a href="javascript:void(0);">
 										<i data-feather="dollar-sign"></i>
-										<span>Settings</span><span class="menu-arrow"></span>
+										<span>أعدادت المحاسبة</span><span class="menu-arrow"></span>
 									</a>
 									<ul>
-										<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+										<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
+
+										<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
+
 										<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 										<li><a href="tax-rates.html">Tax Rates</a></li>
 										<li><a href="currency-settings.html">Currencies</a></li>
@@ -738,7 +726,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="submenu-open">
+					@* 	<li class="submenu-open">
 							<h6 class="submenu-hdr">UI Interface</h6>
 							<ul>
 								<li class="submenu">
@@ -878,7 +866,7 @@
 									</ul>
 								</li>
 							</ul>
-						</li>
+						</li> *@
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Help</h6>
 							<ul>
@@ -910,8 +898,6 @@
 			</div>
 		</div>
 		<!-- /Sidebar -->
-
-
 		<!-- Sidebar -->
 		<div class="sidebar collapsed-sidebar" id="collapsed-sidebar">
 			<div class="sidebar-inner slimscroll">
@@ -976,7 +962,7 @@
 							<li class="submenu">
 								<a href="javascript:void(0);" class="active"><span>Dashboard</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="index.html" class="active">Admin Dashboard</a></li>
+									<li><a asp-area="Admin" asp-controller="Home"asp-action="Index" class="active">Admin Dashboard</a></li>
 									<li><a href="sales-dashboard.html">Sales Dashboard</a></li>
 								</ul>
 							</li>
@@ -1004,7 +990,7 @@
 						</ul>
 						<ul class="tab-pane" id="product" aria-labelledby="messages-tab">
 							<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><span>المنتجات</span></a></li>
-							<li><a href="add-product.html"><span>Create Product</span></a></li>
+							<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
 							<li><a href="expired-products.html"><span>Expired Products</span></a></li>
 							<li><a href="low-stocks.html"><span>Low Stocks</span></a></li>
 							<li><a asp-area="Admin" asp-controller="Category" asp-action="MYCategory"><span>الفئات</span></a></li>
@@ -1018,24 +1004,24 @@
 						</ul>
 						<ul class="tab-pane" id="sales" aria-labelledby="profile-tab">
 							<li><a href="sales-list.html"><span>Sales</span></a></li>
-							<li><a href="invoice-report.html"><span>Invoices</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
 							<li><a href="sales-returns.html"><span>Sales Return</span></a></li>
 							<li><a href="quotation-list.html"><span>Quotation</span></a></li>
 							<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><span>POS</span></a></li>
 							<li><a href="coupons.html"><span>Coupons</span></a></li>
 						</ul>
 						<ul class="tab-pane" id="purchase" aria-labelledby="report-tab">
-							<li><a href="purchase-list.html"><span>Purchases</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 							<li><a href="purchase-order-report.html"><span>Purchase Order</span></a></li>
 							<li><a href="purchase-returns.html"><span>Purchase Return</span></a></li>
 							<li><a href="manage-stocks.html"><span>Manage Stock</span></a></li>
 							<li><a href="stock-adjustment.html"><span>Stock Adjustment</span></a></li>
 							<li><a href="stock-transfer.html"><span>Stock Transfer</span></a></li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Expenses</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المصاريف</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="expense-list.html">Expenses</a></li>
-									<li><a href="expense-category.html">Expense Category</a></li>
+									<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+									<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 								</ul>
 							</li>
 
@@ -1044,7 +1030,7 @@
 
 							<li><a asp-area="Admin" asp-controller="CustomerCategorie" asp-action="MyCustomerCategorie"><span>@ResourceWeb.LBMyCustomerCategorie</span></a></li>
 							<li><a href="customers.html"><span>Customers</span></a></li>
-							<li><a href="suppliers.html"><span>Suppliers</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Supplier" asp-action="MYSupplier"><i data-feather="user"></i><span>@ResourceWeb.LBMYSupplier</span></a></li>
 							<li><a href="store-list.html"><span>Stores</span></a></li>
 							<li><a href="warehouse.html"><span>Warehouses</span></a></li>
 
@@ -1090,9 +1076,9 @@
 							<li><a href="profit-and-loss.html"><span>Profit & Loss</span></a></li>
 						</ul>
 						<ul class="tab-pane" id="permission" aria-labelledby="set-tab4">
-							<li><a href="users.html"><span>Users</span></a></li>
+							<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 							<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
-							<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
+		
 
 							<li class="submenu">
 								<a href="javascript:void(0);">
@@ -1307,8 +1293,9 @@
 						</ul>
 						<ul class="tab-pane" id="settings" aria-labelledby="set-tab6">
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>General Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>الأعدادات العامة</span><span class="menu-arrow"></span></a>
 								<ul>
+									<li><a asp-area="Admin" asp-controller="CompanyInformation" asp-action="MYCompanyInformation">@ResourceWeb.LBMYCompanyInformation</a></li>
 									<li><a href="general-settings.html">Profile</a></li>
 									<li><a href="security-settings.html">Security</a></li>
 									<li><a href="notification.html">Notifications</a></li>
@@ -1316,16 +1303,23 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Website Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><i data-feather="globe"></i><span>إعدادات الموقع</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="system-settings.html">System Settings</a></li>
-									<li><a href="company-settings.html">Company Settings </a></li>
-									<li><a href="localization-settings.html">Localization</a></li>
-									<li><a href="prefixes.html">Prefixes</a></li>
-									<li><a href="preference.html">Preference</a></li>
-									<li><a href="appearance.html">Appearance</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
+									<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+									<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
+									<li><a asp-area="Admin" asp-controller="BestSellingProductsHomeContent" asp-action="MyBestSellingProductsHomeContent">@ResourceWeb.LBMyBestSellingProductsHomeContent</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeBackgroundimage" asp-action="MYHomeBackgroundimage">@ResourceWeb.LBMYHomeBackgroundimage</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeImageProdact" asp-action="MYHomeImageProdact">@ResourceWeb.LBMYHomeImageProdact</a></li>
 									<li><a href="social-authentication.html">Social Authentication</a></li>
 									<li><a href="language-settings.html">Language</a></li>
+								</ul>
+
+								<a href="javascript:void(0);"><i data-feather="globe"></i><span>صفحة المتجر</span><span class="menu-arrow"></span></a>
+								<ul>
+									<li><a asp-area="Admin" asp-controller="AboutSectionStartShopContent" asp-action="MYAboutSectionStartShopContent">@ResourceWeb.LBMYAboutSectionStartShopContent</a></li>
+									<li><a asp-area="Admin" asp-controller="PhotoShopLiftSaide" asp-action="MYPhotoShopLiftSaide">@ResourceWeb.LBMYPhotoShopLiftSaide</a></li>
+
 								</ul>
 							</li>
 							<li class="submenu">
@@ -1347,9 +1341,10 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Financial Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>إعدادات المحاسبة </span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+									<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
+									<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
 									<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 									<li><a href="tax-rates.html">Tax Rates</a></li>
 									<li><a href="currency-settings.html">Currencies</a></li>
@@ -1394,12 +1389,12 @@
 			<div id="sidebar-menu-3" class="sidebar-menu">
 				<ul class="nav">
 					<li class="submenu">
-						<a href="index.html" class="active subdrop"><i data-feather="grid"></i><span> Main Menu</span> <span class="menu-arrow"></span></a>
+						<a asp-area="Admin" asp-controller="Home"asp-action="Index" class="active subdrop"><i data-feather="grid"></i><span> Main Menu</span> <span class="menu-arrow"></span></a>
 						<ul>
 							<li class="submenu">
 								<a href="javascript:void(0);" class="active subdrop"><span>Dashboard</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="index.html" class="active">Admin Dashboard</a></li>
+									<li><a asp-area="Admin" asp-controller="Home"asp-action="Index" class="active">Admin Dashboard</a></li>
 									<li><a href="sales-dashboard.html">Sales Dashboard</a></li>
 								</ul>
 							</li>
@@ -1434,7 +1429,7 @@
 						</a>
 						<ul>
 							<li><a asp-area="Admin" asp-controller="Product" asp-action="MYProduct"><span>المنتجات</span></a></li>
-							<li><a href="add-product.html"><span>Create Product</span></a></li>
+							<li><a asp-area="Admin" asp-controller="ClassCard" asp-action="MYClassCard"><i data-feather="plus-square"></i><span>@ResourceWeb.LBMYClassCard</span></a></li>
 							<li><a href="expired-products.html"><span>Expired Products</span></a></li>
 							<li><a href="low-stocks.html"><span>Low Stocks</span></a></li>
 							<li><a asp-area="Admin" asp-controller="Category" asp-action="MYCategory"><span>الفئات</span></a></li>
@@ -1454,7 +1449,7 @@
 								<a href="javascript:void(0);"><span>Sales</span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="sales-list.html"><span>Sales</span></a></li>
-									<li><a href="invoice-report.html"><span>Invoices</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Invose" asp-action="MyInvose"><i data-feather="file-text"></i><span>الفواتير</span></a></li>
 									<li><a href="sales-returns.html"><span>Sales Return</span></a></li>
 									<li><a href="quotation-list.html"><span>Quotation</span></a></li>
 									<li><a asp-area="Admin" asp-controller="POS" asp-action="MyPOS"><span>POS</span></a></li>
@@ -1462,9 +1457,9 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Purchase</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المشتريات</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="purchase-list.html"><span>Purchases</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Purchase" asp-action="MyPurchase"><i data-feather="shopping-bag"></i><span>فواتير المشتريات </span></a></li>
 									<li><a href="purchase-order-report.html"><span>Purchase Order</span></a></li>
 									<li><a href="purchase-returns.html"><span>Purchase Return</span></a></li>
 									<li><a href="manage-stocks.html"><span>Manage Stock</span></a></li>
@@ -1473,10 +1468,10 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Expenses</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>المصاريف</span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="expense-list.html">Expenses</a></li>
-									<li><a href="expense-category.html">Expense Category</a></li>
+									<li><a asp-area="Admin" asp-controller="Expense" asp-action="MyExpense">@ResourceWeb.LBMyExpense</a></li>
+									<li><a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="MyExpenseCategory">@ResourceWeb.LBMyExpenseCategory</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -1489,7 +1484,7 @@
 								<ul>
 									<li><a asp-area="Admin" asp-controller="CustomerCategorie" asp-action="MyCustomerCategorie"><span>@ResourceWeb.LBMyCustomerCategorie</span></a></li>
 									<li><a href="customers.html"><span>Customers</span></a></li>
-									<li><a href="suppliers.html"><span>Suppliers</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Supplier" asp-action="MYSupplier"><i data-feather="user"></i><span>@ResourceWeb.LBMYSupplier</span></a></li>
 									<li><a href="store-list.html"><span>Stores</span></a></li>
 									<li><a href="warehouse.html"><span>Warehouses</span></a></li>
 								</ul>
@@ -1498,11 +1493,10 @@
 								<a href="javascript:void(0);"><span>Roles &amp; Permissions</span><span class="menu-arrow"></span></a>
 								<ul>
 
-									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات</span></a></li>
+									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Registers"><i data-feather="user-check"></i><span>المستخدمين </span></a></li>
 
 									<li><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><span>الصلاحيات </span></a></li>
 
-									<li><a href="delete-account.html"><span>Delete Account Request</span></a></li>
 
 								</ul>
 							</li>
@@ -1695,7 +1689,7 @@
 									<li><a href="lock-screen.html">Lock Screen</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+						@* 	<li class="submenu">
 								<a href="javascript:void(0);"><span>Pages</span><span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="error-404.html">404 Error </a></li>
@@ -1704,7 +1698,7 @@
 									<li><a href="coming-soon.html"><span>Coming Soon</span> </a></li>
 									<li><a href="under-maintenance.html"><span>Under Maintenance</span> </a></li>
 								</ul>
-							</li>
+							</li> *@
 							<li class="submenu">
 								<a href="javascript:void(0);"><span>Places</span><span class="menu-arrow"></span></a>
 								<ul>
@@ -1765,8 +1759,9 @@
 						<a href="javascript:void(0);"><img src="~/AdminEn/assets/img/icons/settings.svg" alt="img"><span> Settings</span> <span class="menu-arrow"></span></a>
 						<ul>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>General Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>الأعدادات العامة</span><span class="menu-arrow"></span></a>
 								<ul>
+									<li><a asp-area="Admin" asp-controller="CompanyInformation" asp-action="MYCompanyInformation">@ResourceWeb.LBMYCompanyInformation</a></li>
 									<li><a href="general-settings.html">Profile</a></li>
 									<li><a href="security-settings.html">Security</a></li>
 									<li><a href="notification.html">Notifications</a></li>
@@ -1774,11 +1769,11 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Website Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>أعدادت الموقع </span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="system-settings.html">System Settings</a></li>
-									<li><a href="company-settings.html">Company Settings </a></li>
-									<li><a href="localization-settings.html">Localization</a></li>
+									<li><a asp-area="Admin" asp-controller="HomeSliderContent" asp-action="MyHomeSliderContent">@ResourceWeb.LBMyHomeSliderContent</a></li>
+									<li><a asp-area="Admin" asp-controller="PhotoHomeSliderContent" asp-action="MYPhotoHomeSliderContent">@ResourceWeb.LBMYPhotoHomeSliderContent </a></li>
+									<li><a asp-area="Admin" asp-controller="AboutSectionStartHomeContent" asp-action="MyAboutSectionStartHomeContent">@ResourceWeb.LBMyAboutSectionStartHomeContent </a></li>
 									<li><a href="prefixes.html">Prefixes</a></li>
 									<li><a href="preference.html">Preference</a></li>
 									<li><a href="appearance.html">Appearance</a></li>
@@ -1805,9 +1800,10 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="javascript:void(0);"><span>Financial Settings</span><span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><span>إعدادات المحاسبة </span><span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="payment-gateway-settings.html">Payment Gateway</a></li>
+									<li><a asp-area="Admin" asp-controller="PaymentMethod" asp-action="MyPaymentMethod">@ResourceWeb.LBMyPaymentMethod</a></li>
+									<li><a asp-area="Admin" asp-controller="Unit" asp-action="MyUnit">@ResourceWeb.LBMyUnit</a></li>
 									<li><a href="bank-settings-grid.html">Bank Accounts</a></li>
 									<li><a href="tax-rates.html">Tax Rates</a></li>
 									<li><a href="currency-settings.html">Currencies</a></li>
@@ -1861,7 +1857,90 @@
 
 	</div>
 	<!-- /Main Wrapper -->
-	<!-- jQuery -->
+	<!-- jQuery (يجب تحميله أولاً) -->
+	<script src="~/AdminEn/assets/js/jquery-3.7.1.min.js"></script>
+
+	<!-- Moment.js (للتعامل مع التواريخ) -->
+	<script src="~/AdminEn/assets/js/moment.min.js"></script>
+
+	<!-- Feather Icon JS (لإضافة الأيقونات) -->
+	<script src="~/AdminEn/assets/js/feather.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/AdminEn/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Slimscroll JS (للتمرير بسلاسة) -->
+	<script src="~/AdminEn/assets/js/jquery.slimscroll.min.js"></script>
+
+	<!-- Sweetalert (لإظهار التنبيهات) -->
+	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalerts.min.js"></script>
+
+	<!-- Daterangepicker (اختيار نطاق التواريخ) -->
+	<script src="~/AdminEn/assets/plugins/daterangepicker/daterangepicker.js"></script>
+
+	<!-- Bootstrap Datetimepicker (إذا كنت تستخدمه) -->
+	<script src="~/AdminEn/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Flatpickr (اختيار التواريخ إذا كنت تستخدمه بدلاً من datetimepicker) -->
+	<script src="~/AdminEn/assets/plugins/flatpickr/flatpickr.js"></script>
+
+	<!-- Bootstrap Datepicker (للتواريخ إذا كنت تستخدمها بدلاً من الخيارات السابقة) -->
+	<script src="~/AdminEn/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+	<!-- Select2 (لاختيار متعدد محسّن) -->
+	<script src="~/AdminEn/assets/plugins/select2/js/select2.min.js"></script>
+	<script src="~/AdminEn/assets/js/custom-select2.js"></script>
+
+	<!-- Datatables (لجداول البيانات) -->
+	<script src="~/AdminEn/assets/js/jquery.dataTables.min.js"></script>
+	<script src="~/AdminEn/assets/js/dataTables.bootstrap5.min.js"></script>
+
+	<!-- Summernote (لتحرير النصوص الغنية) -->
+	<script src="~/AdminEn/assets/plugins/summernote/summernote-bs4.min.js"></script>
+
+	<!-- Apexcharts (للرسوم البيانية) -->
+	<script src="~/AdminEn/assets/plugins/apexchart/apexcharts.min.js"></script>
+	<script src="~/AdminEn/assets/plugins/apexchart/chart-data.js"></script>
+
+	<!-- Owl Carousel (لإظهار المحتوى بطريقة سلسة) -->
+	<script src="~/AdminEn/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+
+	<!-- Timepicker (لاختيار الوقت) -->
+	<script src="~/AdminEn/assets/plugins/jquery-timepicker/jquery-timepicker.js"></script>
+
+	<!-- Pickr (لاختيار الألوان) -->
+	<script src="~/AdminEn/assets/plugins/pickr/pickr.js"></script>
+
+	<!-- Bootstrap Tagsinput (لإضافة الوسوم) -->
+	<script src="~/AdminEn/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+	<!-- jQuery Validation -->
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/AdminEn/assets/js/script.js"></script>
+	<script src="~/js/site.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 	<!-- jQuery -->
 	<script src="~/AdminEn/assets/js/jquery-3.7.1.min.js"></script>
 
 	<!-- Feather Icon JS -->
@@ -1880,8 +1959,6 @@
 	<!-- Sweetalert 2 -->
 	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="~/AdminEn/assets/plugins/sweetalert/sweetalerts.min.js"></script>
-
-
 	<!-- Datatable JS -->
 	<script src="~/AdminEn/assets/js/jquery.dataTables.min.js"></script>
 	<script src="~/AdminEn/assets/js/dataTables.bootstrap5.min.js"></script>
@@ -1892,18 +1969,12 @@
 	<script src="~/AdminEn/assets/plugins/summernote/summernote-bs4.min.js"></script>
 	<!-- Select2 JS -->
 	<script src="~/AdminEn/assets/plugins/select2/js/select2.min.js"></script>
-
 	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
 	<!-- Custom JS -->
-	
 	<script src="~/AdminEn/assets/plugins/daterangepicker/daterangepicker.js"></script>
-
 	<!-- Owl JS -->
 	<script src="~/AdminEn/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
-
-
 	<!-- Form Date PIckers JS -->
 	<script src="~/AdminEn/assets/plugins/moment/moment.min.js"></script>
 	<script src="~/AdminEn/assets/plugins/flatpickr/flatpickr.js"></script>
@@ -1917,8 +1988,8 @@
 	<script src="~/AdminEn/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
 	<script src="~/AdminEn/assets/js/script.js"></script>
-
-	<script src="~/AdminEn/assets/js/custom-select2.js"></script>
+    <script src="~/js/site.js"></script>
+	<script src="~/AdminEn/assets/js/custom-select2.js"></script> *@
 
 
 

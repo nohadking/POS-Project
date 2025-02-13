@@ -6,6 +6,7 @@ using Infarstuructre.BL;
 using LamarModa.Api.Auth;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph.Models;
 using NuGet.Common;
 using static Domin.Entity.Helper;
 
@@ -23,12 +24,12 @@ namespace Task_management.Areas.Admin.Controllers
         private readonly MasterDbcontext _context;
         IIRolsInformation iRolsInformation;
         IIUserInformation iUserInformation;
-      
-        #endregion
+		IICompanyInformation iCompanyInformation;
+		#endregion
 
-        #region Constructor
-        public AccountsController(RoleManager<IdentityRole> roleManager,
-            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MasterDbcontext context, IIRolsInformation iRolsInformation1, IIUserInformation iUserInformation1, ITokenService tokenService)
+		#region Constructor
+		public AccountsController(RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MasterDbcontext context, IIRolsInformation iRolsInformation1, IIUserInformation iUserInformation1, ITokenService tokenService, IICompanyInformation iCompanyInformation1)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -38,9 +39,10 @@ namespace Task_management.Areas.Admin.Controllers
             iUserInformation = iUserInformation1;
             _tokenService = tokenService;
             _context = context;
-         
+			iCompanyInformation = iCompanyInformation1;
 
-        }
+
+		}
         #endregion
 
         #region Method
@@ -58,7 +60,8 @@ namespace Task_management.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
 
         [Authorize(Roles = "Admin,User")]
@@ -66,13 +69,16 @@ namespace Task_management.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-            return View(vmodel);
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(vmodel);
         }
 
         public IActionResult AddEditRoles(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListIdentityRole = iRolsInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListIdentityRole = iRolsInformation.GetAll();
+
             if (Id != null)
             {
                 vmodel.sIdentityRole = iRolsInformation.GetById(Convert.ToString(Id));
@@ -87,7 +93,8 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult AddEditRolesAr(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.ListIdentityRole = iRolsInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			vmodel.ListIdentityRole = iRolsInformation.GetAll();
             if (Id != null)
             {
                 vmodel.sIdentityRole = iRolsInformation.GetById(Convert.ToString(Id));
@@ -198,8 +205,10 @@ namespace Task_management.Areas.Admin.Controllers
                 NewRegister = new NewRegister(),
                 Roles = _roleManager.Roles.OrderBy(x => x.Name).ToList(),
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
+
             };
-            return View(model);
+			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(model);
         }
 
         public IActionResult RegistersAr()
@@ -221,7 +230,8 @@ namespace Task_management.Areas.Admin.Controllers
                 Roles = _roleManager.Roles.OrderBy(x => x.Name).ToList(),
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
             };
-            return View(model);
+			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			return View(model);
         }
 
 
@@ -329,8 +339,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePassword(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -345,8 +356,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePasswordAr(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -391,6 +403,11 @@ namespace Task_management.Areas.Admin.Controllers
                         // Redirect to merchant area with user ID
                         return RedirectToAction("Index", "Home", new { area = "Admin", userId = user.Id });
                     }
+                    if (roles.Contains("Cashier"))
+                    {
+                        // Redirect to merchant area with user ID
+                        return RedirectToAction("MyPOS", "POS", new { area = "Admin", userId = user.Id });
+                    }
                     return RedirectToAction(nameof(Registers));
                 }
                 else
@@ -426,6 +443,10 @@ namespace Task_management.Areas.Admin.Controllers
                 {
                     var roles = await _userManager.GetRolesAsync(user);
                     var token = _tokenService.GenerateToken(user, roles);
+                    user.IsOnline = true;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+
 
                     // Check if user has the role "Merchant"
                     if (roles.Contains("Merchant"))
@@ -448,6 +469,11 @@ namespace Task_management.Areas.Admin.Controllers
                     {
                         // Redirect to AirFreight area with user ID
                         return RedirectToAction("Index", "Home", new { area = "AirFreight", userId = user.Id, token = token });
+                    }
+                    if (roles.Contains("Cashier"))
+                    {
+                        // Redirect to AirFreight area with user ID
+                        return RedirectToAction("MyPOS", "POS", new { area = "Admin", userId = user.Id, token = token });
                     }
                     if (string.IsNullOrEmpty(returnUrl))
                     {
@@ -484,7 +510,9 @@ namespace Task_management.Areas.Admin.Controllers
                 {
                     var roles = await _userManager.GetRolesAsync(user);
                     var token = _tokenService.GenerateToken(user, roles);
-
+                    user.IsOnline = true;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
                     // Check if user has the role "Merchant"
                     if (roles.Contains("Merchant"))
                     {
@@ -532,6 +560,11 @@ namespace Task_management.Areas.Admin.Controllers
         public async Task<IActionResult> Logout1()
         {
             await _signInManager.SignOutAsync();
+            var user = await _userManager.GetUserAsync(User);
+            user.IsOnline = false;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index", "Home", new { area = "" });
         }
         private void SessionMsg(string MsgType, string Title, string Msg)
@@ -572,8 +605,9 @@ namespace Task_management.Areas.Admin.Controllers
         {
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            //vmodel.ListVwUser = iUserInformation.GetAll();
-            if (Id != null)
+			//vmodel.ListVwUser = iUserInformation.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+			if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -588,6 +622,7 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			//vmodel.ListVwUser = iUserInformation.GetAll();
 			if (Id != null)
 			{

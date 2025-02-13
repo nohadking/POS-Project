@@ -1,16 +1,21 @@
-﻿
-
-
-
+﻿using QuestPDF.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<ViewmMODeElMASTER>();
-
 // إضافة خدمات إلى الحاوية
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<ViewmMODeElMASTER>(); // خدمة مخصصة
+
+// إضافة DBContext
 builder.Services.AddDbContext<MasterDbcontext>(options => {
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("MasterConnection"),
@@ -19,6 +24,7 @@ builder.Services.AddDbContext<MasterDbcontext>(options => {
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
+// إضافة المصادقة باستخدام JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,6 +44,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// إضافة التفويض (Authorization)
+builder.Services.AddAuthorization();
+
+// إضافة Swagger لتوثيق الـ API
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -67,6 +77,7 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityRequirement(securityRequirement);
 });
 
+// إضافة خدمات Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
@@ -77,7 +88,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.User.RequireUniqueEmail = true;
 })
-.AddEntityFrameworkStores<MasterDbcontext>();
+.AddEntityFrameworkStores<MasterDbcontext>()
+.AddDefaultTokenProviders();
+
+// تكوين ملفات تعريف الارتباط (Cookies)
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -88,55 +102,116 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
     options.SlidingExpiration = true;
+
+    // هنا نضيف OnValidatePrincipal لجعل المستخدم Offline عند انتهاء الجلسة
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnValidatePrincipal = async context =>
+        {
+            var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var dbContext = context.HttpContext.RequestServices.GetRequiredService<MasterDbcontext>();
+
+            var userId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    var lastLoginTime = context.Properties?.IssuedUtc;
+                    var sessionExpired = lastLoginTime.HasValue && DateTime.UtcNow > lastLoginTime.Value.Add(options.ExpireTimeSpan);
+
+                    if (sessionExpired)
+                    {
+                        // تحديث حالة المستخدم إلى Offline
+                        user.IsOnline = false;
+                        dbContext.Users.Update(user);
+                        await dbContext.SaveChangesAsync();
+
+                        // تسجيل خروج المستخدم
+                        context.RejectPrincipal();
+                        await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    }
+                }
+            }
+        }
+    };
 });
 
-builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
 
+// إضافة خدمات مخصصة (Scoped Services)
+builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
-
 builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
 builder.Services.AddScoped<IICategory, CLSTBCategory>();
 builder.Services.AddScoped<IIProduct, CLCTBProduct>();
 builder.Services.AddScoped<IICustomerCategorie, CLSTBCustomerCategorie>();
 builder.Services.AddScoped<IIInvoseHeder, CLSTBInvoseHeder>();
+builder.Services.AddScoped<IIPaymentMethod, CLSTBPaymentMethod>();
+builder.Services.AddScoped<IIInvose, CLSTBInvose>();
+builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
+builder.Services.AddScoped<IIExpenseCategory, CLSTBExpenseCategory>();
+builder.Services.AddScoped<IIExpense, CLSTBExpense>();
+builder.Services.AddScoped<IISupplier, CLSTBSupplier>();
+builder.Services.AddScoped<IIUnit, CLSTBUnit>();
+builder.Services.AddScoped<IIClassCard, CLSTBClassCard>();
+builder.Services.AddCustomServices();
+builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
+builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
+builder.Services.AddScoped<IIHomeSliderContent, CLSTBHomeSliderContent>();
+builder.Services.AddScoped<IIPhotoHomeSliderContent, CLSTBPhotoHomeSliderContent>();
+builder.Services.AddScoped<IIServiceSectionStartHomeContent, CLSTBServiceSectionStartHomeContent>();
+builder.Services.AddScoped<IIAboutSectionStartHomeContent, CLSTBAboutSectionStartHomeContent>();
+builder.Services.AddScoped<IICategoryServic, CLSTBCategoryServic>();
+builder.Services.AddScoped<IIBrandProduct, CLSTBBrandProduct>();
+builder.Services.AddScoped<IIAccountingRestriction, CLSTBAccountingRestriction>();
+builder.Services.AddScoped<IIPurchase, CLSTBPurchase>();
+builder.Services.AddScoped<IIBestSellingProductsHomeContent, CLSTBBestSellingProductsHomeContent>();
+builder.Services.AddScoped<IIUserService, CLSUserService>();
+builder.Services.AddScoped<IIHomeBackgroundimage, CLSTBHomeBackgroundimage>();
+builder.Services.AddScoped<IIHomeImageProdact, CLSTBHomeImageProdact>();
+builder.Services.AddScoped<IIOrderProductsFromSupplier, CLSTBOrderProductsFromSupplier>();
+builder.Services.AddScoped<IIMainAccount, CLSTBMainAccount>();
+builder.Services.AddScoped<IILevelTwoAccount, CLSTBLevelTwoAccount>();
+builder.Services.AddScoped<IIBLevelThreeAccount, CLSTBLevelThreeAccount>();
+builder.Services.AddScoped<IILevelForeAccount, CLSTBLevelForeAccount>();
+builder.Services.AddScoped<IIStaff, CLSTBStaff>();
+builder.Services.AddScoped<IIAboutSectionStartShopContent,CLSTBAboutSectionStartShopContent>();
+builder.Services.AddScoped<IIPhotoShopLiftSaide, CLSTBPhotoShopLiftSaide>();
 
 
+// تفعيل الترخيص لـ QuestPDF
+QuestPDF.Settings.License = LicenseType.Community;
 
-
-builder.Services.AddScoped<AccountsController>();
-
+// إضافة الجلسات
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// تكوين pipeline الخاص بالـ HTTP
 if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-else
+
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-if (app.Environment.IsDevelopment())
-{
-	app.UseDeveloperExceptionPage();
-}
 
-//app.UseHttpsRedirection();
+// استخدام ملفات ثابتة
 app.UseStaticFiles();
 
-app.UseRouting();
-
+// استخدام المصادقة والتفويض
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCookiePolicy();
-
 app.UseSession();
 
 // Middleware للتحقق من تسجيل الدخول قبل الوصول إلى Swagger
@@ -153,6 +228,7 @@ app.Use(async (context, next) =>
     await next.Invoke();
 });
 
+// تكوين طرق الـ Controller
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Accounts}/{action=Login}/{id?}"
@@ -163,12 +239,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
 
+// تفعيل Swagger UI
 app.UseSwagger();
-
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Shipping System V1");
     c.RoutePrefix = "api-docs";
 });
 
+// تشغيل التطبيق
 app.Run();

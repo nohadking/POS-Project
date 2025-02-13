@@ -13,7 +13,9 @@ namespace Infarstuructre.BL
 		bool DELETPHOTO(int IdProduct);
 		bool DELETPHOTOWethError(string PhotoNAme);
 		TBViewProduct GetByIdview(int IdProduct);
-	}
+		List<TBViewProduct> GetByIdviewl(int IdProduct);
+
+    }
 	public class CLCTBProduct: IIProduct
 	{
 		MasterDbcontext dbcontext;
@@ -79,7 +81,8 @@ namespace Infarstuructre.BL
 			List<TBViewProduct> MySlider = dbcontext.ViewProduct.OrderByDescending(n => n.IdCategory == IdCategory).Where(a => a.IdCategory == IdCategory).Where(a => a.CurrentState == true).ToList();
 			return MySlider;
 		}
-		public bool DELETPHOTO(int IdProduct)
+ 
+        public bool DELETPHOTO(int IdProduct)
 		{
 			try
 			{
@@ -149,6 +152,11 @@ namespace Infarstuructre.BL
 		public TBViewProduct GetByIdview(int IdProduct)
 		{
 			TBViewProduct sslid = dbcontext.ViewProduct.FirstOrDefault(a => a.IdProduct == IdProduct);
+			return sslid;
+		}
+		public List<TBViewProduct> GetByIdviewl(int IdProduct)
+		{
+            List<TBViewProduct> sslid = dbcontext.ViewProduct.OrderByDescending(a => a.IdProduct == IdProduct).ToList();
 			return sslid;
 		}
 	}

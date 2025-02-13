@@ -8,22 +8,26 @@ namespace Task_management.Areas.Admin.Controllers
     {
         MasterDbcontext dbcontext;
         IICustomerCategorie iCustomerCategorie;
-		public CustomerCategorieController(MasterDbcontext dbcontext1,IICustomerCategorie iCustomerCategorie1)
+		IICompanyInformation iCompanyInformation;
+		public CustomerCategorieController(MasterDbcontext dbcontext1,IICustomerCategorie iCustomerCategorie1, IICompanyInformation iCompanyInformation1)
         {
 			dbcontext = dbcontext1;
 			iCustomerCategorie = iCustomerCategorie1;
+			iCompanyInformation = iCompanyInformation1;
 
 		}
 		public IActionResult MyCustomerCategorie()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCustomerCategorie = iCustomerCategorie.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			return View(vmodel);
 		}
 		public IActionResult AddCustomerCategorie(int? IdCustomerCategorie)
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 			vmodel.ListCustomerCategorie = iCustomerCategorie.GetAll();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			if (IdCustomerCategorie != null)
 			{
 				vmodel.CustomerCategorie = iCustomerCategorie.GetById(Convert.ToInt32(IdCustomerCategorie));

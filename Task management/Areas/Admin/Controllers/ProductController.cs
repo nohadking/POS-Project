@@ -8,22 +8,27 @@ namespace Task_management.Areas.Admin.Controllers
 		MasterDbcontext dbcontext;
 		IICategory category;
 		IIProduct iproduct;
-		public ProductController(MasterDbcontext dbcontext1, IICategory iCategory1, IIProduct iProduct1)
+		IICompanyInformation iCompanyInformation;
+		public ProductController(MasterDbcontext dbcontext1, IICategory iCategory1, IIProduct iProduct1, IICompanyInformation iCompanyInformation1)
         {
 			dbcontext=dbcontext1;
 			category = iCategory1;
 			iproduct = iProduct1;
+			iCompanyInformation = iCompanyInformation1;
 		}
 		public IActionResult MYProduct()
 		{
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewProduct = iproduct.GetAll();
-			return View(vmodel);
+            ViewBag.category = category.GetAll();
+            return View(vmodel);
 		}
 		public IActionResult AddEditProduct(int? IdProduct)
 		{
 			ViewBag.category= category.GetAll();
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewProduct = iproduct.GetAll();
 			if (IdProduct != null)
 			{
@@ -39,6 +44,7 @@ namespace Task_management.Areas.Admin.Controllers
 		{
 			ViewBag.category = category.GetAll();
 			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
 			vmodel.ListViewProduct = iproduct.GetAll();
 			if (IdProduct != null)
 			{
