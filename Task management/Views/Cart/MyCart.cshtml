@@ -49,7 +49,7 @@
                             <tr>
                                 <td>total price :</td>
                                 <td>
-                                <h2 id="totalPrcAr"></h2>
+                                <h2 id="totalPrc"></h2>
                                 </td>
                             </tr>
                         </tfoot>
@@ -74,62 +74,100 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
-         $(document).ready(function () {
-            var cart = JSON.parse(localStorage.getItem('cart')) || [];
-            var CartBody = $('#CartBody');
-        var totalPrc = 0;
-            console.log(cart);
 
+
+    $(document).ready(function () {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        var CartBody = $('#CartBody');
+        var totalPrc = 0;
+
+        function updateCartTotal() {
+            totalPrc = 0;
             cart.forEach(product => {
-            totalPrc += product.quantity * product.price;
-                var tr = `
-                            <tr>
-                                <td>
-                                        <a href="#"><img src="/Images/Home/${product.photo}" alt=""style="width:78px;height:100px"></a>
-                                </td>
-                                <td>
-                                    <a href="#">${product.name}</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col-xs-3">
-                                            <div class="qty-box">
-                                                <div class="input-group">
-                                                    <input type="number" name="quantity" class="form-control input-number"
-                                                           value="${product.quantity}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">$${product.price.toFixed(2)}</h2>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color">
-                                                <a href="#" class="icon"><i class="ti-close"></i></a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h2 class="td-color">$${(product.price).toFixed(2)}</h2>
-                                </td>
-                                <td>
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="number" name="quantity" class="form-control input-number"
-                                                   value="${product.quantity}">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                                <td>
-                                    <h2 class="td-color">$${(product.quantity * product.price).toFixed(2)}</h2>
-                                </td>
-                            </tr>
-                        `;
-                CartBody.append(tr);
-            var totalToShow = `$${totalPrc}`
-            $('#totalPrcAr').text(totalToShow);
+                totalPrc += product.quantity * product.price;
             });
+            $('#totalPrc').text(`$${totalPrc.toFixed(2)}`);
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        cart.forEach(product => {
+            totalPrc += product.quantity * product.price;
+
+            var url = window.origin + `/api/PublicProductsAPI/${product.id}`;
+
+             fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        var fixName = data.productNameEn;
+
+                    var tr = `
+                    <tr id="CartItem-${product.id}">
+                        <td>
+                            <a href="#"><img src="/Images/Home/${product.photo}" alt="" style="width:78px;height:100px"></a>
+                        </td>
+                        <td>
+                                <a href="#">${fixName}</a>
+                        </td>
+                        <td>
+                            <h2 class="td-color">$${(product.price).toFixed(2)}</h2>
+                        </td>
+                        <td>
+                            <div class="qty-box">
+                                <div class="input-group">
+                                    <input type="number" name="quantity" class="form-control QTYForItem input-number"
+                                           data-id="${product.id}" value="${product.quantity}" min="1">
+                                </div>
+                            </div>
+                        </td>
+                        <td><a href="#" class="icon remove-item" data-id="${product.id}"><i class="ti-close"></i></a></td>
+                        <td>
+                            <h2 class="td-color item-total" id="TotalForItem-${product.id}">$${(product.quantity * product.price).toFixed(2)}</h2>
+                        </td>
+                    </tr>
+                `;
+                    CartBody.append(tr);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+
         });
+
+        $('#totalPrc').text(`$${totalPrc.toFixed(2)}`);
+
+        $(document).on('change', '.QTYForItem', function () {
+            var productId = $(this).data('id');
+            var newQuantity = parseInt($(this).val());
+
+            if (newQuantity < 1 || isNaN(newQuantity)) {
+                $(this).val(1);
+                newQuantity = 1;
+            }
+
+            var product = cart.find(p => p.id == productId);
+            if (product) {
+                product.quantity = newQuantity;
+                $(`#TotalForItem-${productId}`).text(`$${(product.quantity * product.price).toFixed(2)}`);
+                updateCartTotal();
+            }
+        });
+
+
+        $(document).on('click', '.remove-item', function (e) {
+            e.preventDefault();
+            var productId = $(this).data('id');
+            cart = cart.filter(p => p.id != productId);
+            $(`#CartItem-${productId}`).remove();
+            updateCartTotal();
+        });
+    });
+
+
     </script>
 
 
