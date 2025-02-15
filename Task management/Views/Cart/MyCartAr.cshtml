@@ -77,11 +77,20 @@
         document.getElementById("search-overlay").style.display = "none";
     }
 
+
     $(document).ready(function () {
         var cart = JSON.parse(localStorage.getItem('cart')) || [];
         var CartBody = $('#CartBody');
         var totalPrc = 0;
-        console.log(cart);
+
+        function updateCartTotal() {
+            totalPrc = 0;
+            cart.forEach(product => {
+                totalPrc += product.quantity * product.price;
+            });
+            $('#totalPrcAr').text(`$${totalPrc.toFixed(2)}`);
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
 
         cart.forEach(product => {
 
