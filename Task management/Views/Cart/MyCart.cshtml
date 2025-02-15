@@ -3,8 +3,6 @@
     ViewData["Title"] = "MyCart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
     <!-- breadcrumb start -->
     <div class="breadcrumb-section">
         <div class="container">
@@ -45,7 +43,6 @@
                     <tbody id="CartBody">
                            
                         </tbody>
-
                     </table>
                     <table class="table cart-table table-responsive-md">
                         <tfoot>
@@ -77,8 +74,6 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
-
-
          $(document).ready(function () {
             var cart = JSON.parse(localStorage.getItem('cart')) || [];
             var CartBody = $('#CartBody');
