@@ -1117,7 +1117,7 @@
     <value>Company Name Ar</value>
   </data>
   <data name="LbPhonenumber" xml:space="preserve">
-    <value>Phone number</value>
+    <value>رقم الهاتف</value>
   </data>
   <data name="LbEmailMaster" xml:space="preserve">
     <value>Email Master</value>
@@ -1559,5 +1559,23 @@
   </data>
   <data name="LBAddEditPhotoAddProdact" xml:space="preserve">
     <value>إضافة وتعديل صور المنتجات </value>
+  </data>
+  <data name="LBMyCustomerMessage" xml:space="preserve">
+    <value>رسائل العملاء</value>
+  </data>
+  <data name="lbFullName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="lbMessageTitle" xml:space="preserve">
+    <value>موضوع الرسالة</value>
+  </data>
+  <data name="LbEmailMessage" xml:space="preserve">
+    <value>البريد المرتبط</value>
+  </data>
+  <data name="LbMessage" xml:space="preserve">
+    <value>الرسالة </value>
+  </data>
+  <data name="LBAddCustomerMessage" xml:space="preserve">
+    <value>إضافة وتعديل رسائل العملاء</value>
   </data>
 </root>

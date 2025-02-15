@@ -223,6 +223,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة وتعديل رسائل العملاء.
+        /// </summary>
+        internal static string LBAddCustomerMessage {
+            get {
+                return ResourceManager.GetString("LBAddCustomerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add and modify the Customer Messages.
         /// </summary>
         internal static string LBAddCustomerMessages {
@@ -1294,6 +1303,15 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to البريد المرتبط.
+        /// </summary>
+        internal static string LbEmailMessage {
+            get {
+                return ResourceManager.GetString("LbEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اميل المدير التنفيذي.
         /// </summary>
         internal static string lbEmailOner {
@@ -1452,6 +1470,15 @@ namespace Task_management.Resource {
         internal static string Lbfull_package {
             get {
                 return ResourceManager.GetString("Lbfull_package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الاسم.
+        /// </summary>
+        internal static string lbFullName {
+            get {
+                return ResourceManager.GetString("lbFullName", resourceCulture);
             }
         }
         
@@ -1780,11 +1807,29 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الرسالة .
+        /// </summary>
+        internal static string LbMessage {
+            get {
+                return ResourceManager.GetString("LbMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message Description.
         /// </summary>
         internal static string LbMessageDescription {
             get {
                 return ResourceManager.GetString("LbMessageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to موضوع الرسالة.
+        /// </summary>
+        internal static string lbMessageTitle {
+            get {
+                return ResourceManager.GetString("lbMessageTitle", resourceCulture);
             }
         }
         
@@ -1983,6 +2028,15 @@ namespace Task_management.Resource {
         internal static string LBMyCustomerCategorie {
             get {
                 return ResourceManager.GetString("LBMyCustomerCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رسائل العملاء.
+        /// </summary>
+        internal static string LBMyCustomerMessage {
+            get {
+                return ResourceManager.GetString("LBMyCustomerMessage", resourceCulture);
             }
         }
         
@@ -2761,7 +2815,7 @@ namespace Task_management.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phone number.
+        ///   Looks up a localized string similar to رقم الهاتف.
         /// </summary>
         internal static string LbPhonenumber {
             get {

@@ -630,4 +630,19 @@
   <data name="VlEmployeeAddress" xml:space="preserve">
     <value>يرجى إدراج عنوان  الخاص بالموظف لتتم العملية بنجاح ...!</value>
   </data>
+  <data name="VlFullName" xml:space="preserve">
+    <value>يرجى أدراج الاسم كاملا لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlMessageTitle" xml:space="preserve">
+    <value>يرجى أدراج عنوان الرسالة لتتم العملية بنجاح ....!</value>
+  </data>
+  <data name="VlEmailMessage" xml:space="preserve">
+    <value>يرجى إدراج البريد الاكتروني الصحيح لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="VlMessage" xml:space="preserve">
+    <value>يرجى أدراج الرسالة لتتم العملية بنجاح ...!</value>
+  </data>
+  <data name="LBMyCustomerMessage" xml:space="preserve">
+    <value>رسائل العملاء</value>
+  </data>
 </root>
