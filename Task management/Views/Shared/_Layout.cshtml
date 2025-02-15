@@ -1141,7 +1141,7 @@
                                                                     profile <span class="new-tag">new</span>
                                                                 </a>
                                                             </li>
-                                                            <li><a href="checkout.html">checkout</a></li>
+                                                            <li><a asp-area="" asp-controller="CheckOut" asp-action="MYCheckOut">checkout</a></li>
                                                         </ul>
                                                     </li>
                                                     <li><a href="about-page.html">about us</a></li>
@@ -1446,7 +1446,7 @@
                         <div class="buttons">
 
                             <a asp-area="" asp-controller="Cart" asp-action="MyCart" class="btn btn-solid btn-xs view-cart">view cart</a>
-                            <a href="#" class="btn btn-solid btn-xs checkout">checkout</a>
+                            <a asp-area="" asp-controller="CheckOut" asp-action="MYCheckOut" class="btn btn-solid btn-xs checkout">checkout</a>
                         </div>
                     </li>
                 </ul>
@@ -2472,7 +2472,7 @@
                                             </a>
                                             <div class="buttons">
                                                 <a href="#" class="view-cart btn btn-solid">Your cart</a>
-                                                <a href="#" class="checkout btn btn-solid">Check out</a>
+                                                <a asp-area="" asp-controller="CheckOut" asp-action="MYCheckOut" class="checkout btn btn-solid">Check out</a>
                                                 <a href="#" class="continue btn btn-solid">Continue shopping</a>
                                             </div>
 
