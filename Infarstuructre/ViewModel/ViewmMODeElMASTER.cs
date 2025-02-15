@@ -123,6 +123,8 @@ namespace Infarstuructre.ViewModel
         public TBPhotoShopLiftSaide PhotoShopLiftSaide { get; set; }
         public List<TBViewPhotoAddProdact> ListViewPhotoAddProdact { get; set; }
         public TBPhotoAddProdact PhotoAddProdact { get; set; }
+        public List<TBCustomerMessage> ListCustomerMessage { get; set; }
+        public TBCustomerMessage CustomerMessage { get; set; }
 
 
     }

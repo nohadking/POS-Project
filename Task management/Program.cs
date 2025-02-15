@@ -181,6 +181,7 @@ builder.Services.AddScoped<IIStaff, CLSTBStaff>();
 builder.Services.AddScoped<IIAboutSectionStartShopContent,CLSTBAboutSectionStartShopContent>();
 builder.Services.AddScoped<IIPhotoShopLiftSaide, CLSTBPhotoShopLiftSaide>();
 builder.Services.AddScoped<IIPhotoAddProdact, CLSTBPhotoAddProdact>();
+builder.Services.AddScoped<IICustomerMessage, CLSTBCustomerMessage>();
 
 
 // تفعيل الترخيص لـ QuestPDF

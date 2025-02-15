@@ -106,6 +106,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رسائل العملاء.
+        /// </summary>
+        internal static string LBMyCustomerMessage {
+            get {
+                return ResourceManager.GetString("LBMyCustomerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to بريد التنبيهات.
         /// </summary>
         internal static string LBMyEmailAlartSetting {
@@ -682,6 +691,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى إدراج البريد الاكتروني الصحيح لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlEmailMessage {
+            get {
+                return ResourceManager.GetString("VlEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يرجى أدراج البريد الاكتروني الخاص بالمدير التنفيذي لتتم العملية بنجاح ....!.
         /// </summary>
         internal static string VlEmailOner {
@@ -772,6 +790,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج الاسم كاملا لتتم العملية بنجاح ....!.
+        /// </summary>
+        internal static string VlFullName {
+            get {
+                return ResourceManager.GetString("VlFullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the exchange rate in the local currency for the process to complete successfully...!.
         /// </summary>
         internal static string VlGlobalExchangeRate {
@@ -844,11 +871,29 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج الرسالة لتتم العملية بنجاح ...!.
+        /// </summary>
+        internal static string VlMessage {
+            get {
+                return ResourceManager.GetString("VlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the Message Description for the process to complete successfully...!.
         /// </summary>
         internal static string VlMessageDescription {
             get {
                 return ResourceManager.GetString("VlMessageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يرجى أدراج عنوان الرسالة لتتم العملية بنجاح ....!.
+        /// </summary>
+        internal static string VlMessageTitle {
+            get {
+                return ResourceManager.GetString("VlMessageTitle", resourceCulture);
             }
         }
         
