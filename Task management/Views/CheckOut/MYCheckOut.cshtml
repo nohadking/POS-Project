@@ -85,18 +85,19 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @* ///////////////////////////////////////////////////////////////////////////////// *@
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-details">
                                     <div class="order-box">
                                         <div class="title-box">
                                             <div>Product <span>Total</span></div>
                                         </div>
-                                        <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
+                                        <ul id="ProductsToBuy" class="qty">
+
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>Subtotal <span class="count">$380.10</span></li>
+                                        <li>Subtotal <span id="totalPrice" class="count"></span></li>
                                             <li>Shipping
                                                 <div class="shipping">
                                                     <div class="shopping-option">
@@ -152,6 +153,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @* /////////////////////////////////////////////////////////////////////////////////////////// *@
                         </div>
                     </form>
                 </div>
@@ -205,6 +208,43 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+
+
+
+        $(document).ready(function () {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var CartBody = $('#ProductsToBuy');
+            var totalPrc = 0;
+
+
+            cart.forEach(product => {
+                totalPrc += product.quantity * product.price;
+
+                var url = window.origin + `/api/PublicProductsAPI/${product.id}`;
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        var fixName = data.productNameEn;
+
+                        var li = `
+                           <li><img style="width: 80px; height: 70px;" src="/Images/Home/${product.photo}" />  ${fixName} × ${product.quantity} <span>${product.quantity * product.price}</span></li>
+                        `;
+                        CartBody.append(li);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+
+            });
+
+            $('#totalPrice').text(`$${totalPrc.toFixed(2)}`);
+        });
     </script>
 
  }
