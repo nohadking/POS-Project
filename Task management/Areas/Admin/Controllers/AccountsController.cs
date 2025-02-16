@@ -24,11 +24,11 @@ namespace Task_management.Areas.Admin.Controllers
         private readonly MasterDbcontext _context;
         IIRolsInformation iRolsInformation;
         IIUserInformation iUserInformation;
-		IICompanyInformation iCompanyInformation;
-		#endregion
+        IICompanyInformation iCompanyInformation;
+        #endregion
 
-		#region Constructor
-		public AccountsController(RoleManager<IdentityRole> roleManager,
+        #region Constructor
+        public AccountsController(RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, MasterDbcontext context, IIRolsInformation iRolsInformation1, IIUserInformation iUserInformation1, ITokenService tokenService, IICompanyInformation iCompanyInformation1)
         {
             _roleManager = roleManager;
@@ -39,10 +39,10 @@ namespace Task_management.Areas.Admin.Controllers
             iUserInformation = iUserInformation1;
             _tokenService = tokenService;
             _context = context;
-			iCompanyInformation = iCompanyInformation1;
+            iCompanyInformation = iCompanyInformation1;
 
 
-		}
+        }
         #endregion
 
         #region Method
@@ -51,17 +51,17 @@ namespace Task_management.Areas.Admin.Controllers
             return View();
         }
 
-		public IActionResult IndexAr()
-		{
-			return View();
-		}
-		[Authorize(Roles = "Admin,User")]
+        public IActionResult IndexAr()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Roles()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			return View(vmodel);
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            return View(vmodel);
         }
 
         [Authorize(Roles = "Admin,User")]
@@ -69,15 +69,15 @@ namespace Task_management.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListIdentityRole = iRolsInformation.GetAll();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			return View(vmodel);
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            return View(vmodel);
         }
 
         public IActionResult AddEditRoles(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			vmodel.ListIdentityRole = iRolsInformation.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            vmodel.ListIdentityRole = iRolsInformation.GetAll();
 
             if (Id != null)
             {
@@ -93,8 +93,8 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult AddEditRolesAr(string? Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			vmodel.ListIdentityRole = iRolsInformation.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            vmodel.ListIdentityRole = iRolsInformation.GetAll();
             if (Id != null)
             {
                 vmodel.sIdentityRole = iRolsInformation.GetById(Convert.ToString(Id));
@@ -111,6 +111,7 @@ namespace Task_management.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Roles(ViewmMODeElMASTER model)
         {
+
             if (!ModelState.IsValid)
             {
                 //var role = new IdentityRole
@@ -207,8 +208,8 @@ namespace Task_management.Areas.Admin.Controllers
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
 
             };
-			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			return View(model);
+            model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            return View(model);
         }
 
         public IActionResult RegistersAr()
@@ -230,8 +231,8 @@ namespace Task_management.Areas.Admin.Controllers
                 Roles = _roleManager.Roles.OrderBy(x => x.Name).ToList(),
                 Users = _context.VwUsers.OrderBy(x => x.Role).ToList() //_userManager.Users.OrderBy(x=>x.Name).ToList()
             };
-			model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			return View(model);
+            model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            return View(model);
         }
 
 
@@ -339,9 +340,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePassword(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			//vmodel.ListVwUser = iUserInformation.GetAll();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			if (Id != null)
+            //vmodel.ListVwUser = iUserInformation.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -356,9 +357,9 @@ namespace Task_management.Areas.Admin.Controllers
         public IActionResult ChangePasswordAr(string Id)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			//vmodel.ListVwUser = iUserInformation.GetAll();
-			if (Id != null)
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            //vmodel.ListVwUser = iUserInformation.GetAll();
+            if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -605,9 +606,9 @@ namespace Task_management.Areas.Admin.Controllers
         {
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			//vmodel.ListVwUser = iUserInformation.GetAll();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			if (Id != null)
+            //vmodel.ListVwUser = iUserInformation.GetAll();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            if (Id != null)
             {
                 vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
                 return View(vmodel);
@@ -618,24 +619,24 @@ namespace Task_management.Areas.Admin.Controllers
             }
 
         }
-		public async Task<IActionResult> EditeRegisterAr(string? Id)
-		{
+        public async Task<IActionResult> EditeRegisterAr(string? Id)
+        {
 
-			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-			vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
-			//vmodel.ListVwUser = iUserInformation.GetAll();
-			if (Id != null)
-			{
-				vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
-				return View(vmodel);
-			}
-			else
-			{
-				return View(new RegisterViewModel());
-			}
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            //vmodel.ListVwUser = iUserInformation.GetAll();
+            if (Id != null)
+            {
+                vmodel.sUser = iUserInformation.GetById(Convert.ToString(Id));
+                return View(vmodel);
+            }
+            else
+            {
+                return View(new RegisterViewModel());
+            }
 
-		}
-		[HttpPost]
+        }
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Registers1(RegisterViewModel model)
@@ -1068,6 +1069,7 @@ namespace Task_management.Areas.Admin.Controllers
             var roles = _roleManager.Roles.ToList();
 
             var model = new ViewmMODeElMASTER
+
             {
                 UserId = user.Id,
                 UserName = user.UserName,
@@ -1077,7 +1079,11 @@ namespace Task_management.Areas.Admin.Controllers
                     Text = r.Name,
                     Selected = userRoles.Contains(r.Name)
                 }).ToList()
+
             };
+            model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+            //vmodel.ListVwUser = iUserInformation.GetAll();
+
 
             return View(model);
         }
@@ -1119,6 +1125,9 @@ namespace Task_management.Areas.Admin.Controllers
                     Text = r.Name,
                     Selected = r.Id == model.SelectedRoleId
                 }).ToList();
+
+                model.ListCompanyInformation = iCompanyInformation.GetAll().Take(1).ToList();
+
                 return View("AddEditRolesUser", model);
             }
 
