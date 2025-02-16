@@ -112,7 +112,7 @@
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Total <span class="count">$620.00</span></li>
+                                        <li>Total <span id="totalPriceTotal" class="count"></span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -244,6 +244,7 @@
             });
 
             $('#totalPrice').text(`$${totalPrc.toFixed(2)}`);
+            $('#totalPriceTotal').text(`$${totalPrc.toFixed(2)}`);
         });
     </script>
 
